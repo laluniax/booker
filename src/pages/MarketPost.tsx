@@ -1,7 +1,7 @@
-import Form from '../components/Market/MarketPost/Form';
+import Post from '../components/Market/MarketPost/Post';
 
 const MarketPost = () => {
-  return <Form />;
+  return <Post />;
 };
 
 export default MarketPost;

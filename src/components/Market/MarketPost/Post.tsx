@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { sumbitProductForm } from '../../../api/supabase.api';
-import * as St from './Form.styled';
+import { useEffect, useState } from 'react';
+import { getUserSessionHandler, sumbitProductForm } from '../../../api/supabase.api';
+import * as St from './Post.styled';
 
-const Form = () => {
+const Post = () => {
+  const [userId, setUserId] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [price, setPrice] = useState('');
@@ -42,11 +43,17 @@ const Form = () => {
   ];
   const gradeArr = ['최상', '상', '중', '하', '최하'];
 
+  const getUserSession = async () => {
+    const result = await getUserSessionHandler();
+    setUserId(result.session?.user.id as string);
+  };
   const onSubmitHandler = async () => {
-    const result = sumbitProductForm({ title, content, price, category, productGrade });
+    const result = sumbitProductForm({ userId, title, content, price, category, productGrade });
     console.log(result);
   };
-
+  useEffect(() => {
+    getUserSession();
+  }, []);
   return (
     <St.Container>
       <input type="file" />
@@ -85,8 +92,8 @@ const Form = () => {
         onChange={(e) => {
           setCategory(e.target.value);
         }}>
-        {categoryArr.map((item) => {
-          return <option>{item}</option>;
+        {categoryArr.map((item, i) => {
+          return <option key={i}>{item}</option>;
         })}
       </select>
       <select
@@ -94,8 +101,8 @@ const Form = () => {
         onChange={(e) => {
           setProductGrade(e.target.value);
         }}>
-        {gradeArr.map((item) => {
-          return <option>{item}</option>;
+        {gradeArr.map((item, i) => {
+          return <option key={i}>{item}</option>;
         })}
       </select>
       <button onClick={onSubmitHandler}>등록하기</button>
@@ -103,4 +110,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default Post;
