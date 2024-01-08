@@ -8,6 +8,7 @@ import Market from '../pages/Market';
 import MarketProduct from '../pages/MarketProduct';
 import Mypage from '../pages/Mypage';
 import Register from '../pages/Register';
+import Survey from '../pages/Survey';
 
 const Router = () => {
   return (
@@ -23,6 +24,8 @@ const Router = () => {
           {/* 중고책 판매 / 중고책 상세 페이지 */}
           <Route path="/market" element={<Market />} />
           <Route path="/marketproduct" element={<MarketProduct />} />
+          {/* 설문조사 페이지 */}
+          <Route path="/survey" element={<Survey />} />
         </Route>
 
         {/* 로그인/ 회원가입에 헤더 푸터 적용하고 싶으시면 Layout 라우터 태그 안에 넣어주시면 됩니다. */}
