@@ -27,7 +27,7 @@ const Register = () => {
         return;
       }
 
-    //테이블에 회원가입 데이터 
+    // 테이블에 회원가입 데이터 
       // await supabase.from('users').upsert([
       //   {
       //     id: data.user?.id,

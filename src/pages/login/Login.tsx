@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { supabase } from '../../api/supabase';
+import { GoogleLoginBtn } from './goolge';
+import { GithubLoginBtn } from './github';
 
 const Login = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -34,6 +36,11 @@ const Login = () => {
       <label>Password:</label>
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <button onClick={signInWithEmail}>Sign Up</button>
+      <hr />
+      <div>
+      <GoogleLoginBtn/>
+      <GithubLoginBtn/>
+      </div>
     </div>
   );
 };
