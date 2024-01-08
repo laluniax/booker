@@ -8,7 +8,7 @@ export const supabase = createClient(supabaseUrl, supabaseKey);
 export const signupHandler = async (email: string, password: string, nickname: string) => {
   const { data, error } = await supabase.auth.signUp({
     email,
-    password: password,
+    password,
     options: {
       data: {
         full_name: nickname,
@@ -77,11 +77,25 @@ type ProductTypes = {
 };
 
 // 상품 등록하기
-export const sumbitProductForm = async ({ userId, title, content, price, category, productGrade }: ProductTypes) => {
+export const sumbitProductHandler = async ({ userId, title, content, price, category, productGrade }: ProductTypes) => {
   const { data, error } = await supabase
     .from('products')
     .insert([{ user_id: userId, product_img: '', title, content, price, category, product_grade: productGrade }])
     .select();
+  if (error) throw error;
+  return data;
+};
+
+// 상품 읽어오기 (market list 사용)
+export const getProductListHandler = async () => {
+  const { data, error } = await supabase.from('products').select('*');
+  if (error) throw error;
+  return data;
+};
+
+// 상품 읽어오기 (params 이용 - product detail 사용)
+export const getProductHandler = async (id: string) => {
+  const { data, error } = await supabase.from('products').select('*').eq('id', id);
   if (error) throw error;
   return data;
 };
