@@ -1,5 +1,7 @@
+import MarketList from '../components/Market/MarketList';
+
 const Market = () => {
-  return <div>Market</div>;
+  return <MarketList />;
 };
 
 export default Market;
