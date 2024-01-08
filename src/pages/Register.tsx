@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { supabase } from '../../api/supabase';
+
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '../api/supabase.api';
 
 const Register = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);

@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { supabase } from '../../api/supabase';
+
 import { GoogleLoginBtn } from './goolge';
 import { GithubLoginBtn } from './github';
+import { supabase } from '../api/supabase.api';
 
 const Login = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);

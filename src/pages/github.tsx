@@ -1,9 +1,10 @@
-import { supabase } from '../../api/supabase';
+import { supabase } from "../api/supabase.api";
 
 
-export const GoogleLogin = async () => {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
+
+export const GithubLogin = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'github',
     options: {
       queryParams: {
         // 사용자의 동의 없이도 장기간(오프라인)에 걸쳐 데이터에 액세스할 수 있도록 하는 옵션입니다.
@@ -16,7 +17,7 @@ export const GoogleLogin = async () => {
   if (error) {
     console.error('에러가 발견되었습니다', error);
   } else if (data) {
-    alert('구글 로그인 창으로 이동합니다');
+    alert('깃허브 로그인 창으로 이동합니다');
   }
 };
 // TODO//로그 아웃 기능.
@@ -26,11 +27,11 @@ export const GoogleLogin = async () => {
 // TODO// 테이블 모든 요저
 // select * from auth.users;
 
-export const GoogleLoginBtn = () => {
+export const GithubLoginBtn = () => {
   return (
-    <button onClick={GoogleLogin}>
-      <img src="" alt="구글로고" />
-      <p>구글 로그인</p>
+    <button onClick={GithubLogin}>
+      <img src="" alt="깃허브 로고" />
+      <p>깃허브 로그인</p>
     </button>
   );
 };

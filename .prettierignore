@@ -1,0 +1,8 @@
+#  Git과 같은 버전 컨트롤 시스템에서 사용하는 디렉토리와 npm 패키지가 저장되어 있는 node_modules 디렉토리를 상대로는 포맷팅을 수행하지 않습니다.
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+dist
+package.json
+package-lock.json   
