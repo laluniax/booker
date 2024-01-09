@@ -16,12 +16,12 @@ export type ListTypes = {
 
 const MarketList = () => {
   const [list, setList] = useState<ListTypes[]>([]);
+  console.log(list);
   const navigate = useNavigate();
 
   const getProductList = async () => {
     const result = await getProductListHandler();
     setList(result);
-    console.log(result);
   };
 
   useEffect(() => {
