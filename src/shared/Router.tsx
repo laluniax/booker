@@ -5,8 +5,9 @@ import BookerTalk from '../pages/BookerTalk';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Market from '../pages/Market';
+import MarketPost from '../pages/MarketPost';
 import MarketProduct from '../pages/MarketProduct';
-import Mypage from '../pages/Mypage';
+import Profile from '../pages/Profile';
 import Register from '../pages/Register';
 
 const Router = () => {
@@ -16,12 +17,13 @@ const Router = () => {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Navigate replace to="/" />} />
-          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/bookertalk" element={<BookerTalk />} />
           {/* 도서 소개 페이지 */}
           <Route path="/aboutbooks" element={<AboutBooks />} />
           {/* 중고책 판매 / 중고책 상세 페이지 */}
           <Route path="/market" element={<Market />} />
+          <Route path="/marketpost" element={<MarketPost />} />
           <Route path="/marketproduct" element={<MarketProduct />} />
         </Route>
 
