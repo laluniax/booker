@@ -12,7 +12,7 @@ export const signupHandler = async (email: string, password: string, nickname: s
     options: {
       data: {
         full_name: nickname,
-        user_img: '',
+        user_img: 'https://ywwmsridviznotzmkver.supabase.co/storage/v1/object/public/user_img/default_img/React.png',
       },
     },
   });
@@ -44,7 +44,7 @@ export const githubLoginHandler = async () => {
   return { data, error };
 };
 
-// 소셜 로그인 핸들로(Google)
+// 소셜 로그인 핸들러(Google)
 export const googleLoginHandler = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
@@ -58,6 +58,12 @@ export const googleLoginHandler = async () => {
     },
   });
   return { data, error };
+};
+
+// 로그아웃 핸들러
+export const signoutHandler = async () => {
+  const { error } = await supabase.auth.signOut();
+  return error;
 };
 
 // 유저 세션 가져오기
