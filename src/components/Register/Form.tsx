@@ -12,17 +12,6 @@ const Form = () => {
   const SignUpHandler = async () => {
     try {
       const result = await signupHandler(emailRef.current?.value || '', password, nicknameRef.current?.value || '');
-      //회원가입
-      // const { data, error } = await supabase.auth.signUp({
-      //   email: emailRef.current?.value || '',
-      //   password: password,
-      //   options: {
-      //     data: {
-      //       nickname: nicknameRef.current?.value || '',
-      //     },
-      //   },
-      // });
-
       if (result.error) {
         console.error('회원가입 중 오류 발생:', result.error);
         return;

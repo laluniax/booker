@@ -17,14 +17,14 @@ const Router = () => {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Navigate replace to="/" />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/bookertalk" element={<BookerTalk />} />
           {/* 도서 소개 페이지 */}
           <Route path="/aboutbooks" element={<AboutBooks />} />
           {/* 중고책 판매 / 중고책 상세 페이지 */}
           <Route path="/market" element={<Market />} />
           <Route path="/marketpost" element={<MarketPost />} />
-          <Route path="/marketproduct" element={<MarketProduct />} />
+          <Route path="/product/:id" element={<MarketProduct />} />
         </Route>
 
         {/* 로그인/ 회원가입에 헤더 푸터 적용하고 싶으시면 Layout 라우터 태그 안에 넣어주시면 됩니다. */}

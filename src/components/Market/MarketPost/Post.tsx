@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getUserSessionHandler, sumbitProductForm } from '../../../api/supabase.api';
+import { getUserSessionHandler, sumbitProductHandler } from '../../../api/supabase.api';
 import * as St from './Post.styled';
 
 const Post = () => {
@@ -7,8 +7,8 @@ const Post = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('');
-  const [productGrade, setProductGrade] = useState('');
+  const [category, setCategory] = useState('건강/취미');
+  const [productGrade, setProductGrade] = useState('최상');
 
   const categoryArr = [
     '건강/취미',
@@ -47,9 +47,8 @@ const Post = () => {
     const result = await getUserSessionHandler();
     setUserId(result.session?.user.id as string);
   };
-  const onSubmitHandler = async () => {
-    const result = sumbitProductForm({ userId, title, content, price, category, productGrade });
-    console.log(result);
+  const onSubmitProduct = async () => {
+    const result = sumbitProductHandler({ userId, title, content, price, category, productGrade });
   };
   useEffect(() => {
     getUserSession();
@@ -105,7 +104,7 @@ const Post = () => {
           return <option key={i}>{item}</option>;
         })}
       </select>
-      <button onClick={onSubmitHandler}>등록하기</button>
+      <button onClick={onSubmitProduct}>등록하기</button>
     </St.Container>
   );
 };
