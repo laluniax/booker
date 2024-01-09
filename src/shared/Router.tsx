@@ -17,7 +17,7 @@ const Router = () => {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Navigate replace to="/" />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/bookertalk" element={<BookerTalk />} />
           {/* 도서 소개 페이지 */}
           <Route path="/aboutbooks" element={<AboutBooks />} />

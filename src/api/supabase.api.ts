@@ -73,6 +73,50 @@ export const getUserSessionHandler = async () => {
   return data;
 };
 
+// 유저 정보 가져오기
+export const getUserDataHandler = async (params: string) => {
+  const { data, error } = await supabase.from('users').select('*').eq('id', params);
+  if (error) throw error;
+  return data;
+};
+
+// export const updateUserNinknameHandler = async (nickname: string, id: string) => {
+//   const { data, error } = await supabase.from('users').update({ nickname: nickname }).eq('id', id).select();
+//   if (error) throw error;
+//   return data;
+// };
+
+// 유저 정보 수정하기 (닉네임 - auth 변경되면 users테이블 자동으로 업데이트 됨)
+export const updateUserAuthNicknameHandler = async (nickname: string) => {
+  const { data, error } = await supabase.auth.updateUser({ data: { full_name: nickname } });
+  if (error) throw error;
+  return data;
+};
+export const updateUserAuthUserImgHandler = async (userImg: string) => {
+  const { data, error } = await supabase.auth.updateUser({ data: { user_img: userImg } });
+  if (error) throw error;
+  return data;
+};
+// 유저 정보 수정하기 (이미지 - storage에 저장)
+export const uploadUserImgHandler = async (params: string, userImg: File) => {
+  const { data, error } = await supabase.storage.from('user_img').upload(`${params}/${params}`, userImg);
+  if (error) throw error;
+  return data;
+};
+
+// storage 파일 비우기
+export const deleteUserImgHandler = async (params: string) => {
+  const { data, error } = await supabase.storage.from('user_img').remove([`${params}/${params}`]);
+  if (error) throw error;
+  return data;
+};
+
+// storage에서 public URL 받아오기
+export const getPublicUrlHandler = (params: string) => {
+  const { data } = supabase.storage.from('user_img').getPublicUrl(`${params}/${params}`);
+  return data;
+};
+
 type ProductTypes = {
   userId: string;
   title: string;

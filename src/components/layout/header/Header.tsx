@@ -16,6 +16,7 @@ const Header = () => {
   const onClickSignoutHandler = async () => {
     const result = await signoutHandler();
     setSession(undefined);
+    navigate('/');
   };
 
   useEffect(() => {
@@ -24,63 +25,45 @@ const Header = () => {
 
   return (
     <St.Container>
-      <div>로고</div>
-
       <div
         onClick={() => {
           navigate('/');
         }}>
-        Home
+        로고
       </div>
-      <div
-        onClick={() => {
-          navigate('/bookertalk');
-        }}>
-        bookertalk
-      </div>
-      <div
-        onClick={() => {
-          navigate('/market');
-        }}>
-        market
-      </div>
-      <div
-        onClick={() => {
-          navigate('/aboutbooks');
-        }}>
-        AboutBooks
-      </div>
-      <St.NavbarWrapper>
-        <span>서치</span>
+
+      <St.HeaderUl>
+        <St.HeaderLi>
+          <a href="/bookertalk">북커톡</a>
+        </St.HeaderLi>
+        <St.HeaderLi>
+          <a href="/market">중고거래</a>
+        </St.HeaderLi>
+        <St.HeaderLi>
+          <a href="/aboutbooks">도서소개</a>
+        </St.HeaderLi>
+      </St.HeaderUl>
+      <St.HeaderUl>
+        <St.HeaderBtn>서치</St.HeaderBtn>
         {session === undefined ? (
-          <>
-            {' '}
-            <button
-              onClick={() => {
-                navigate('/login');
-              }}>
-              로그인
-            </button>
-            <button
-              onClick={() => {
-                navigate('/register');
-              }}>
-              회원가입
-            </button>
-          </>
+          <St.HeaderBtn
+            onClick={() => {
+              navigate('/login');
+            }}>
+            로그인
+          </St.HeaderBtn>
         ) : (
           <>
-            <button
+            <St.HeaderBtn
               onClick={() => {
-                navigate('/profile');
+                navigate(`/profile/${session.id}`);
               }}>
-              <St.ProfileImg src={session.user_metadata.user_img} />
-            </button>
-
-            <button onClick={onClickSignoutHandler}>로그아웃</button>
+              <img src={session?.user_metadata.user_img} />
+            </St.HeaderBtn>
+            <St.HeaderBtn onClick={onClickSignoutHandler}>로그아웃</St.HeaderBtn>
           </>
         )}
-      </St.NavbarWrapper>
+      </St.HeaderUl>
     </St.Container>
   );
 };
