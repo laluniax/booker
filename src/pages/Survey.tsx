@@ -1,18 +1,13 @@
-import { useState } from 'react';
-
-type SurveyDataType = {
-  [key: string]: string;
-};
+import { Link } from 'react-router-dom';
 
 const Survey = () => {
-  const [surveyData, setSurveyData] = useState<SurveyDataType>({});
-  const [step, setStep] = useState<number>(1);
-
-  const nextStepHandler = (answer: string) => {};
-
   return (
     <div>
-      <h1>책 추천 설문조사</h1>
+      <Link to="/BestSellerDomForSurvey">🔥Best Seller🔥 요즘 핫한 국내도서 vs 외국도서 추천받기!!</Link>
+      <Link to="/BestSellerGenreSurvey">🔥Best Seller🔥 요즘 핫한 원하는 장르의 책 추천받기!!</Link>
+      <Link to="/BestSellerNewSurvey">🔥Best Seller🔥 신작, 어디까지 읽어봤니??</Link>
+      <Link to="/BestSellerValueSurvey">🔥Best Seller🔥 본인이 추구하는 가치에 걸맞는 책 추천받기!!</Link>
+      <Link to="/BestSellerCheapSurvey">🔥Best Seller🔥 텅장러들을 위한 추천 도서!!</Link>
     </div>
   );
 };
