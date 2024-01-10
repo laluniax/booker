@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import AboutBooks from '../pages/AboutBooks';
 import BookerTalk from '../pages/BookerTalk';
+import BookerTalkPost from '../pages/BookerTalkPost';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Market from '../pages/Market';
@@ -18,7 +19,11 @@ const Router = () => {
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Navigate replace to="/" />} />
           <Route path="/profile/:id" element={<Profile />} />
+
+          {/* 북커톡 커뮤니티 */}
           <Route path="/bookertalk" element={<BookerTalk />} />
+          <Route path="/bookertalk/write" element={<BookerTalkPost />} />
+
           {/* 도서 소개 페이지 */}
           <Route path="/aboutbooks" element={<AboutBooks />} />
           {/* 중고책 판매 / 중고책 상세 페이지 */}
