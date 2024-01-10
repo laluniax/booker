@@ -16,8 +16,9 @@ import BookerTalk from '../pages/BookerTalk';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Market from '../pages/Market';
+import MarketPost from '../pages/MarketPost';
 import MarketProduct from '../pages/MarketProduct';
-import Mypage from '../pages/Mypage';
+import Profile from '../pages/Profile';
 import Register from '../pages/Register';
 import Survey from '../pages/Survey';
 
@@ -28,7 +29,7 @@ const Router = () => {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Navigate replace to="/" />} />
-          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/bookertalk" element={<BookerTalk />} />
           {/* 도서 소개 페이지 */}
           <Route path="/aboutbooks" element={<AboutBooks />} />
@@ -48,6 +49,8 @@ const Router = () => {
           <Route path="/bestSellerDomFor/:genre" element={<BestSellerDomFor />} />
           <Route path="/bestSellerNew/:genre" element={<BestSellerNew />} />
           <Route path="/bestSellerValue/:genre" element={<BestSellerValue />} />
+          <Route path="/marketpost" element={<MarketPost />} />
+          <Route path="/product/:id" element={<MarketProduct />} />
         </Route>
 
         {/* 로그인/ 회원가입에 헤더 푸터 적용하고 싶으시면 Layout 라우터 태그 안에 넣어주시면 됩니다. */}
