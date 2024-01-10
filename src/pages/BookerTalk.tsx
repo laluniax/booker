@@ -1,5 +1,11 @@
+import BookerTalkMain from '../components/bookertalk/BookerTalkMain';
+
 const BookerTalk = () => {
-  return <div>BookerTalk</div>;
+  return (
+    <>
+      <BookerTalkMain />
+    </>
+  );
 };
 
 export default BookerTalk;
