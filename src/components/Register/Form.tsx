@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signupHandler } from '../../api/supabase.api';
-import WishperToU from '../Wishper/WishperToU';
 
 const Form = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -44,7 +43,6 @@ const Form = () => {
       <label>Nickname:</label>
       <input type="text" ref={nicknameRef} />
       <button onClick={SignUpHandler}>Sign Up</button>
-      <WishperToU/>
     </div>
   );
 };
