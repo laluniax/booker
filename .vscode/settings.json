@@ -1,9 +1,17 @@
 {
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "prettier.configPath": ".prettierrc",
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "commentTranslate.targetLanguage": "en",
+  "deno.enablePaths": [
+    "supabase/functions"
+  ],
+  "deno.lint": true,
+  "deno.unstable": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
   },
-  "commentTranslate.targetLanguage": "en"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "prettier.configPath": ".prettierrc"
 }
