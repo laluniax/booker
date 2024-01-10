@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { nanoid } from 'nanoid';
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL as string;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY as string;
@@ -124,17 +125,54 @@ type ProductTypes = {
   price: string;
   category: string;
   productGrade: string;
+  productImg: File[];
 };
 
 // 상품 등록하기
-export const sumbitProductHandler = async ({ userId, title, content, price, category, productGrade }: ProductTypes) => {
+export const sumbitProductHandler = async ({
+  userId,
+  title,
+  content,
+  price,
+  category,
+  productGrade,
+  productImg,
+}: ProductTypes) => {
   const { data, error } = await supabase
     .from('products')
-    .insert([{ user_id: userId, product_img: '', title, content, price, category, product_grade: productGrade }])
+    .insert([{ user_id: userId, title, content, price, category, product_grade: productGrade }])
     .select();
+  if (data) {
+    const productId = data[0]?.id;
+    await uploadProductImgStorageUrl(productId, productImg);
+  }
+
   if (error) throw error;
   return data;
 };
+
+// 상품 사진 storage에 저장
+export const uploadProductImgStorageUrl = async (productId: string, productImg: File[]) => {
+  const uploadImg = productImg.map(async (item) => {
+    const imgName = nanoid();
+    const { data, error } = await supabase.storage.from('product_img').upload(`${productId}/${imgName}`, item);
+    if (error) throw error;
+    console.log(data);
+    return data;
+  });
+  const imgUrl = await Promise.all(uploadImg);
+  console.log(imgUrl);
+  const imgUrls = imgUrl.map((item) => {
+    const { data } = supabase.storage.from('product_img').getPublicUrl(`${productId}/${item.path}`);
+    console.log(data.publicUrl);
+    return data.publicUrl;
+  });
+  const { data, error } = await supabase.from('products').update({ product_img: imgUrls }).eq('id', productId).select();
+  if (error) throw error;
+  console.log(data);
+};
+
+// storage에 있는 상품 사진 publicUrl로 불러오기
 
 // 상품 읽어오기 (market list 사용)
 export const getProductListHandler = async () => {

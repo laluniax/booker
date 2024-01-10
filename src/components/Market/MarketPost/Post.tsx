@@ -10,6 +10,10 @@ const Post = () => {
   const [category, setCategory] = useState('건강/취미');
   const [productGrade, setProductGrade] = useState('최상');
 
+  const [productImg, setProductImg] = useState<File[]>([]);
+  const [tempImg, setTempImg] = useState<string[]>([]);
+  const [imgPublicUrl, setImgPublicUrl] = useState<string[]>([]);
+
   const categoryArr = [
     '건강/취미',
     '경제경영',
@@ -48,14 +52,38 @@ const Post = () => {
     setUserId(result.session?.user.id as string);
   };
   const onSubmitProduct = async () => {
-    const result = sumbitProductHandler({ userId, title, content, price, category, productGrade });
+    // await uploadProductImgHandler(userId, productImg);
+    const result = sumbitProductHandler({ userId, title, content, price, category, productGrade, productImg });
+    // storage 저장 후 publicurl array받아와서 그걸 상품 테이블에 입력할 것임
+  };
+
+  const multipleImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const imgList = Array.from(e.target.files);
+      setProductImg((prevImgList) => [...prevImgList, ...imgList]);
+      const imgUrl: string[] = [];
+      for (let i = 0; i < imgList.length; i++) {
+        const reader = new FileReader();
+        reader.readAsDataURL(imgList[i]);
+        reader.onloadend = () => {
+          imgUrl[i] = reader.result as string;
+          setTempImg((prevImgUrl) => [...prevImgUrl, ...imgUrl]);
+        };
+      }
+    }
   };
   useEffect(() => {
     getUserSession();
   }, []);
+
   return (
     <St.Container>
-      <input type="file" />
+      {tempImg.map((item, i) => {
+        //key 추가해줘야 함
+        return <img key={i} src={item} alt={item} />;
+      })}
+
+      <input type="file" multiple accept="image/*" onChange={multipleImgHandler} />
       <br />
 
       <label>Title</label>
