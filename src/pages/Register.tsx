@@ -1,7 +1,7 @@
-import React from "react";
+import Form from '../components/Register/Form';
 
 const Register = () => {
-  return <div>Register</div>;
+  return <Form />;
 };
 
 export default Register;
