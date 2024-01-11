@@ -1,5 +1,4 @@
-import BookerTalkMain from '../components/bookertalk/BookerTalkMain';
-
+import BookerTalkMain from '../components/bookertalk/bookertalkmain/BookerTalkMain';
 const BookerTalk = () => {
   return (
     <>
