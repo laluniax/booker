@@ -54,6 +54,7 @@ const Router = () => {
           <Route path="/bestSellerDomFor/:genre" element={<BestSellerDomFor />} />
           <Route path="/bestSellerNew/:genre" element={<BestSellerNew />} />
           <Route path="/bestSellerValue/:genre" element={<BestSellerValue />} />
+          <Route path="/market/:id" element={<Market />} />
           <Route path="/marketpost" element={<MarketPost />} />
           <Route path="/product/:id" element={<MarketProduct />} />
         </Route>
