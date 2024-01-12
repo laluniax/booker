@@ -1,19 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Bestseller } from '../../../types/types';
 
-type Bestseller = {
-  bestRank: number;
-  title: string;
-  author: string;
-  cover: string;
-  pubDate: string;
-  description: string;
-  categoryName: string;
-  priceStandard: number;
-};
-
-const BestSellerCheap = () => {
+const BestSellerGenre = () => {
   const [bestsellers, setBestsellers] = useState<Bestseller[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<Bestseller[]>([]);
   const { genre } = useParams<{ genre?: string }>();
@@ -60,4 +50,4 @@ const BestSellerCheap = () => {
   );
 };
 
-export default BestSellerCheap;
+export default BestSellerGenre;

@@ -21,7 +21,7 @@ const Home = () => {
     fetchData();
     newBook();
     bookData();
-    blog();
+    // blog();
   }, []);
 
   const fetchData = async () => {
@@ -39,10 +39,10 @@ const Home = () => {
     setSpecial(result.data.item);
   };
 
-  const blog = async () => {
-    const result = await axios.get('http://localhost:8080/BlogBest');
-    setBlogBest(result.data.item);
-  };
+  // const blog = async () => {
+  //   const result = await axios.get('http://localhost:8080/BlogBest');
+  //   setBlogBest(result.data.item);
+  // };
 
   return (
     <>

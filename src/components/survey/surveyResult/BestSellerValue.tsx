@@ -1,19 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Bestseller } from '../../../types/types';
 
-type Bestseller = {
-  bestRank: number;
-  title: string;
-  author: string;
-  cover: string;
-  pubDate: string;
-  description: string;
-  categoryName: string;
-  priceStandard: number;
-};
-
-const BestSellerDomFor = () => {
+const BestSellerValue = () => {
   const [bestsellers, setBestsellers] = useState<Bestseller[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<Bestseller[]>([]);
   const { genre } = useParams<{ genre?: string }>();
@@ -38,20 +28,10 @@ const BestSellerDomFor = () => {
   const filterBooksByGenre = () => {
     if (genre && genre !== 'all') {
       const filtered = bestsellers.filter((book) => {
-        if (genre === '국내작가도서') {
-          return (
-            !book.author.includes('옮긴이') &&
-            !book.categoryName.includes('외국어') &&
-            !book.categoryName.includes('자격증') &&
-            !book.categoryName.includes('어린이')
-          );
-        } else if (genre === '외국작가도서') {
-          return (
-            book.author.includes('옮긴이') &&
-            !book.categoryName.includes('외국어') &&
-            !book.categoryName.includes('자격증') &&
-            !book.categoryName.includes('어린이')
-          );
+        if (genre === '성공과행복') {
+          return book.title.includes('성공');
+        } else if (genre === '지혜') {
+          return book.title.includes('지혜');
         }
         return false;
       });
@@ -77,4 +57,4 @@ const BestSellerDomFor = () => {
   );
 };
 
-export default BestSellerDomFor;
+export default BestSellerValue;

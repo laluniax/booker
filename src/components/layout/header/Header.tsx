@@ -42,6 +42,9 @@ const Header = () => {
         <St.HeaderLi>
           <a href="/aboutbooks">도서소개</a>
         </St.HeaderLi>
+        <St.HeaderLi>
+          <a href="/survey">책 추천 받기</a>
+        </St.HeaderLi>
       </St.HeaderUl>
       <St.HeaderUl>
         <St.HeaderBtn>서치</St.HeaderBtn>
