@@ -1,6 +1,39 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getUserSessionHandler, sumbitProductHandler } from '../../../api/supabase.api';
 import * as St from './Post.styled';
+
+export const categoryArr = [
+  '건강/취미',
+  '경제경영',
+  '고등학교참고서',
+  '고전',
+  '과학',
+  '대학교재',
+  '만화',
+  '사전/기타',
+  '사회과학',
+  '소설/시/희곡',
+  '수험서/자격증',
+  '어린이',
+  '에세이',
+  '여행',
+  '역사',
+  '예술/대중문화',
+  '외국어',
+  '요리/살림',
+  '유아',
+  '인문학',
+  '자기계발',
+  '잡지',
+  '전집/중고전집',
+  '종교/역학',
+  '좋은부모',
+  '중학교참고서',
+  '청소년',
+  '초등학교참고서',
+  '컴퓨터/모바일',
+];
 
 const Post = () => {
   const [userId, setUserId] = useState('');
@@ -14,37 +47,8 @@ const Post = () => {
   const [tempImg, setTempImg] = useState<string[]>([]);
   const [imgPublicUrl, setImgPublicUrl] = useState<string[]>([]);
 
-  const categoryArr = [
-    '건강/취미',
-    '경제경영',
-    '고등학교참고서',
-    '고전',
-    '과학',
-    '대학교재',
-    '만화',
-    '사전/기타',
-    '사회과학',
-    '소설/시/희곡',
-    '수험서/자격증',
-    '어린이',
-    '에세이',
-    '여행',
-    '역사',
-    '예술/대중문화',
-    '외국어',
-    '요리/살림',
-    '유아',
-    '인문학',
-    '자기계발',
-    '잡지',
-    '전집/중고전집',
-    '종교/역학',
-    '좋은부모',
-    '중학교참고서',
-    '청소년',
-    '초등학교참고서',
-    '컴퓨터/모바일',
-  ];
+  const navigate = useNavigate();
+
   const gradeArr = ['최상', '상', '중', '하', '최하'];
 
   const getUserSession = async () => {
@@ -52,9 +56,13 @@ const Post = () => {
     setUserId(result.session?.user.id as string);
   };
   const onSubmitProduct = async () => {
-    // await uploadProductImgHandler(userId, productImg);
-    const result = sumbitProductHandler({ userId, title, content, price, category, productGrade, productImg });
-    // storage 저장 후 publicurl array받아와서 그걸 상품 테이블에 입력할 것임
+    try {
+      const result = await sumbitProductHandler({ userId, title, content, price, category, productGrade, productImg });
+      navigate(`/product/${result[0].id}`);
+    } catch (error) {
+      alert('등록 불가');
+      console.log('‼️', error);
+    }
   };
 
   const multipleImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

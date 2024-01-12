@@ -28,6 +28,7 @@ const Router = () => {
           <Route path="/aboutbooks" element={<AboutBooks />} />
           {/* 중고책 판매 / 중고책 상세 페이지 */}
           <Route path="/market" element={<Market />} />
+          <Route path="/market/:id" element={<Market />} />
           <Route path="/marketpost" element={<MarketPost />} />
           <Route path="/product/:id" element={<MarketProduct />} />
         </Route>

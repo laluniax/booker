@@ -151,28 +151,32 @@ export const sumbitProductHandler = async ({
   return data;
 };
 
-// 상품 사진 storage에 저장
+// 상품 사진 storage에 저장 후 url까지 받아오는 함수
 export const uploadProductImgStorageUrl = async (productId: string, productImg: File[]) => {
   const uploadImg = productImg.map(async (item) => {
     const imgName = nanoid();
     const { data, error } = await supabase.storage.from('product_img').upload(`${productId}/${imgName}`, item);
     if (error) throw error;
-    console.log(data);
     return data;
   });
   const imgUrl = await Promise.all(uploadImg);
-  console.log(imgUrl);
-  const imgUrls = imgUrl.map((item) => {
-    const { data } = supabase.storage.from('product_img').getPublicUrl(`${productId}/${item.path}`);
-    console.log(data.publicUrl);
+  const imgUrls =  getPublicUrlsHandler(imgUrl)
+  await updateProductImgPublicUrlHandler(imgUrls, productId)
+};
+  // storage에 있는 상품 사진 publicUrl로 불러오는 함수
+const getPublicUrlsHandler = (imgUrl: {path: string;}[] ) => {
+    const imgUrls = imgUrl.map((item) => {
+    const { data } = supabase.storage.from('product_img').getPublicUrl(`${item.path}`);
     return data.publicUrl;
   });
+  return imgUrls;
+};
+// 테이블에 publicUrls 받아온 배열 업데이트하는 함수
+const updateProductImgPublicUrlHandler = async (imgUrls : string[], productId :string) => {
   const { data, error } = await supabase.from('products').update({ product_img: imgUrls }).eq('id', productId).select();
   if (error) throw error;
-  console.log(data);
+  return data;
 };
-
-// storage에 있는 상품 사진 publicUrl로 불러오기
 
 // 상품 읽어오기 (market list 사용)
 export const getProductListHandler = async () => {
@@ -180,6 +184,12 @@ export const getProductListHandler = async () => {
   if (error) throw error;
   return data;
 };
+// 상품 읽어오기 (params category 사용)
+export const getCategoryProductListHandler = async (category : string) => {
+  const { data, error } = await supabase.from('products').select('*').eq("category", category);
+  if (error) throw error;
+  return data;
+}
 
 // 상품 읽어오기 (params 이용 - product detail 사용)
 export const getProductHandler = async (id: string) => {
