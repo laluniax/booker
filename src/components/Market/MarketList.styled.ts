@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-min-width: 80rem;;
-max-width: 80rem;
-margin: 0 auto;`;
+`;
 
 export const Title = styled.div`
 margin: 5rem 0rem 5rem 25rem;

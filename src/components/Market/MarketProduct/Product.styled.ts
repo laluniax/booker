@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-min-width: 80rem;
-max-width: 80rem;
-margin: 0 auto;`;
+`;
+
+export const Title = styled.div`
+margin: 5rem 0rem 5rem 25rem;
+padding-bottom: 0.5rem;
+border-bottom: 0.2rem solid black;
+font-size: 1.8rem;
+font-weight: 600;
+`
 
 export const SliderWrapper = styled.div`
-width: 20rem;
-height: 20rem;
+width: 30rem;
+height: 30rem;
 overflow: hidden;
 position: relative;
 `
@@ -17,8 +23,8 @@ display: flex;`;
 
 export const SliderLi = styled.li`
 & img {
-width: 20rem;
-height: 20rem;
+width: 30rem;
+height: 30rem;
 }
 `;
 
@@ -35,3 +41,56 @@ top: 50%;
     right: 1rem;
 }
 `
+
+export const ProductInfo = styled.div`
+display: flex;
+justify-content: center;
+line-height: 4;
+gap: 2rem;`
+
+export const ProductTitle = styled.div`
+font-size: 2rem;
+font-weight: bold;`
+
+export const ProductCategory = styled.div`
+& span{
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+`
+
+export const ProductPrice = styled.div`
+font-size:1.8rem;
+font-weight: 600;
+& span {
+font-size: 1.2rem;
+}`
+
+export const ProductGrade = styled.div`
+& span{
+    font-size: 0.8rem;
+    font-weight: 600;
+}`
+
+export const ProductBtn = styled.div`
+display: flex;
+justify-content:space-between`
+
+export const ProductLikes = styled.button`
+background-color: #bcbcbc;
+border: none;
+width: 8rem;
+height: 3rem;
+`
+
+export const ProductChat = styled.button`
+background-color: #bcbcbc;`
+
+
+export const ProductUser = styled.div`
+background-color: #bcbcbc;
+margin-top: 1rem;
+cursor: pointer;`
+
+export const ProductContent = styled.div``

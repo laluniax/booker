@@ -66,6 +66,7 @@ const Post = () => {
   };
 
   const multipleImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (productImg.length > 4) return;
     if (e.target.files) {
       const imgList = Array.from(e.target.files);
       setProductImg((prevImgList) => [...prevImgList, ...imgList]);
@@ -86,16 +87,18 @@ const Post = () => {
 
   return (
     <St.Container>
-      {tempImg.map((item, i) => {
-        //key 추가해줘야 함
-        return <img key={i} src={item} alt={item} />;
-      })}
-
-      <input type="file" multiple accept="image/*" onChange={multipleImgHandler} />
+      <St.PostImg>
+        {tempImg.map((item, i) => {
+          //key 추가해줘야 함
+          return <img key={i} src={item} alt={item} />;
+        })}
+      </St.PostImg>
+      <St.PostImgLabel htmlFor="img">이미지 업로드</St.PostImgLabel>
+      <St.PostImgInput id="img" type="file" multiple accept="image/*" onChange={multipleImgHandler} />
       <br />
 
-      <label>Title</label>
-      <input
+      <St.PostLabel>상품명 | </St.PostLabel>
+      <St.PostInput
         type="text"
         value={title}
         onChange={(e) => {
@@ -103,26 +106,17 @@ const Post = () => {
         }}
       />
       <br />
-      <label>Content</label>
 
-      <input
-        type="text"
-        value={content}
-        onChange={(e) => {
-          setContent(e.target.value);
-        }}
-      />
-      <br />
-      <label>Price</label>
-
-      <input
+      <St.PostLabel>가격 | </St.PostLabel>
+      <St.PostInput
         type="number"
         value={price}
         onChange={(e) => {
           setPrice(e.target.value);
         }}
       />
-      <select
+      <br />
+      <St.PostCategory
         value={category}
         onChange={(e) => {
           setCategory(e.target.value);
@@ -130,8 +124,8 @@ const Post = () => {
         {categoryArr.map((item, i) => {
           return <option key={i}>{item}</option>;
         })}
-      </select>
-      <select
+      </St.PostCategory>
+      <St.PostGrade
         value={productGrade}
         onChange={(e) => {
           setProductGrade(e.target.value);
@@ -139,8 +133,18 @@ const Post = () => {
         {gradeArr.map((item, i) => {
           return <option key={i}>{item}</option>;
         })}
-      </select>
-      <button onClick={onSubmitProduct}>등록하기</button>
+      </St.PostGrade>
+
+      <br />
+      <St.PostLabel>상품 설명 | </St.PostLabel>
+      <St.PostTextArea
+        value={content}
+        onChange={(e) => {
+          setContent(e.target.value);
+        }}
+      />
+      <br />
+      <St.PostSubmitBtn onClick={onSubmitProduct}>등록하기</St.PostSubmitBtn>
     </St.Container>
   );
 };
