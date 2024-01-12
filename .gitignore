@@ -18,6 +18,8 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env ac58dbfac58db
+
 
 npm-debug.log*
 yarn-debug.log*
