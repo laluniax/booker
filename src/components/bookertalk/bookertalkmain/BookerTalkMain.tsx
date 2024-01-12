@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import * as St from './BookerTalkMain.styled';
 const BookerTalkMain = () => {
   const navigation = useNavigate();
   const genreData = {
@@ -21,9 +21,9 @@ const BookerTalkMain = () => {
 
   const renderGenreButtons = () =>
     Object.keys(genreData).map((genre) => (
-      <button key={genre} onClick={() => GenreClickhandler(genre)}>
+      <St.GenreButton key={genre} onClick={() => GenreClickhandler(genre)}>
         {genre}
-      </button>
+      </St.GenreButton>
     ));
 
   const renderSelectedGenre = () =>
@@ -39,21 +39,32 @@ const BookerTalkMain = () => {
     );
 
   return (
-    <div>
-      <div>
-        <h1>도서추천</h1>
-        <div>{renderGenreButtons()}</div>
-        <div>{renderSelectedGenre()}</div>
-      </div>
-      <div>
-        <h1>자유수다</h1>
-        <div>{renderGenreButtons()}</div>
-        <div>{renderSelectedGenre()}</div>
-      </div>
+    <>
+      <St.MainWrapper>
+        <St.CategoryWrapper>
+          <St.CategoryBox>
+            <St.BookRecommendBox>
+              <St.Title>도서추천</St.Title>
+
+              <St.GenreButtonbox>{renderGenreButtons()}</St.GenreButtonbox>
+            </St.BookRecommendBox>
+            <St.FreeTalkBox>
+              <St.Title>자유수다</St.Title>
+              <St.GenreButtonbox>{renderGenreButtons()}</St.GenreButtonbox>
+            </St.FreeTalkBox>
+          </St.CategoryBox>
+        </St.CategoryWrapper>
+        <div>
+          <h2></h2>
+        </div>
+        <St.PostWrapper>
+          <St.PostBox>{renderSelectedGenre()}</St.PostBox>
+        </St.PostWrapper>
+      </St.MainWrapper>
       <div>
         <button onClick={() => navigation('/bookertalk/write')}>글 작성</button>
       </div>
-    </div>
+    </>
   );
 };
 

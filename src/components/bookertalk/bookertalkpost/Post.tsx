@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getUserSessionHandler } from '../../../api/supabase.api';
 
 type PostTypes = {
   title: string;
@@ -7,6 +8,7 @@ type PostTypes = {
   tags: string[];
   category: string;
   genre: string;
+  userId: string;
 };
 
 type Categories = {
@@ -22,6 +24,7 @@ const Post = () => {
   const [tagItem, setTagItem] = useState('');
   const [tagList, setTagList] = useState<string[]>([]);
   const [postList, setPostList] = useState<PostTypes[]>([]);
+  const [userId, setUserId] = useState('');
 
   //  카테고리
   const categories = {
@@ -78,30 +81,30 @@ const Post = () => {
   const formSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (title.trim() !== '' && content.trim() !== '') {
-      const newPost = {
-        title,
-        content,
-        tags: tagList,
-        category,
-        genre,
-      };
+      const newPost = { userId, title, content, tags: tagList, category, genre };
 
       setPostList([...postList, newPost]);
-
       setTitle('');
       setContent('');
       setTagList([]);
 
-      // navigation('/bookertalk');
+      navigation('/bookertalk');
       console.log(postList);
     } else {
       alert('제목과 내용, 카테고리는 필수로 작성해주세요.');
     }
   };
 
+  // 유저 세션 가져오기
+  const getUserSession = async () => {
+    const result = await getUserSessionHandler();
+    setUserId(result.session?.user.id as string);
+  };
+
   useEffect(() => {
     console.log(postList);
-  }, [postList]);
+    getUserSession();
+  }, []);
 
   return (
     <form

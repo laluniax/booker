@@ -197,3 +197,21 @@ export const getProductHandler = async (id: string) => {
   if (error) throw error;
   return data;
 };
+
+type PostTypes = {
+  title: string;
+  content: string;
+  tags: string[];
+  category: string;
+  genre: string;
+  userId: string;
+};
+
+// 북커톡 글 작성 완료시 데이터 등록하기 
+export const submitPostListHandler = async ({title,content,tags,category,genre, userId}:PostTypes)=>{
+  const { data , error } = await supabase
+  .from('posts')
+  .insert([{ userId, title, content, tags, category, genre}])
+  if(error) throw error;
+  return data;
+}

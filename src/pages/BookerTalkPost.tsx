@@ -1,4 +1,4 @@
-import Post from '../components/bookertalk/Post';
+import Post from '../components/bookertalk/bookertalkpost/Post';
 
 const BookerTalkPost = () => {
   return (
