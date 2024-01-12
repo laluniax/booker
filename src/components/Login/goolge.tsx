@@ -1,4 +1,5 @@
 import { googleLoginHandler } from '../../api/supabase.api';
+import googleLogoPng from '../../styles/assets/googleLogo.png'
 
 export const GoogleLogin = async () => {
   const result = await googleLoginHandler();
@@ -18,9 +19,8 @@ export const GoogleLogin = async () => {
 
 export const GoogleLoginBtn = () => {
   return (
-    <button onClick={GoogleLogin}>
-      <img src="" alt="구글로고" />
-      <p>구글 로그인</p>
-    </button>
+ 
+      <img width="30px" src={googleLogoPng} alt="구글로고" onClick={GoogleLogin}/>
+
   );
 };
