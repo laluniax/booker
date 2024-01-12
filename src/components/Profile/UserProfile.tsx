@@ -73,42 +73,41 @@ const UserProfile = () => {
 
   return (
     <St.Container>
+      <St.Title>마이페이지</St.Title>
       <St.ProfileWrapper>
         <St.ProfileImg src={tempImg} />
         <div>
-          <St.ProfileNickname>안녕하세요! {nickname}님</St.ProfileNickname>
+          {editing ? (
+            <input
+              type="text"
+              value={nickname}
+              onChange={(e) => {
+                setNickname(e.target.value);
+              }}
+            />
+          ) : (
+            <St.ProfileNickname>안녕하세요! {nickname}님</St.ProfileNickname>
+          )}
+
           <St.ProfileEmail>{userData?.email}</St.ProfileEmail>
         </div>
+
+        {editing ? (
+          <>
+            <St.ProfileLabel htmlFor="imgInput">이미지 업로드</St.ProfileLabel>
+            <St.ProfileImgInput id="imgInput" type="file" accept="image/*" ref={imgRef} onChange={updateUserTempImg} />
+            <St.ProfileBtn onClick={updateUserData}>프로필 수정완료</St.ProfileBtn>
+          </>
+        ) : (
+          <St.ProfileBtn
+            onClick={() => {
+              setEditing(true);
+            }}>
+            프로필 수정하기
+          </St.ProfileBtn>
+        )}
       </St.ProfileWrapper>
-
-      {editing ? (
-        <input
-          type="text"
-          value={nickname}
-          onChange={(e) => {
-            setNickname(e.target.value);
-          }}
-        />
-      ) : (
-        <div>nickname: {nickname}</div>
-      )}
-
-      <div>email: {userData?.email}</div>
-
-      {editing ? (
-        <>
-          <label htmlFor="imgInput">이미지 업로드</label>
-          <input id="imgInput" type="file" accept="image/*" ref={imgRef} onChange={updateUserTempImg} />
-          <button onClick={updateUserData}>프로필 수정완료</button>
-        </>
-      ) : (
-        <button
-          onClick={() => {
-            setEditing(true);
-          }}>
-          프로필 수정하기
-        </button>
-      )}
+      <St.ProfileTab></St.ProfileTab>
     </St.Container>
   );
 };
