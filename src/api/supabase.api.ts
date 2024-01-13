@@ -160,19 +160,19 @@ export const uploadProductImgStorageUrl = async (productId: string, productImg: 
     return data;
   });
   const imgUrl = await Promise.all(uploadImg);
-  const imgUrls =  getPublicUrlsHandler(imgUrl)
-  await updateProductImgPublicUrlHandler(imgUrls, productId)
+  const imgUrls = getPublicUrlsHandler(imgUrl);
+  await updateProductImgPublicUrlHandler(imgUrls, productId);
 };
-  // storage에 있는 상품 사진 publicUrl로 불러오는 함수
-const getPublicUrlsHandler = (imgUrl: {path: string;}[] ) => {
-    const imgUrls = imgUrl.map((item) => {
+// storage에 있는 상품 사진 publicUrl로 불러오는 함수
+const getPublicUrlsHandler = (imgUrl: { path: string }[]) => {
+  const imgUrls = imgUrl.map((item) => {
     const { data } = supabase.storage.from('product_img').getPublicUrl(`${item.path}`);
     return data.publicUrl;
   });
   return imgUrls;
 };
 // 테이블에 publicUrls 받아온 배열 업데이트하는 함수
-const updateProductImgPublicUrlHandler = async (imgUrls : string[], productId :string) => {
+const updateProductImgPublicUrlHandler = async (imgUrls: string[], productId: string) => {
   const { data, error } = await supabase.from('products').update({ product_img: imgUrls }).eq('id', productId).select();
   if (error) throw error;
   return data;
@@ -185,11 +185,11 @@ export const getProductListHandler = async () => {
   return data;
 };
 // 상품 읽어오기 (params category 사용)
-export const getCategoryProductListHandler = async (category : string) => {
-  const { data, error } = await supabase.from('products').select('*').eq("category", category);
+export const getCategoryProductListHandler = async (category: string) => {
+  const { data, error } = await supabase.from('products').select('*').eq('category', category);
   if (error) throw error;
   return data;
-}
+};
 
 // 상품 읽어오기 (params 이용 - product detail 사용)
 export const getProductHandler = async (id: string) => {
@@ -207,11 +207,32 @@ type PostTypes = {
   userId: string;
 };
 
-// 북커톡 글 작성 완료시 데이터 등록하기 
-export const submitPostListHandler = async ({title,content,tags,category,genre, userId}:PostTypes)=>{
-  const { data , error } = await supabase
-  .from('posts')
-  .insert([{ userId, title, content, tags, category, genre}])
-  if(error) throw error;
+// 북커톡 글 작성 완료시 데이터 등록하기
+export const submitPostListHandler = async ({ title, content, tags, category, genre, userId }: PostTypes) => {
+  const { data, error } = await supabase.from('posts').insert([{ userId, title, content, tags, category, genre }]);
+  if (error) throw error;
   return data;
-}
+};
+
+// comment 추가하는 함수
+export const insertCommentHandler = async (postId: number, userId: string) => {
+  const { data, error } = await supabase.from('comments').insert([{ post_id: postId, user_id: userId }]);
+  if (error) throw error;
+  return data;
+};
+
+// comment 불러오는 함수 (해당 postId에 따른 댓글 불러오기)
+export const filterCommentHandler = async (postId: number) => {
+  const { data, error } = await supabase.from('comments').select('*').eq('post_id', postId);
+  if (error) throw error;
+  return data;
+};
+
+// comment 삭제하는 함수 (클릭하면 댓글 아이디 받아서 해당 댓글 삭제하기)
+export const deleteCommentHandler = async (commentId: number) => {
+  const { data, error } = await supabase.from('comments').delete().eq('id', commentId);
+};
+// comment 업데이트하는 함수
+export const updateCommentHandler = async (content: string, commentId: number) => {
+  const { data, error } = await supabase.from('comments').update({ content: content }).eq('id', commentId).select();
+};
