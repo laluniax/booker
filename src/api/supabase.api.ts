@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL as string;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY as string;
+
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
 // 회원가입 핸들러
@@ -159,11 +160,9 @@ type PostTypes = {
   userId: string;
 };
 
-// 북커톡 글 작성 완료시 데이터 등록하기 
-export const submitPostListHandler = async ({title,content,tags,category,genre, userId}:PostTypes)=>{
-  const { data , error } = await supabase
-  .from('posts')
-  .insert([{ userId, title, content, tags, category, genre}])
-  if(error) throw error;
+// 북커톡 글 작성 완료시 데이터 등록하기
+export const submitPostListHandler = async ({ title, content, tags, category, genre, userId }: PostTypes) => {
+  const { data, error } = await supabase.from('posts').insert([{ userId, title, content, tags, category, genre }]);
+  if (error) throw error;
   return data;
-}
+};
