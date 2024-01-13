@@ -1,5 +1,6 @@
 // compression 모듈을 불러옴
 const compression = require('compression');
+
 // express 모듈을 불러옴
 const express = require('express');
 // cors 모듈을 불러옴, CORS 문제를 처리하기 위해 사용
@@ -77,6 +78,7 @@ app.get('/bestseller', async (req, res) => {
     // fetchData 함수를 사용하여 데이터를 가져옴
     const data = await fetchData(aladinApiUrl);
     // 데이터를 JSON 형식으로 클라이언트에 응답
+    console.log(data);
     res.json(data);
   } catch (error) {
     // 에러 발생 시 500 상태 코드와 에러 메시지를 JSON 형식으로 응답
@@ -108,19 +110,6 @@ app.get('/special', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-//블로거 베스트셀러
-app.get('/BlogBest', async (req, res) => {
-  const queryType = 'BlogBest';
-  const aladinApiUrl = `${aladinApiBaseUrl}?ttbkey=${aladinApiKey}&QueryType=${queryType}&MaxResults=100&start=1&SearchTarget=Book&output=js&Cover=Big&Version=20131101`;
-
-  try {
-    const data = await fetchData(aladinApiUrl);
-    res.json(data);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
 // 책 검색 결과를 가져오는 라우트
 app.get('/search', async (req, res) => {
   try {
@@ -155,7 +144,6 @@ app.get('/search', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 // 포트 8080에서 서버를 시작함
 app.listen(port, () => {
   console.log(`Listening on port ${port}...`);
