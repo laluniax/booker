@@ -150,20 +150,41 @@ export const getProductHandler = async (id: string) => {
   return data;
 };
 
-type PostTypes = {
+export type PostTypes = {
   title: string;
   content: string;
   tags: string[];
-  category: string;
-  genre: string;
   userId: string;
+  genreUuid : string;
 };
 
 // 북커톡 글 작성 완료시 데이터 등록하기 
-export const submitPostListHandler = async ({title,content,tags,category,genre, userId}:PostTypes)=>{
+export const submitPostListHandler = async ({title,content,tags, userId , genreUuid}:PostTypes)=>{
   const { data , error } = await supabase
   .from('posts')
-  .insert([{ userId, title, content, tags, category, genre}])
+  .insert([{ user_id : userId, title, content, tags,  genre_id : genreUuid}])
+  .select();
+  
   if(error) throw error;
   return data;
+}  
+
+export const filteredCategory = async(params:string)=>{
+  const {data, error} = await supabase
+  .from('posts')
+  .select("*")
+  .eq('genre_id' , params)
+  
+  if(error) throw error;
+  return data;
+} 
+// 포스트의 id랑 똑같은 정보 가져오는 함수 생성 
+export const filteredPostId = async(params : string)=>{
+  const{data, error } = await supabase
+ .from('posts')
+ .select('*')
+  .eq('id',params)
+
+  if(error) throw error ;
+  return data
 }

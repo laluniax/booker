@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import AboutBooks from '../pages/AboutBooks';
 import BookerTalk from '../pages/BookerTalk';
+import BookerTalkDetail from '../pages/BookerTalkDetail';
 import BookerTalkPost from '../pages/BookerTalkPost';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
@@ -22,7 +23,9 @@ const Router = () => {
 
           {/* 북커톡 커뮤니티 */}
           <Route path="/bookertalk" element={<BookerTalk />} />
+          <Route path="/bookertalk/:id" element={<BookerTalk />} />
           <Route path="/bookertalk/write" element={<BookerTalkPost />} />
+          <Route path="/detail/:id" element={<BookerTalkDetail />} />
 
           {/* 도서 소개 페이지 */}
           <Route path="/aboutbooks" element={<AboutBooks />} />
