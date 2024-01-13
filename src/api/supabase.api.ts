@@ -26,6 +26,7 @@ export const signinHandler = async (email: string, password: string) => {
     email,
     password,
   });
+
   return { data, error };
 };
 

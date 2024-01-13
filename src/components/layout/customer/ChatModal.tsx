@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { supabase } from '../../../api/supabase.api';
+import { useAuth } from '../../../contexts/auth.context';
 import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
 import * as St from './ChatStyle';
@@ -10,38 +11,8 @@ const Chat = () => {
   const [isAsk, setIsAsk] = useState<boolean>(false);
   //메세지 저장 state
   const [askMessage, setAskMessage] = useState<string>('');
-  //현재 로그인 한 계정의 id값을 담고 있는 state
-  const [userId, setUserId] = useState<string | undefined>('');
 
-  //현재 로그인 한 계정의 닉네임 값을 담고 있는 state
-  const [nickname, setNickname] = useState<string>('');
-  //isAdmin 값을 담고 있는 state
-  const [currentUser, setCurrentUser] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    fetchIsAdmin(userId as string);
-    fetchId();
-  }, [userId]);
-
-  //현재 로그인 한 계정의 id값
-  const fetchId = async () => {
-    const { data, error } = await supabase.auth.getUser();
-    setNickname(data?.user?.user_metadata?.full_name);
-    setUserId(data?.user?.id);
-  };
-
-  //현재 로그인 한 계정의 isAdmin 값을 가져오기
-  const fetchIsAdmin = async (id: string) => {
-    const { data: users, error } = await supabase.from('users').select('isAdmin').eq('id', id);
-
-    if (users && users.length > 0) {
-      setCurrentUser(users[0].isAdmin);
-    } else {
-      // 적절한 오류 처리 또는 기본값 설정
-      console.error('사용자 데이터를 찾을 수 없거나 오류가 발생했습니다', error);
-      setCurrentUser(null);
-    }
-  };
+  const auth = useAuth();
 
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
@@ -49,11 +20,11 @@ const Chat = () => {
 
   //메세지보내는 함수
   const sendMessage = async () => {
+    if (!auth.session) return;
     if (!askMessage.trim()) return; // 메시지가 비어있지 않은지 확인
 
-    const { data, error } = await supabase.from('qna').insert({
-      nickname: nickname,
-      sender_id: userId,
+    await supabase.from('qna').insert({
+      sender_id: auth.session.user.id,
       content: askMessage,
     });
 
@@ -66,6 +37,8 @@ const Chat = () => {
       sendMessage();
     }
   };
+
+  if (!auth.session) return null;
 
   return (
     /* 
@@ -90,7 +63,7 @@ const Chat = () => {
       
       */
     <>
-      {currentUser ? (
+      {auth.session.profile.isAdmin ? (
         isSwitch && <AdminChat />
       ) : (
         <St.Container>
@@ -111,7 +84,7 @@ const Chat = () => {
               </St.AskWrapper>
               {isAsk ? (
                 <>
-                  <ChatLog userId={userId} />
+                  <ChatLog />
                   <St.ChatInputWrapper>
                     <St.Input
                       placeholder="메시지를 입력해주세요"

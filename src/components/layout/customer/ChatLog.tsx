@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../../../api/supabase.api';
+import { useAuth } from '../../../contexts/auth.context';
 import * as St from './ChatLog.styled';
 interface QnaParams {
   id: number;
@@ -9,21 +10,26 @@ interface QnaParams {
   nickname: string;
 }
 
-interface Props {
-  userId: string | undefined;
-}
-
-const ChatLog = ({ userId }: Props) => {
+const ChatLog = () => {
+  const auth = useAuth();
   const [QnaLog, setQnaLog] = useState<QnaParams[]>([]);
 
   useEffect(() => {
-    getQnaLog();
-  }, [userId, QnaLog]);
+    if (!auth.session) return;
+
+    getQnaLog(auth.session.user.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth.session]);
 
   //qna table 가져오는 함수
-  const getQnaLog = async () => {
-    //
-    const result = await supabase.from('qna').select('*').eq('sender_id', userId);
+  const getQnaLog = async (userId: string) => {
+    if (!auth.session) return;
+
+    const isAdmin = auth.session.profile.isAdmin;
+
+    const result = isAdmin
+      ? await supabase.from('qna').select('*')
+      : await supabase.from('qna').select('*').eq('sender_id', userId);
     if (result.data) {
       setQnaLog(result.data as QnaParams[]);
     } else {
@@ -36,12 +42,11 @@ const ChatLog = ({ userId }: Props) => {
     <St.Container>
       {QnaLog.map((qna) => (
         <div key={qna.id}>
-          {' '}
           {/* id를 키로 사용 */}
-          {userId === qna.sender_id && qna.isQuestion ? (
-            <St.CustomerChatLogWrapper>{qna.content}</St.CustomerChatLogWrapper>
-          ) : (
+          {auth.session?.profile.isAdmin ? (
             <St.AdminChatLogWrapper>{qna.content}</St.AdminChatLogWrapper>
+          ) : (
+            <St.CustomerChatLogWrapper>{qna.content}</St.CustomerChatLogWrapper>
           )}
         </div>
       ))}
