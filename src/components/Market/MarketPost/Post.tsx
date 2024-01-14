@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserSessionHandler, sumbitProductHandler } from '../../../api/supabase.api';
+
 import * as St from './Post.styled';
+import { getUserSessionHandler, sumbitProductHandler } from '../../../api/supabase.api';
 
 export const categoryArr = [
   '건강/취미',

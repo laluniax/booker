@@ -13,7 +13,7 @@ const App = () => {
           schema: 'public', // Subscribes to the "public" schema in Postgres
           event: '*', // Listen to all changes
         },
-        (payload) => console.log(payload),
+        (payload) => console.log('app전역관리',payload),
       )
       .subscribe();
 

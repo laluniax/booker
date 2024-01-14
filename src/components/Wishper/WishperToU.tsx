@@ -543,55 +543,55 @@ export default WishperToU
 
   
 
-//   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     setInputValue(event.target.value);
-//   };
+  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setInputValue(event.target.value);
+  // };
 
-//   const handleKeyPress = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-//     if (event.key === 'Enter' && inputValue.trim()) {
-//       const {
-//         data: { user },
-//       } = await supabase.auth.getUser();
+  // const handleKeyPress = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (event.key === 'Enter' && inputValue.trim()) {
+  //     const {
+  //       data: { user },
+  //     } = await supabase.auth.getUser();
 
-//       // Supabase로 메시지 보내기
-//       supabase
-//         .from('messages')
-//         .insert([{ content: inputValue, author_id: user?.id }])
-//         .then(({ error }) => {
-//           if (error) {
-//             console.error('메시지 삽입 중 오류가 발생했습니다:', error);
-//           }
-//         });
+  //     // Supabase로 메시지 보내기
+  //     supabase
+  //       .from('messages')
+  //       .insert([{ content: inputValue, author_id: user?.id }])
+  //       .then(({ error }) => {
+  //         if (error) {
+  //           console.error('메시지 삽입 중 오류가 발생했습니다:', error);
+  //         }
+  //       });
 
-//       setInputValue('');
-//     }
-//   };
+  //     setInputValue('');
+  //   }
+  // };
 
-//   return (
-//     <ChatContainer>
-//       <UsersList>
-//         {users.map((user) => (
-//           <User key={user.id}>{user.email}</User>
-//         ))}
-//       </UsersList>
-//       <MessagesContainer>
-//         <MessageList>
-//           {messages.map((message) => (
-//             <Message key={message.id}>{message.content}</Message>
-//           ))}
-//         </MessageList>
-//         <InputContainer>
-//           <Input
-//             type="text"
-//             value={inputValue}
-//             onChange={handleInputChange}
-//             onKeyPress={handleKeyPress}
-//             placeholder="Type your message..."
-//           />
-//         </InputContainer>
-//       </MessagesContainer>
-//     </ChatContainer>
-//   );
+  // return (
+  //   <ChatContainer>
+  //     <UsersList>
+  //       {users.map((user) => (
+  //         <User key={user.id}>{user.email}</User>
+  //       ))}
+  //     </UsersList>
+  //     <MessagesContainer>
+  //       <MessageList>
+          // {messages.map((message) => (
+          //   <Message key={message.id}>{message.content}</Message>
+          // ))}
+  //       </MessageList>
+  //       <InputContainer>
+          // <Input
+          //   type="text"
+          //   value={inputValue}
+          //   onChange={handleInputChange}
+          //   onKeyPress={handleKeyPress}
+          //   placeholder="Type your message..."
+          // />
+  //       </InputContainer>
+  //     </MessagesContainer>
+  //   </ChatContainer>
+  // );
 // };
 
 // export default ChatApp;
