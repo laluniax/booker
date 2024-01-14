@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { supabase } from './api/supabase.api';
+import { AuthContextProvider } from './contexts/auth.context';
 import Router from './shared/Router';
 import GlobalStyle from './styles/globalStyle';
 
@@ -22,10 +23,10 @@ const App = () => {
     };
   }, []);
   return (
-    <>
+    <AuthContextProvider>
       <GlobalStyle />
       <Router />
-    </>
+    </AuthContextProvider>
   );
 };
 

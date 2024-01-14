@@ -16,30 +16,25 @@ const Product = () => {
   const getProduct = async () => {
     const result = await getProductHandler(params.id as string);
     setProduct(result[0]);
-    setSlideLength(result.length);
+    setSlideLength(result[0].product_img.length);
   };
 
-  const prevBtnValidation = useCallback(() => {
-    return currentSlide >= 1;
-  }, [currentSlide]);
-  const nextBtnValidation = useCallback(() => {
-    return currentSlide < slideLength - 1;
-  }, [currentSlide, slideLength]);
-
   const onClickPrevBtn = useCallback(() => {
-    if (!prevBtnValidation()) return;
-    setCurrentSlide((prev) => prev - 1);
-  }, [prevBtnValidation]);
+    if (currentSlide >= 1) {
+      setCurrentSlide((prev) => prev - 1);
+    }
+  }, [currentSlide]);
   const onClickNextBtn = useCallback(() => {
-    if (!nextBtnValidation()) return;
-    setCurrentSlide((prev) => prev + 1);
-  }, [nextBtnValidation]);
+    if (currentSlide < slideLength - 1) {
+      setCurrentSlide((prev) => prev + 1);
+    }
+  }, [currentSlide, slideLength]);
 
   useEffect(() => {
     getProduct();
   }, []);
   useEffect(() => {
-    if (slideRef.current) slideRef.current.style.marginLeft = `${-currentSlide * 20}rem`;
+    if (slideRef.current) slideRef.current.style.marginLeft = `${-currentSlide * 30}rem`;
   }, [currentSlide]);
   return (
     <St.Container>
