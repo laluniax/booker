@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCategoryProductListHandler, getProductListHandler } from '../../api/supabase.api';
 import * as St from './MarketList.styled';
-import { categoryArr } from './marketpost/Post';
+import { categoryArr } from './marketPost/Post';
 
 export type ListTypes = {
   id: string;

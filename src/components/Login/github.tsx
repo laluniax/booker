@@ -1,4 +1,6 @@
 import { githubLoginHandler } from '../../api/supabase.api';
+import githubLogo from '../../styles/assets/githubLogo.png'
+
 
 export const GithubLogin = async () => {
   const result = await githubLoginHandler();
@@ -29,9 +31,9 @@ export const GithubLogin = async () => {
 
 export const GithubLoginBtn = () => {
   return (
-    <button onClick={GithubLogin}>
-      <img src="" alt="깃허브 로고" />
-      <p>깃허브 로그인</p>
-    </button>
+
+      <img width="30px" src={githubLogo} alt="깃허브 로고" onClick={GithubLogin} />
+
+
   );
 };
