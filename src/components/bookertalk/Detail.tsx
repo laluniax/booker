@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { filteredPostId } from '../../api/supabase.api';
 import { Tablesposts } from './bookertalkmain/BookerTalkMain';
+import Comment from './comment/Comment';
 
 const Detail = () => {
   const params = useParams().id;
@@ -18,6 +19,7 @@ const Detail = () => {
     <>
       <div>디테일 페이지</div>
       <div>{data?.title}</div>ㅇ<div>{data?.content}</div>
+      <Comment />
     </>
   );
 };

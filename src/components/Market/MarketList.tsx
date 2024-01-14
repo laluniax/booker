@@ -47,11 +47,13 @@ const MarketList = () => {
       <St.Title>{category ? category : '중고거래'}</St.Title>
       <St.CategoryProductsWrapper>
         <St.CategoryWrapper>
-          {categoryArr.map((item, i) => (
-            <li key={i} onClick={() => navigate(`/market/${i}`)}>
-              {item}
-            </li>
-          ))}
+          <St.CategoryBox>
+            {categoryArr.map((item, i) => (
+              <St.CategoryBtn key={i} onClick={() => navigate(`/market/${i}`)}>
+                {item}
+              </St.CategoryBtn>
+            ))}
+          </St.CategoryBox>
         </St.CategoryWrapper>
         <St.ProductsWrapper>
           {list.map((item, i) => {

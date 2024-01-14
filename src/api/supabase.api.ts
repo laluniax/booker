@@ -228,14 +228,12 @@ export const submitPostListHandler = async ({ title, content, tags, userId, genr
 
 export const filteredCategory = async (params: string) => {
   const { data, error } = await supabase.from('posts').select('*').eq('genre_id', params);
-
   if (error) throw error;
   return data;
 };
 // 포스트의 id랑 똑같은 정보 가져오는 함수 생성
 export const filteredPostId = async (params: string) => {
   const { data, error } = await supabase.from('posts').select('*').eq('id', params);
-
   if (error) throw error;
   return data;
 };
