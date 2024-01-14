@@ -1,5 +1,3 @@
-'use client';
-
 import { Session } from '@supabase/supabase-js';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../api/supabase.api';
@@ -21,9 +19,7 @@ export function AuthContextProvider({ children }: { children: React.ReactNode })
   const [session, setSession] = useState<AuthContextValue['session']>(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(async (getSessionResponse) => {
-      const session = getSessionResponse.data.session;
-
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session) {
         const getUsersData = await supabase.from('users').select('*').eq('id', session.user.id).single();
         console.log(getUsersData);
@@ -34,20 +30,31 @@ export function AuthContextProvider({ children }: { children: React.ReactNode })
       setIsAuthInitialized(true);
     });
 
-    supabase.auth.onAuthStateChange(async (event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN') {
-        const getUsersData = await supabase.from('users').select('*').eq('id', session!.user.id).single();
-        setSession({ ...session!, profile: getUsersData.data });
+        supabase
+          .from('users')
+          .select('*')
+          .eq('id', session!.user.id)
+          .single()
+          .then((getUsersData) => {
+            setSession({ ...session!, profile: getUsersData.data });
+          });
       } else if (event === 'SIGNED_OUT') {
         setSession(null);
       }
     });
+    return () => subscription.unsubscribe();
   }, []);
 
   const value: AuthContextValue = {
     isAuthInitialized,
     session,
   };
+
+  if (!isAuthInitialized) return null;
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

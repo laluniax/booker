@@ -19,7 +19,7 @@ const ChatLog = () => {
 
     getQnaLog(auth.session.user.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth.session]);
+  }, [auth.session, QnaLog]);
 
   //qna table 가져오는 함수
   const getQnaLog = async (userId: string) => {
