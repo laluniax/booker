@@ -4,6 +4,7 @@ import { filteredCategory } from '../../../api/supabase.api';
 import { categoryUuid } from '../bookertalkpost/Post';
 import * as St from './BookerTalkMain.styled';
 
+// post 타입
 export type Tablesposts = {
   id: number;
   created_at: string;
@@ -17,22 +18,9 @@ export type Tablesposts = {
 const BookerTalkMain = () => {
   const navigation = useNavigate();
   const params = useParams().id;
-  // const genreData = {
-  //   인문: ['책1', '책2'],
-  //   경제경영: ['책3', '책4'],
-  //   자기계발: ['책5', '책6'],
-  //   정치사회: ['책7', '책8'],
-  //   역사문화: ['책9', '책10'],
-  //   과학: ['책11', '책12'],
-  //   소설: ['책13', '책14'],
-  //   시에세이: ['책15', '책16'],
-  // };
-  // const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
-  const [data, setData] = useState<Tablesposts[]>();
+  const date = new Date();
 
-  // const GenreClickhandler = (genre: string) => {
-  //   setSelectedGenre(genre);
-  // };
+  const [data, setData] = useState<Tablesposts[]>();
 
   const renderGenreButtons = () =>
     Object.keys(categoryUuid).map((genre) => (
@@ -46,18 +34,7 @@ const BookerTalkMain = () => {
       </St.GenreButton>
     ));
 
-  // const renderSelectedGenre = () =>
-  //   selectedGenre && (
-  //     <div>
-  //       <h2>{selectedGenre}</h2>
-  //       <ul>
-  //         {genreData[selectedGenre as keyof typeof genreData].map((book) => (
-  //           <li key={book}>{book}</li>
-  //         ))}
-  //       </ul>
-  //     </div>
-  //   );
-
+  // 포스트의 id랑 똑같은 정보 가져오는 함수
   const getFilteredCategoryPosts = async () => {
     const result = await filteredCategory(params as string);
     setData(result);
@@ -83,22 +60,24 @@ const BookerTalkMain = () => {
             </St.FreeTalkBox>
           </St.CategoryBox>
         </St.CategoryWrapper>
-        <div>
-          <h2></h2>
-        </div>
+
         <St.PostWrapper>
-          {/* <St.PostBox>{renderSelectedGenre()}</St.PostBox> */}
           {data?.map((item, i) => {
             return (
-              <div
-                key={i}
-                onClick={() => {
-                  navigation(`/detail/${item.id}`);
-                }}>
-                <span>{item.title}</span>
-                <span>{item.user_id}</span>
-                <span>방금 전</span>
-              </div>
+              <>
+                <div>
+                  <h2>{}</h2>
+                </div>
+                <div
+                  key={i}
+                  onClick={() => {
+                    navigation(`/detail/${item.id}`);
+                  }}>
+                  <span>{item.title}</span>
+                  <span>{item.user_id}</span>
+                  <span>{item.created_at}</span>
+                </div>
+              </>
             );
           })}
         </St.PostWrapper>
