@@ -279,7 +279,21 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      get_comments_info: {
+        Args: {
+          post_id_input: number;
+        };
+        Returns: {
+          comment_id: number;
+          created_at: string;
+          post_id: number;
+          user_id: string;
+          content: string;
+          email: string;
+          nickname: string;
+          user_img: string;
+        }[];
+      };
     };
     Enums: {
       [_ in never]: never;

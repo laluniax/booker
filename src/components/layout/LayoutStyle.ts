@@ -5,5 +5,5 @@ export const Container = styled.div`
   max-width: 100rem;
   margin: 0 auto;
   margin-top: 6rem;
-  /* background-color: pink; */
+  background-color: #ffe3ee;
 `;

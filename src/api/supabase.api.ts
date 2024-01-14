@@ -233,8 +233,8 @@ export const filteredPostId = async (params: string) => {
 };
 
 // comment 추가하는 함수
-export const insertCommentHandler = async (postId: number, userId: string) => {
-  const { data, error } = await supabase.from('comments').insert([{ post_id: postId, user_id: userId }]);
+export const insertCommentHandler = async (postId: number, userId: string, content: string) => {
+  const { data, error } = await supabase.from('comments').insert([{ post_id: postId, user_id: userId, content }]);
   if (error) throw error;
   return data;
 };
@@ -253,4 +253,11 @@ export const deleteCommentHandler = async (commentId: number) => {
 // comment 업데이트하는 함수
 export const updateCommentHandler = async (content: string, commentId: number) => {
   const { data, error } = await supabase.from('comments').update({ content: content }).eq('id', commentId).select();
+};
+
+// comments 정보 가져오는 함수
+export const getCommentsInfoHandler = async (postId: number) => {
+  const { data, error } = await supabase.rpc('get_comments_info', { post_id_input: postId });
+  if (error) throw error;
+  return data;
 };
