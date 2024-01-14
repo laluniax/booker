@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signinHandler } from '../../api/supabase.api';
+import * as St from './Form.stlye';
+import ImageSlideshow from './MainImgSlide';
 import { GithubLoginBtn } from './github';
 import { GoogleLoginBtn } from './goolge';
 
@@ -13,6 +15,8 @@ const Form = () => {
   const signInWithEmail = async () => {
     try {
       const result = await signinHandler(emailRef.current?.value || '', password);
+
+      console.log('result', result);
 
       //   const { data, error } = await supabase.auth.signInWithPassword({
       //     email: emailRef.current?.value || '',
@@ -33,19 +37,32 @@ const Form = () => {
   };
 
   return (
-    <div>
-      <h2>Login </h2>
-      <label>Email:</label>
-      <input type="email" ref={emailRef} />
-      <label>Password:</label>
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={signInWithEmail}>Sign Up</button>
-      <hr />
+    <St.Container>
       <div>
-        <GoogleLoginBtn />
-        <GithubLoginBtn />
+        <ImageSlideshow />
       </div>
-    </div>
+      <St.LoginContainer>
+        <div>
+          <St.InputGroup>
+            <St.Input placeholder="Email:" type="email" ref={emailRef} />
+          </St.InputGroup>
+          <St.InputGroup>
+            <St.Input
+              placeholder="Password:"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </St.InputGroup>
+          <St.Button onClick={signInWithEmail}>로그인</St.Button>
+        </div>
+        <br />
+        <div>
+          <GoogleLoginBtn />
+          <GithubLoginBtn />
+        </div>
+      </St.LoginContainer>
+    </St.Container>
   );
 };
 

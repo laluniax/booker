@@ -1,27 +1,16 @@
-import { User } from '@supabase/supabase-js';
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserSessionHandler, signoutHandler } from '../../../api/supabase.api';
+import { signoutHandler } from '../../../api/supabase.api';
+import { useAuth } from '../../../contexts/auth.context';
 import * as St from './Header.styled';
 
 const Header = () => {
   const navigate = useNavigate();
-  const [session, setSession] = useState<User | undefined>();
-
-  const getUserSession = async () => {
-    const result = await getUserSessionHandler();
-    setSession(result.session?.user);
-  };
+  const auth = useAuth();
 
   const onClickSignoutHandler = async () => {
-    const result = await signoutHandler();
-    setSession(undefined);
+    await signoutHandler();
     navigate('/');
   };
-
-  useEffect(() => {
-    getUserSession();
-  }, []);
 
   return (
     <St.Container>
@@ -48,23 +37,23 @@ const Header = () => {
       </St.HeaderUl>
       <St.HeaderUl>
         <St.HeaderBtn>서치</St.HeaderBtn>
-        {session === undefined ? (
+        {auth.session !== null ? (
+          <>
+            <St.HeaderBtn
+              onClick={() => {
+                navigate(`/profile/${auth.session?.user.id}`);
+              }}>
+              <img src={auth.session.user.user_metadata.user_img} alt="유저 프로필 이미지" />
+            </St.HeaderBtn>
+            <St.HeaderBtn onClick={onClickSignoutHandler}>로그아웃</St.HeaderBtn>
+          </>
+        ) : (
           <St.HeaderBtn
             onClick={() => {
               navigate('/login');
             }}>
             로그인
           </St.HeaderBtn>
-        ) : (
-          <>
-            <St.HeaderBtn
-              onClick={() => {
-                navigate(`/profile/${session.id}`);
-              }}>
-              <img src={session?.user_metadata.user_img} />
-            </St.HeaderBtn>
-            <St.HeaderBtn onClick={onClickSignoutHandler}>로그아웃</St.HeaderBtn>
-          </>
         )}
       </St.HeaderUl>
     </St.Container>

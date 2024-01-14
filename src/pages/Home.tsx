@@ -1,4 +1,8 @@
-import Chat from '../components/layout/customer/Chat';
+import Chat from '../components/layout/customer/ChatModal';
+
+
+
+
 
 const Home = () => {
   return (
@@ -6,6 +10,7 @@ const Home = () => {
       <Chat />
     </>
   );
+
 };
 
 export default Home;

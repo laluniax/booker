@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCategoryProductListHandler, getProductListHandler } from '../../api/supabase.api';
 import * as St from './MarketList.styled';
-import { categoryArr } from './marketpost/Post';
+import { categoryArr } from './marketPost/Post';
 
 export type ListTypes = {
   id: string;
@@ -47,11 +47,13 @@ const MarketList = () => {
       <St.Title>{category ? category : '중고거래'}</St.Title>
       <St.CategoryProductsWrapper>
         <St.CategoryWrapper>
-          {categoryArr.map((item, i) => (
-            <li key={i} onClick={() => navigate(`/market/${i}`)}>
-              {item}
-            </li>
-          ))}
+          <St.CategoryBox>
+            {categoryArr.map((item, i) => (
+              <St.CategoryBtn key={i} onClick={() => navigate(`/market/${i}`)}>
+                {item}
+              </St.CategoryBtn>
+            ))}
+          </St.CategoryBox>
         </St.CategoryWrapper>
         <St.ProductsWrapper>
           {list.map((item, i) => {
