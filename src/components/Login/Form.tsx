@@ -14,6 +14,8 @@ const Form = () => {
     try {
       const result = await signinHandler(emailRef.current?.value || '', password);
 
+      console.log('result', result);
+
       //   const { data, error } = await supabase.auth.signInWithPassword({
       //     email: emailRef.current?.value || '',
       //     password: password,

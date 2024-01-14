@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL as string;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY as string;
+
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
 // 회원가입 핸들러
@@ -26,6 +27,7 @@ export const signinHandler = async (email: string, password: string) => {
     email,
     password,
   });
+
   return { data, error };
 };
 
@@ -207,6 +209,13 @@ export type PostTypes = {
 };
 
 // 북커톡 글 작성 완료시 데이터 등록하기
+
+export const submitPostListHandler = async ({ title, content, tags, category, genre, userId }: PostTypes) => {
+  const { data, error } = await supabase.from('posts').insert([{ userId, title, content, tags, category, genre }]);
+  if (error) throw error;
+  return data;
+};
+=======
 export const submitPostListHandler = async ({ title, content, tags, userId, genreUuid }: PostTypes) => {
   const { data, error } = await supabase
     .from('posts')
@@ -251,3 +260,4 @@ export const deleteCommentHandler = async (commentId: number) => {
 export const updateCommentHandler = async (content: string, commentId: number) => {
   const { data, error } = await supabase.from('comments').update({ content: content }).eq('id', commentId).select();
 };
+
