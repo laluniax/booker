@@ -1,4 +1,6 @@
-import Product from '../components/market/marketproduct/Product';
+
+import Product from '../components/Market/MarketProduct/Product';
+
 
 const MarketProduct = () => {
   return <Product />;

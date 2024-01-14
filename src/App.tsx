@@ -1,14 +1,13 @@
-import { QueryClient, QueryClientProvider } from "react-query";
-import GlobalStyle from "./styles/globalStyle";
-import Router from "./shared/Router";
+import { AuthContextProvider } from './contexts/auth.context';
+import Router from './shared/Router';
+import GlobalStyle from './styles/globalStyle';
 
 const App = () => {
-  
   return (
-    <>
+    <AuthContextProvider>
       <GlobalStyle />
       <Router />
-    </>
+    </AuthContextProvider>
   );
 };
 

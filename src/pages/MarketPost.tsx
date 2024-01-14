@@ -1,4 +1,6 @@
-import Post from '../components/market/marketpost/Post';
+
+import Post from '../components/Market/MarketPost/Post';
+
 
 const MarketPost = () => {
   return <Post />;
