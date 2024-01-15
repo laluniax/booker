@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCategoryProductListHandler, getProductListHandler } from '../../api/supabase.api';
 import * as St from './MarketList.styled';
-import { categoryArr } from './marketPost/Post';
+import { categoryArr } from './marketpost/Post';
 
 export type ListTypes = {
   id: string;
@@ -26,16 +26,11 @@ const MarketList = () => {
   const getProductList = async () => {
     if (params) {
       const result = await getCategoryProductListHandler(category);
-      console.log('params가 있습니다.');
       setList(result);
     } else {
       const result = await getProductListHandler();
-      console.log('params가 없습니다.');
-
       setList(result);
     }
-
-    // 파라미터가 있다면 파라미터를 이용해서 category 필터링해서 list 넣기
   };
 
   useEffect(() => {

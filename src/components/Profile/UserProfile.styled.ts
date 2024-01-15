@@ -31,7 +31,8 @@ export const ProfileImg = styled.img`
 
 export const ProfileInfo = styled.div`
   width: 20rem;
-  line-height: 4;
+  line-height: 2;
+  text-align: end;
 `;
 
 export const ProfileNicknameInput = styled.input`
@@ -61,8 +62,11 @@ export const ProfileBtn = styled.button`
   color: white;
   border: none;
   padding: 1rem;
+  margin-top: 3rem;
   cursor: pointer;
 `;
+
+// Tab styled
 
 export const ProfileTab = styled.div`
   width: 50rem;
@@ -81,7 +85,45 @@ export const ProfileTab = styled.div`
   }
 `;
 
+export const TabMenu = styled.div``;
+
 export const ProfileContent = styled.div`
   width: 50rem;
   margin: 0 auto;
 `;
+
+export const TabListTitle = styled.div`
+  font-size: 2rem;
+`;
+
+export const PostWraapper = styled.div``;
+
+export const Post = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  cursor: pointer;
+`;
+
+export const PostTitle = styled.div``;
+
+export const PostDate = styled.div``;
+
+export const ProductWrapper = styled.div``;
+
+export const Product = styled.div`
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+`;
+
+export const ProductTitle = styled.div``;
+
+export const ProductImg = styled.img`
+  width: 5rem;
+  height: 5rem;
+`;
+
+export const ProductPrice = styled.div``;
+
+export const ProductDate = styled.div``;

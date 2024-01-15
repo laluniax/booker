@@ -44,6 +44,7 @@ export const CategoryBtn = styled.button`
 
 export const ProductsWrapper = styled.div`
   width: 80rem;
+  height: 100%;
   display: grid;
   grid-template-columns: 19rem 19rem 19rem 19rem;
   gap: 1rem;
@@ -52,19 +53,21 @@ export const ProductsWrapper = styled.div`
 
 export const ProductCard = styled.div`
   width: 19rem;
-  height: 23rem;
+  height: 25rem;
   padding: 0.5rem;
   border: 0.2rem solid black;
   cursor: pointer;
 `;
 
 export const ProductImg = styled.img`
-  width: 11rem;
-  height: 11rem;
+  width: 18rem;
+  height: 18rem;
+  object-fit: cover;
 `;
 
 export const ProductTitle = styled.div`
-  font-size: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
 `;
 
 export const ProductInfo = styled.div`
@@ -72,7 +75,9 @@ export const ProductInfo = styled.div`
   justify-content: space-between;
 `;
 
-export const ProductPrice = styled.div``;
+export const ProductPrice = styled.div`
+  font-size: 1.5rem;
+`;
 
 export const ProductLikes = styled.div``;
 
