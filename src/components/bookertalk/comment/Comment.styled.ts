@@ -30,6 +30,11 @@ export const CommentCreatedAt = styled.div``;
 
 export const CommentContent = styled.div`
   background-color: #bcbcbc;
+  & input {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
 `;
 
 export const CommentBtnDiv = styled.div`
