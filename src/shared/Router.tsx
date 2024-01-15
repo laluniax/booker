@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
+import AdminChatRoom from '../components/layout/qna/AdminChatRoom';
 import BestSellerCheapSurvey from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey';
 import BestSellerCheapSurvey2 from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey2';
 import BestSellerDomForSurvey from '../components/survey/surveyQuestionnaire/bestSellerDomFor/BestSellerDomForSurvey';
@@ -63,6 +64,8 @@ const Router = () => {
           <Route path="/market/:id" element={<Market />} />
           <Route path="/marketpost" element={<MarketPost />} />
           <Route path="/product/:id" element={<MarketProduct />} />
+          {/* Qna 페이지 */}
+          <Route path="/chat/:roomId" element={<AdminChatRoom />} />
         </Route>
 
         {/* 로그인/ 회원가입에 헤더 푸터 적용하고 싶으시면 Layout 라우터 태그 안에 넣어주시면 됩니다. */}

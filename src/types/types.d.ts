@@ -8,6 +8,17 @@ export type Bestseller = {
   categoryName: string;
   priceStandard: number;
 };
+// get_comments_info 함수의 types
+type CommentsTypes = {
+  comment_id: number;
+  comment_created_at: string;
+  comment_post_id: number;
+  comment_user_id: string;
+  comment_content: string;
+  user_email: string;
+  user_nickname: string;
+  user_img: string;
+};
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
@@ -31,6 +42,57 @@ export interface Database {
           id?: number;
         };
         Relationships: [];
+      };
+      chats: {
+        Row: {
+          created_at: string;
+          id: number;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+        };
+        Relationships: [];
+      };
+      chats_users: {
+        Row: {
+          chat_id: number | null;
+          created_at: string;
+          id: number;
+          user_id: string | null;
+        };
+        Insert: {
+          chat_id?: number | null;
+          created_at?: string;
+          id?: number;
+          user_id?: string | null;
+        };
+        Update: {
+          chat_id?: number | null;
+          created_at?: string;
+          id?: number;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'chats_users_chat_id_fkey';
+            columns: ['chat_id'];
+            isOneToOne: false;
+            referencedRelation: 'chats';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'chats_users_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       comments: {
         Row: {
@@ -120,6 +182,117 @@ export interface Database {
             columns: ['category_id'];
             isOneToOne: false;
             referencedRelation: 'categories';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      independentBookStores: {
+        Row: {
+          address: string;
+          adit_dc: string | null;
+          category1: string;
+          category2: string;
+          closedDay_close_at: string | null;
+          closedDay_guide: string | null;
+          closedDay_open_at: string | null;
+          gov_id: string;
+          id: number;
+          latitude: number;
+          longitude: number;
+          name: string;
+          optn_dc: string | null;
+          postal_code: number | null;
+          saturday_close_at: string | null;
+          saturday_open_at: string | null;
+          sunday_close_at: string | null;
+          sunday_open_at: string | null;
+          tel_number: number | null;
+          weekdays_close_at: string | null;
+          weekdays_open_at: string | null;
+        };
+        Insert: {
+          address: string;
+          adit_dc?: string | null;
+          category1: string;
+          category2: string;
+          closedDay_close_at?: string | null;
+          closedDay_guide?: string | null;
+          closedDay_open_at?: string | null;
+          gov_id: string;
+          id?: number;
+          latitude: number;
+          longitude: number;
+          name: string;
+          optn_dc?: string | null;
+          postal_code?: number | null;
+          saturday_close_at?: string | null;
+          saturday_open_at?: string | null;
+          sunday_close_at?: string | null;
+          sunday_open_at?: string | null;
+          tel_number?: number | null;
+          weekdays_close_at?: string | null;
+          weekdays_open_at?: string | null;
+        };
+        Update: {
+          address?: string;
+          adit_dc?: string | null;
+          category1?: string;
+          category2?: string;
+          closedDay_close_at?: string | null;
+          closedDay_guide?: string | null;
+          closedDay_open_at?: string | null;
+          gov_id?: string;
+          id?: number;
+          latitude?: number;
+          longitude?: number;
+          name?: string;
+          optn_dc?: string | null;
+          postal_code?: number | null;
+          saturday_close_at?: string | null;
+          saturday_open_at?: string | null;
+          sunday_close_at?: string | null;
+          sunday_open_at?: string | null;
+          tel_number?: number | null;
+          weekdays_close_at?: string | null;
+          weekdays_open_at?: string | null;
+        };
+        Relationships: [];
+      };
+      messages: {
+        Row: {
+          author_id: string | null;
+          chat_id: number | null;
+          content: string | null;
+          created_at: string;
+          id: number;
+        };
+        Insert: {
+          author_id?: string | null;
+          chat_id?: number | null;
+          content?: string | null;
+          created_at?: string;
+          id?: number;
+        };
+        Update: {
+          author_id?: string | null;
+          chat_id?: number | null;
+          content?: string | null;
+          created_at?: string;
+          id?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'messages_author_id_fkey';
+            columns: ['author_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'messages_chat_id_fkey';
+            columns: ['chat_id'];
+            isOneToOne: false;
+            referencedRelation: 'chats';
             referencedColumns: ['id'];
           },
         ];
@@ -279,7 +452,21 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      get_comments_info: {
+        Args: {
+          post_id_input: number;
+        };
+        Returns: {
+          comment_id: number;
+          comment_created_at: string;
+          comment_post_id: number;
+          comment_user_id: string;
+          comment_content: string;
+          user_email: string;
+          user_nickname: string;
+          user_img: string;
+        }[];
+      };
     };
     Enums: {
       [_ in never]: never;

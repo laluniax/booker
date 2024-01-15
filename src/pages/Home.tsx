@@ -1,4 +1,4 @@
-import Chat from '../components/layout/customer/ChatModal';
+import Chat from '../components/layout/qna/ChatModal';
 
 
 
