@@ -2,30 +2,31 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../../../api/supabase.api';
 import { useAuth } from '../../../contexts/auth.context';
 import * as St from './ChatLog.styled';
-interface QnaParams {
-  id: number;
-  isQuestion: boolean;
+
+interface Message {
+  created_at: string;
   content: string;
   sender_id: string;
-  nickname: string;
+  message_type: string;
+  id: number;
 }
 
 const ChatLog = () => {
   const auth = useAuth();
-  const [QnaLog, setQnaLog] = useState<QnaParams[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     if (!auth.session) return;
 
     getQnaLog(auth.session.user.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth.session, QnaLog]);
+  }, [auth.session, messages]);
 
   //qna table 가져오는 함수
-  const getQnaLog = async (userId: string) => {
+  const getQnaLog = async (roomId: string) => {
     if (!auth.session) return;
 
-    const isAdmin = auth.session.profile.isAdmin;
+    /* const isAdmin = auth.session.profile.isAdmin;
 
     const result = isAdmin
       ? await supabase.from('qna').select('*')
@@ -35,18 +36,29 @@ const ChatLog = () => {
     } else {
       console.error('데이터를 가져오는 데 실패했습니다.');
       setQnaLog([]); // 데이터가 없을 때 빈 배열로 설정
+    } */
+    const response = await supabase.from('qna').select('*').eq('room_id', roomId);
+    const result = response.data;
+    if (result) {
+      setMessages(result);
+    } else {
+      setMessages([]);
     }
   };
 
   return (
     <St.Container>
-      {QnaLog.map((qna) => (
-        <div key={qna.id}>
-          {/* id를 키로 사용 */}
-          {auth.session?.profile.isAdmin ? (
-            <St.AdminChatLogWrapper>{qna.content}</St.AdminChatLogWrapper>
+      {messages.map((message) => (
+        <div key={message.id}>
+          {message.message_type === 'question' ? (
+            <St.CustomerChatLogWrapper>
+              <p>{message.content}</p>
+            </St.CustomerChatLogWrapper>
           ) : (
-            <St.CustomerChatLogWrapper>{qna.content}</St.CustomerChatLogWrapper>
+            <St.AdminChatLogWrapper>
+              <p>admin</p>
+              <p>{message.content}</p>
+            </St.AdminChatLogWrapper>
           )}
         </div>
       ))}
