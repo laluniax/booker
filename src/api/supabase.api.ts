@@ -231,6 +231,18 @@ export const filteredPostId = async (params: string) => {
   if (error) throw error;
   return data;
 };
+// userId로 posts 풀러오는 함수(profile)
+export const filterPostsByUserIdHandler = async (userId: string) => {
+  const { data, error } = await supabase.from('posts').select('*').eq('user_id', userId);
+  if (error) throw error;
+  return data;
+};
+// userId로 products 불러오는 함수(profile)
+export const filterProductsByUserIdHandler = async (userId: string) => {
+  const { data, error } = await supabase.from('products').select('*').eq('user_id', userId);
+  if (error) throw error;
+  return data;
+};
 
 // comment 추가하는 함수
 export const insertCommentHandler = async (postId: number, userId: string, content: string) => {
@@ -249,10 +261,14 @@ export const filterCommentHandler = async (postId: number) => {
 // comment 삭제하는 함수 (클릭하면 댓글 아이디 받아서 해당 댓글 삭제하기)
 export const deleteCommentHandler = async (commentId: number) => {
   const { data, error } = await supabase.from('comments').delete().eq('id', commentId);
+  if (error) throw error;
+  return data;
 };
 // comment 업데이트하는 함수
 export const updateCommentHandler = async (content: string, commentId: number) => {
   const { data, error } = await supabase.from('comments').update({ content: content }).eq('id', commentId).select();
+  if (error) throw error;
+  return data;
 };
 
 // comments 정보 가져오는 함수

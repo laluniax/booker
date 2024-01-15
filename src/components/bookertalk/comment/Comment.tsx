@@ -25,6 +25,7 @@ const Comment = () => {
   const [session, setSession] = useState<string | undefined>('');
   const [metaData, setMetaData] = useState<UserMetadata>();
   const [content, setContent] = useState('');
+  const [isEditing, setIsEditting] = useState(false);
   // const [commentId, setCommentId] = useState<number>();
   const params = Number(useParams().id);
 
