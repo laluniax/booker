@@ -11,6 +11,7 @@ import BestSellerDomFor from '../components/survey/surveyResult/BestSellerDomFor
 import BestSellerGenre from '../components/survey/surveyResult/BestSellerGenre';
 import BestSellerNew from '../components/survey/surveyResult/BestSellerNew';
 import BestSellerValue from '../components/survey/surveyResult/BestSellerValue';
+import Chat from '../components/wishper/Chat';
 import AboutBooks from '../pages/AboutBooks';
 import BookerTalk from '../pages/BookerTalk';
 import BookerTalkDetail from '../pages/BookerTalkDetail';
@@ -23,16 +24,15 @@ import MarketProduct from '../pages/MarketProduct';
 import Profile from '../pages/Profile';
 import Register from '../pages/Register';
 import Survey from '../pages/Survey';
-import Chat from '../components/wishper/Chat';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-      <Route path="/c" element={<Chat />} />
+        <Route path="/c" element={<Chat />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-       
+
           <Route path="*" element={<Navigate replace to="/" />} />
           <Route path="/profile/:id" element={<Profile />} />
 

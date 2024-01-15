@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { ListTypes } from '../MarketList';
-import * as St from './Product.styled';
 import { getProductHandler } from '../../../api/supabase.api';
+import { ListTypes } from '../MarketList';
+import * as St from '../marketproduct/Product.styled';
 
 const Product = () => {
   const params = useParams();
