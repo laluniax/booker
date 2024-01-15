@@ -11,6 +11,7 @@ import {
 import { CommentsTypes } from '../../../types/types';
 import { foramtCreatedAt } from '../../../utils/date';
 import * as St from './Comment.styled';
+import SubComment from './SubComment';
 
 const Comment = () => {
   const [data, setData] = useState<CommentsTypes[]>();
@@ -130,6 +131,7 @@ const Comment = () => {
                   item.comment_content
                 )}
               </St.CommentContent>
+              <SubComment />
             </St.Comment>
           );
         })}

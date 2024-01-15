@@ -278,3 +278,10 @@ export const getCommentsInfoHandler = async (postId: number) => {
   if (error) throw error;
   return data;
 };
+
+// subcomments 추가하는 함수
+export const insertSubCommentHandler = async (commentId: number, userId: string, content: string) => {
+  const { data, error } = await supabase
+    .from('subcomments')
+    .insert([{ comment_id: commentId, user_id: userId, content }]);
+};

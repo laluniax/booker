@@ -37,6 +37,17 @@ export const CommentContent = styled.div`
   }
 `;
 
+export const SubCommentWrapper = styled.div``;
+
+export const SubCommentAddBtn = styled.button``;
+
+export const SubCommentTextArea = styled.textarea`
+  width: 100%;
+  resize: none;
+`;
+
+export const SubCommentSubmitBtn = styled.button``;
+
 export const CommentBtnDiv = styled.div`
   width: 10rem;
 `;
