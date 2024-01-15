@@ -22,7 +22,7 @@ export function AuthContextProvider({ children }: { children: React.ReactNode })
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session) {
         const getUsersData = await supabase.from('users').select('*').eq('id', session.user.id).single();
-        console.log(getUsersData);
+
         setSession({ ...session, profile: getUsersData.data });
       } else {
         setSession(null);
