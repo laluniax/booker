@@ -7,25 +7,15 @@ import {
   getUserSessionHandler,
   insertCommentHandler,
 } from '../../../api/supabase.api';
+import { CommentsTypes } from '../../../types/types';
 import * as St from './Comment.styled';
-
-type CommentsTypes = {
-  comment_id: number;
-  comment_created_at: string;
-  comment_post_id: number;
-  comment_user_id: string;
-  comment_content: string;
-  user_email: string;
-  user_nickname: string;
-  user_img: string;
-};
 
 const Comment = () => {
   const [data, setData] = useState<CommentsTypes[]>();
   const [session, setSession] = useState<string | undefined>('');
   const [metaData, setMetaData] = useState<UserMetadata>();
   const [content, setContent] = useState('');
-  const [isEditing, setIsEditting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   // const [commentId, setCommentId] = useState<number>();
   const params = Number(useParams().id);
 
@@ -47,6 +37,7 @@ const Comment = () => {
 
   const updateComment = async () => {
     // const result = await updateCommentHandler(commentId)
+    setIsEditing(false);
   };
   const deleteComment = async (commentId: number) => {
     console.log(commentId);
@@ -73,13 +64,25 @@ const Comment = () => {
 
                 {session === item.comment_user_id ? (
                   <St.CommentBtnDiv>
-                    <button
-                      onClick={() => {
-                        // setCommentId(item.comment_id);
-                        updateComment();
-                      }}>
-                      수정
-                    </button>
+                    {isEditing ? (
+                      <button
+                        onClick={() => {
+                          // setCommentId(item.comment_id);
+                          updateComment();
+                        }}>
+                        완료
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          // setCommentId(item.comment_id);
+                          // updateComment();
+                          setIsEditing(true);
+                        }}>
+                        수정
+                      </button>
+                    )}
+
                     <button
                       onClick={() => {
                         // setCommentId(item.comment_id);

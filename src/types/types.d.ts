@@ -8,6 +8,17 @@ export type Bestseller = {
   categoryName: string;
   priceStandard: number;
 };
+// get_comments_info 함수의 types
+type CommentsTypes = {
+  comment_id: number;
+  comment_created_at: string;
+  comment_post_id: number;
+  comment_user_id: string;
+  comment_content: string;
+  user_email: string;
+  user_nickname: string;
+  user_img: string;
+};
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
