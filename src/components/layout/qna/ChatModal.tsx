@@ -24,8 +24,10 @@ const Chat = () => {
     if (!askMessage.trim()) return; // 메시지가 비어있지 않은지 확인
 
     await supabase.from('qna').insert({
+      room_id: auth.session.user.id,
       sender_id: auth.session.user.id,
       content: askMessage,
+      message_type: 'question',
     });
 
     setAskMessage(''); // 메시지 전송 후 입력 필드 초기화
@@ -58,8 +60,6 @@ const Chat = () => {
 
 
       ------------------------------------------------------------------
-      
-
       
       */
     <>
