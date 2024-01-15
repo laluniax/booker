@@ -1,17 +1,18 @@
-// import '@toast-ui/editor/dist/i18n/ko-kr';
-// import '@toast-ui/editor/dist/toastui-editor.css';
-// import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor/dist/i18n/ko-kr';
+import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import 'tui-color-picker/dist/tui-color-picker.css';
 import { getUserSessionHandler, submitPostListHandler } from '../../../api/supabase.api';
+import * as St from './Post.styled';
 
 type Categories = {
   자유수다: string[];
   도서추천: string[];
 };
 
-type CateGenresTypes = {
+export type CateGenresTypes = {
   [key: string]: string;
 };
 
@@ -24,6 +25,7 @@ export const categoryUuid: CateGenresTypes = {
   '도서추천 / 과학': '4e0930d6-9cad-40f9-8aa9-591e882ffd31',
   '도서추천 / 소설': '355e40c7-0337-4527-a5da-3fd6aef50246',
   '도서추천 / 시 에세이': 'e3a14e02-e941-4f40-b289-9fa9242f3f63',
+
   '자유수다 / 인문': '7c6121b1-5306-4505-9812-9dffffcc7df8',
   '자유수다 / 경제 경영': '3f8ad6c4-650d-4b10-893d-b8f0d896ba8a',
   '자유수다 / 자기계발': 'ee4907e4-96e6-4466-84eb-dee2d92e846c',
@@ -53,8 +55,6 @@ const Post = () => {
     자유수다: ['인문', '경제 • 경영', '자기계발', '정치 • 사회', '역사 • 문화', '과학', '소설', '시 • 에세이'],
     도서추천: ['인문', '경제 • 경영', '자기계발', '정치 • 사회', '역사 • 문화', '과학', '소설', '시 • 에세이'],
   };
-
-  const categoryArr = ['인문', '경제 • 경영', '자기계발', '정치 • 사회', '역사 • 문화', '과학', '소설', '시 • 에세이'];
 
   const categoryChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
@@ -128,99 +128,102 @@ const Post = () => {
   }, []);
 
   return (
-    <>
-      <form
-        onSubmit={(e) => {
-          formSubmitHandler(e);
-        }}>
-        <div>
-          <div>
-            {/* <Editor
-              initialValue="내용을 입력해주세요 ! "
-              previewStyle="vertical"
-              height="600px"
-              initialEditType="wysiwyg"
-              useCommandShortcut={false}
-              plugins={[colorSyntax]}
-              language="ko-KR"
-              ref={toastRef}
-            /> */}
-            <textarea
+    <St.Container>
+      <St.FormWrapper>
+        <St.Form
+          onSubmit={(e) => {
+            formSubmitHandler(e);
+          }}>
+          <St.TitleInputBox>
+            <St.TitleInput
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="제목을 입력하세요"
+              placeholder="제목을 입력해주세요"
               autoComplete="off"
               id="title"
             />
-          </div>
+          </St.TitleInputBox>
+          <St.TagWrapper>
+            {/* 태그기능 */}
+            {tagList.map((tagItem, index) => {
+              return (
+                <St.tagItem key={index}>
+                  <St.TagContent>{tagItem}</St.TagContent>
+                  <St.DeleteTagButton
+                    onClick={(e) => {
+                      DeleteTagItem(e);
+                    }}>
+                    X
+                  </St.DeleteTagButton>
+                </St.tagItem>
+              );
+            })}
 
-          <div>
-            <select value={category} onChange={categoryChangeHandler}>
-              <option value="">카테고리 선택</option>
+            <St.TagInputBox>
+              <St.TagInput
+                value={tagItem}
+                onChange={(e) => {
+                  onChangeTagItem(e);
+                }}
+                placeholder="태그를 입력해주세요."
+                type="text"
+                autoComplete="off"
+                tabIndex={2}
+                onKeyPress={onKeyPressHandler}
+              />
+            </St.TagInputBox>
+          </St.TagWrapper>
+
+          <St.CategoryAndGenreBox>
+            <St.CategorySelect value={category} onChange={categoryChangeHandler}>
+              <St.CategoryOption value="">카테고리를 선택해주세요</St.CategoryOption>
               {Object.keys(categories).map((key) => (
                 <option key={key} value={key}>
                   {key}
                 </option>
               ))}
-            </select>
-          </div>
-          {category && categories[category as keyof Categories] && (
-            <div>
-              <select value={genres} onChange={genreChangeHander}>
-                <option value="">장르 선택</option>
+            </St.CategorySelect>
+
+            {category && categories[category as keyof Categories] && (
+              <St.GenreSelect value={genres} onChange={genreChangeHander}>
+                <St.GenreOption value="">장르를 선택해주세요</St.GenreOption>
                 {categories[category as keyof Categories].map((genre: string, index: number) => (
                   <option key={index} value={genre}>
                     {genre}
                   </option>
                 ))}
-              </select>
-            </div>
-          )}
+              </St.GenreSelect>
+            )}
+          </St.CategoryAndGenreBox>
 
-          <div>
-            {/* 태그기능 */}
-            {tagList.map((tagItem, index) => {
-              return (
-                <div key={index}>
-                  <span>{tagItem}</span>
-                  <button
-                    onClick={(e) => {
-                      DeleteTagItem(e);
-                    }}>
-                    X
-                  </button>
-                </div>
-              );
-            })}
-            <input
-              value={tagItem}
-              onChange={(e) => {
-                onChangeTagItem(e);
-              }}
-              placeholder="태그를 입력하세요"
-              type="text"
+          <St.ContentWrapper>
+            <St.ContentInput
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="내용을 입력해주세요."
+              id="comment"
               autoComplete="off"
-              tabIndex={2}
-              onKeyPress={onKeyPressHandler}
             />
-          </div>
-        </div>
-        <div>
-          <input
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="당신의 이야기를 적어보세요. . ."
-            id="comment"
-            type="text"
-            autoComplete="off"
-          />
-        </div>
+          </St.ContentWrapper>
 
-        <div>
-          <button type="submit">작성완료</button>
-        </div>
-      </form>
-    </>
+          <St.SubmitButtonWrapper>
+            <St.SubmitButtonBox>
+              <St.SubmitButton type="submit">완료</St.SubmitButton>
+            </St.SubmitButtonBox>
+          </St.SubmitButtonWrapper>
+        </St.Form>
+      </St.FormWrapper>{' '}
+      <Editor
+        initialValue="내용을 입력해주세요 ! "
+        previewStyle="vertical"
+        height="600px"
+        initialEditType="wysiwyg"
+        useCommandShortcut={false}
+        // plugins={[colorSyntax]}
+        language="ko-KR"
+        ref={toastRef}
+      />
+    </St.Container>
   );
 };
 
