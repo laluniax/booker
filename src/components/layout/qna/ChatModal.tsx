@@ -5,7 +5,7 @@ import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
 import * as St from './ChatStyle';
 
-const Chat = () => {
+const ChatModal = () => {
   //모달창을 열고 닫는 state
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
   //문의하기 버튼
@@ -89,4 +89,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default ChatModal;

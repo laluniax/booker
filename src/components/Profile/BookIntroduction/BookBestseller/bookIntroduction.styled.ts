@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
-export const Container = styled.section``;
+export const Section = styled.section`
+  display: flex;
+`;
+export const Container = styled.section`
+  width: 74%;
+`;
 export const Header = styled.header`
   font-size: 64px;
 `;
