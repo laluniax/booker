@@ -8,16 +8,42 @@ export type Bestseller = {
   categoryName: string;
   priceStandard: number;
 };
-// get_comments_info 함수의 types
-type CommentsTypes = {
-  comment_id: number;
-  comment_created_at: string;
-  comment_post_id: number;
-  comment_user_id: string;
-  comment_content: string;
-  user_email: string;
-  user_nickname: string;
-  user_img: string;
+// getCommentsInfoHandler 함수의 types
+type CommentTypes = {
+  comments: Comments[];
+  content: string | null;
+  created_at: string;
+  genre_id: string | null;
+  id: number;
+  tags: string | null;
+  title: string | null;
+  user_id: string | null;
+};
+type Comments = {
+  content: string | null;
+  created_at: string;
+  id: number;
+  post_id: number | null;
+  user_id: string | null;
+  users: Tables<'users'>;
+};
+
+// getSubCommentsInfoHandler 함수의 types
+type SubCommentTypes = {
+  content: string | null;
+  created_at: string;
+  id: number;
+  post_id: number | null;
+  user_id: string | null;
+  subcomments: SubComments[];
+};
+type SubComments = {
+  comment_id: number | null;
+  content: string | null;
+  created_at: string;
+  id: number;
+  user_id: string | null;
+  users: Tables<'users'>;
 };
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
@@ -388,27 +414,79 @@ export interface Database {
       };
       qna: {
         Row: {
-          content: string | null;
+          content: string;
+          created_at: string;
           id: number;
-          isQuestion: boolean;
+          message_type: string;
+          room_id: string;
           sender_id: string | null;
         };
         Insert: {
-          content?: string | null;
+          content: string;
+          created_at?: string;
           id?: number;
-          isQuestion?: boolean;
+          message_type?: string;
+          room_id: string;
           sender_id?: string | null;
         };
         Update: {
-          content?: string | null;
+          content?: string;
+          created_at?: string;
           id?: number;
-          isQuestion?: boolean;
+          message_type?: string;
+          room_id?: string;
           sender_id?: string | null;
         };
         Relationships: [
           {
+            foreignKeyName: 'qna_room_id_fkey';
+            columns: ['room_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
             foreignKeyName: 'qna_sender_id_fkey';
             columns: ['sender_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      subcomments: {
+        Row: {
+          comment_id: number | null;
+          content: string | null;
+          created_at: string;
+          id: number;
+          user_id: string | null;
+        };
+        Insert: {
+          comment_id?: number | null;
+          content?: string | null;
+          created_at?: string;
+          id?: number;
+          user_id?: string | null;
+        };
+        Update: {
+          comment_id?: number | null;
+          content?: string | null;
+          created_at?: string;
+          id?: number;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'subcomments_comment_id_fkey';
+            columns: ['comment_id'];
+            isOneToOne: false;
+            referencedRelation: 'comments';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'subcomments_user_id_fkey';
+            columns: ['user_id'];
             isOneToOne: false;
             referencedRelation: 'users';
             referencedColumns: ['id'];

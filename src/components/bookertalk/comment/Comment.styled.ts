@@ -37,17 +37,6 @@ export const CommentContent = styled.div`
   }
 `;
 
-export const SubCommentWrapper = styled.div``;
-
-export const SubCommentAddBtn = styled.button``;
-
-export const SubCommentTextArea = styled.textarea`
-  width: 100%;
-  resize: none;
-`;
-
-export const SubCommentSubmitBtn = styled.button``;
-
 export const CommentBtnDiv = styled.div`
   width: 10rem;
 `;
@@ -74,3 +63,38 @@ export const CommentSubmit = styled.div`
     cursor: pointer;
   }
 `;
+export const SubCommentWrapper = styled.div``;
+
+export const SubCommentAddBtn = styled.button``;
+
+export const SubCommentBox = styled.div``;
+
+export const Subcomment = styled.div`
+  display: flex;
+`;
+
+export const SubCommentImg = styled.img`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+`;
+export const SubCommentUserAndBtn = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+export const SubCommentUser = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+export const SubCommentNickname = styled.div``;
+
+export const SubCommentDate = styled.div``;
+
+export const SubCommentContent = styled.div``;
+
+export const SubCommentTextArea = styled.textarea`
+  width: 100%;
+  resize: none;
+`;
+
+export const SubCommentSubmitBtn = styled.button``;
