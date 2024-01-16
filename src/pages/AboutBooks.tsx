@@ -1,5 +1,11 @@
+import BookBestseller from '../components/Profile/BookIntroduction/BookSpecial/BookBestseller';
+
 const AboutBooks = () => {
-  return <div>AboutBooks</div>;
+  return (
+    <div>
+      <BookBestseller />
+    </div>
+  );
 };
 
 export default AboutBooks;
