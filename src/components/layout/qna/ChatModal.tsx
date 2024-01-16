@@ -8,6 +8,7 @@ import * as St from './ChatStyle';
 const Chat = () => {
   //모달창을 열고 닫는 state
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
+  //문의하기 버튼
   const [isAsk, setIsAsk] = useState<boolean>(false);
   //메세지 저장 state
   const [askMessage, setAskMessage] = useState<string>('');
@@ -22,7 +23,7 @@ const Chat = () => {
   const sendMessage = async () => {
     if (!auth.session) return;
     if (!askMessage.trim()) return; // 메시지가 비어있지 않은지 확인
-
+    console.log('sendMessage 실행');
     await supabase.from('qna').insert({
       room_id: auth.session.user.id,
       sender_id: auth.session.user.id,
@@ -43,25 +44,6 @@ const Chat = () => {
   if (!auth.session) return null;
 
   return (
-    /* 
-           
-      채팅룸 table
-      유저(senderId) id  /관리자(reciveId) id table -> 따로필요x 
-      메세지(content) table
-      
-      로직생각해보기 
-
-      어떻게해야 채팅 말풍선이 왼쪽 오른쪽 구분해서 나올 수 있을까?
-      곰곰문문 
-      isQuestion이 true면 오른쪽에 채팅로그가, false라면 admin이 보낸 채팅로그이므로 왼쪽 !!?
-
-
-      !!로그아웃시 리렌더링되어야함!!
-
-
-      ------------------------------------------------------------------
-      
-      */
     <>
       {auth.session.profile.isAdmin ? (
         isSwitch && <AdminChat />
@@ -84,6 +66,7 @@ const Chat = () => {
               </St.AskWrapper>
               {isAsk ? (
                 <>
+                  {/* 유저 시점에서 채팅을 출력해주는 chatLog 컴포넌트 */}
                   <ChatLog />
                   <St.ChatInputWrapper>
                     <St.Input
