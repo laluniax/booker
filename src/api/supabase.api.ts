@@ -245,6 +245,20 @@ export const filterProductsByUserIdHandler = async (userId: string) => {
   return data;
 };
 
+// comment 불러오는 함수 (해당 postId에 따른 댓글 불러오기)
+// export const filterCommentHandler = async (postId: number) => {
+//   const { data, error } = await supabase.from('comments').select('*').eq('post_id', postId);
+//   if (error) throw error;
+//   return data;
+// };
+
+// comments 정보 가져오는 함수(댓글)
+export const getCommentsInfoHandler = async (postId: number) => {
+  const { data, error } = await supabase.from('posts').select('*,comments(*,users(*))').eq('id', postId);
+  if (error) throw error;
+  return data;
+};
+
 // comment 추가하는 함수
 export const insertCommentHandler = async (postId: number, userId: string, content: string) => {
   const { data, error } = await supabase.from('comments').insert([{ post_id: postId, user_id: userId, content }]);
@@ -252,19 +266,6 @@ export const insertCommentHandler = async (postId: number, userId: string, conte
   return data;
 };
 
-// comment 불러오는 함수 (해당 postId에 따른 댓글 불러오기)
-export const filterCommentHandler = async (postId: number) => {
-  const { data, error } = await supabase.from('comments').select('*').eq('post_id', postId);
-  if (error) throw error;
-  return data;
-};
-
-// comment 삭제하는 함수 (클릭하면 댓글 아이디 받아서 해당 댓글 삭제하기)
-export const deleteCommentHandler = async (commentId: number) => {
-  const { data, error } = await supabase.from('comments').delete().eq('id', commentId);
-  if (error) throw error;
-  return data;
-};
 // comment 업데이트하는 함수
 export const updateCommentHandler = async (content: string, commentId: number) => {
   const { data, error } = await supabase.from('comments').update({ content: content }).eq('id', commentId).select();
@@ -272,9 +273,15 @@ export const updateCommentHandler = async (content: string, commentId: number) =
   return data;
 };
 
-// comments 정보 가져오는 함수
-export const getCommentsInfoHandler = async (postId: number) => {
-  const { data, error } = await supabase.rpc('get_comments_info', { post_id_input: postId });
+// comment 삭제하는 함수 (클릭하면 댓글 아이디 받아서 해당 댓글 삭제하기)
+export const deleteCommentHandler = async (commentId: number) => {
+  const { error } = await supabase.from('comments').delete().eq('id', commentId);
+  if (error) throw error;
+};
+
+// comments 정보 가져오는 함수(대댓글)
+export const getSubCommentsInfoHandler = async (commentId: number) => {
+  const { data, error } = await supabase.from('comments').select('*,subcomments(*,users(*))').eq('id', commentId);
   if (error) throw error;
   return data;
 };
@@ -283,5 +290,22 @@ export const getCommentsInfoHandler = async (postId: number) => {
 export const insertSubCommentHandler = async (commentId: number, userId: string, content: string) => {
   const { data, error } = await supabase
     .from('subcomments')
-    .insert([{ comment_id: commentId, user_id: userId, content }]);
+    .insert([{ comment_id: commentId, user_id: userId, content }])
+    .select();
+};
+// subcomments 업뎃하는 함수
+export const updateSubCommentHandler = async (content: string, subCommentId: number) => {
+  const { data, error } = await supabase
+    .from('subcomments')
+    .update({ content: content })
+    .eq('id', subCommentId)
+    .select();
+  if (error) throw error;
+  return data;
+};
+
+// subcomments 삭제하는 함수
+export const deleteSubCommentHandler = async (subCommentId: number) => {
+  const { error } = await supabase.from('subcomments').delete().eq('id', subCommentId);
+  if (error) throw error;
 };
