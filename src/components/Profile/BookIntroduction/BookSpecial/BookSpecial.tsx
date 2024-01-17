@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import AboutBookNav from '../AboutBookNav';
 import * as St from './bookSpecial.styled';
 
 interface Special {
@@ -26,7 +25,6 @@ const BookSpecial = () => {
 
   return (
     <St.Section>
-      <AboutBookNav />
       <St.Container>
         <St.Header>
           <h2>스페셜</h2>

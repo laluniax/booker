@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import AboutBookNav from '../AboutBookNav';
 import * as St from './bookIntroduction.styled';
 
 interface Bestseller {
@@ -24,32 +23,29 @@ const BookBestseller = () => {
   };
 
   return (
-    <St.Section>
-      <AboutBookNav />
-      <St.Container>
-        <St.Header>
-          <h2>베스트셀러</h2>
-        </St.Header>
-        <St.Body>
-          {bestSeller.map((book) => {
-            return (
-              <St.BookImageWrapper key={book.bestRank}>
-                <St.BookGenre>{book.categoryName}</St.BookGenre>
-                <St.BookWrapper>
-                  <St.BookImg>
-                    <img src={book.cover} alt="책 이미지" />
-                  </St.BookImg>
-                  <St.BookIntro>
-                    <St.Title>{book.title}</St.Title>
-                    <St.Plot>{book.description}</St.Plot>
-                  </St.BookIntro>
-                </St.BookWrapper>
-              </St.BookImageWrapper>
-            );
-          })}
-        </St.Body>
-      </St.Container>
-    </St.Section>
+    <St.Container>
+      <St.Header>
+        <h2>베스트셀러</h2>
+      </St.Header>
+      <St.Body>
+        {bestSeller.map((book) => {
+          return (
+            <St.BookImageWrapper key={book.bestRank}>
+              <St.BookGenre>{book.categoryName}</St.BookGenre>
+              <St.BookWrapper>
+                <St.BookImg>
+                  <img src={book.cover} alt="책 이미지" />
+                </St.BookImg>
+                <St.BookIntro>
+                  <St.Title>{book.title}</St.Title>
+                  <St.Plot>{book.description}</St.Plot>
+                </St.BookIntro>
+              </St.BookWrapper>
+            </St.BookImageWrapper>
+          );
+        })}
+      </St.Body>
+    </St.Container>
   );
 };
 

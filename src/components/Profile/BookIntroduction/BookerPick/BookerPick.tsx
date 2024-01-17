@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import AboutBookNav from '../AboutBookNav';
 import * as St from './bookerPick.styled';
 
 interface BookerPicks {
@@ -21,9 +20,9 @@ const BookerPick = () => {
     const response = await axios.get('https://port-0-node-express-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks');
     setBookerPick(response.data.item);
   };
+  /* 중첩 라우터 , 레이아웃을 하나 만들고  */
   return (
     <St.Section>
-      <AboutBookNav />
       <St.Container>
         <St.Header>
           <h2>북커픽</h2>
