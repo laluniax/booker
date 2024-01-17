@@ -1,69 +1,102 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { filteredCategory } from '../../../api/supabase.api';
+import { CateGenresTypes, categoryUuid } from '../bookertalkpost/Post';
 import * as St from './BookerTalkMain.styled';
+
+// post 타입
+export type Tablesposts = {
+  id: number;
+  created_at: string;
+  title: string;
+  content: string;
+  tags: string[];
+  user_id: string;
+  genre_id: string;
+};
+
 const BookerTalkMain = () => {
   const navigation = useNavigate();
-  const genreData = {
-    인문: ['책1', '책2'],
-    경제경영: ['책3', '책4'],
-    자기계발: ['책5', '책6'],
-    정치사회: ['책7', '책8'],
-    역사문화: ['책9', '책10'],
-    과학: ['책11', '책12'],
-    소설: ['책13', '책14'],
-    시에세이: ['책15', '책16'],
+  const params = useParams().id;
+  const date = new Date();
+
+  const [data, setData] = useState<Tablesposts[]>();
+
+  const recommendButtonHandler = () =>
+    Object.keys(categoryUuid)
+      .slice(0, 8)
+      .map((genre) => (
+        <St.GenreButton key={genre} onClick={() => navigation(`/bookertalk/${categoryUuid[genre]}`)}>
+          {genre.slice(7)}
+        </St.GenreButton>
+      ));
+
+  const freeTalkButtonHandler = () =>
+    Object.keys(categoryUuid)
+      .slice(8, 16)
+      .map((genre) => (
+        <St.GenreButton key={genre} onClick={() => navigation(`/bookertalk/${categoryUuid[genre]}`)}>
+          {genre.slice(7)}
+        </St.GenreButton>
+      ));
+
+  // 포스트의 id랑 똑같은 정보 가져오는 함수
+  const getFilteredCategoryPosts = async () => {
+    const result = await filteredCategory(params as string);
+    setData(result);
   };
-  const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
 
-  const GenreClickhandler = (genre: string) => {
-    setSelectedGenre(genre);
+  // genreUuid를 찾아서 key 역추적
+  const findKeyByValue = (obj: CateGenresTypes, genreUuid: string) => {
+    for (const key of Object.keys(obj)) {
+      if (obj[key] === genreUuid) {
+        return key;
+      }
+    }
   };
 
-  const renderGenreButtons = () =>
-    Object.keys(genreData).map((genre) => (
-      <St.GenreButton key={genre} onClick={() => GenreClickhandler(genre)}>
-        {genre}
-      </St.GenreButton>
-    ));
-
-  const renderSelectedGenre = () =>
-    selectedGenre && (
-      <div>
-        <h2>{selectedGenre}</h2>
-        <ul>
-          {genreData[selectedGenre as keyof typeof genreData].map((book) => (
-            <li key={book}>{book}</li>
-          ))}
-        </ul>
-      </div>
-    );
+  useEffect(() => {
+    params && getFilteredCategoryPosts();
+  }, [params]);
 
   return (
     <>
-      <St.MainWrapper>
+      <St.Title>
+        {params ? findKeyByValue(categoryUuid, params as string) : '북커톡'}
+        <St.PostButton onClick={() => navigation('/bookertalk/write')}>글쓰기</St.PostButton>
+      </St.Title>
+      <St.Container>
         <St.CategoryWrapper>
           <St.CategoryBox>
             <St.BookRecommendBox>
-              <St.Title>도서추천</St.Title>
+              <St.CategoryTitle>도서추천</St.CategoryTitle>
 
-              <St.GenreButtonbox>{renderGenreButtons()}</St.GenreButtonbox>
+              <St.GenreButtonbox>{recommendButtonHandler()}</St.GenreButtonbox>
             </St.BookRecommendBox>
             <St.FreeTalkBox>
-              <St.Title>자유수다</St.Title>
-              <St.GenreButtonbox>{renderGenreButtons()}</St.GenreButtonbox>
+              <St.CategoryTitle>자유수다</St.CategoryTitle>
+              <St.GenreButtonbox>{freeTalkButtonHandler()}</St.GenreButtonbox>
             </St.FreeTalkBox>
           </St.CategoryBox>
         </St.CategoryWrapper>
-        <div>
-          <h2></h2>
-        </div>
-        <St.PostWrapper>
-          <St.PostBox>{renderSelectedGenre()}</St.PostBox>
-        </St.PostWrapper>
-      </St.MainWrapper>
-      <div>
-        <button onClick={() => navigation('/bookertalk/write')}>글 작성</button>
-      </div>
+        <St.PostListWrapper>
+          {data?.map((item, i) => {
+            return (
+              <St.PostListBox
+                key={i}
+                onClick={() => {
+                  navigation(`/detail/${item.id}`);
+                }}>
+                <St.PostTitle>{item.title}</St.PostTitle>
+                {/* <span>{item.user_id}</span> */}
+                {/* <St.PostContent>{item.created_at}</St.PostContent> */}
+                {/* <St.PostDate>{item.content}</St.PostDate> */}
+                <St.PostNickName>닉네임</St.PostNickName>
+              </St.PostListBox>
+            );
+          })}
+        </St.PostListWrapper>{' '}
+      </St.Container>
     </>
   );
 };

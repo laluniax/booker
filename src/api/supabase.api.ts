@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { nanoid } from 'nanoid';
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL as string;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY as string;
@@ -126,14 +127,55 @@ type ProductTypes = {
   price: string;
   category: string;
   productGrade: string;
+  productImg: File[];
 };
 
 // 상품 등록하기
-export const sumbitProductHandler = async ({ userId, title, content, price, category, productGrade }: ProductTypes) => {
+export const sumbitProductHandler = async ({
+  userId,
+  title,
+  content,
+  price,
+  category,
+  productGrade,
+  productImg,
+}: ProductTypes) => {
   const { data, error } = await supabase
     .from('products')
-    .insert([{ user_id: userId, product_img: '', title, content, price, category, product_grade: productGrade }])
+    .insert([{ user_id: userId, title, content, price, category, product_grade: productGrade }])
     .select();
+  if (data) {
+    const productId = data[0]?.id;
+    await uploadProductImgStorageUrl(productId, productImg);
+  }
+
+  if (error) throw error;
+  return data;
+};
+
+// 상품 사진 storage에 저장 후 url까지 받아오는 함수
+export const uploadProductImgStorageUrl = async (productId: string, productImg: File[]) => {
+  const uploadImg = productImg.map(async (item) => {
+    const imgName = nanoid();
+    const { data, error } = await supabase.storage.from('product_img').upload(`${productId}/${imgName}`, item);
+    if (error) throw error;
+    return data;
+  });
+  const imgUrl = await Promise.all(uploadImg);
+  const imgUrls = getPublicUrlsHandler(imgUrl);
+  await updateProductImgPublicUrlHandler(imgUrls, productId);
+};
+// storage에 있는 상품 사진 publicUrl로 불러오는 함수
+const getPublicUrlsHandler = (imgUrl: { path: string }[]) => {
+  const imgUrls = imgUrl.map((item) => {
+    const { data } = supabase.storage.from('product_img').getPublicUrl(`${item.path}`);
+    return data.publicUrl;
+  });
+  return imgUrls;
+};
+// 테이블에 publicUrls 받아온 배열 업데이트하는 함수
+const updateProductImgPublicUrlHandler = async (imgUrls: string[], productId: string) => {
+  const { data, error } = await supabase.from('products').update({ product_img: imgUrls }).eq('id', productId).select();
   if (error) throw error;
   return data;
 };
@@ -141,6 +183,12 @@ export const sumbitProductHandler = async ({ userId, title, content, price, cate
 // 상품 읽어오기 (market list 사용)
 export const getProductListHandler = async () => {
   const { data, error } = await supabase.from('products').select('*');
+  if (error) throw error;
+  return data;
+};
+// 상품 읽어오기 (params category 사용)
+export const getCategoryProductListHandler = async (category: string) => {
+  const { data, error } = await supabase.from('products').select('*').eq('category', category);
   if (error) throw error;
   return data;
 };
@@ -152,18 +200,112 @@ export const getProductHandler = async (id: string) => {
   return data;
 };
 
-type PostTypes = {
+export type PostTypes = {
   title: string;
   content: string;
   tags: string[];
-  category: string;
-  genre: string;
   userId: string;
+  genreUuid: string;
 };
 
-// 북커톡 글 작성 완료시 데이터 등록하기
-export const submitPostListHandler = async ({ title, content, tags, category, genre, userId }: PostTypes) => {
-  const { data, error } = await supabase.from('posts').insert([{ userId, title, content, tags, category, genre }]);
+// 북커톡 게시판 글 작성 완료시 데이터 등록하는 함수입니다.
+export const submitPostListHandler = async ({ title, content, tags, userId, genreUuid }: PostTypes) => {
+  const { data, error } = await supabase
+    .from('posts')
+    .insert([{ user_id: userId, title, content, tags, genre_id: genreUuid }])
+    .select();
+
   if (error) throw error;
   return data;
+};
+
+// 포스트의 genre_id와 같은 데이터를 불러오는 함수입니다.
+export const filteredCategory = async (params: string) => {
+  const { data, error } = await supabase.from('posts').select('*').eq('genre_id', params);
+  if (error) throw error;
+  return data;
+};
+
+// 포스트의 id랑 똑같은 정보 가져오는 함수입니다.
+export const filteredPostId = async (params: string) => {
+  const { data, error } = await supabase.from('posts').select('*').eq('id', params);
+  if (error) throw error;
+  return data;
+};
+// userId로 posts 풀러오는 함수(profile)
+export const filterPostsByUserIdHandler = async (userId: string) => {
+  const { data, error } = await supabase.from('posts').select('*').eq('user_id', userId);
+  if (error) throw error;
+  return data;
+};
+// userId로 products 불러오는 함수(profile)
+export const filterProductsByUserIdHandler = async (userId: string) => {
+  const { data, error } = await supabase.from('products').select('*').eq('user_id', userId);
+  if (error) throw error;
+  return data;
+};
+
+// comment 불러오는 함수 (해당 postId에 따른 댓글 불러오기)
+// export const filterCommentHandler = async (postId: number) => {
+//   const { data, error } = await supabase.from('comments').select('*').eq('post_id', postId);
+//   if (error) throw error;
+//   return data;
+// };
+
+// comments 정보 가져오는 함수(댓글)
+export const getCommentsInfoHandler = async (postId: number) => {
+  const { data, error } = await supabase.from('posts').select('*,comments(*,users(*))').eq('id', postId);
+  if (error) throw error;
+  return data;
+};
+
+// comment 추가하는 함수
+export const insertCommentHandler = async (postId: number, userId: string, content: string) => {
+  const { data, error } = await supabase.from('comments').insert([{ post_id: postId, user_id: userId, content }]);
+  if (error) throw error;
+  return data;
+};
+
+// comment 업데이트하는 함수
+export const updateCommentHandler = async (content: string, commentId: number) => {
+  const { data, error } = await supabase.from('comments').update({ content: content }).eq('id', commentId).select();
+  if (error) throw error;
+  return data;
+};
+
+// comment 삭제하는 함수 (클릭하면 댓글 아이디 받아서 해당 댓글 삭제하기)
+export const deleteCommentHandler = async (commentId: number) => {
+  const { error } = await supabase.from('comments').delete().eq('id', commentId);
+  if (error) throw error;
+};
+
+// comments 정보 가져오는 함수(대댓글)
+export const getSubCommentsInfoHandler = async (commentId: number) => {
+  const { data, error } = await supabase.from('comments').select('*,subcomments(*,users(*))').eq('id', commentId);
+  if (error) throw error;
+  return data;
+};
+
+// subcomments 추가하는 함수
+export const insertSubCommentHandler = async (commentId: number, userId: string, content: string) => {
+  const { data, error } = await supabase
+    .from('subcomments')
+    .insert([{ comment_id: commentId, user_id: userId, content }])
+    .select();
+};
+// subcomments 업뎃하는 함수
+export const updateSubCommentHandler = async (content: string, subCommentId: number) => {
+  const { data, error } = await supabase
+    .from('subcomments')
+    .update({ content: content })
+    .eq('id', subCommentId)
+    .select();
+  if (error) throw error;
+  return data;
+};
+
+// subcomments 삭제하는 함수
+export const deleteSubCommentHandler = async (subCommentId: number) => {
+  const { error } = await supabase.from('subcomments').delete().eq('id', subCommentId);
+  if (error) throw error;
 };

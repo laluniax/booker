@@ -18,8 +18,10 @@ import BestSellerDomFor from '../components/survey/surveyResult/BestSellerDomFor
 import BestSellerGenre from '../components/survey/surveyResult/BestSellerGenre';
 import BestSellerNew from '../components/survey/surveyResult/BestSellerNew';
 import BestSellerValue from '../components/survey/surveyResult/BestSellerValue';
+import Chat from '../components/wishper/Chat';
 import AboutBooks from '../pages/AboutBooks';
 import BookerTalk from '../pages/BookerTalk';
+import BookerTalkDetail from '../pages/BookerTalkDetail';
 import BookerTalkPost from '../pages/BookerTalkPost';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
@@ -33,14 +35,18 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/c" element={<Chat />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
+
           <Route path="*" element={<Navigate replace to="/" />} />
           <Route path="/profile/:id" element={<Profile />} />
 
           {/* 북커톡 커뮤니티 */}
           <Route path="/bookertalk" element={<BookerTalk />} />
+          <Route path="/bookertalk/:id" element={<BookerTalk />} />
           <Route path="/bookertalk/write" element={<BookerTalkPost />} />
+          <Route path="/detail/:id" element={<BookerTalkDetail />} />
 
           {/* 도서 소개 페이지 */}
           <Route path="/aboutbooks" element={<AboutBooks />} />
@@ -60,6 +66,7 @@ const Router = () => {
           <Route path="/bestSellerDomFor/:genre" element={<BestSellerDomFor />} />
           <Route path="/bestSellerNew/:genre" element={<BestSellerNew />} />
           <Route path="/bestSellerValue/:genre" element={<BestSellerValue />} />
+          <Route path="/market/:id" element={<Market />} />
           <Route path="/marketpost" element={<MarketPost />} />
           <Route path="/product/:id" element={<MarketProduct />} />
           {/* Qna 페이지 */}
