@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../../api/supabase.api';
-import * as St from './adminchat.styled';
+import { supabase } from '../../api/supabase.api';
+import * as St from './Adminchat.styled';
 interface QnaItem {
   content: string;
   id: number;

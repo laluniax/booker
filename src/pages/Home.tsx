@@ -1,8 +1,4 @@
-import ChatModal from '../components/layout/qna/ChatModal';
-
-
-
-
+import ChatModal from '../components/qna/ChatModal';
 
 const Home = () => {
   return (
@@ -10,7 +6,6 @@ const Home = () => {
       <ChatModal />
     </>
   );
-
 };
 
 export default Home;

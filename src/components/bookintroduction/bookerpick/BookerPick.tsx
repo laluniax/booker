@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as St from './bookerPick.styled';
+import * as St from './BookerPick.styled';
 
 interface BookerPicks {
   author: string;
