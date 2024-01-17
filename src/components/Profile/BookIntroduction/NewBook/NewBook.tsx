@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import AboutBookNav from '../AboutBookNav';
+import { useNavigate } from 'react-router-dom';
 import * as St from './newBook.styled';
 
 interface NewBooks {
@@ -10,19 +10,25 @@ interface NewBooks {
   description: string;
   title: string;
   bestRank: number;
+  isbn13: string;
 }
 const NewBook = () => {
   const [newBook, setNewBook] = useState<NewBooks[]>([]);
+  const navigate = useNavigate();
   useEffect(() => {
     getaNewBook();
   }, []);
   const getaNewBook = async () => {
-    const response = await axios.get('https://port-0-node-express-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks');
+    const response = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks');
     setNewBook(response.data.item);
+  };
+  console.log(newBook);
+
+  const GotoDetailPage = (isbn13: string) => {
+    navigate(`/aboutBook/${isbn13}`);
   };
   return (
     <St.Section>
-      <AboutBookNav />
       <St.Container>
         <St.Header>
           <h2>신간도서</h2>
@@ -30,7 +36,7 @@ const NewBook = () => {
         <St.Body>
           {newBook.map((book) => {
             return (
-              <St.BookImageWrapper key={book.bestRank}>
+              <St.BookImageWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
                 <St.BookGenre>{book.categoryName}</St.BookGenre>
                 <St.BookWrapper>
                   <St.BookImg>

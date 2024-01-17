@@ -68,7 +68,7 @@ app.use(
     },
   }),
 );
-// 베스트셀러 목록을 가져오는 라우트
+// 알라딘 베스트셀러 목록을 가져오는 라우트
 app.get('/bestseller', async (req, res) => {
   const queryType = 'Bestseller';
   // 알라딘 API의 베스트셀러 리스트에 대한 URL 생성
@@ -85,7 +85,7 @@ app.get('/bestseller', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-// 신간 목록을 가져오는 라우트
+// 알라딘 신간 목록을 가져오는 라우트
 app.get('/newbooks', async (req, res) => {
   const queryType = 'ItemNewAll';
   const aladinApiUrl = `${aladinApiBaseUrl}?ttbkey=${aladinApiKey}&QueryType=${queryType}&MaxResults=100&start=1&SearchTarget=Book&output=js&Cover=Big&CategoryId&Version=20131101`;
@@ -98,7 +98,7 @@ app.get('/newbooks', async (req, res) => {
   }
 });
 
-// 특별 선정 목록을 가져오는 라우트
+// 알라딘 특별 선정 목록을 가져오는 라우트
 app.get('/special', async (req, res) => {
   const queryType = 'ItemNewSpecial';
   const aladinApiUrl = `${aladinApiBaseUrl}?ttbkey=${aladinApiKey}&QueryType=${queryType}&MaxResults=100&start=1&SearchTarget=Book&output=js&Cover=Big&Version=20131101`;
@@ -110,7 +110,7 @@ app.get('/special', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-// 책 검색 결과를 가져오는 라우트
+// 네이버, 알라딘 책 검색 결과를 가져오는 라우트
 app.get('/search', async (req, res) => {
   try {
     // 쿼리스트링에서 isbn과 검색어를 추출
@@ -133,8 +133,8 @@ app.get('/search', async (req, res) => {
     }
 
     const naverHeaders = {
-      'X-Naver-Client-Id': naverClientId,
-      'X-Naver-Client-Secret': naverClientSecret,
+      'X-Naver-Client-Id': 'jz8E6dsp3oeRxe34lpUt',
+      'X-Naver-Client-Secret': 'wBSKf3_ev8',
     };
     // 알라딘 API와 네이버 API에 동시에 데이터 요청을 보냄
     const [naverData, aladinData] = await Promise.all([fetchData(naverApiUrl, naverHeaders), fetchData(aladinApiUrl)]);

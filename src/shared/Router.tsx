@@ -1,8 +1,10 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import BookBestseller from '../components/Profile/BookIntroduction/BookBestseller/BookBestseller';
+import BookDetailPage from '../components/Profile/BookIntroduction/BookDetailPage/BookDetailPage';
 import BookSpecial from '../components/Profile/BookIntroduction/BookSpecial/BookSpecial';
 import BookerPick from '../components/Profile/BookIntroduction/BookerPick/BookerPick';
 import NewBook from '../components/Profile/BookIntroduction/NewBook/NewBook';
+import AboutLayout from '../components/layout/AboutLayout';
 import Layout from '../components/layout/Layout';
 import AdminChatRoom from '../components/layout/qna/AdminChatRoom';
 import BestSellerCheapSurvey from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey';
@@ -70,10 +72,14 @@ const Router = () => {
           {/* Qna 페이지 */}
           <Route path="/chat/:roomId" element={<AdminChatRoom />} />
           {/* 도서소개 페이지  */}
-          <Route path="/aboutBook/Bestseller" element={<BookBestseller />} />
-          <Route path="/aboutBook/NewBook" element={<NewBook />} />
-          <Route path="/aboutBook/BookSpecial" element={<BookSpecial />} />
-          <Route path="/aboutBook/BookerPick" element={<BookerPick />} />
+          <Route element={<AboutLayout />}>
+            <Route path="/aboutBook/Bestseller" element={<BookBestseller />} />
+            <Route path="/aboutBook/NewBook" element={<NewBook />} />
+            <Route path="/aboutBook/BookSpecial" element={<BookSpecial />} />
+            <Route path="/aboutBook/BookerPick" element={<BookerPick />} />
+          </Route>
+          {/* 도서 이동 페이지 */}
+          <Route path="/aboutBook/:itemId" element={<BookDetailPage />} />
         </Route>
 
         {/* 로그인/ 회원가입에 헤더 푸터 적용하고 싶으시면 Layout 라우터 태그 안에 넣어주시면 됩니다. */}
