@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as St from './bookIntroduction.styled';
 
 interface Bestseller {
@@ -9,6 +10,7 @@ interface Bestseller {
   description: string;
   title: string;
   bestRank: number;
+  isbn13: string;
 }
 
 const BookBestseller = () => {
@@ -17,9 +19,16 @@ const BookBestseller = () => {
     bookBestseller();
   }, []);
 
+  const navigate = useNavigate();
+
+  console.log(bestSeller);
   const bookBestseller = async () => {
-    const response = await axios.get('https://port-0-node-express-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller');
+    const response = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller');
     setBestseller(response.data.item);
+  };
+
+  const GotoDetailPage = (isbn13: string) => {
+    navigate(`/aboutBook/${isbn13}`);
   };
 
   return (
@@ -30,7 +39,7 @@ const BookBestseller = () => {
       <St.Body>
         {bestSeller.map((book) => {
           return (
-            <St.BookImageWrapper key={book.bestRank}>
+            <St.BookImageWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
               <St.BookGenre>{book.categoryName}</St.BookGenre>
               <St.BookWrapper>
                 <St.BookImg>

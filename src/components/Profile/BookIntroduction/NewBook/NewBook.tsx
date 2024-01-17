@@ -10,7 +10,7 @@ interface NewBooks {
   description: string;
   title: string;
   bestRank: number;
-  itemId: number;
+  isbn13: string;
 }
 const NewBook = () => {
   const [newBook, setNewBook] = useState<NewBooks[]>([]);
@@ -19,13 +19,13 @@ const NewBook = () => {
     getaNewBook();
   }, []);
   const getaNewBook = async () => {
-    const response = await axios.get('https://port-0-node-express-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks');
+    const response = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks');
     setNewBook(response.data.item);
   };
   console.log(newBook);
 
-  const GotoDetailPage = (itemId: number) => {
-    navigate(`/aboutBook/${itemId}`);
+  const GotoDetailPage = (isbn13: string) => {
+    navigate(`/aboutBook/${isbn13}`);
   };
   return (
     <St.Section>
@@ -36,7 +36,7 @@ const NewBook = () => {
         <St.Body>
           {newBook.map((book) => {
             return (
-              <St.BookImageWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.itemId)}>
+              <St.BookImageWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
                 <St.BookGenre>{book.categoryName}</St.BookGenre>
                 <St.BookWrapper>
                   <St.BookImg>

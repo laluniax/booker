@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import BookBestseller from '../components/Profile/BookIntroduction/BookBestseller/BookBestseller';
-import BookDetailPage from '../components/Profile/BookIntroduction/BookDetailPage';
+import BookDetailPage from '../components/Profile/BookIntroduction/BookDetailPage/BookDetailPage';
 import BookSpecial from '../components/Profile/BookIntroduction/BookSpecial/BookSpecial';
 import BookerPick from '../components/Profile/BookIntroduction/BookerPick/BookerPick';
 import NewBook from '../components/Profile/BookIntroduction/NewBook/NewBook';

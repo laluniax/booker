@@ -14,7 +14,7 @@ const BestSellerDomFor = () => {
   console.log(genre);
   const fetchData = async () => {
     try {
-      const result = await axios.get('http://localhost:8080/bestseller');
+      const result = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller');
       setBestsellers(result.data.item);
     } catch (error) {
       console.log('Error fetching data:', error);
