@@ -1,5 +1,5 @@
-import AboutBookNav from '../components/Profile/BookIntroduction/AboutBookNav';
-import BookBestseller from '../components/Profile/BookIntroduction/BookBestseller/BookBestseller';
+import AboutBookNav from '../components/profile1/bookintroduction1/AboutBookNav';
+import BookBestseller from '../components/profile1/bookintroduction1/bookbestseller1/BookBestseller';
 
 const AboutBooks = () => {
   return (

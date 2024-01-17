@@ -1,9 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import BookBestseller from '../components/Profile/BookIntroduction/BookBestseller/BookBestseller';
-import BookDetailPage from '../components/Profile/BookIntroduction/BookDetailPage/BookDetailPage';
-import BookSpecial from '../components/Profile/BookIntroduction/BookSpecial/BookSpecial';
-import BookerPick from '../components/Profile/BookIntroduction/BookerPick/BookerPick';
-import NewBook from '../components/Profile/BookIntroduction/NewBook/NewBook';
+// import BookBestseller from '../components/profile1/bookintroduction/BookBestseller/BookBestseller';
+// import BookDetailPage from '../components/Profile/BookIntroduction/BookDetailPage/BookDetailPage';
+// import BookSpecial from '../components/Profile/BookIntroduction/BookSpecial/BookSpecial';
+// import BookerPick from '../components/Profile/BookIntroduction/BookerPick/BookerPick';
+// import NewBook from '../components/Profile/BookIntroduction/NewBook/NewBook';
 import AboutLayout from '../components/layout/AboutLayout';
 import Layout from '../components/layout/Layout';
 import AdminChatRoom from '../components/layout/qna/AdminChatRoom';
@@ -18,7 +18,7 @@ import BestSellerDomFor from '../components/survey/surveyResult/BestSellerDomFor
 import BestSellerGenre from '../components/survey/surveyResult/BestSellerGenre';
 import BestSellerNew from '../components/survey/surveyResult/BestSellerNew';
 import BestSellerValue from '../components/survey/surveyResult/BestSellerValue';
-import Chat from '../components/wishper/Chat';
+// import Chat from '../components/wishper/Chat';
 import AboutBooks from '../pages/AboutBooks';
 import BookerTalk from '../pages/BookerTalk';
 import BookerTalkDetail from '../pages/BookerTalkDetail';
@@ -30,6 +30,12 @@ import MarketPost from '../pages/MarketPost';
 import MarketProduct from '../pages/MarketProduct';
 import Profile from '../pages/Profile';
 import Survey from '../pages/Survey';
+import BookBestseller from '../components/profile1/bookintroduction1/bookbestseller1/BookBestseller';
+import NewBook from '../components/profile1/bookintroduction1/newbook1/NewBook';
+import BookSpecial from '../components/profile1/bookintroduction1/bookspecial1/BookSpecial';
+import BookerPick from '../components/profile1/bookintroduction1/bookerpick1/BookerPick';
+import BookDetailPage from '../components/profile1/bookintroduction1/bookdetailpage1/BookDetailPage';
+import Chat from '../components/wishper1/Chat';
 
 const Router = () => {
   return (

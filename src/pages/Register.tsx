@@ -1,11 +1,8 @@
-
-import Form from '../components/register/Form';
-
+import Form from '../components/register1/Form';
 
 const Register = () => {
   return;
-   <Form />;
-
+  <Form />;
 };
 
 export default Register;
