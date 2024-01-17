@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import * as St from './BookDetailPage1.styled';
+import * as St from './BookDetailPage.styled';
 
 interface BookData {
   title: string;

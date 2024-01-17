@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import * as St from './AboutBookNav1.styled';
+import * as St from './AboutBookNav.styled';
 
 const AboutBookNav = () => {
   const navigate = useNavigate();
