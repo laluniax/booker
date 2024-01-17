@@ -1,4 +1,4 @@
-import Chat from '../components/layout/qna/ChatModal';
+import ChatModal from '../components/layout/qna/ChatModal';
 
 
 
@@ -7,7 +7,7 @@ import Chat from '../components/layout/qna/ChatModal';
 const Home = () => {
   return (
     <>
-      <Chat />
+      <ChatModal />
     </>
   );
 

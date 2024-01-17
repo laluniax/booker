@@ -20,7 +20,6 @@ const AdminChatRoom = () => {
   const [answerMessage, setAnswerMessage] = useState('');
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
-
   const params = useParams();
   const roomId = params.roomId;
   //   console.log(params);
