@@ -293,6 +293,7 @@ export const insertSubCommentHandler = async (commentId: number, userId: string,
     .insert([{ comment_id: commentId, user_id: userId, content }])
     .select();
 };
+
 // subcomments 업뎃하는 함수
 export const updateSubCommentHandler = async (content: string, subCommentId: number) => {
   const { data, error } = await supabase
@@ -308,4 +309,12 @@ export const updateSubCommentHandler = async (content: string, subCommentId: num
 export const deleteSubCommentHandler = async (subCommentId: number) => {
   const { error } = await supabase.from('subcomments').delete().eq('id', subCommentId);
   if (error) throw error;
+};
+
+// mapMarkerData 가져오는 함수
+export const mapMarkerDataHandler = async () => {
+  const { data, error } = await supabase.from('independentBookStores').select('*');
+  console.log(data);
+  console.log(error);
+  return data;
 };

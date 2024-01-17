@@ -1,11 +1,41 @@
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getUserDataHandler, supabase } from '../../api/supabase.api';
 import * as St from './SurveyList.styled';
 const SurveyList = () => {
+  const [nickname, setNickname] = useState('');
   const navigate = useNavigate();
+  const params = useParams().id;
+
+  const getUserData = async () => {
+    try {
+      const result = await getUserDataHandler(params as string);
+      console.log(result[0]);
+      if (result.length > 0) {
+        setNickname(result[0].nickname);
+      } else {
+        console.log('User not found');
+      }
+    } catch (err) {
+      console.log('err : ', err);
+    }
+  };
+
+  const a = async () => {
+    // try {
+    const { data } = await supabase.from('users').select('nickname');
+    setNickname(data as any);
+    console.log(nickname);
+  };
+  // } catch (err) {
+  //   console.log('err : ', err);
+  // }
+
+  useEffect(() => {}, []);
 
   return (
     <St.Container>
-      <St.Title>LOGO가 00님이 좋아할만한 책을 추천해드릴게요!</St.Title>
+      <St.Title>LOGO가 {nickname}님이 좋아할만한 책을 추천해드릴게요!</St.Title>
       <St.BtnContainaer>
         <button
           onClick={() => {

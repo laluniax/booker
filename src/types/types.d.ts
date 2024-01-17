@@ -626,3 +626,27 @@ export type Enums<
   : PublicEnumNameOrOptions extends keyof Database['public']['Enums']
     ? Database['public']['Enums'][PublicEnumNameOrOptions]
     : never;
+
+export type mapMarkerDataTypes = {
+  id: number;
+  gov_id: string;
+  name: string;
+  category1: string;
+  category2: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  weekdays_open_at: number;
+  weekdays_close_at: number;
+  saturday_open_at: number;
+  saturday_close_at: number;
+  sunday_open_at: number;
+  sunday_close_at: number;
+  closedDay_open_at: number;
+  closedDay_close_at: number;
+  closedDay_guide: string;
+  tel_num: number;
+  optn_dc: string;
+  adit_dc: string;
+  postal_code: number;
+};
