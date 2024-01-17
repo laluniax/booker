@@ -20,19 +20,21 @@ const Header = () => {
         }}>
         로고
       </div>
-
       <St.HeaderUl>
         <St.HeaderLi>
           <a href="/bookertalk">북커톡</a>
-        </St.HeaderLi>
-        <St.HeaderLi>
-          <a href="/market">중고거래</a>
         </St.HeaderLi>
         <St.HeaderLi>
           <a href="/aboutbooks">도서소개</a>
         </St.HeaderLi>
         <St.HeaderLi>
           <a href="/survey">책 추천 받기</a>
+        </St.HeaderLi>
+        <St.HeaderLi>
+          <a href="/market">중고거래</a>
+        </St.HeaderLi>
+        <St.HeaderLi>
+          <a href="/indBookStores">독립서점</a>
         </St.HeaderLi>
       </St.HeaderUl>
       <St.HeaderUl>

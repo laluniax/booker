@@ -30,6 +30,7 @@ import NewBook from '../components/bookintroduction/newbook/NewBook';
 import BookSpecial from '../components/bookintroduction/bookspecial/BookSpecial';
 import BookerPick from '../components/bookintroduction/bookerpick/BookerPick';
 import BookDetailPage from '../components/bookintroduction/bookdetailpage/BookDetailPage';
+import IndBookStores from '../pages/IndBookStores';
 
 const Router = () => {
   return (
@@ -55,31 +56,33 @@ const Router = () => {
           <Route path="/marketproduct" element={<MarketProduct />} />
           {/* 설문조사 페이지 / 설문조사 질문 페이지 / 설문조사 결과 페이지 */}
           <Route path="/survey" element={<Survey />} />
-          <Route path="/bestSellerCheapSurvey" element={<BestSellerCheapSurvey />} />
-          <Route path="/bestSellerCheapSurvey2" element={<BestSellerCheapSurvey2 />} />
-          <Route path="/bestSellerDomForSurvey" element={<BestSellerDomForSurvey />} />
-          <Route path="/bestSellerGenreSurvey" element={<BestSellerGenreSurvey />} />
-          <Route path="/bestSellerNewSurvey" element={<BestSellerNewSurvey />} />
-          <Route path="/bestSellerValueSurvey" element={<BestSellerValueSurvey />} />
-          <Route path="/bestSellerGenre/:genre" element={<BestSellerGenre />} />
-          <Route path="/bestSellerCheap/:genre" element={<BestSellerCheap />} />
-          <Route path="/bestSellerDomFor/:genre" element={<BestSellerDomFor />} />
-          <Route path="/bestSellerNew/:genre" element={<BestSellerNew />} />
-          <Route path="/bestSellerValue/:genre" element={<BestSellerValue />} />
+          <Route path="/bestsellercheapsurvey" element={<BestSellerCheapSurvey />} />
+          <Route path="/bestsellercheapsurvey2" element={<BestSellerCheapSurvey2 />} />
+          <Route path="/bestsellerdomforsurvey" element={<BestSellerDomForSurvey />} />
+          <Route path="/bestsellergenresurvey" element={<BestSellerGenreSurvey />} />
+          <Route path="/bestsellernewsurvey" element={<BestSellerNewSurvey />} />
+          <Route path="/bestsellervaluesurvey" element={<BestSellerValueSurvey />} />
+          <Route path="/bestsellergenre/:genre" element={<BestSellerGenre />} />
+          <Route path="/bestsellercheap/:genre" element={<BestSellerCheap />} />
+          <Route path="/bestsellerdomfor/:genre" element={<BestSellerDomFor />} />
+          <Route path="/bestsellernew/:genre" element={<BestSellerNew />} />
+          <Route path="/bestsellervalue/:genre" element={<BestSellerValue />} />
           <Route path="/market/:id" element={<Market />} />
           <Route path="/marketpost" element={<MarketPost />} />
           <Route path="/product/:id" element={<MarketProduct />} />
+          {/* 독립서점 소개 페이지 */}
+          <Route path="/indbookstores" element={<IndBookStores />} />
           {/* Qna 페이지 */}
-          <Route path="/chat/:roomId" element={<AdminChatRoom />} />
+          <Route path="/chat/:roomid" element={<AdminChatRoom />} />
           {/* 도서소개 페이지  */}
           <Route element={<AboutLayout />}>
-            <Route path="/aboutBook/Bestseller" element={<BookBestseller />} />
-            <Route path="/aboutBook/NewBook" element={<NewBook />} />
-            <Route path="/aboutBook/BookSpecial" element={<BookSpecial />} />
-            <Route path="/aboutBook/BookerPick" element={<BookerPick />} />
+            <Route path="/aboutbook/bestseller" element={<BookBestseller />} />
+            <Route path="/aboutbook/newbook" element={<NewBook />} />
+            <Route path="/aboutbook/bookspecial" element={<BookSpecial />} />
+            <Route path="/aboutbook/bookerpick" element={<BookerPick />} />
           </Route>
           {/* 도서 이동 페이지 */}
-          <Route path="/aboutBook/:itemId" element={<BookDetailPage />} />
+          <Route path="/aboutbook/:itemid" element={<BookDetailPage />} />
         </Route>
 
         {/* 로그인/ 회원가입에 헤더 푸터 적용하고 싶으시면 Layout 라우터 태그 안에 넣어주시면 됩니다. */}
