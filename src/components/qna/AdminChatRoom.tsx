@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { supabase } from '../../../api/supabase.api';
-import { useAuth } from '../../../contexts/auth.context';
+import { supabase } from '../../api/supabase.api';
+import { useAuth } from '../../contexts/auth.context';
 import * as St from './adminchatroom.styled';
 
 interface Message {

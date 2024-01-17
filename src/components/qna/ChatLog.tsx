@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../../../api/supabase.api';
-import { useAuth } from '../../../contexts/auth.context';
+import { supabase } from '../../api/supabase.api';
+import { useAuth } from '../../contexts/auth.context';
 import * as St from './ChatLog.styled';
 
 interface Message {

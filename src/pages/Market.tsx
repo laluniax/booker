@@ -1,4 +1,4 @@
-import MarketList from '../components/market1/MarketList';
+import MarketList from '../components/market/MarketList';
 
 const Market = () => {
   return <MarketList />;

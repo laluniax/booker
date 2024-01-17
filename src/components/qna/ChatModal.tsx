@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { supabase } from '../../../api/supabase.api';
-import { useAuth } from '../../../contexts/auth.context';
+import { supabase } from '../../api/supabase.api';
+import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
 import * as St from './ChatStyle';
