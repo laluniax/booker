@@ -195,10 +195,41 @@ export const getCategoryProductListHandler = async (category: string) => {
 
 // 상품 읽어오기 (params 이용 - product detail 사용)
 export const getProductHandler = async (id: string) => {
-  const { data, error } = await supabase.from('products').select('*').eq('id', id);
+  const { data, error } = await supabase.from('products').select('*, users(*)').eq('id', id);
   if (error) throw error;
   return data;
 };
+
+// 상품 삭제하기
+export const deleteProductHandler = async (productId: number) => {
+  const { error } = await supabase.from('products').delete().eq('id', productId);
+  return error;
+};
+
+// 상품 업데이트하기
+export const updateProductHandler = async (
+  { title, content, price, category, productGrade, productImg }: ProductTypes,
+  params: string,
+) => {
+  const { data, error } = await supabase
+    .from('products')
+    .update({ title, content, price, category, product_grade: productGrade, product_img: productImg })
+    .eq('id', params)
+    .select();
+
+  if (data) {
+    const productId = data[0]?.id;
+    await uploadProductImgStorageUrl(productId, productImg);
+  }
+  if (error) throw error;
+  return data;
+};
+// storage에서 이미지 가져오기
+// export const downloadImgFromStorageHandler = async (params: string) => {
+//   const { data, error } = await supabase.storage.from('product_img').download(`${params}`);
+//   if (error) throw error;
+//   return data;
+// };
 
 // Bookertalk
 export type PostTypes = {

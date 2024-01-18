@@ -46,6 +46,19 @@ type SubComments = {
   users: Tables<'users'>;
 };
 
+type ProductsTypes = {
+  category: string | null;
+  content: string | null;
+  created_at: string;
+  id: number;
+  price: string | null;
+  product_grade: string | null;
+  product_img: string[] | null;
+  title: string | null;
+  user_id: string | null;
+  users: Tables<'users'>;
+};
+
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export interface Database {

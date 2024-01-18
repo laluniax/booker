@@ -67,7 +67,7 @@ export function useCreateOrGetChat() {
 
         const { error } = await supabase.from('chats_users').insert([
           { chat_id: newChatData.id, user_id: userId, others_id: otherUserId, item_id: productId },
-          { chat_id: newChatData.id, others_id: userId, user_id: otherUserId,  item_id: productId },
+          { chat_id: newChatData.id, others_id: userId, user_id: otherUserId, item_id: productId },
         ]);
 
         if (error) {
@@ -114,7 +114,7 @@ export function useSendMessage() {
       throw new Error('메시지 삽입 중 오류가 발생했습니다');
     }
   };
-  console.log('메시지 성공');
+  // console.log('메시지 성공');
   return useMutation(sendDirectMessage, {
     onSuccess: () => {
       // 메시지 전송 성공 시 취할 행동, 예: 쿼리 무효화나 업데이트

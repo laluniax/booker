@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { getUserSessionHandler, sumbitProductHandler } from '../../../api/supabase.api';
+import {
+  getProductHandler,
+  getUserSessionHandler,
+  sumbitProductHandler,
+  updateProductHandler,
+} from '../../../api/supabase.api';
 import * as St from './Post.styled';
 
 export const categoryArr = [
@@ -43,12 +48,13 @@ const Post = () => {
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('건강/취미');
   const [productGrade, setProductGrade] = useState('최상');
+  // const [product, setProduct] = useState<ProductsTypes>();
 
   const [productImg, setProductImg] = useState<File[]>([]);
   const [tempImg, setTempImg] = useState<string[]>([]);
-  const [imgPublicUrl, setImgPublicUrl] = useState<string[]>([]);
 
   const navigate = useNavigate();
+  const params = useParams().id;
 
   const gradeArr = ['최상', '상', '중', '하', '최하'];
 
@@ -56,10 +62,41 @@ const Post = () => {
     const result = await getUserSessionHandler();
     setUserId(result.session?.user.id as string);
   };
+
+  const getProduct = async () => {
+    const result = await getProductHandler(params as string);
+    // const img = await downloadImgFromStorageHandler(params as string);
+    console.log(result[0]);
+    // console.log(img);
+    setUserId(result[0].user_id);
+    setTitle(result[0].title);
+    setContent(result[0].content);
+    setPrice(result[0].price);
+    setCategory(result[0].category);
+    setProductGrade(result[0].product_grade);
+    setTempImg(result[0].product_img);
+  };
   const onSubmitProduct = async () => {
     try {
-      const result = await sumbitProductHandler({ userId, title, content, price, category, productGrade, productImg });
-      navigate(`/product/${result[0].id}`);
+      if (params) {
+        const result = await updateProductHandler(
+          { userId, title, content, price, category, productGrade, productImg },
+          params as string,
+        );
+        console.log(result);
+        navigate(`/product/${params}`);
+      } else {
+        const result = await sumbitProductHandler({
+          userId,
+          title,
+          content,
+          price,
+          category,
+          productGrade,
+          productImg,
+        });
+        navigate(`/product/${result[0].id}`);
+      }
     } catch (error) {
       alert('등록 불가');
       console.log('‼️', error);
@@ -84,8 +121,18 @@ const Post = () => {
   };
   useEffect(() => {
     getUserSession();
+    params && getProduct();
   }, []);
 
+  // useEffect(() => {
+  // setUserId(product?.users.id as string);
+  // setTitle(product?.title as string);
+  // setContent(product?.content as string);
+  // setPrice(product?.price as string);
+  // setCategory(product?.category as string);
+  // setProductGrade(product?.product_grade as string);
+  // setTempImg(product?.product_img as string[]);
+  // }, [product]);
   return (
     <St.Container>
       <St.PostImg>

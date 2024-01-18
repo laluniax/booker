@@ -54,6 +54,10 @@ const Router = () => {
           {/* 중고책 판매 / 중고책 상세 페이지 */}
           <Route path="/market" element={<Market />} />
           <Route path="/marketproduct" element={<MarketProduct />} />
+          <Route path="/market/:id" element={<Market />} />
+          <Route path="/marketpost" element={<MarketPost />} />
+          <Route path="/marketpost/:id" element={<MarketPost />} />
+          <Route path="/product/:id" element={<MarketProduct />} />
           {/* 설문조사 페이지 / 설문조사 질문 페이지 / 설문조사 결과 페이지 */}
           <Route path="/survey" element={<Survey />} />
           <Route path="/bestsellercheapsurvey" element={<BestSellerCheapSurvey />} />
@@ -67,9 +71,7 @@ const Router = () => {
           <Route path="/bestsellerdomfor/:genre" element={<BestSellerDomFor />} />
           <Route path="/bestsellernew/:genre" element={<BestSellerNew />} />
           <Route path="/bestsellervalue/:genre" element={<BestSellerValue />} />
-          <Route path="/market/:id" element={<Market />} />
-          <Route path="/marketpost" element={<MarketPost />} />
-          <Route path="/product/:id" element={<MarketProduct />} />
+
           {/* 독립서점 소개 페이지 */}
           <Route path="/indbookstores" element={<IndBookStores />} />
           {/* Qna 페이지 */}

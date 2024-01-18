@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { MessageProps } from '../../qna/ChatStyle';
 
-
 export const Container = styled.div``;
 
 export const Title = styled.div`
@@ -67,6 +66,12 @@ export const ProductCategory = styled.div`
   }
 `;
 
+export const PriceBtnWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const ProductPrice = styled.div`
   font-size: 1.8rem;
   font-weight: 600;
@@ -87,10 +92,17 @@ export const ProductBtn = styled.div`
   justify-content: space-between;
 `;
 
+export const UpdateBtn = styled.button`
+  height: 3rem;
+  background-color: transparent;
+  border-radius: 0.1rem solid black;
+  margin-left: 1.5rem;
+`;
+
 export const ProductLikes = styled.button`
   background-color: #bcbcbc;
   border: none;
-  width: 8rem;
+  width: 9rem;
   height: 3rem;
 `;
 
@@ -99,16 +111,26 @@ export const ProductChat = styled.button`
 `;
 
 export const ProductUser = styled.div`
+  width: 20rem;
   background-color: #bcbcbc;
   margin-top: 1rem;
-  cursor: pointer;
+  padding: 0 2rem;
+
+  display: flex;
+  justify-content: space-between;
+  & img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+  }
+  & button {
+    border: 0.1rem solid black;
+    background-color: transparent;
+    cursor: pointer;
+  }
 `;
 
 export const ProductContent = styled.div``;
-
-
-
-
 
 // 모달 래퍼
 export const ChatModalWrapper = styled.div`
@@ -126,7 +148,7 @@ export const ChatModalWrapper = styled.div`
   overflow: hidden;
   z-index: 1000;
 `;
- 
+
 // 모달 헤더
 export const ChatModalHeader = styled.div`
   padding: 10px;
@@ -164,7 +186,7 @@ export const InputField = styled.input`
 
 export const SendButton = styled.button`
   padding: 10px 15px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 4px;
@@ -175,13 +197,12 @@ export const SendButton = styled.button`
   }
 `;
 
-
 export const MessageComponent = styled.div<MessageProps>`
-padding: 10px;
-margin: 5px;
-border-radius: 10px;
-max-width: 80%;
-word-wrap: break-word;
-align-self: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+  align-self: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
   background-color: ${(props) => (props.isOutgoing ? '#DCF8C6' : '#FFFFFF')}; // 예시 색상
 `;
