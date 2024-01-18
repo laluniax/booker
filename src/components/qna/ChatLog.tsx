@@ -11,7 +11,7 @@ interface Message {
   id: number;
 }
 
-const ChatLog = () => {
+const ChatLog = ({ messageEndRef }: { messageEndRef: React.RefObject<HTMLDivElement> }) => {
   const auth = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
 
@@ -20,23 +20,13 @@ const ChatLog = () => {
 
     getQnaLog(auth.session.user.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [auth.session, messages]);
 
   //qna table 가져오는 함수
   const getQnaLog = async (roomId: string) => {
     if (!auth.session) return;
 
-    /* const isAdmin = auth.session.profile.isAdmin;
-
-    const result = isAdmin
-      ? await supabase.from('qna').select('*')
-      : await supabase.from('qna').select('*').eq('sender_id', userId);
-    if (result.data) {
-      setQnaLog(result.data as QnaParams[]);
-    } else {
-      console.error('데이터를 가져오는 데 실패했습니다.');
-      setQnaLog([]); // 데이터가 없을 때 빈 배열로 설정
-    } */
     const response = await supabase.from('qna').select('*').eq('room_id', roomId);
     const result = response.data;
     if (result) {
@@ -60,6 +50,7 @@ const ChatLog = () => {
               <p>{message.content}</p>
             </St.AdminChatLogWrapper>
           )}
+          <div ref={messageEndRef}></div>
         </div>
       ))}
     </St.Container>

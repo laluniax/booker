@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { supabase } from '../../api/supabase.api';
+import Logo from '../../assets/Logo.png';
+import prev from '../../assets/prev.png';
 import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
@@ -12,7 +14,7 @@ const ChatModal = () => {
   const [isAsk, setIsAsk] = useState<boolean>(false);
   //메세지 저장 state
   const [askMessage, setAskMessage] = useState<string>('');
-
+  const messageEndRef = useRef<HTMLDivElement | null>(null);
   const auth = useAuth();
 
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +45,10 @@ const ChatModal = () => {
 
   if (!auth.session) return null;
 
+  const prevHandler = () => {
+    setIsAsk(false);
+  };
+
   return (
     <>
       {auth.session.profile.isAdmin ? (
@@ -50,8 +56,22 @@ const ChatModal = () => {
       ) : (
         <St.Container>
           {isSwitch ? (
-            <St.ChatWrapper>
-              <St.ChatHeader>BOOKER(로고)</St.ChatHeader>
+            <St.ChatWrapper isSwitch={isSwitch}>
+              {isAsk ? (
+                <St.Header>
+                  <St.PrevBtn onClick={prevHandler}>
+                    <img src={prev} alt="prev" width={30} height={30} />
+                  </St.PrevBtn>
+                  <St.ChatHeader>
+                    <img src={Logo} alt="Logo" />
+                  </St.ChatHeader>
+                </St.Header>
+              ) : (
+                <St.ChatHeader>
+                  <img src={Logo} alt="Logo" />
+                </St.ChatHeader>
+              )}
+
               <St.ChatBody>
                 <St.MainMessage>
                   안녕하세요 🙌 <br />
@@ -67,7 +87,8 @@ const ChatModal = () => {
               {isAsk ? (
                 <>
                   {/* 유저 시점에서 채팅을 출력해주는 chatLog 컴포넌트 */}
-                  <ChatLog />
+                  <ChatLog messageEndRef={messageEndRef} />
+
                   <St.ChatInputWrapper>
                     <St.Input
                       placeholder="메시지를 입력해주세요"

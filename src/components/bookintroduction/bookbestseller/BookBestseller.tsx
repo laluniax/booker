@@ -24,6 +24,7 @@ const BookBestseller = () => {
   console.log(bestSeller);
   const bookBestseller = async () => {
     const response = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller');
+    console.log(response);
     setBestseller(response.data.item);
   };
 
