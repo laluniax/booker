@@ -37,6 +37,7 @@ const Comment = () => {
 
   const insertComment = async () => {
     const result = await insertCommentHandler(params, session as string, content);
+    getCommentsInfo();
     setContent('');
   };
 
@@ -49,9 +50,8 @@ const Comment = () => {
     setInputComment('');
   };
   const deleteComment = async (commentId: number) => {
-    console.log(commentId);
     const result = await deleteCommentHandler(commentId);
-    console.log(result);
+    getCommentsInfo();
   };
 
   useEffect(() => {
