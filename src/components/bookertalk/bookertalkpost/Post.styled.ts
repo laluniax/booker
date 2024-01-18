@@ -153,15 +153,12 @@ export const ContentInput = styled.textarea`
   margin-top: 3rem;
 `;
 
-export const SubmitButtonWrapper = styled.div`
-  width: 100%;
-`;
-
 export const SubmitButtonBox = styled.div`
   display: flex;
   align-items: right;
   justify-content: right;
   width: 86%;
+  float: right;
 `;
 
 export const SubmitButton = styled.button`

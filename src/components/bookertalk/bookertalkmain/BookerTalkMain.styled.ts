@@ -14,22 +14,23 @@ export const Title = styled.div`
 
 export const CategoryWrapper = styled.div`
   display: flex;
-  width: 30rem;
-  align-items: center;
-  justify-content: center;
+  width: 35rem;
+  justify-content: space-between;
 `;
 
 export const CategoryBox = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  width: 14rem;
+  align-items: center;
+  justify-content: center;
+  width: 16rem;
   padding: 2rem;
   background: #f5f5f5;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 1.5rem;
   line-height: 1.2;
+  margin-left: 8rem;
 `;
 
 export const BookRecommendBox = styled.div`
@@ -76,9 +77,12 @@ export const PostTitle = styled.span`
   margin-left: 0.2rem;
 `;
 export const PostContent = styled.span``;
-export const PostDate = styled.span``;
+
+export const PostDate = styled.span`
+  font-size: 1.2rem;
+`;
 export const PostNickName = styled.span`
-  margin-right: 0.3rem;
+  margin-right: 1rem;
 `;
 
 export const PostButton = styled.div`

@@ -4,7 +4,7 @@ import { Editor } from '@toast-ui/react-editor';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'tui-color-picker/dist/tui-color-picker.css';
-import { getUserSessionHandler, submitPostListHandler } from '../../../api/supabase.api';
+import { getUserSessionHandler, submitPostListHandler, uploadImageFile } from '../../../api/supabase.api';
 import * as St from './Post.styled';
 
 type Categories = {
@@ -16,24 +16,30 @@ export type CateGenresTypes = {
   [key: string]: string;
 };
 
+export type HookMap = {
+  // 첫번째 인자로 파일 정보다 담긴 Blob 객체 , 두번째 인자로 콜백함수 받음
+  addImageBlobHook?: (blob: File, callback: HookCallback) => void;
+};
+type HookCallback = (url: string, text?: string) => void;
+
 export const categoryUuid: CateGenresTypes = {
   '도서추천 / 인문': 'a249535a-b19a-4fb4-bcd9-0788e780a2ac',
-  '도서추천 / 경제 경영': 'f979619a-91c3-4584-9880-1c5b137735dd',
+  '도서추천 / 경제 • 경영': 'f979619a-91c3-4584-9880-1c5b137735dd',
   '도서추천 / 자기계발': '3c5d132b-1ca6-430d-a467-4315a2d86618',
-  '도서추천 / 정치 사회': 'b2ba785c-a0e7-45f3-b4f5-db225628d60c',
-  '도서추천 / 역사 문화': '27e1c66f-f7a5-483e-be92-a8338874df80',
+  '도서추천 / 정치 • 사회': 'b2ba785c-a0e7-45f3-b4f5-db225628d60c',
+  '도서추천 / 역사 • 문화': '27e1c66f-f7a5-483e-be92-a8338874df80',
   '도서추천 / 과학': '4e0930d6-9cad-40f9-8aa9-591e882ffd31',
   '도서추천 / 소설': '355e40c7-0337-4527-a5da-3fd6aef50246',
-  '도서추천 / 시 에세이': 'e3a14e02-e941-4f40-b289-9fa9242f3f63',
+  '도서추천 / 시 • 에세이': 'e3a14e02-e941-4f40-b289-9fa9242f3f63',
 
   '자유수다 / 인문': '7c6121b1-5306-4505-9812-9dffffcc7df8',
-  '자유수다 / 경제 경영': '3f8ad6c4-650d-4b10-893d-b8f0d896ba8a',
+  '자유수다 / 경제 • 경영': '3f8ad6c4-650d-4b10-893d-b8f0d896ba8a',
   '자유수다 / 자기계발': 'ee4907e4-96e6-4466-84eb-dee2d92e846c',
-  '자유수다 / 정치 사회': 'd05c87c7-4bd7-4399-aea1-8455ee100c8e',
-  '자유수다 / 역사 문화': '7ed8ff18-38e3-4b55-8deb-df647c3d050a',
+  '자유수다 / 정치 • 사회': 'd05c87c7-4bd7-4399-aea1-8455ee100c8e',
+  '자유수다 / 역사 • 문화': '7ed8ff18-38e3-4b55-8deb-df647c3d050a',
   '자유수다 / 과학': 'fe970b37-ed0e-4a9d-8683-660b74275558',
   '자유수다 / 소설': '8114a2cd-d916-4f38-a735-83815ecb0b83',
-  '자유수다 / 시 에세이': '15c0651c-47e5-45e7-91c6-f244443a9123',
+  '자유수다 / 시 • 에세이': '15c0651c-47e5-45e7-91c6-f244443a9123',
 };
 
 const Post = () => {
@@ -41,7 +47,7 @@ const Post = () => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState<string>('');
   const [genres, setGenres] = useState('');
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState<string | undefined>(undefined);
   const [tagItem, setTagItem] = useState('');
   const [tagList, setTagList] = useState<string[]>([]);
   const [userId, setUserId] = useState('');
@@ -49,6 +55,14 @@ const Post = () => {
   // 토스트 에디터
   const toastRef = useRef<Editor>(null);
   const contentMark = toastRef?.current?.getInstance().getMarkdown();
+
+  // 아래는 이미지 url을 가져오기 위한 과정입니다.
+  const onUploadImage = async (blob: Blob | File, callback: HookCallback) => {
+    const url = await uploadImageFile(blob as File);
+    // console.log(url.publicUrl);
+    callback(url.publicUrl, 'alt text');
+    return false;
+  };
 
   //  카테고리
   const categories = {
@@ -101,12 +115,16 @@ const Post = () => {
     }
   };
 
-  const formSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+  const setContentHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const markdownContent = toastRef.current?.getInstance().getMarkdown();
+    setContent(markdownContent);
+  };
+
+  const formSubmitHandler = async () => {
     const combined = `${category} / ${genres}`;
     const genreUuid = categoryUuid[combined];
     const newPost = { userId, title, content, tags: tagList, genreUuid };
-    console.log(newPost);
 
     await submitPostListHandler(newPost);
     setTitle('');
@@ -115,7 +133,6 @@ const Post = () => {
 
     navigation('/bookertalk');
   };
-  // post 에 insert 할 때 이 값 보내주면 됨
 
   // 유저 세션 가져오기
   const getUserSession = async () => {
@@ -127,12 +144,16 @@ const Post = () => {
     getUserSession();
   }, []);
 
+  useEffect(() => {
+    content && formSubmitHandler();
+  }, [content]);
+
   return (
     <St.Container>
       <St.FormWrapper>
         <St.Form
           onSubmit={(e) => {
-            formSubmitHandler(e);
+            setContentHandler(e);
           }}>
           <St.TitleInputBox>
             <St.TitleInput
@@ -173,7 +194,6 @@ const Post = () => {
               />
             </St.TagInputBox>
           </St.TagWrapper>
-
           <St.CategoryAndGenreBox>
             <St.CategorySelect value={category} onChange={categoryChangeHandler}>
               <St.CategoryOption value="">카테고리를 선택해주세요</St.CategoryOption>
@@ -196,33 +216,24 @@ const Post = () => {
             )}
           </St.CategoryAndGenreBox>
 
-          <St.ContentWrapper>
-            <St.ContentInput
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="내용을 입력해주세요."
-              id="comment"
-              autoComplete="off"
-            />
-          </St.ContentWrapper>
-
-          <St.SubmitButtonWrapper>
-            <St.SubmitButtonBox>
-              <St.SubmitButton type="submit">완료</St.SubmitButton>
-            </St.SubmitButtonBox>
-          </St.SubmitButtonWrapper>
+          <Editor
+            initialValue="내용을 입력해주세요 ! "
+            previewStyle="vertical"
+            height="600px"
+            initialEditType="wysiwyg"
+            useCommandShortcut={false}
+            // plugins={[colorSyntax]}
+            language="ko-KR"
+            ref={toastRef}
+            hooks={{
+              addImageBlobHook: onUploadImage,
+            }}
+          />
+          <St.SubmitButtonBox>
+            <St.SubmitButton type="submit">완료</St.SubmitButton>
+          </St.SubmitButtonBox>
         </St.Form>
       </St.FormWrapper>{' '}
-      <Editor
-        initialValue="내용을 입력해주세요 ! "
-        previewStyle="vertical"
-        height="600px"
-        initialEditType="wysiwyg"
-        useCommandShortcut={false}
-        // plugins={[colorSyntax]}
-        language="ko-KR"
-        ref={toastRef}
-      />
     </St.Container>
   );
 };
