@@ -200,12 +200,30 @@ export const getProductHandler = async (id: string) => {
   return data;
 };
 
+// Bookertalk
 export type PostTypes = {
   title: string;
-  content: string;
+  content: string | undefined;
   tags: string[];
   userId: string;
   genreUuid: string;
+};
+
+// Create
+// image를 스토리지 버켓(post_img)에 업로드하는 함수 (bookertalkPost)
+export const uploadImageFile = async (blob: File) => {
+  const postImg = nanoid();
+  const path = blob.lastModified;
+  const { data, error } = await supabase.storage.from('post_img').upload(`${path}/${postImg}`, blob);
+  const publicUrl = getPublicPostImgUrl(path, postImg);
+  if (error) throw error;
+  return publicUrl;
+};
+
+// 스토리지에 있는 img의 public url을 가져오는 함수
+const getPublicPostImgUrl = (path: number, postImg: string) => {
+  const { data } = supabase.storage.from('post_img').getPublicUrl(`${path}/${postImg}`);
+  return data;
 };
 
 // 북커톡 게시판 글 작성 완료시 데이터 등록하는 함수입니다.
@@ -219,19 +237,30 @@ export const submitPostListHandler = async ({ title, content, tags, userId, genr
   return data;
 };
 
-// 포스트의 genre_id와 같은 데이터를 불러오는 함수입니다.
+// READ
+// posts의 genre_id와 같은 데이터를 불러오는 함수입니다.
 export const filteredCategory = async (params: string) => {
   const { data, error } = await supabase.from('posts').select('*').eq('genre_id', params);
   if (error) throw error;
   return data;
 };
 
-// 포스트의 id랑 똑같은 정보 가져오는 함수입니다.
+// posts의 id랑 똑같은 정보 가져오는 함수입니다.
 export const filteredPostId = async (params: string) => {
   const { data, error } = await supabase.from('posts').select('*').eq('id', params);
   if (error) throw error;
   return data;
 };
+
+// Update (수정)
+export const editPost = async () => {
+  const { data, error } = await supabase
+    .from('posts')
+    .update({ other_column: 'otherValue' })
+    .eq('some_column', 'someValue')
+    .select();
+};
+
 // userId로 posts 풀러오는 함수(profile)
 export const filterPostsByUserIdHandler = async (userId: string) => {
   const { data, error } = await supabase.from('posts').select('*').eq('user_id', userId);
