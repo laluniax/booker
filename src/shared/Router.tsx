@@ -8,6 +8,7 @@ import BookDetailPage from '../components/bookintroduction/bookdetailpage/BookDe
 import BookerPick from '../components/bookintroduction/bookerpick/BookerPick';
 import BookSpecial from '../components/bookintroduction/bookspecial/BookSpecial';
 import NewBook from '../components/bookintroduction/newbook/NewBook';
+import AdminChat from '../components/qna/AdminChat';
 import AdminChatRoom from '../components/qna/AdminChatRoom';
 import BestSellerCheapSurvey from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey';
 import BestSellerCheapSurvey2 from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey2';
@@ -72,6 +73,7 @@ const Router = () => {
           <Route path="/marketpost" element={<MarketPost />} />
           <Route path="/product/:id" element={<MarketProduct />} />
           {/* Qna 페이지 */}
+          <Route path="/chat" element={<AdminChat />} />
           <Route path="/chat/:roomId" element={<AdminChatRoom />} />
           {/* 도서소개 페이지  */}
           <Route element={<AboutLayout />}>

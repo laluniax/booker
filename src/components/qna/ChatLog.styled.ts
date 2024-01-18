@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.section`
   width: 100%;
-  min-height: calc(100% - 200px);
+  height: 62.5%;
+  overflow: scroll;
 `;
 
 export const CustomerChatLogWrapper = styled.div`

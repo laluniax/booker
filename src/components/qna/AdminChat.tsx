@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../api/supabase.api';
+import Logo from '../../assets/Logo.png';
 import * as St from './Adminchat.styled';
 interface QnaItem {
   content: string;
@@ -12,6 +13,7 @@ interface QnaItem {
 const AdminChat = () => {
   const [qnaRoomIds, setQnaRoomIds] = useState<string[]>([]);
   const navigate = useNavigate();
+  const messageEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     supabase
@@ -42,7 +44,9 @@ const AdminChat = () => {
   return (
     <St.Container>
       <St.ChatWrapper>
-        <St.ChatHeader>BOOKER(로고)</St.ChatHeader>
+        <St.ChatHeader>
+          <img src={Logo} alt="Logo" />
+        </St.ChatHeader>
         <St.ChatBody>
           {/* 채팅방 출력 */}
           {qnaRoomIds.map((qnaRoomID) => {
@@ -52,6 +56,7 @@ const AdminChat = () => {
               </div>
             );
           })}
+          <div ref={messageEndRef}></div>
         </St.ChatBody>
       </St.ChatWrapper>
     </St.Container>

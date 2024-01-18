@@ -42,9 +42,7 @@ export const ChatWrapper = styled.div<HeaderProps>`
   padding: 8px;
   background-color: white;
   overflow: hidden scroll;
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
+
   animation: ${(props) => (props.isSwitch ? slideUp : slideDown)} 0.5s ease-in-out forwards;
 `;
 export const ChatHeader = styled.div`
@@ -76,6 +74,8 @@ export const AskWrapper = styled.div`
   width: 100%;
 `;
 export const AskButton = styled.button`
+  position: absolute;
+  top: 200px;
   width: 90%;
   border: none;
   padding: 1rem;

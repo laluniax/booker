@@ -17,7 +17,7 @@ export const ChatHeader = styled.div`
   display: flex;
   padding: 8px;
   margin: 16px 16px 12px;
-  overflow: hidden;
+  overflow: scroll;
 `;
 export const ChatBody = styled.div`
   display: flex;

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../api/supabase.api';
+import Logo from '../../assets/Logo.png';
+import Prev from '../../assets/prev.png';
 import { useAuth } from '../../contexts/auth.context';
 import * as St from './Adminchatroom.styled';
 
@@ -20,11 +22,12 @@ const AdminChatRoom = () => {
   const [answerMessage, setAnswerMessage] = useState('');
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
+
   const params = useParams();
   const roomId = params.roomId;
   //   console.log(params);
   const auth = useAuth();
-
+  const navigate = useNavigate();
   useEffect(() => {
     messageTable();
   }, [messages]);
@@ -62,12 +65,28 @@ const AdminChatRoom = () => {
       setMessages([]);
     }
   };
+  const prevHandler = () => {
+    navigate('/chat');
+  };
 
   return (
     <>
       {isSwitch ? (
-        <St.Container>
-          <St.ChatHeader>BOOKER(로고)</St.ChatHeader>
+        <St.Container isSwitch={isSwitch}>
+          {isSwitch ? (
+            <St.Header>
+              <St.PrevBtn onClick={prevHandler}>
+                <img src={Prev} alt="prev" width={30} height={30} />
+              </St.PrevBtn>
+              <St.ChatHeader>
+                <img src={Logo} alt="Logo" />
+              </St.ChatHeader>
+            </St.Header>
+          ) : (
+            <St.ChatHeader>
+              <img src={Logo} alt="Logo" />
+            </St.ChatHeader>
+          )}
           <St.ChatBody>
             <St.MainMessage>
               안녕하세요 🙌 <br />
