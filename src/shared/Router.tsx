@@ -33,11 +33,18 @@ import MarketProduct from '../pages/MarketProduct';
 import Profile from '../pages/Profile';
 import Survey from '../pages/Survey';
 
+import BookBestseller from '../components/bookintroduction/bookbestseller/BookBestseller';
+import BookDetailPage from '../components/bookintroduction/bookdetailpage/BookDetailPage';
+import BookerPick from '../components/bookintroduction/bookerpick/BookerPick';
+import BookSpecial from '../components/bookintroduction/bookspecial/BookSpecial';
+import NewBook from '../components/bookintroduction/newbook/NewBook';
+import IndBookStores from '../pages/IndBookStores';
+
+
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/c" element={<Chat />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
 
