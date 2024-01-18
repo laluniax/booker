@@ -1,5 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
+import BookBestseller from '../components/bookintroduction/bookbestseller/BookBestseller';
+import BookDetailPage from '../components/bookintroduction/bookdetailpage/BookDetailPage';
+import BookerPick from '../components/bookintroduction/bookerpick/BookerPick';
+import BookSpecial from '../components/bookintroduction/bookspecial/BookSpecial';
+import NewBook from '../components/bookintroduction/newbook/NewBook';
+
 import AboutLayout from '../components/layout/AboutLayout';
 import Layout from '../components/layout/Layout';
 
@@ -22,18 +28,16 @@ import BookerTalk from '../pages/BookerTalk';
 import BookerTalkDetail from '../pages/BookerTalkDetail';
 import BookerTalkPost from '../pages/BookerTalkPost';
 import Home from '../pages/Home';
+import IndBookStores from '../pages/IndBookStores';
 import Login from '../pages/Login';
 import Market from '../pages/Market';
 import MarketPost from '../pages/MarketPost';
 import MarketProduct from '../pages/MarketProduct';
 import Profile from '../pages/Profile';
+import Register from '../pages/Register';
+import Search from '../pages/Search';
 import Survey from '../pages/Survey';
 
-import BookBestseller from '../components/bookintroduction/bookbestseller/BookBestseller';
-import BookDetailPage from '../components/bookintroduction/bookdetailpage/BookDetailPage';
-import BookerPick from '../components/bookintroduction/bookerpick/BookerPick';
-import BookSpecial from '../components/bookintroduction/bookspecial/BookSpecial';
-import NewBook from '../components/bookintroduction/newbook/NewBook';
 
 const Router = () => {
   return (
@@ -44,6 +48,7 @@ const Router = () => {
 
           <Route path="*" element={<Navigate replace to="/" />} />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/search" element={<Search />} />
 
           {/* 북커톡 커뮤니티 */}
           <Route path="/bookertalk" element={<BookerTalk />} />
@@ -88,7 +93,7 @@ const Router = () => {
 
         {/* 로그인/ 회원가입에 헤더 푸터 적용하고 싶으시면 Layout 라우터 태그 안에 넣어주시면 됩니다. */}
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/Register" element={<Register />} /> */}
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
