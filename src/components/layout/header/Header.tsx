@@ -1,11 +1,19 @@
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signoutHandler } from '../../../api/supabase.api';
 import { useAuth } from '../../../contexts/auth.context';
 import * as St from './Header.styled';
 
-const Header = () => {
+type StatePropsTypes = {
+  searchKeyword: string;
+  setSearchKeyword: Dispatch<SetStateAction<string>>;
+};
+
+const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
   const navigate = useNavigate();
   const auth = useAuth();
+
+  const [searchBarOpen, setSearchBarOpen] = useState(false);
 
   const onClickSignoutHandler = async () => {
     await signoutHandler();
@@ -38,7 +46,21 @@ const Header = () => {
         </St.HeaderLi>
       </St.HeaderUl>
       <St.HeaderUl>
-        <St.HeaderBtn>서치</St.HeaderBtn>
+        {searchBarOpen ? (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              console.log(searchKeyword);
+            }}>
+            <input
+              type="text"
+              value={searchKeyword}
+              // 문자열 모든 공백 제거하여 input 값으로 받아옴
+              onChange={(e) => setSearchKeyword(e.target.value.replace(/(\s*)/g, ''))}
+            />
+          </form>
+        ) : null}
+        <St.HeaderBtn onClick={() => setSearchBarOpen(!searchBarOpen)}>서치</St.HeaderBtn>
         {auth.session !== null ? (
           <>
             <St.HeaderBtn
