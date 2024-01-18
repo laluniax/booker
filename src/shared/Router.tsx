@@ -29,6 +29,7 @@ import Market from '../pages/Market';
 import MarketPost from '../pages/MarketPost';
 import MarketProduct from '../pages/MarketProduct';
 import Profile from '../pages/Profile';
+import Register from '../pages/Register';
 import Search from '../pages/Search';
 import Survey from '../pages/Survey';
 
@@ -87,7 +88,7 @@ const Router = () => {
 
         {/* 로그인/ 회원가입에 헤더 푸터 적용하고 싶으시면 Layout 라우터 태그 안에 넣어주시면 됩니다. */}
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/Register" element={<Register />} /> */}
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
