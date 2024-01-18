@@ -18,17 +18,22 @@ export const Body = styled.div`
 `;
 export const BookImageWrapper = styled.div``;
 export const BookGenre = styled.h3`
-  font-size: 20px;
+  font-size: 14px;
 `;
 
 export const BookImg = styled.div``;
 export const BookIntro = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+
+  justify-content: flex-end;
 `;
 export const Title = styled.h4``;
-export const Plot = styled.div``;
+export const AuthWrapper = styled.div`
+  display: flex;
+`;
+export const Author = styled.span``;
+export const Plot = styled.span``;
 
 export const BookWrapper = styled.div`
   display: flex;
