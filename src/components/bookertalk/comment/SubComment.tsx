@@ -22,14 +22,17 @@ const SubComment = ({ commentId, session }: Props) => {
   const [inputSubComment, setInputSubComment] = useState('');
   const [subCommentId, setSubCommentId] = useState<number>();
 
-  const insertSubComment = async () => {
-    const result = await insertSubCommentHandler(commentId as number, session as string, content);
-    setContent('');
-  };
   const getSubCommentsInfo = async () => {
     const result = await getSubCommentsInfoHandler(commentId as number);
     setData(result[0]);
   };
+
+  const insertSubComment = async () => {
+    const result = await insertSubCommentHandler(commentId as number, session as string, content);
+    getSubCommentsInfo();
+    setContent('');
+  };
+
   const updateSubComment = async () => {
     const result = await updateSubCommentHandler(inputSubComment, subCommentId as number);
     // setContent('');
@@ -41,6 +44,7 @@ const SubComment = ({ commentId, session }: Props) => {
 
   const deleteSubComment = async (subCommentId: number) => {
     const result = await deleteSubCommentHandler(subCommentId);
+    getSubCommentsInfo();
   };
 
   return (
