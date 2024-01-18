@@ -5,6 +5,7 @@ import * as St from './Form.stlye';
 import ImageSlideshow from './MainImgSlide';
 import { GithubLoginBtn } from './github';
 import { GoogleLoginBtn } from './goolge';
+import { KakaoLoginBtn } from './kakao';
 
 const Form = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -60,6 +61,7 @@ const Form = () => {
         <div>
           <GoogleLoginBtn />
           <GithubLoginBtn />
+          <KakaoLoginBtn/>
         </div>
       </St.LoginContainer>
     </St.Container>
