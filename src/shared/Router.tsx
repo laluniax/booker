@@ -18,7 +18,6 @@ import BestSellerDomFor from '../components/survey/surveyResult/BestSellerDomFor
 import BestSellerGenre from '../components/survey/surveyResult/BestSellerGenre';
 import BestSellerNew from '../components/survey/surveyResult/BestSellerNew';
 import BestSellerValue from '../components/survey/surveyResult/BestSellerValue';
-import Chat from '../components/wishper/Chat';
 import AboutBooks from '../pages/AboutBooks';
 import BookerTalk from '../pages/BookerTalk';
 import BookerTalkDetail from '../pages/BookerTalkDetail';
@@ -37,7 +36,6 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/c" element={<Chat />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
 
