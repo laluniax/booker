@@ -22,12 +22,12 @@ const AdminChatRoom = () => {
   const [answerMessage, setAnswerMessage] = useState('');
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
-
   const params = useParams();
   const roomId = params.roomId;
   //   console.log(params);
   const auth = useAuth();
   const navigate = useNavigate();
+
   useEffect(() => {
     messageTable();
   }, [messages]);
@@ -56,6 +56,10 @@ const AdminChatRoom = () => {
     }
   };
 
+  const PrevHandler = () => {
+    navigate('/chat');
+  };
+
   const messageTable = async () => {
     const response = await supabase.from('qna').select('*').eq('room_id', roomId);
     const result = response.data;
@@ -65,34 +69,25 @@ const AdminChatRoom = () => {
       setMessages([]);
     }
   };
-  const prevHandler = () => {
-    navigate('/chat');
-  };
 
   return (
     <>
       {isSwitch ? (
-        <St.Container isSwitch={isSwitch}>
-          {isSwitch ? (
-            <St.Header>
-              <St.PrevBtn onClick={prevHandler}>
-                <img src={Prev} alt="prev" width={30} height={30} />
+        <St.Container>
+          <St.ChatHeader>
+            <St.LogoWrapper>
+              <St.PrevBtn onClick={PrevHandler}>
+                <img src={Prev} alt="Prev" width={30} height={30} />
               </St.PrevBtn>
-              <St.ChatHeader>
-                <img src={Logo} alt="Logo" />
-              </St.ChatHeader>
-            </St.Header>
-          ) : (
-            <St.ChatHeader>
               <img src={Logo} alt="Logo" />
-            </St.ChatHeader>
-          )}
+            </St.LogoWrapper>
+          </St.ChatHeader>
+          <St.MainMessage>
+            안녕하세요 🙌 <br />
+            새로운 지식으로 시작되는 어쩌구저쩌구, 북커입니다📚
+            <br />​ 무엇을 도와드릴까요?
+          </St.MainMessage>
           <St.ChatBody>
-            <St.MainMessage>
-              안녕하세요 🙌 <br />
-              새로운 지식으로 시작되는 어쩌구저쩌구, 북커입니다📚
-              <br />​ 무엇을 도와드릴까요?
-            </St.MainMessage>
             {messages.map((message) => {
               return (
                 <>

@@ -1,36 +1,11 @@
-import styled, { keyframes } from 'styled-components';
-
-interface HeaderProps {
-  isSwitch: boolean;
-}
-
-const slideUp = keyframes`
-  from {
-    transform: translateY(100%); 
-    opacity: 0; // 투명하게 시작
-  }
-  to {
-    transform: translateY(0); 
-    opacity: 1; 
-  }
-`;
-const slideDown = keyframes`
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-`;
+import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
   width: 100%;
   height: 100vh;
 `;
-export const ChatWrapper = styled.div<HeaderProps>`
+export const ChatWrapper = styled.div`
   width: 390px;
   height: 590px;
   box-sizing: border-box;
@@ -40,10 +15,16 @@ export const ChatWrapper = styled.div<HeaderProps>`
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 2rem;
   padding: 8px;
-  background-color: white;
-  overflow: hidden scroll;
 
-  animation: ${(props) => (props.isSwitch ? slideUp : slideDown)} 0.5s ease-in-out forwards;
+  background-color: white;
+  overflow: scroll;
+`;
+export const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const PrevBtn = styled.div`
+  cursor: pointer;
 `;
 export const ChatHeader = styled.div`
   display: flex;
@@ -59,14 +40,7 @@ export const ChatBody = styled.div`
   padding: 8px;
   margin: 0px 16px;
 `;
-export const Header = styled.div`
-  display: flex;
-  align-items: center;
-`;
 
-export const PrevBtn = styled.div`
-  cursor: pointer;
-`;
 export const MainMessage = styled.p``;
 
 export const AskWrapper = styled.div`
@@ -74,8 +48,6 @@ export const AskWrapper = styled.div`
   width: 100%;
 `;
 export const AskButton = styled.button`
-  position: absolute;
-  top: 200px;
   width: 90%;
   border: none;
   padding: 1rem;
@@ -85,10 +57,12 @@ export const ChatInputWrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 0px 6px 0px 14px;
+  z-index: 999;
 `;
 
 export const Input = styled.input`
   width: 90%;
+  position: relative;
 
   min-height: 50px;
   padding: 0px 6px 0px 14px;
@@ -101,27 +75,26 @@ export const Input = styled.input`
 `;
 export const TalkButtonWrapper = styled.div`
   position: fixed;
-  bottom: 60px;
+  bottom: 30px;
   right: 10px;
 `;
 
 export const TalkButton = styled.button``;
 
 export const MessageComponent = styled.div<MessageProps>`
-padding: 10px;
-margin: 5px;
-border-radius: 10px;
-max-width: 80%;
-word-wrap: break-word;
-align-self: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+  align-self: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
   background-color: ${(props) => (props.isOutgoing ? '#DCF8C6' : '#FFFFFF')}; // 예시 색상
 `;
-
 
 // Props 타입 정의
 export type MessageProps = {
   isOutgoing: boolean;
-}
+};
 
 export const UserItem = styled.div`
   display: flex;
@@ -161,7 +134,6 @@ export const DMButton = styled.button`
   }
 `;
 
-
 // 모달 래퍼
 export const ChatModalWrapper = styled.div`
   display: flex;
@@ -178,7 +150,7 @@ export const ChatModalWrapper = styled.div`
   overflow: hidden;
   z-index: 1000;
 `;
- 
+
 // 모달 헤더
 export const ChatModalHeader = styled.div`
   padding: 10px;
@@ -216,7 +188,7 @@ export const InputField = styled.input`
 
 export const SendButton = styled.button`
   padding: 10px 15px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 4px;

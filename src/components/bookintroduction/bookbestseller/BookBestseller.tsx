@@ -10,7 +10,7 @@ interface Bestseller {
   publisher: string;
   title: string;
   bestRank: number;
-  isbn13: string;
+  isbn13: number;
 }
 
 const BookBestseller = () => {
@@ -28,7 +28,7 @@ const BookBestseller = () => {
     setBestseller(response.data.item);
   };
 
-  const GotoDetailPage = (isbn13: string) => {
+  const GotoDetailPage = (isbn13: number) => {
     navigate(`/aboutBook/${isbn13}`);
   };
 

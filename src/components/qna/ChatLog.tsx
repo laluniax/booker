@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { supabase } from '../../api/supabase.api';
 import { useAuth } from '../../contexts/auth.context';
 import * as St from './ChatLog.styled';
@@ -11,9 +11,10 @@ interface Message {
   id: number;
 }
 
-const ChatLog = ({ messageEndRef }: { messageEndRef: React.RefObject<HTMLDivElement> }) => {
+const ChatLog = () => {
   const auth = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
+  const messageEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!auth.session) return;
@@ -26,7 +27,6 @@ const ChatLog = ({ messageEndRef }: { messageEndRef: React.RefObject<HTMLDivElem
   //qna table 가져오는 함수
   const getQnaLog = async (roomId: string) => {
     if (!auth.session) return;
-
     const response = await supabase.from('qna').select('*').eq('room_id', roomId);
     const result = response.data;
     if (result) {
@@ -50,9 +50,9 @@ const ChatLog = ({ messageEndRef }: { messageEndRef: React.RefObject<HTMLDivElem
               <p>{message.content}</p>
             </St.AdminChatLogWrapper>
           )}
-          <div ref={messageEndRef}></div>
         </div>
       ))}
+      <div ref={messageEndRef}></div>
     </St.Container>
   );
 };

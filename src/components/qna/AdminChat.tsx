@@ -1,32 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../api/supabase.api';
 import Logo from '../../assets/Logo.png';
 import * as St from './Adminchat.styled';
-interface QnaItem {
-  content: string;
-  id: number;
-  isQuestion: boolean;
-  sender_id: string;
-}
 
 const AdminChat = () => {
   const [qnaRoomIds, setQnaRoomIds] = useState<string[]>([]);
   const navigate = useNavigate();
-  const messageEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    supabase
-      .from('qna')
-      .select('*')
-      .then((res) => console.log(res));
     getQnaTable();
   }, []);
 
   const getQnaTable = async () => {
     const response = await supabase.from('qna').select('*');
     const result = response.data;
-    console.log('result', result);
     const uniqueSenderMap = new Map();
 
     result?.forEach((item) => {
@@ -35,7 +23,6 @@ const AdminChat = () => {
     const uniqueData = Array.from(uniqueSenderMap.values());
     setQnaRoomIds(uniqueData);
   };
-  console.log(qnaRoomIds);
 
   const handleSenderClick = (qnaRoomId: string) => {
     navigate(`/chat/${qnaRoomId}`);
@@ -56,7 +43,6 @@ const AdminChat = () => {
               </div>
             );
           })}
-          <div ref={messageEndRef}></div>
         </St.ChatBody>
       </St.ChatWrapper>
     </St.Container>

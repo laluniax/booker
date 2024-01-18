@@ -3,11 +3,6 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import AboutLayout from '../components/layout/AboutLayout';
 import Layout from '../components/layout/Layout';
 
-import BookBestseller from '../components/bookintroduction/bookbestseller/BookBestseller';
-import BookDetailPage from '../components/bookintroduction/bookdetailpage/BookDetailPage';
-import BookerPick from '../components/bookintroduction/bookerpick/BookerPick';
-import BookSpecial from '../components/bookintroduction/bookspecial/BookSpecial';
-import NewBook from '../components/bookintroduction/newbook/NewBook';
 import AdminChat from '../components/qna/AdminChat';
 import AdminChatRoom from '../components/qna/AdminChatRoom';
 import BestSellerCheapSurvey from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey';
@@ -21,7 +16,7 @@ import BestSellerDomFor from '../components/survey/surveyResult/BestSellerDomFor
 import BestSellerGenre from '../components/survey/surveyResult/BestSellerGenre';
 import BestSellerNew from '../components/survey/surveyResult/BestSellerNew';
 import BestSellerValue from '../components/survey/surveyResult/BestSellerValue';
-import Chat from '../components/wishper/Chat';
+
 import AboutBooks from '../pages/AboutBooks';
 import BookerTalk from '../pages/BookerTalk';
 import BookerTalkDetail from '../pages/BookerTalkDetail';
@@ -39,8 +34,6 @@ import BookDetailPage from '../components/bookintroduction/bookdetailpage/BookDe
 import BookerPick from '../components/bookintroduction/bookerpick/BookerPick';
 import BookSpecial from '../components/bookintroduction/bookspecial/BookSpecial';
 import NewBook from '../components/bookintroduction/newbook/NewBook';
-import IndBookStores from '../pages/IndBookStores';
-
 
 const Router = () => {
   return (

@@ -1,31 +1,6 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
-interface HeaderProps {
-  isSwitch: boolean;
-}
-
-const slideUp = keyframes`
-  from {
-    transform: translateY(100%); 
-    opacity: 0; // 투명하게 시작
-  }
-  to {
-    transform: translateY(0); 
-    opacity: 1; 
-  }
-`;
-const slideDown = keyframes`
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-`;
-
-export const Container = styled.section<HeaderProps>`
+export const Container = styled.section`
   width: 390px;
   height: 590px;
   box-sizing: border-box;
@@ -36,25 +11,19 @@ export const Container = styled.section<HeaderProps>`
   border-radius: 2rem;
   padding: 8px;
   background-color: white;
-  overflow: hidden scroll;
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  animation: ${(props) => (props.isSwitch ? slideUp : slideDown)} 0.5s ease-in-out forwards;
+  overflow: scroll;
 `;
 
 export const ChatHeader = styled.div`
   display: flex;
-  padding: 8px;
   margin: 16px 16px 12px;
   overflow: hidden;
 `;
-
-export const Header = styled.div`
+export const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
-
 export const PrevBtn = styled.div`
   cursor: pointer;
 `;
@@ -62,12 +31,15 @@ export const PrevBtn = styled.div`
 export const ChatBody = styled.div`
   display: flex;
   flex-direction: column;
-  height: 70%;
   gap: 12px;
   padding: 8px;
   margin: 0px 16px;
+  height: 65%;
+  overflow: scroll;
 `;
-export const MainMessage = styled.p``;
+export const MainMessage = styled.p`
+  padding: 10px;
+`;
 export const TalkButtonWrapper = styled.div`
   position: fixed;
   bottom: 60px;
@@ -83,12 +55,14 @@ export const ChatInputWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 0px 6px 0px 14px;
+  z-index: 9999;
 `;
 
 export const Input = styled.input`
-  width: 90%;
-
+  width: 95%;
+  position: relative;
   min-height: 50px;
   padding: 0px 6px 0px 14px;
   border-radius: 1rem;
