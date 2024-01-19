@@ -20,7 +20,7 @@ import ProductImage3 from '../../styles/assets/bookimages/productimage3.jpg';
 import ProductImage4 from '../../styles/assets/bookimages/productimage4.jpg';
 
 export const Container = styled.div`
-  height: 290rem;
+  height: 300rem;
 `;
 
 // 공통으로 쓰는 것들

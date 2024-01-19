@@ -2,7 +2,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   position: relative;
   width: 100%;
-  height: 100vh;
 `;
 export const ChatWrapper = styled.div`
   width: 390px;
@@ -76,6 +75,7 @@ export const TalkButtonWrapper = styled.div`
   position: fixed;
   bottom: 30px;
   right: 10px;
+  z-index: 1000;
 `;
 
 // Close 버튼

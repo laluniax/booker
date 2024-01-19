@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   background-color: black;
   color: #fff;
-  height: 10rem;
+  height: 11rem;
   padding: 2rem;
   display: flex;
   /* justify-content: space-between; */
@@ -47,8 +47,16 @@ export const HeaderBtn = styled.button`
   }
 `;
 
-export const Test = styled.div`
+export const HeaderLiBox = styled.div`
   /* margin-left: 3rem; */
+  margin-top: 0.3rem;
   display: flex;
-  padding: 18rem;
+  font-size: 1.8rem;
+  justify-content: center;
+  width: 73rem;
+  height: 2rem;
+  gap: 4rem;
+  letter-spacing: 0.1rem;
+  /* padding-left: 18rem;
+  padding-right: 18rem; */
 `;

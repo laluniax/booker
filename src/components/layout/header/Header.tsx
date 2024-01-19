@@ -29,7 +29,7 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
         <St.Image src="/images/common/logo.png" />
       </div>
       <St.HeaderUl>
-        <St.Test>
+        <St.HeaderLiBox>
           <St.HeaderLi>
             <a href="/bookertalk">북커톡</a>
           </St.HeaderLi>
@@ -45,7 +45,7 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
           <St.HeaderLi>
             <a href="/indBookStores">독립서점</a>
           </St.HeaderLi>
-        </St.Test>
+        </St.HeaderLiBox>
       </St.HeaderUl>
       <St.HeaderUl>
         {searchBarOpen ? (
