@@ -1,11 +1,15 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+
 import BookBestseller from '../components/bookintroduction/bookbestseller/BookBestseller';
 import BookDetailPage from '../components/bookintroduction/bookdetailpage/BookDetailPage';
 import BookerPick from '../components/bookintroduction/bookerpick/BookerPick';
 import BookSpecial from '../components/bookintroduction/bookspecial/BookSpecial';
 import NewBook from '../components/bookintroduction/newbook/NewBook';
+
 import AboutLayout from '../components/layout/AboutLayout';
 import Layout from '../components/layout/Layout';
+
+import AdminChat from '../components/qna/AdminChat';
 import AdminChatRoom from '../components/qna/AdminChatRoom';
 import BestSellerCheapSurvey from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey';
 import BestSellerCheapSurvey2 from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey2';
@@ -18,12 +22,12 @@ import BestSellerDomFor from '../components/survey/surveyResult/BestSellerDomFor
 import BestSellerGenre from '../components/survey/surveyResult/BestSellerGenre';
 import BestSellerNew from '../components/survey/surveyResult/BestSellerNew';
 import BestSellerValue from '../components/survey/surveyResult/BestSellerValue';
+
 import AboutBooks from '../pages/AboutBooks';
 import BookerTalk from '../pages/BookerTalk';
 import BookerTalkDetail from '../pages/BookerTalkDetail';
 import BookerTalkPost from '../pages/BookerTalkPost';
 import Home from '../pages/Home';
-import IndBookStores from '../pages/IndBookStores';
 import Login from '../pages/Login';
 import Market from '../pages/Market';
 import MarketPost from '../pages/MarketPost';
@@ -55,6 +59,10 @@ const Router = () => {
           {/* 중고책 판매 / 중고책 상세 페이지 */}
           <Route path="/market" element={<Market />} />
           <Route path="/marketproduct" element={<MarketProduct />} />
+          <Route path="/market/:id" element={<Market />} />
+          <Route path="/marketpost" element={<MarketPost />} />
+          <Route path="/marketpost/:id" element={<MarketPost />} />
+          <Route path="/product/:id" element={<MarketProduct />} />
           {/* 설문조사 페이지 / 설문조사 질문 페이지 / 설문조사 결과 페이지 */}
           <Route path="/survey" element={<Survey />} />
           <Route path="/bestsellercheapsurvey" element={<BestSellerCheapSurvey />} />
@@ -65,15 +73,14 @@ const Router = () => {
           <Route path="/bestsellervaluesurvey" element={<BestSellerValueSurvey />} />
           <Route path="/bestsellergenre/:genre" element={<BestSellerGenre />} />
           <Route path="/bestsellercheap/:genre" element={<BestSellerCheap />} />
-          <Route path="/bestsellerdomfor/:genre" element={<BestSellerDomFor />} />
+          <Route path="/bestsellerdomFor/:genre" element={<BestSellerDomFor />} />
           <Route path="/bestsellernew/:genre" element={<BestSellerNew />} />
           <Route path="/bestsellervalue/:genre" element={<BestSellerValue />} />
           <Route path="/market/:id" element={<Market />} />
           <Route path="/marketpost" element={<MarketPost />} />
           <Route path="/product/:id" element={<MarketProduct />} />
-          {/* 독립서점 소개 페이지 */}
-          <Route path="/indbookstores" element={<IndBookStores />} />
           {/* Qna 페이지 */}
+          <Route path="/chat" element={<AdminChat />} />
           <Route path="/chat/:roomid" element={<AdminChatRoom />} />
           {/* 도서소개 페이지  */}
           <Route element={<AboutLayout />}>

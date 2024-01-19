@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../api/supabase.api';
+import Logo from '../../assets/Logo.png';
+import Prev from '../../assets/prev.png';
 import { useAuth } from '../../contexts/auth.context';
 import * as St from './Adminchatroom.styled';
 
@@ -24,6 +26,7 @@ const AdminChatRoom = () => {
   const roomId = params.roomId;
   //   console.log(params);
   const auth = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     messageTable();
@@ -53,6 +56,10 @@ const AdminChatRoom = () => {
     }
   };
 
+  const PrevHandler = () => {
+    navigate('/chat');
+  };
+
   const messageTable = async () => {
     const response = await supabase.from('qna').select('*').eq('room_id', roomId);
     const result = response.data;
@@ -67,13 +74,20 @@ const AdminChatRoom = () => {
     <>
       {isSwitch ? (
         <St.Container>
-          <St.ChatHeader>BOOKER(로고)</St.ChatHeader>
+          <St.ChatHeader>
+            <St.LogoWrapper>
+              <St.PrevBtn onClick={PrevHandler}>
+                <img src={Prev} alt="Prev" width={30} height={30} />
+              </St.PrevBtn>
+              <img src={Logo} alt="Logo" />
+            </St.LogoWrapper>
+          </St.ChatHeader>
+          <St.MainMessage>
+            안녕하세요 🙌 <br />
+            새로운 지식으로 시작되는 어쩌구저쩌구, 북커입니다📚
+            <br />​ 무엇을 도와드릴까요?
+          </St.MainMessage>
           <St.ChatBody>
-            <St.MainMessage>
-              안녕하세요 🙌 <br />
-              새로운 지식으로 시작되는 어쩌구저쩌구, 북커입니다📚
-              <br />​ 무엇을 도와드릴까요?
-            </St.MainMessage>
             {messages.map((message) => {
               return (
                 <>

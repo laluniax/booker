@@ -2,19 +2,29 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useRecoilState } from 'recoil';
-import { useCreateOrGetChat, useSendMessage } from '../../../api/ChatApi';
-import { getProductHandler, supabase } from '../../../api/supabase.api';
+import {useCreateOrGetChat, useSendMessage  } from '../../../api/chatApi';
+import {
+  deleteProductHandler,
+  deleteProductImgStorage,
+  getProductHandler,
+  getUserSessionHandler,
+  supabase,
+} from '../../../api/supabase.api';
 import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/product.atom';
 
+import { Session } from '@supabase/supabase-js';
+import logo from '../../../assets/Logo.png';
+import { ProductsTypes } from '../../../types/types';
 import { MessageType } from '../../qna/ChatModal';
-import { ListTypes } from '../MarketList';
+import { categoryArr } from '../marketpost/Post';
 import * as St from './Product.styled';
 
 const Product = () => {
-  const params = useParams();
+  const params = useParams().id;
   const navigate = useNavigate();
   const slideRef = useRef<HTMLUListElement>(null);
-  const [product, setProduct] = useState<ListTypes>();
+  const [session, setSession] = useState<Session | null>(null);
+  const [product, setProduct] = useState<ProductsTypes>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideLength, setSlideLength] = useState(0);
 
@@ -121,8 +131,13 @@ const Product = () => {
         </St.MessageComponent>
       ));
   };
+
+  const getUserSession = async () => {
+    const result = await getUserSessionHandler();
+    setSession(result.session);
+  };
   const getProduct = async () => {
-    const result = await getProductHandler(params.id as string);
+    const result = await getProductHandler(params as string);
     setProduct(result[0]);
     setSlideLength(result[0].product_img.length);
     setProductId(result[0]);
@@ -139,8 +154,29 @@ const Product = () => {
     }
   }, [currentSlide, slideLength]);
 
+  const onClickDeleteButton = async () => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      const result = await deleteProductHandler(params as string);
+      const resultStorage = await deleteProductImgStorage(params as string);
+      navigate(`/market`);
+    } else {
+      return false;
+    }
+  };
+
+  const onClickLikesButton = () => {
+    if (!session && window.confirm('로그인 페이지로 이동하시겠습니까?')) navigate(`/login`);
+  };
+
+  const onClickDMButton = () => {
+    session
+      ? product?.user_id && DmClickhandler(product.user_id, Number(product.id))
+      : window.confirm('로그인 페이지로 이동하시겠습니까?') && navigate(`/login`);
+  };
+
   useEffect(() => {
     getProduct();
+    getUserSession();
   }, []);
   useEffect(() => {
     if (slideRef.current) slideRef.current.style.marginLeft = `${-currentSlide * 30}rem`;
@@ -151,14 +187,18 @@ const Product = () => {
       <St.Title>중고 거래 상세페이지</St.Title>
       <St.ProductInfo>
         <St.SliderWrapper>
-          {/* 이미지 슬라이드로 할 지, 클릭 시 커지는 것으로 할 지 */}
-          <St.SliderUl ref={slideRef}>
-            {product?.product_img?.map((img, i) => (
-              <St.SliderLi key={i}>
-                <img src={img} />
-              </St.SliderLi>
-            ))}
-          </St.SliderUl>
+          {' '}
+          {product?.product_img?.length === 0 ? (
+            <St.Logo src={logo} />
+          ) : (
+            <St.SliderUl ref={slideRef}>
+              {product?.product_img?.map((img, i) => (
+                <St.SliderLi key={i}>
+                  <img src={img} />
+                </St.SliderLi>
+              ))}
+            </St.SliderUl>
+          )}
           <St.SliderBtn onClick={onClickPrevBtn} className="prev">
             〈
           </St.SliderBtn>
@@ -176,14 +216,20 @@ const Product = () => {
             <span>상품 상태 | </span>
             {product?.product_grade}
           </St.ProductGrade>
-          <St.ProductPrice>
-            {product?.price} <span>원</span>
-          </St.ProductPrice>
+          <St.PriceBtnWrapper>
+            <St.ProductPrice>
+              {product?.price} <span>원</span>
+            </St.ProductPrice>
+            {session?.user.id === product?.user_id ? (
+              <St.ProductBtn>
+                <St.UpdateBtn onClick={() => navigate(`/marketpost/${product?.id}`)}>수정</St.UpdateBtn>
+                <St.UpdateBtn onClick={onClickDeleteButton}>삭제</St.UpdateBtn>
+              </St.ProductBtn>
+            ) : null}
+          </St.PriceBtnWrapper>
           <St.ProductBtn>
-            <St.ProductLikes>좋아요</St.ProductLikes>
-            <St.ProductLikes onClick={() => product?.user_id && DmClickhandler(product.user_id, Number(product.id))}>
-              대화 시작하기
-            </St.ProductLikes>
+            <St.ProductLikes onClick={onClickLikesButton}>좋아요</St.ProductLikes>
+            <St.ProductLikes onClick={onClickDMButton}>대화 시작하기</St.ProductLikes>
             {/* 여기에 채팅 모달을 조건부 렌더링합니다. */}
             {isChatModalOpen && (
               <St.ChatModalWrapper>
@@ -205,16 +251,20 @@ const Product = () => {
               </St.ChatModalWrapper>
             )}
           </St.ProductBtn>
-          <St.ProductUser
-            onClick={() => {
-              navigate(`/profile/${product?.user_id}`);
-            }}>
-            <img />
-            {product?.user_id}
+          <St.ProductUser>
+            <img src={product?.users.user_img ?? undefined} />
+            <div>{product?.users.nickname}</div>
+            <button
+              onClick={() => {
+                navigate(`/profile/${product?.user_id}`);
+              }}>
+              프로필 방문
+            </button>
           </St.ProductUser>
         </div>
       </St.ProductInfo>
       <St.ProductContent>{product?.content}</St.ProductContent>
+      <button onClick={() => navigate(`/market/${categoryArr.indexOf(product?.category as string)}`)}>목록보기</button>
     </St.Container>
   );
 };

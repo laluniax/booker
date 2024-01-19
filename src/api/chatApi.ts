@@ -56,7 +56,7 @@ export function useCreateOrGetChat() {
 
         const { error } = await supabase.from('chats_users').insert([
           { chat_id: newChatData.id, user_id: userId, others_id: otherUserId, item_id: productId },
-          { chat_id: newChatData.id, others_id: userId, user_id: otherUserId,  item_id: productId },
+          { chat_id: newChatData.id, others_id: userId, user_id: otherUserId, item_id: productId },
         ]);
 
         if (error) {
