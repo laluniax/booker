@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { signinHandler } from '../../api/supabase.api';
 import * as St from './Form.stlye';
 import ImageSlideshow from './MainImgSlide';
-import { GithubLoginBtn } from './Github';
-import { GoogleLoginBtn } from './Goolge';
+import { GithubLoginBtn } from './github';
+import { GoogleLoginBtn } from './google';
 // import { KakaoLoginBtn } from './kakao';
 
 const Form = () => {
@@ -19,7 +19,7 @@ const Form = () => {
   const validateEmail = (email: string): boolean => {
     if (email.trim() === '') {
       setEmailError('이메일을 입력해주세요');
-      return false
+      return false;
     }
 
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,8 +39,7 @@ const Form = () => {
       setPasswordError('비밀번호를 입력해주세요.');
     } else if (!regex.test(password)) {
       setPasswordError('비밀번호는 최소 8자 이상이며, 최소 하나의 문자와 하나의 숫자를 포함해야 합니다');
-    } 
-  
+    }
   };
 
   const moveToSignUpHandler = () => {
@@ -93,8 +92,8 @@ const Form = () => {
               ref={emailRef}
               onBlur={() => validateEmail(emailRef.current?.value || '')}
               // . React에서 onBlur 이벤트는 사용자가 입력 필드를 입력하고 다른 부분을 클릭할 때, 즉 그 입력 필드에서 포커스가 벗어났을 때 호출됩니다
-              onKeyDown={handleKeyPress} 
-           />
+              onKeyDown={handleKeyPress}
+            />
             {emailError && <St.ErrorText>{emailError}</St.ErrorText>}
           </St.InputGroup>
           <St.InputGroup>
@@ -103,7 +102,7 @@ const Form = () => {
               type="password"
               ref={passwordRef}
               onBlur={() => validatePassword(passwordRef.current?.value || '')}
-              onKeyDown={handleKeyPress} 
+              onKeyDown={handleKeyPress}
             />
             {passwordError && <St.ErrorText>{passwordError}</St.ErrorText>}
           </St.InputGroup>
