@@ -10,13 +10,22 @@ export const Container = styled.section`
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 2rem;
   padding: 8px;
+  background-color: white;
+  overflow: scroll;
 `;
 
 export const ChatHeader = styled.div`
   display: flex;
-  padding: 8px;
   margin: 16px 16px 12px;
   overflow: hidden;
+`;
+export const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+export const PrevBtn = styled.div`
+  cursor: pointer;
 `;
 
 export const ChatBody = styled.div`
@@ -25,27 +34,35 @@ export const ChatBody = styled.div`
   gap: 12px;
   padding: 8px;
   margin: 0px 16px;
+  height: 65%;
+  overflow: scroll;
 `;
-export const MainMessage = styled.p``;
+export const MainMessage = styled.p`
+  padding: 10px;
+`;
 export const TalkButtonWrapper = styled.div`
   position: fixed;
   bottom: 60px;
   right: 10px;
 `;
 
-export const TalkButton = styled.button``;
+export const TalkButton = styled.button`
+  width: 90%;
+  border: none;
+  padding: 1rem;
+`;
 export const ChatInputWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  height: 60%;
+  justify-content: center;
   padding: 0px 6px 0px 14px;
+  z-index: 9999;
 `;
 
 export const Input = styled.input`
-  width: 90%;
-  position: absolute;
-  bottom: 10px;
+  width: 95%;
+  position: relative;
   min-height: 50px;
   padding: 0px 6px 0px 14px;
   border-radius: 1rem;

@@ -31,6 +31,10 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        -ms-overflow-style: none;
+        ::-webkit-scrollbar {
+    display: none;
+}
     }
     ol, ul {
         list-style: none;

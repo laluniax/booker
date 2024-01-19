@@ -1,4 +1,4 @@
-import Detail from '../components/bookertalk/Detail';
+import Detail from '../components/bookertalkdetail/Detail';
 
 const BookerTalkDetail = () => {
   return (

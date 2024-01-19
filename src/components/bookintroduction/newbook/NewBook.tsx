@@ -7,7 +7,7 @@ interface NewBooks {
   author: string;
   categoryName: string;
   cover: string;
-  description: string;
+  publisher: string;
   title: string;
   bestRank: number;
   isbn13: string;
@@ -40,11 +40,14 @@ const NewBook = () => {
                 <St.BookGenre>{book.categoryName}</St.BookGenre>
                 <St.BookWrapper>
                   <St.BookImg>
-                    <img src={book.cover} alt="책 이미지" />
+                    <img src={book.cover} alt="책 이미지" width={200} height={250} />
                   </St.BookImg>
                   <St.BookIntro>
                     <St.Title>{book.title}</St.Title>
-                    <St.Plot>{book.description}</St.Plot>
+                    <St.AuthWrapper>
+                      <St.Author>{book.author}</St.Author>
+                      <St.Plot>{book.publisher}</St.Plot>
+                    </St.AuthWrapper>
                   </St.BookIntro>
                 </St.BookWrapper>
               </St.BookImageWrapper>

@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const Container = styled.section``;
+export const Container = styled.section`
+  height: 70%;
+  padding: 10px;
+  overflow: scroll;
+`;
 
 export const ChatWrapper = styled.div`
   width: 390px;
@@ -12,6 +16,7 @@ export const ChatWrapper = styled.div`
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 2rem;
   padding: 8px;
+  overflow: hidden;
 `;
 export const ChatHeader = styled.div`
   display: flex;

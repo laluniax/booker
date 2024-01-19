@@ -15,6 +15,16 @@ export const ChatWrapper = styled.div`
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 2rem;
   padding: 8px;
+
+  background-color: white;
+  overflow: scroll;
+`;
+export const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const PrevBtn = styled.div`
+  cursor: pointer;
 `;
 export const ChatHeader = styled.div`
   display: flex;
@@ -46,14 +56,14 @@ export const ChatInputWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  height: 60%;
   padding: 0px 6px 0px 14px;
+  z-index: 999;
 `;
 
 export const Input = styled.input`
   width: 90%;
-  position: absolute;
-  bottom: 10px;
+  position: relative;
+
   min-height: 50px;
   padding: 0px 6px 0px 14px;
   border-radius: 1rem;
@@ -65,8 +75,126 @@ export const Input = styled.input`
 `;
 export const TalkButtonWrapper = styled.div`
   position: fixed;
-  bottom: 60px;
+  bottom: 30px;
   right: 10px;
 `;
 
 export const TalkButton = styled.button``;
+
+export const MessageComponent = styled.div<MessageProps>`
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+  align-self: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
+  background-color: ${(props) => (props.isOutgoing ? '#DCF8C6' : '#FFFFFF')}; // 예시 색상
+`;
+
+// Props 타입 정의
+export type MessageProps = {
+  isOutgoing: boolean;
+};
+
+export const UserItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e9e9e9;
+  }
+`;
+
+export const UserEmail = styled.div`
+  font-weight: bold;
+`;
+
+export const UserLastMessage = styled.div`
+  color: #666;
+  font-size: 0.9em;
+`;
+
+export const DMButton = styled.button`
+  padding: 5px 10px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4e9af1;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #3b82f6;
+  }
+`;
+
+// 모달 래퍼
+export const ChatModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 400px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 1000;
+`;
+
+// 모달 헤더
+export const ChatModalHeader = styled.div`
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+// 모달 바디
+export const ChatModalBody = styled.div`
+  padding: 10px;
+  overflow-y: auto;
+  flex-grow: 1;
+`;
+
+// 모달 푸터
+export const ChatModalFooter = styled.div`
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+`;
+
+// 입력 필드 및 전송 버튼
+export const InputField = styled.input`
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+export const SendButton = styled.button`
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #45a049;
+  }
+`;

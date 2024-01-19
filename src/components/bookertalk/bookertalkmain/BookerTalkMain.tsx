@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { filteredCategory } from '../../../api/supabase.api';
+import { foramtCreatedAt } from '../../../utils/date';
 import { CateGenresTypes, categoryUuid } from '../bookertalkpost/Post';
 import * as St from './BookerTalkMain.styled';
 
@@ -62,7 +63,7 @@ const BookerTalkMain = () => {
   return (
     <>
       <St.Title>
-        {params ? findKeyByValue(categoryUuid, params as string) : '북커톡'}
+        {params ? findKeyByValue(categoryUuid, params as string) : 'BOOKER TALK'}
         <St.PostButton onClick={() => navigation('/bookertalk/write')}>글쓰기</St.PostButton>
       </St.Title>
       <St.Container>
@@ -89,13 +90,12 @@ const BookerTalkMain = () => {
                 }}>
                 <St.PostTitle>{item.title}</St.PostTitle>
                 {/* <span>{item.user_id}</span> */}
-                {/* <St.PostContent>{item.created_at}</St.PostContent> */}
-                {/* <St.PostDate>{item.content}</St.PostDate> */}
-                <St.PostNickName>닉네임</St.PostNickName>
+                {/* <St.PostContent>{item.content}</St.PostContent> */}
+                <St.PostNickName>닉네임 | {foramtCreatedAt(item.created_at)}</St.PostNickName>
               </St.PostListBox>
             );
           })}
-        </St.PostListWrapper>{' '}
+        </St.PostListWrapper>
       </St.Container>
     </>
   );
