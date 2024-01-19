@@ -6,10 +6,13 @@ export const Container = styled.div`
   height: 10rem;
   padding: 2rem;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: center;
   align-items: center;
   font-size: 1.5rem;
 `;
+
+export const Image = styled.img``;
 
 export const NavbarWrapper = styled.div`
   align-items: center;

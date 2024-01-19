@@ -26,7 +26,7 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
         onClick={() => {
           navigate('/');
         }}>
-        로고
+        <St.Image src="/images/logo.png" />
       </div>
       <St.HeaderUl>
         <St.HeaderLi>
@@ -60,7 +60,9 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
             />
           </form>
         ) : null}
-        <St.HeaderBtn onClick={() => setSearchBarOpen(!searchBarOpen)}>서치</St.HeaderBtn>
+        <St.HeaderBtn onClick={() => setSearchBarOpen(!searchBarOpen)}>
+          <img src="/images/serchIcon.jpg" alt="serchIcon" style={{ width: '30px', height: '30px' }} />
+        </St.HeaderBtn>
         {auth.session !== null ? (
           <>
             <St.HeaderBtn
@@ -69,7 +71,9 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
               }}>
               <img src={auth.session.user.user_metadata.user_img} alt="유저 프로필 이미지" />
             </St.HeaderBtn>
-            <St.HeaderBtn onClick={onClickSignoutHandler}>로그아웃</St.HeaderBtn>
+            <St.HeaderBtn onClick={onClickSignoutHandler}>
+              {/* <St.Image src="/images/profileIcon.png" /> */}
+            </St.HeaderBtn>
           </>
         ) : (
           <St.HeaderBtn
