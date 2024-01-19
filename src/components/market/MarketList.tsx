@@ -34,10 +34,10 @@ const MarketList = () => {
   const getProductList = async () => {
     if (params) {
       const result = await getCategoryProductListHandler(category);
-      setList(result);
+      setList(result.sort((a, b) => b.id - a.id));
     } else {
       const result = await getProductListHandler();
-      setList(result);
+      setList(result.sort((a, b) => b.id - a.id));
     }
   };
 

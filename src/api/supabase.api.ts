@@ -83,12 +83,7 @@ export const getUserDataHandler = async (params: string) => {
   return data;
 };
 
-// export const updateUserNinknameHandler = async (nickname: string, id: string) => {
-//   const { data, error } = await supabase.from('users').update({ nickname: nickname }).eq('id', id).select();
-//   if (error) throw error;
-//   return data;
-// };
-
+// Profile
 // 유저 정보 수정하기 (닉네임 - auth 변경되면 users테이블 자동으로 업데이트 됨)
 export const updateUserAuthNicknameHandler = async (nickname: string) => {
   const { data, error } = await supabase.auth.updateUser({ data: { full_name: nickname } });
@@ -120,6 +115,7 @@ export const getPublicUrlHandler = (params: string) => {
   return data;
 };
 
+// Market
 type ProductTypes = {
   userId: string;
   title: string;
@@ -135,10 +131,6 @@ export const sumbitProductHandler = async ({ userId, title, content, price, cate
     .from('products')
     .insert([{ user_id: userId, title, content, price, category, product_grade: productGrade }])
     .select();
-  // if (data) {
-  //   const productId = data[0]?.id;
-  //   await uploadProductImgStorageUrl(productId, productImg);
-  // }
   if (error) throw error;
   return data;
 };
@@ -153,7 +145,6 @@ export const uploadProductImgStorageUrl = async (productId: string, productImg: 
   });
   const imgUrl = await Promise.all(uploadImg);
   const imgUrls = getPublicUrlsHandler(imgUrl);
-
   return { imgUrls, productId };
 };
 // storage에 있는 상품 사진 publicUrl로 불러오는 함수
@@ -222,20 +213,28 @@ export const updateProductHandler = async (
   if (error) throw error;
   return data;
 };
-// storage에서 이미지 가져오기
-// export const downloadImgFromStorageHandler = async (params: string) => {
-//   const { data, error } = await supabase.storage.from('product_img').download(`${params}`);
-//   if (error) throw error;
-//   return data;
-// };
 
 // Bookertalk
-export type PostTypes = {
-  title: string;
-  content: string | undefined;
-  tags: string[];
-  userId: string;
-  genreUuid: string;
+// READ
+// posts 모든 게시글 가져오기(feat. users)
+export const getPostsHandler = async () => {
+  const { data, error } = await supabase.from('posts').select('*, users(*)');
+  if (error) throw error;
+  return data;
+};
+
+// posts의 genre_id와 같은 데이터를 불러오는 함수입니다.
+export const filteredCategory = async (params: string) => {
+  const { data, error } = await supabase.from('posts').select('*, users(*)').eq('genre_id', params);
+  if (error) throw error;
+  return data;
+};
+
+// posts의 id랑 똑같은 정보 가져오는 함수입니다.
+export const filteredPostId = async (params: string) => {
+  const { data, error } = await supabase.from('posts').select('*, users(*)').eq('id', params);
+  if (error) throw error;
+  return data;
 };
 
 // Create
@@ -243,51 +242,63 @@ export type PostTypes = {
 export const uploadImageFile = async (blob: File) => {
   const postImg = nanoid();
   const path = blob.lastModified;
-  const { data, error } = await supabase.storage.from('post_img').upload(`${path}/${postImg}`, blob);
-  const publicUrl = getPublicPostImgUrl(path, postImg);
+  const { data, error } = await supabase.storage.from('post_img').upload(`${postImg}`, blob);
+  const publicUrl = getPublicPostImgUrl(postImg);
   if (error) throw error;
-  return publicUrl;
+  return { publicUrl, postImg };
 };
 
 // 스토리지에 있는 img의 public url을 가져오는 함수
-const getPublicPostImgUrl = (path: number, postImg: string) => {
-  const { data } = supabase.storage.from('post_img').getPublicUrl(`${path}/${postImg}`);
+const getPublicPostImgUrl = (postImg: string) => {
+  const { data } = supabase.storage.from('post_img').getPublicUrl(`${postImg}`);
   return data;
 };
 
-// 북커톡 게시판 글 작성 완료시 데이터 등록하는 함수입니다.
-export const submitPostListHandler = async ({ title, content, tags, userId, genreUuid }: PostTypes) => {
+export type PostTypes = {
+  title: string;
+  content: string | undefined;
+  tags: string[];
+  userId: string;
+  genreUuid: string;
+  postImg: string[];
+};
+
+// insert post
+export const submitPostListHandler = async ({ title, content, tags, userId, genreUuid, postImg }: PostTypes) => {
   const { data, error } = await supabase
     .from('posts')
-    .insert([{ user_id: userId, title, content, tags, genre_id: genreUuid }])
+    .insert([{ user_id: userId, title, content, tags, genre_id: genreUuid, post_img: postImg }])
     .select();
 
   if (error) throw error;
   return data;
 };
 
-// READ
-// posts의 genre_id와 같은 데이터를 불러오는 함수입니다.
-export const filteredCategory = async (params: string) => {
-  const { data, error } = await supabase.from('posts').select('*').eq('genre_id', params);
-  if (error) throw error;
-  return data;
-};
-
-// posts의 id랑 똑같은 정보 가져오는 함수입니다.
-export const filteredPostId = async (params: string) => {
-  const { data, error } = await supabase.from('posts').select('*').eq('id', params);
-  if (error) throw error;
-  return data;
-};
-
-// Update (수정)
-export const editPost = async () => {
+// update post
+export const updatePostHandler = async (
+  { title, content, tags, userId, genreUuid, postImg }: PostTypes,
+  params: string,
+) => {
   const { data, error } = await supabase
     .from('posts')
-    .update({ other_column: 'otherValue' })
-    .eq('some_column', 'someValue')
+    .update([{ user_id: userId, title, content, tags, genre_id: genreUuid, post_img: postImg }])
+    .eq('id', params)
     .select();
+  return data;
+};
+
+// delete post
+export const deletePostHandler = async (postId: string) => {
+  const { error } = await supabase.from('posts').delete().eq('id', postId);
+};
+// post 삭제 할 때 해당 storage 파일도 함께 삭제
+export const deletePostImgStorageHandler = async (postImg: string[]) => {
+  const result = postImg.map(async (item) => {
+    const { data, error } = await supabase.storage.from('post_img').remove([`${item}`]);
+    if (error) throw error;
+    return data;
+  });
+  return result;
 };
 
 // userId로 posts 풀러오는 함수(profile)
@@ -303,6 +314,7 @@ export const filterProductsByUserIdHandler = async (userId: string) => {
   return data;
 };
 
+// Comments
 // comment 불러오는 함수 (해당 postId에 따른 댓글 불러오기)
 // export const filterCommentHandler = async (postId: number) => {
 //   const { data, error } = await supabase.from('comments').select('*').eq('post_id', postId);

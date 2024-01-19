@@ -9,7 +9,7 @@ import {
   updateCommentHandler,
 } from '../../../api/supabase.api';
 import { CommentTypes } from '../../../types/types';
-import { foramtCreatedAt } from '../../../utils/date';
+import { formatCreatedAt } from '../../../utils/date';
 import * as St from './Comment.styled';
 import SubComment from './SubComment';
 
@@ -26,7 +26,6 @@ const Comment = () => {
   const getCommentsInfo = async () => {
     const result = await getCommentsInfoHandler(params);
     setData(result[0] as CommentTypes);
-    console.log(result[0]);
   };
 
   const getUserSession = async () => {
@@ -86,7 +85,7 @@ const Comment = () => {
                   <St.UserImg src={item.users.user_img ?? undefined} />
                   <St.CommentNicknameCreatedAt>
                     <St.CommentNickname>{item.users.nickname}</St.CommentNickname>
-                    <St.CommentCreatedAt>{foramtCreatedAt(item.created_at)}</St.CommentCreatedAt>
+                    <St.CommentCreatedAt>{formatCreatedAt(item.created_at)}</St.CommentCreatedAt>
                   </St.CommentNicknameCreatedAt>
 
                   {session === item.user_id ? (

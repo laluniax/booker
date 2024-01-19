@@ -52,6 +52,7 @@ const Router = () => {
           <Route path="/bookertalk" element={<BookerTalk />} />
           <Route path="/bookertalk/:id" element={<BookerTalk />} />
           <Route path="/bookertalk/write" element={<BookerTalkPost />} />
+          <Route path="/bookertalk/write/:id" element={<BookerTalkPost />} />
           <Route path="/detail/:id" element={<BookerTalkDetail />} />
 
           {/* 도서 소개 페이지 */}
