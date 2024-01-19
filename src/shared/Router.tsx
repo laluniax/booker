@@ -36,6 +36,7 @@ import Profile from '../pages/Profile';
 import Register from '../pages/Register';
 import Search from '../pages/Search';
 import Survey from '../pages/Survey';
+import IndBookStores from '../pages/IndBookStores';
 
 const Router = () => {
   return (
