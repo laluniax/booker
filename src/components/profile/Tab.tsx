@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { filterPostsByUserIdHandler, filterProductsByUserIdHandler } from '../../api/supabase.api';
 import { Tables } from '../../types/types';
-import { foramtCreatedAt } from '../../utils/date';
+import { formatCreatedAt } from '../../utils/date';
 import * as St from './UserProfile.styled';
 
 type Props = {
@@ -66,7 +66,7 @@ const Tab = ({ userSession, userData }: Props) => {
                 return (
                   <St.Post key={i} onClick={() => navigate(`/detail/${item.id}`)}>
                     <St.PostTitle>{item.title}</St.PostTitle>
-                    <St.PostDate>{foramtCreatedAt(item.created_at)}</St.PostDate>
+                    <St.PostDate>{formatCreatedAt(item.created_at)}</St.PostDate>
                   </St.Post>
                 );
               })}
@@ -81,7 +81,7 @@ const Tab = ({ userSession, userData }: Props) => {
                       <St.ProductTitle>{item.title}</St.ProductTitle>
                       <St.ProductPrice>{item.price}</St.ProductPrice>
                     </div>
-                    <St.ProductDate>{foramtCreatedAt(item.created_at)}</St.ProductDate>
+                    <St.ProductDate>{formatCreatedAt(item.created_at)}</St.ProductDate>
                   </St.Product>
                 );
               })}
