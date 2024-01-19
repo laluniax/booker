@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useRecoilState } from 'recoil';
-import { useCreateOrGetChat, useSendMessage } from '../../../api/chatApi';
+import {useCreateOrGetChat, useSendMessage  } from '../../../api/chatApi';
 import {
   deleteProductHandler,
   deleteProductImgStorage,

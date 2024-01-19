@@ -65,4 +65,22 @@ const Button = styled.button`
   }
 `;
 
-export {Container,LoginContainer,Title,InputGroup,Label,Input,Button}
+const SignUpLink = styled.div`
+  margin-top: 1rem;
+  cursor: pointer;
+  color: #4a90e2;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+
+// 에러 텍스트용 스타일 컴포넌트
+const ErrorText = styled.div`
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+`;
+
+
+export {ErrorText,Container,LoginContainer,Title,InputGroup,Label,Input,Button,SignUpLink}
