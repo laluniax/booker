@@ -14,4 +14,5 @@ export const Menu = styled.ul`
 
 export const MenuList = styled.li`
   list-style: none;
+  font-size: large;
 `;

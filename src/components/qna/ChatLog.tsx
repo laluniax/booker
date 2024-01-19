@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { supabase } from '../../api/supabase.api';
 import { useAuth } from '../../contexts/auth.context';
 import * as St from './ChatLog.styled';
@@ -14,29 +14,19 @@ interface Message {
 const ChatLog = () => {
   const auth = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
+  const messageEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!auth.session) return;
 
     getQnaLog(auth.session.user.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [auth.session, messages]);
 
   //qna table 가져오는 함수
   const getQnaLog = async (roomId: string) => {
     if (!auth.session) return;
-
-    /* const isAdmin = auth.session.profile.isAdmin;
-
-    const result = isAdmin
-      ? await supabase.from('qna').select('*')
-      : await supabase.from('qna').select('*').eq('sender_id', userId);
-    if (result.data) {
-      setQnaLog(result.data as QnaParams[]);
-    } else {
-      console.error('데이터를 가져오는 데 실패했습니다.');
-      setQnaLog([]); // 데이터가 없을 때 빈 배열로 설정
-    } */
     const response = await supabase.from('qna').select('*').eq('room_id', roomId);
     const result = response.data;
     if (result) {
@@ -62,6 +52,7 @@ const ChatLog = () => {
           )}
         </div>
       ))}
+      <div ref={messageEndRef}></div>
     </St.Container>
   );
 };
