@@ -28,7 +28,6 @@ import BookerTalk from '../pages/BookerTalk';
 import BookerTalkDetail from '../pages/BookerTalkDetail';
 import BookerTalkPost from '../pages/BookerTalkPost';
 import Home from '../pages/Home';
-import IndBookStores from '../pages/IndBookStores';
 import Login from '../pages/Login';
 import Market from '../pages/Market';
 import MarketPost from '../pages/MarketPost';
@@ -60,6 +59,10 @@ const Router = () => {
           {/* 중고책 판매 / 중고책 상세 페이지 */}
           <Route path="/market" element={<Market />} />
           <Route path="/marketproduct" element={<MarketProduct />} />
+          <Route path="/market/:id" element={<Market />} />
+          <Route path="/marketpost" element={<MarketPost />} />
+          <Route path="/marketpost/:id" element={<MarketPost />} />
+          <Route path="/product/:id" element={<MarketProduct />} />
           {/* 설문조사 페이지 / 설문조사 질문 페이지 / 설문조사 결과 페이지 */}
           <Route path="/survey" element={<Survey />} />
           <Route path="/bestsellercheapsurvey" element={<BestSellerCheapSurvey />} />

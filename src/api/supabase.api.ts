@@ -127,28 +127,18 @@ type ProductTypes = {
   price: string;
   category: string;
   productGrade: string;
-  productImg: File[];
 };
 
 // 상품 등록하기
-export const sumbitProductHandler = async ({
-  userId,
-  title,
-  content,
-  price,
-  category,
-  productGrade,
-  productImg,
-}: ProductTypes) => {
+export const sumbitProductHandler = async ({ userId, title, content, price, category, productGrade }: ProductTypes) => {
   const { data, error } = await supabase
     .from('products')
     .insert([{ user_id: userId, title, content, price, category, product_grade: productGrade }])
     .select();
-  if (data) {
-    const productId = data[0]?.id;
-    await uploadProductImgStorageUrl(productId, productImg);
-  }
-
+  // if (data) {
+  //   const productId = data[0]?.id;
+  //   await uploadProductImgStorageUrl(productId, productImg);
+  // }
   if (error) throw error;
   return data;
 };
@@ -163,7 +153,8 @@ export const uploadProductImgStorageUrl = async (productId: string, productImg: 
   });
   const imgUrl = await Promise.all(uploadImg);
   const imgUrls = getPublicUrlsHandler(imgUrl);
-  await updateProductImgPublicUrlHandler(imgUrls, productId);
+
+  return { imgUrls, productId };
 };
 // storage에 있는 상품 사진 publicUrl로 불러오는 함수
 const getPublicUrlsHandler = (imgUrl: { path: string }[]) => {
@@ -174,7 +165,7 @@ const getPublicUrlsHandler = (imgUrl: { path: string }[]) => {
   return imgUrls;
 };
 // 테이블에 publicUrls 받아온 배열 업데이트하는 함수
-const updateProductImgPublicUrlHandler = async (imgUrls: string[], productId: string) => {
+export const updateProductImgPublicUrlHandler = async (imgUrls: string[], productId: string) => {
   const { data, error } = await supabase.from('products').update({ product_img: imgUrls }).eq('id', productId).select();
   if (error) throw error;
   return data;
@@ -195,10 +186,48 @@ export const getCategoryProductListHandler = async (category: string) => {
 
 // 상품 읽어오기 (params 이용 - product detail 사용)
 export const getProductHandler = async (id: string) => {
-  const { data, error } = await supabase.from('products').select('*').eq('id', id);
+  const { data, error } = await supabase.from('products').select('*, users(*)').eq('id', id);
   if (error) throw error;
   return data;
 };
+
+// 상품 삭제하기
+export const deleteProductHandler = async (productId: string) => {
+  const { error } = await supabase.from('products').delete().eq('id', productId);
+  return error;
+};
+export const deleteProductImgStorage = async (productId: string) => {
+  const list = await deleteProductImgList(productId);
+  const listPaths = list.map((item) => `${productId}/${item.name}`);
+  const { data, error } = await supabase.storage.from('product_img').remove(listPaths);
+  if (error) throw error;
+  return data;
+};
+const deleteProductImgList = async (productId: string) => {
+  const { data, error } = await supabase.storage.from('product_img').list(productId);
+  if (error) throw error;
+  return data;
+};
+
+// 상품 업데이트하기
+export const updateProductHandler = async (
+  { title, content, price, category, productGrade }: ProductTypes,
+  params: string,
+) => {
+  const { data, error } = await supabase
+    .from('products')
+    .update({ title, content, price, category, product_grade: productGrade })
+    .eq('id', params)
+    .select();
+  if (error) throw error;
+  return data;
+};
+// storage에서 이미지 가져오기
+// export const downloadImgFromStorageHandler = async (params: string) => {
+//   const { data, error } = await supabase.storage.from('product_img').download(`${params}`);
+//   if (error) throw error;
+//   return data;
+// };
 
 // Bookertalk
 export type PostTypes = {
