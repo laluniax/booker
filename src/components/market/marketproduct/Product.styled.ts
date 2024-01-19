@@ -11,11 +11,7 @@ export const Title = styled.div`
   font-weight: 600;
 `;
 
-export const SliderWrapper = styled.div`
-  width: 30rem;
-  height: 30rem;
-  overflow: hidden;
-  position: relative;
+export const LogoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,7 +21,12 @@ export const Logo = styled.img`
   max-width: 25rem;
   max-height: 4.3766rem;
 `;
-
+export const SliderWrapper = styled.div`
+  width: 30rem;
+  height: 30rem;
+  overflow: hidden;
+  position: relative;
+`;
 export const SliderUl = styled.ul`
   display: flex;
 `;

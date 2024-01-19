@@ -26,7 +26,6 @@ const Product = () => {
   const [product, setProduct] = useState<ProductsTypes>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideLength, setSlideLength] = useState(0);
-
   const [inputValue, setInputValue] = useState('');
   const [productId, setProductId] = useRecoilState(productState);
 
@@ -187,11 +186,12 @@ const Product = () => {
     <St.Container>
       <St.Title>중고 거래 상세페이지</St.Title>
       <St.ProductInfo>
-        <St.SliderWrapper>
-          {' '}
-          {product?.product_img?.length === 0 ? (
-            <St.Logo src="images/common/logo.png" alt="Logo" />
-          ) : (
+        {product?.product_img?.length === 0 ? (
+          <St.LogoWrapper>
+            <St.Logo src="/images/common/logo.png" alt="Logo" />
+          </St.LogoWrapper>
+        ) : (
+          <St.SliderWrapper>
             <St.SliderUl ref={slideRef}>
               {product?.product_img?.map((img, i) => (
                 <St.SliderLi key={i}>
@@ -199,14 +199,18 @@ const Product = () => {
                 </St.SliderLi>
               ))}
             </St.SliderUl>
-          )}
-          <St.SliderBtn onClick={onClickPrevBtn} className="prev">
-            〈
-          </St.SliderBtn>
-          <St.SliderBtn onClick={onClickNextBtn} className="next">
-            〉
-          </St.SliderBtn>
-        </St.SliderWrapper>
+            {currentSlide !== 0 && (
+              <St.SliderBtn onClick={onClickPrevBtn} className="prev">
+                〈
+              </St.SliderBtn>
+            )}
+            {currentSlide !== slideLength - 1 && (
+              <St.SliderBtn onClick={onClickNextBtn} className="next">
+                〉
+              </St.SliderBtn>
+            )}
+          </St.SliderWrapper>
+        )}
         <div>
           <St.ProductTitle>{product?.title}</St.ProductTitle>
           <St.ProductCategory>
