@@ -6,10 +6,13 @@ export const Container = styled.div`
   height: 10rem;
   padding: 2rem;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: center;
   align-items: center;
   font-size: 1.5rem;
 `;
+
+export const Image = styled.img``;
 
 export const NavbarWrapper = styled.div`
   align-items: center;
@@ -38,8 +41,14 @@ export const HeaderBtn = styled.button`
   & img {
     width: 4rem;
     height: 4rem;
-    background-color: white;
-    border-radius: 50%;
+    /* background-color: white; */
+    /* border-radius: 50%; */
     object-fit: cover;
   }
+`;
+
+export const Test = styled.div`
+  /* margin-left: 3rem; */
+  display: flex;
+  padding: 18rem;
 `;

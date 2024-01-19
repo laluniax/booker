@@ -5,7 +5,7 @@ const Footer = () => {
     <St.FooterWrapper>
       <St.FooterBox>
         <St.FooterContentwrapper>
-          <St.Logo />
+          <St.Logo src="images/common/Logo.png" alt="Logo" />
           <St.FooterContentBox>
             <St.FooterTitle> : 책과 관련된 모든 것</St.FooterTitle>
             <St.FooterContent>

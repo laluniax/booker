@@ -36,6 +36,7 @@ import Profile from '../pages/Profile';
 import Register from '../pages/Register';
 import Search from '../pages/Search';
 import Survey from '../pages/Survey';
+import IndBookStores from '../pages/IndBookStores';
 
 const Router = () => {
   return (
@@ -54,7 +55,7 @@ const Router = () => {
           <Route path="/bookertalk/write" element={<BookerTalkPost />} />
           <Route path="/bookertalk/write/:id" element={<BookerTalkPost />} />
           <Route path="/detail/:id" element={<BookerTalkDetail />} />
-
+          <Route path="/indbookstores" element={<IndBookStores />} />
           {/* 도서 소개 페이지 */}
           <Route path="/aboutbooks" element={<AboutBooks />} />
           {/* 중고책 판매 / 중고책 상세 페이지 */}
