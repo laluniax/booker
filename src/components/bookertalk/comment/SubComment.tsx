@@ -6,7 +6,7 @@ import {
   updateSubCommentHandler,
 } from '../../../api/supabase.api';
 import { SubCommentTypes } from '../../../types/types';
-import { foramtCreatedAt } from '../../../utils/date';
+import { formatCreatedAt } from '../../../utils/date';
 import * as St from './Comment.styled';
 
 type Props = {
@@ -69,7 +69,7 @@ const SubComment = ({ commentId, session }: Props) => {
                         <St.SubCommentUser>
                           <St.SubCommentImg src={item.users.user_img ?? undefined} />
                           <St.SubCommentNickname>{item.users.nickname} | </St.SubCommentNickname>
-                          <St.SubCommentDate>{foramtCreatedAt(item.created_at)}</St.SubCommentDate>
+                          <St.SubCommentDate>{formatCreatedAt(item.created_at)}</St.SubCommentDate>
                         </St.SubCommentUser>
                         {session === item.user_id ? (
                           <St.CommentBtnDiv>

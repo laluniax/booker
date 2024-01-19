@@ -15,18 +15,23 @@ interface Bestseller {
 
 const BookBestseller = () => {
   const [bestSeller, setBestseller] = useState<Bestseller[]>([]);
-  useEffect(() => {
-    bookBestseller();
-  }, []);
 
   const navigate = useNavigate();
 
   console.log(bestSeller);
   const bookBestseller = async () => {
-    const response = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller');
-    console.log(response);
-    setBestseller(response.data.item);
+    try {
+      const response = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller');
+      console.log(response);
+      setBestseller(response.data.item);
+    } catch (err) {
+      console.log('err : ', err);
+    }
   };
+
+  useEffect(() => {
+    bookBestseller();
+  }, []);
 
   const GotoDetailPage = (isbn13: number) => {
     navigate(`/aboutBook/${isbn13}`);

@@ -2,9 +2,15 @@ import '@toast-ui/editor/dist/i18n/ko-kr';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import 'tui-color-picker/dist/tui-color-picker.css';
-import { getUserSessionHandler, submitPostListHandler, uploadImageFile } from '../../../api/supabase.api';
+import {
+  filteredPostId,
+  getUserSessionHandler,
+  submitPostListHandler,
+  updatePostHandler,
+  uploadImageFile,
+} from '../../../api/supabase.api';
 import * as St from './Post.styled';
 
 type Categories = {
@@ -47,22 +53,15 @@ const Post = () => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState<string>('');
   const [genres, setGenres] = useState('');
-  const [content, setContent] = useState<string | undefined>(undefined);
   const [tagItem, setTagItem] = useState('');
   const [tagList, setTagList] = useState<string[]>([]);
   const [userId, setUserId] = useState('');
+  const [postImg, setPostImg] = useState<string[]>([]);
+
+  const params = useParams().id;
 
   // 토스트 에디터
   const toastRef = useRef<Editor>(null);
-  const contentMark = toastRef?.current?.getInstance().getMarkdown();
-
-  // 아래는 이미지 url을 가져오기 위한 과정입니다.
-  const onUploadImage = async (blob: Blob | File, callback: HookCallback) => {
-    const url = await uploadImageFile(blob as File);
-    // console.log(url.publicUrl);
-    callback(url.publicUrl, 'alt text');
-    return false;
-  };
 
   //  카테고리
   const categories = {
@@ -70,6 +69,19 @@ const Post = () => {
     도서추천: ['인문', '경제 • 경영', '자기계발', '정치 • 사회', '역사 • 문화', '과학', '소설', '시 • 에세이'],
   };
 
+  // 유저 세션 가져오기
+  const getUserSession = async () => {
+    const result = await getUserSessionHandler();
+    setUserId(result.session?.user.id as string);
+  };
+
+  const getPost = async () => {
+    const result = await filteredPostId(params as string);
+    setTitle(result[0].title);
+    setTagList(result[0].tags);
+    setPostImg(result[0].post_img);
+    toastRef.current?.getInstance().setMarkdown(result[0].content);
+  };
   const categoryChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
   };
@@ -78,12 +90,10 @@ const Post = () => {
   const genreChangeHander = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setGenres(e.target.value);
   };
-
   // 태그
   const onChangeTagItem = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTagItem(e.target.value);
   };
-
   // 엔터키를 눌렀을 때 태그 제출
   const onKeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -92,7 +102,6 @@ const Post = () => {
       submitTagItem();
     }
   };
-
   const submitTagItem = () => {
     // '#' 기호를 제거한 후 다시 추가
     let formattedTagItem = `#${tagItem.replace(/^#/, '')}`;
@@ -101,10 +110,8 @@ const Post = () => {
       const updateTagList = [...tagList, formattedTagItem];
       setTagList(updateTagList);
     }
-
     setTagItem('');
   };
-
   // 태그 삭제 버튼
   const DeleteTagItem = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
@@ -115,45 +122,51 @@ const Post = () => {
     }
   };
 
-  const setContentHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const markdownContent = toastRef.current?.getInstance().getMarkdown();
-    setContent(markdownContent);
+  // 아래는 이미지 url을 가져오기 위한 과정입니다.
+  const onUploadImage = async (blob: Blob | File, callback: HookCallback) => {
+    const data = await uploadImageFile(blob as File);
+    setPostImg((prev) => [...prev, data.postImg]);
+    const url = data.publicUrl.publicUrl;
+    callback(url, 'alt text');
+    return false;
   };
 
-  const formSubmitHandler = async () => {
+  // 폼 제출 핸들러
+  const formSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const content = toastRef.current?.getInstance().getMarkdown();
     const combined = `${category} / ${genres}`;
     const genreUuid = categoryUuid[combined];
-    const newPost = { userId, title, content, tags: tagList, genreUuid };
+    if (title === '' || content === '' || content === '내용을 입력해주세요 !' || genreUuid === undefined) {
+      alert('입력되지 않은 내용이 있습니다');
+      return;
+    }
+    if (window.confirm('게시글을 등록하시겠습니까?')) {
+      const newPost = { userId, title, content, tags: tagList, genreUuid, postImg };
+      if (params) {
+        const result = await updatePostHandler(newPost, params);
+        navigation(`/detail/${params}`);
+      } else {
+        const result = await submitPostListHandler(newPost);
+        navigation(`/detail/${result[0].id}`);
+      }
 
-    await submitPostListHandler(newPost);
-    setTitle('');
-    setContent('');
-    setTagList([]);
-
-    navigation('/bookertalk');
-  };
-
-  // 유저 세션 가져오기
-  const getUserSession = async () => {
-    const result = await getUserSessionHandler();
-    setUserId(result.session?.user.id as string);
+      setTitle('');
+      setTagList([]);
+    } else return;
   };
 
   useEffect(() => {
     getUserSession();
-  }, []);
-
-  useEffect(() => {
-    content && formSubmitHandler();
-  }, [content]);
+    params && getPost();
+  }, [params]);
 
   return (
     <St.Container>
       <St.FormWrapper>
         <St.Form
           onSubmit={(e) => {
-            setContentHandler(e);
+            formSubmitHandler(e);
           }}>
           <St.TitleInputBox>
             <St.TitleInput
@@ -166,19 +179,21 @@ const Post = () => {
           </St.TitleInputBox>
           <St.TagWrapper>
             {/* 태그기능 */}
-            {tagList.map((tagItem, index) => {
-              return (
-                <St.tagItem key={index}>
-                  <St.TagContent>{tagItem}</St.TagContent>
-                  <St.DeleteTagButton
-                    onClick={(e) => {
-                      DeleteTagItem(e);
-                    }}>
-                    X
-                  </St.DeleteTagButton>
-                </St.tagItem>
-              );
-            })}
+            {tagList &&
+              tagList.length > 0 &&
+              tagList.map((tagItem, index) => {
+                return (
+                  <St.tagItem key={index}>
+                    <St.TagContent>{tagItem}</St.TagContent>
+                    <St.DeleteTagButton
+                      onClick={(e) => {
+                        DeleteTagItem(e);
+                      }}>
+                      X
+                    </St.DeleteTagButton>
+                  </St.tagItem>
+                );
+              })}
 
             <St.TagInputBox>
               <St.TagInput
@@ -217,7 +232,7 @@ const Post = () => {
           </St.CategoryAndGenreBox>
 
           <Editor
-            initialValue="내용을 입력해주세요 ! "
+            initialValue="내용을 입력해주세요 !"
             previewStyle="vertical"
             height="600px"
             initialEditType="wysiwyg"

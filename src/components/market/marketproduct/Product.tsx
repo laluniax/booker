@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useRecoilState } from 'recoil';
-import {useCreateOrGetChat, useSendMessage  } from '../../../api/chatApi';
+import { useCreateOrGetChat, useSendMessage } from '../../../api/chatApi';
 import {
   deleteProductHandler,
   deleteProductImgStorage,
@@ -13,7 +13,6 @@ import {
 import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/product.atom';
 
 import { Session } from '@supabase/supabase-js';
-import logo from '../../../assets/Logo.png';
 import { ProductsTypes } from '../../../types/types';
 import { MessageType } from '../../qna/ChatModal';
 import { categoryArr } from '../marketpost/Post';
@@ -27,9 +26,9 @@ const Product = () => {
   const [product, setProduct] = useState<ProductsTypes>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideLength, setSlideLength] = useState(0);
-
   const [inputValue, setInputValue] = useState('');
   const [productId, setProductId] = useRecoilState(productState);
+
   // const { createOrGetChatWithUser, KeyPresshandler, sendDmMessage } = useRecoilValue(chatFunctionsState);
   //리코일 작동안되는 부분 해결 하고, 함수를 리코일 비동기 하려면 로직을 리코일로 옮기고.
 
@@ -61,6 +60,7 @@ const Product = () => {
       }
     }
   };
+
   // useEffect를 사용하여 채팅 데이터 로드
   useEffect(() => {
     // 현재 채팅방의 메시지를 가져오는 함수
@@ -186,11 +186,12 @@ const Product = () => {
     <St.Container>
       <St.Title>중고 거래 상세페이지</St.Title>
       <St.ProductInfo>
-        <St.SliderWrapper>
-          {' '}
-          {product?.product_img?.length === 0 ? (
-            <St.Logo src={logo} />
-          ) : (
+        {product?.product_img?.length === 0 ? (
+          <St.LogoWrapper>
+            <St.Logo src="/images/common/logo.png" alt="Logo" />
+          </St.LogoWrapper>
+        ) : (
+          <St.SliderWrapper>
             <St.SliderUl ref={slideRef}>
               {product?.product_img?.map((img, i) => (
                 <St.SliderLi key={i}>
@@ -198,14 +199,18 @@ const Product = () => {
                 </St.SliderLi>
               ))}
             </St.SliderUl>
-          )}
-          <St.SliderBtn onClick={onClickPrevBtn} className="prev">
-            〈
-          </St.SliderBtn>
-          <St.SliderBtn onClick={onClickNextBtn} className="next">
-            〉
-          </St.SliderBtn>
-        </St.SliderWrapper>
+            {currentSlide !== 0 && (
+              <St.SliderBtn onClick={onClickPrevBtn} className="prev">
+                〈
+              </St.SliderBtn>
+            )}
+            {currentSlide !== slideLength - 1 && (
+              <St.SliderBtn onClick={onClickNextBtn} className="next">
+                〉
+              </St.SliderBtn>
+            )}
+          </St.SliderWrapper>
+        )}
         <div>
           <St.ProductTitle>{product?.title}</St.ProductTitle>
           <St.ProductCategory>

@@ -21,7 +21,7 @@ const SurveyList = () => {
   return (
     <St.Container>
       <St.Title>
-        <img src="images/logo.png" alt="Logo" />가 {nickname}님이 좋아할만한 책을 추천해드릴게요!
+        <img src="images/common/logo.png" alt="Logo" />가 {nickname}님이 좋아할만한 책을 추천해드릴게요!
       </St.Title>
       <St.BtnContainaer>
         <button

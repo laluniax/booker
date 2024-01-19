@@ -26,24 +26,26 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
         onClick={() => {
           navigate('/');
         }}>
-        로고
+        <St.Image src="/images/common/logo.png" />
       </div>
       <St.HeaderUl>
-        <St.HeaderLi>
-          <a href="/bookertalk">북커톡</a>
-        </St.HeaderLi>
-        <St.HeaderLi>
-          <a href="/aboutbooks">도서소개</a>
-        </St.HeaderLi>
-        <St.HeaderLi>
-          <a href="/survey">책 추천 받기</a>
-        </St.HeaderLi>
-        <St.HeaderLi>
-          <a href="/market">중고거래</a>
-        </St.HeaderLi>
-        <St.HeaderLi>
-          <a href="/indBookStores">독립서점</a>
-        </St.HeaderLi>
+        <St.Test>
+          <St.HeaderLi>
+            <a href="/bookertalk">북커톡</a>
+          </St.HeaderLi>
+          <St.HeaderLi>
+            <a href="/aboutbooks">도서소개</a>
+          </St.HeaderLi>
+          <St.HeaderLi>
+            <a href="/survey">책 추천 받기</a>
+          </St.HeaderLi>
+          <St.HeaderLi>
+            <a href="/market">중고거래</a>
+          </St.HeaderLi>
+          <St.HeaderLi>
+            <a href="/indBookStores">독립서점</a>
+          </St.HeaderLi>
+        </St.Test>
       </St.HeaderUl>
       <St.HeaderUl>
         {searchBarOpen ? (
@@ -60,7 +62,9 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
             />
           </form>
         ) : null}
-        <St.HeaderBtn onClick={() => setSearchBarOpen(!searchBarOpen)}>서치</St.HeaderBtn>
+        <St.HeaderBtn onClick={() => setSearchBarOpen(!searchBarOpen)}>
+          <St.Image src="/images/header/searchIcon.jpg" alt="searchIcon" style={{ width: '30px', height: '30px' }} />
+        </St.HeaderBtn>
         {auth.session !== null ? (
           <>
             <St.HeaderBtn
@@ -69,7 +73,9 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
               }}>
               <img src={auth.session.user.user_metadata.user_img} alt="유저 프로필 이미지" />
             </St.HeaderBtn>
-            <St.HeaderBtn onClick={onClickSignoutHandler}>로그아웃</St.HeaderBtn>
+            <St.HeaderBtn onClick={onClickSignoutHandler}>
+              <St.Image src="/images/header/profileIcon.png" />
+            </St.HeaderBtn>
           </>
         ) : (
           <St.HeaderBtn

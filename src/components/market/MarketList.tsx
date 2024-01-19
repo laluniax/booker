@@ -2,7 +2,6 @@ import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCategoryProductListHandler, getProductListHandler, getUserSessionHandler } from '../../api/supabase.api';
-import logo from '../../assets/Logo.png';
 import * as St from './MarketList.styled';
 import { categoryArr } from './marketpost/Post';
 
@@ -34,10 +33,10 @@ const MarketList = () => {
   const getProductList = async () => {
     if (params) {
       const result = await getCategoryProductListHandler(category);
-      setList(result);
+      setList(result.sort((a, b) => b.id - a.id));
     } else {
       const result = await getProductListHandler();
-      setList(result);
+      setList(result.sort((a, b) => b.id - a.id));
     }
   };
 
@@ -69,7 +68,7 @@ const MarketList = () => {
                 }}>
                 {item.product_img.length === 0 ? (
                   <St.LogoImg>
-                    <img src={logo} />
+                    <img src="images/common/logo.png" alt="logo" />
                   </St.LogoImg>
                 ) : (
                   <St.ProductImg src={item.product_img[0]} />
@@ -82,7 +81,7 @@ const MarketList = () => {
                 </St.ProductInfo>
               </St.ProductCard>
             );
-          })}{' '}
+          })}
         </St.ProductsWrapper>
       </St.CategoryProductsWrapper>
       <St.PostButton
