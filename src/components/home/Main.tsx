@@ -130,7 +130,7 @@ const Main = () => {
 
             <St.MarketProductCard>
               <St.MarketProductImage4 />
-              <St.ProductTitle>죽음이 물었다, 어떻게 살거냐고 책 팝니다.</St.ProductTitle>
+              <St.ProductTitle>죽음이 물었다,어떻게 살거냐고 책 팝니다.</St.ProductTitle>
               <St.ProductPrice>₩ 19,000</St.ProductPrice>
               <St.ProductContent>OO님</St.ProductContent>
             </St.MarketProductCard>

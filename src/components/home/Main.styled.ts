@@ -403,7 +403,7 @@ export const MarketProductCard = styled.div`
     background-color: #357c96;
     color: #fff;
     transition: background-image 0.5s ease-in-out;
-    z-index: 20;
+    z-index: 1;
   }
 
   &:hover::after {
@@ -465,7 +465,7 @@ export const ProductTitle = styled.div`
   margin-top: 1rem;
   font-size: 2rem;
   font-weight: bold;
-  width: 16ch; /* 5글자의 너비 */
+  width: 19ch; /* 5글자의 너비 */
   word-wrap: break-word;
   letter-spacing: 0.1rem;
   margin-left: 1rem;

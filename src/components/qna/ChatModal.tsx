@@ -7,7 +7,6 @@ import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
 import * as St from './ChatStyle';
-
 export type MessageType = {
   id: number;
   content: string;
@@ -20,18 +19,15 @@ export type UserType = {
   lastMessage?: string; // lastMessage 속성 추가 (옵셔널로 처리)
   nickname: string;
 };
-
 export type ChatData = {
   id: string;
 };
-
 const Chat = () => {
   //모달창을 열고 닫는 state
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
   const [isAsk, setIsAsk] = useState<boolean>(false);
   //메세지 저장 state
   const [askMessage, setAskMessage] = useState<string>('');
-
   const [users, setUsers] = useState<UserType[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
@@ -46,20 +42,16 @@ const Chat = () => {
   const { mutate: sendDirectMessage } = useSendMessage();
   const { mutate: createOrGetChat } = useCreateOrGetChat();
   // const productId = useRecoilValue(productState); // Recoil에서 제품 ID 가져오기
-
   const InputChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
-
   // DM 클릭 핸들러
   const DmClickhandler = async (otherUserId: string) => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-
     if (user && user.email) {
       // const userId = user.id;
-
       if (user) {
         await checkChatWithUser(user.id, otherUserId);
         setIsChatModalOpen(true);
@@ -67,7 +59,6 @@ const Chat = () => {
       }
     }
   };
-
   // 메시지 전송 핸들러
   const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && inputValue.trim()) {
@@ -77,12 +68,9 @@ const Chat = () => {
   };
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-
     sendDirectMessage({ content: inputValue, authorId: otherLoginPersonal, chatId: chatId });
-
     setInputValue('');
   };
-
   // 메시지 컴포넌트를 렌더링하는 함수
   const renderMessages = () => {
     return messages
@@ -93,7 +81,6 @@ const Chat = () => {
         </St.MessageComponent>
       ));
   };
-
   useEffect(() => {
     // 로그인한 사용자 정보 가져오기
     supabase.auth.getUser().then(({ data }) => {
@@ -101,7 +88,6 @@ const Chat = () => {
         setLoginPersonal(data.user.id);
       }
     });
-
     // 모든 사용자 가져오기
     const fetchUsers = async () => {
       let { data, error } = await supabase.from('users').select('*');
@@ -115,7 +101,6 @@ const Chat = () => {
     const fetchMessages = async () => {
       if (chatId) {
         let { data, error } = await supabase.from('messages').select('*').eq('chat_id', chatId);
-
         if (error) {
           console.error('Error fetching messages:', error);
         } else {
@@ -123,21 +108,17 @@ const Chat = () => {
         }
       }
     };
-
     fetchUsers();
     fetchMessages();
-
     // 메시지 변경사항을 감지할 채널 구독
     const messagesSubscription = supabase
       .channel('custom-all-channel')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, async (payload: any) => {
         console.log('Changes received!', payload);
         fetchMessages(); // 데이터베이스에 변화가 있을 때 메시지 다시 가져오기
-
         // setChatId(payload.new.chat_id); //메시지 창 열기
       })
       .subscribe();
-
     // 채팅방 변경사항을 감지할 채널 구독
     const chatChannel = supabase
       .channel('chat-channel')
@@ -146,20 +127,16 @@ const Chat = () => {
         // 새 채팅방이 생성되었을 때 필요한 동작을 수행합니다.
       })
       .subscribe();
-
     // 구독 해지
     return () => {
       messagesSubscription?.unsubscribe();
       chatChannel?.unsubscribe();
     };
   }, [chatId]);
-
   const auth = useAuth();
-
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
   };
-
   //메세지보내는 함수
   const sendMessage = async () => {
     if (!auth.session) return;
@@ -171,24 +148,19 @@ const Chat = () => {
       content: askMessage,
       message_type: 'question',
     });
-
     setAskMessage(''); // 메시지 전송 후 입력 필드 초기화
   };
-
   const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault(); // 폼 제출 방지
       sendMessage();
     }
   };
-
   if (!auth.session) return null;
-
   //챗방 만들기 //여기에 기존에 있는 챗방인지 아닌지 파악 하고 있으면 기존 거 쓰고 없으면 새로 //구현 되면 상대방이 챗을 받으면 챗창 오픈 되도록
   async function checkChatWithUser(userId: string, otherUserId: string) {
     console.log('checkChatWithUser', userId);
     console.log('checkChatWithUserother', otherUserId);
-
     // userId에 해당하는 챗방의 chat_id와 item_id를 가져옴
     //.eq('others_id', userId);  .eq('user_id', otherUserId); 거꾸로 되어있네?
     //왜냐? 모달은 a->b 한테 신청 상점은 b->a 한테 신청인데. 상점에서 신청을 해야 되는거라 주체가 달라
@@ -197,19 +169,14 @@ const Chat = () => {
       .from('chats_users')
       .select('chat_id, item_id,others_id')
       .eq('user_id', userId);
-
     console.log('existingChatUser', existingChatUser);
-
     const { data: existingChatOther } = await supabase
       .from('chats_users')
       .select('chat_id, item_id,user_id')
       .eq('others_id', otherUserId);
-
     console.log('existingChatOther', existingChatOther);
-
     if (existingChatUser && existingChatOther) {
       let commonChatId = null;
-
       // Check for a common chat_id and item_id
       for (let chatUser of existingChatUser) {
         for (let chatOther of existingChatOther) {
@@ -220,14 +187,12 @@ const Chat = () => {
         }
         if (commonChatId) break;
       }
-
       if (commonChatId) {
         // A common chat_id is found
         setChatId(commonChatId);
       }
     }
   }
-
   // 사용자 목록을 렌더링하는 함수
   const renderUserList = () => {
     return users
@@ -240,11 +205,9 @@ const Chat = () => {
         </St.UserItem>
       ));
   };
-
   const prevHandler = () => {
     setIsAsk(false);
   };
-
   return (
     <>
       {auth.session.profile.isAdmin ? (
@@ -289,14 +252,14 @@ const Chat = () => {
               )}
               <St.ChatBody>
                 <St.MainMessage>
-                  안녕하세요 🙌 <br />
-                  새로운 지식으로 시작되는 어쩌구저쩌구, 북커입니다📚
+                  안녕하세요 :두_손을_들고_있는_사람: <br />
+                  새로운 지식으로 시작되는 어쩌구저쩌구, 북커입니다:책:
                   <br />​ 무엇을 도와드릴까요?
                 </St.MainMessage>
               </St.ChatBody>
               <St.AskWrapper>
                 <St.AskButton style={isAsk ? { display: 'none' } : { display: 'block' }} onClick={() => setIsAsk(true)}>
-                  문의하기 💨
+                  문의하기 :질주:
                 </St.AskButton>
               </St.AskWrapper>
               {isAsk ? (
@@ -322,10 +285,14 @@ const Chat = () => {
         </St.Container>
       )}
       <St.TalkButtonWrapper>
-        <St.TalkButton onClick={() => setIsSwitch(!isSwitch)}>{isSwitch ? 'close' : 'open'}</St.TalkButton>
+        <St.TalkButton
+          src="/images/customerchatting/bookerchattingicon.png"
+          alt="bookerchattingicon"
+          onClick={() => setIsSwitch(!isSwitch)}
+        />
+        {/* {isSwitch ? 'close' : 'open'} */}
       </St.TalkButtonWrapper>
     </>
   );
 };
-
 export default Chat;
