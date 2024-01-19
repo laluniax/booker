@@ -14,6 +14,12 @@ const Form = () => {
   const [passwordError, setPasswordError] = useState('');
   const [repasswordError, setRepasswordError] = useState(''); // 비밀번호 재확인 에러 메시지 상태 추가
   const [nicknameError, setNicknameError] = useState(''); // 비밀번호 재확인 에러 메시지 상태 추가
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isRepasswordValid, setIsRepasswordValid] = useState(false);
+  const [isNicknameValid, setIsNicknameValid] = useState(false);
+  
+
 
   // 이메일 유효성 검사 함수
   const validateEmail = (email: string): boolean => {
@@ -25,9 +31,11 @@ const Form = () => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!regex.test(email)) {
       setEmailError('유효하지 않은 이메일 형식입니다');
+      setIsEmailValid(false);
       return false;
     }
     setEmailError('');
+    setIsEmailValid(true);
     return true;
   };
 
@@ -95,8 +103,10 @@ const Form = () => {
     // 중복된 이메일이 있는 경우
     if (emailData) {
       setEmailError('중복된 이메일입니다');
+      setIsEmailValid(false);
     } else {
       setEmailError('유효한 이메일입니다');
+      setIsEmailValid(true);
     }
   };
 
@@ -124,12 +134,21 @@ const Form = () => {
 
     if (nicknameData) {
       setNicknameError('중복된 닉네임입니다');
+      setIsNicknameValid(false);
     } else {
       setNicknameError('유효한 닉네임입니다');
+      setIsNicknameValid(true);
     }
   };
 
+
   const SignUpHandler = async () => {
+  // 모든 유효성 검사가 통과되었는지 확인
+  if (!isEmailValid || !isPasswordValid || !isRepasswordValid || !isNicknameValid) {
+    alert('모든 입력란을 올바르게 채워주세요.');
+    return;
+  }
+
     try {
       const result = await signupHandler(
         emailRef.current?.value || '',
