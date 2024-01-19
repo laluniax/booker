@@ -6,19 +6,36 @@ export const FooterWrapper = styled.div`
   padding-bottom: 17rem;
   height: 13rem;
 `;
-
+export const FooterBox = styled.div`
+  width: 100rem;
+  margin-left: 20rem;
+`;
 export const FooterContentwrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  width: 100rem;
+  width: 90rem;
   height: 15rem;
-  background-color: gray;
 `;
 
-export const FooterContentBox = styled.div``;
+export const FooterContentBox = styled.div`
+  margin-left: 2rem;
+  margin-bottom: 1.3rem;
+  margin-top: 5rem;
+`;
 
-export const LogoBox = styled.div`
-  background-color: red;
+export const FooterTitle = styled.div`
+  font-size: 3rem;
+  font-size: bold;
+  color: #fff;
+`;
+
+export const FooterContent = styled.div`
+  font-size: 1.4rem;
+  color: #fff;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  letter-spacing: 1;
 `;
 
 export const Logo = styled.div`
@@ -27,6 +44,7 @@ export const Logo = styled.div`
   height: 4.6rem;
 `;
 export const Copyrightcontent = styled.div`
-  color: #fff;
-  font-size: 1.5rem;
+  color: rgba(79, 79, 79);
+  font-size: 1.7rem;
+  font-weight: bold;
 `;
