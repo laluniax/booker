@@ -47,6 +47,25 @@ export const githubLoginHandler = async () => {
   return { data, error };
 };
 
+
+// 소셜 로그인 핸들러(kakao)
+export const kakaoLoginHandler = async () => {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'kakao',
+    options: {
+      queryParams: {
+        // 사용자의 동의 없이도 장기간(오프라인)에 걸쳐 데이터에 액세스할 수 있도록 하는 옵션입니다.
+        access_type: 'offline',
+        // 사용자에게 동의를 강제로 요청하는데 사용됨
+        prompt: 'consent',
+      },
+    },
+  });
+  return { data, error };
+};
+
+
+
 // 소셜 로그인 핸들러(Google)
 export const googleLoginHandler = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({

@@ -1,3 +1,4 @@
+
 import { googleLoginHandler } from '../../api/supabase.api';
 import googleLogoPng from '../../styles/assets/googleLogo.png'
 
@@ -24,3 +25,5 @@ export const GoogleLoginBtn = () => {
 
   );
 };
+
+

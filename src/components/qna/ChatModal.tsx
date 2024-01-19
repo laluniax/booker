@@ -192,6 +192,10 @@ const Chat = () => {
     console.log('checkChatWithUser', userId);
     console.log('checkChatWithUserother', otherUserId);
 
+    // userId에 해당하는 챗방의 chat_id와 item_id를 가져옴
+//.eq('others_id', userId);  .eq('user_id', otherUserId); 거꾸로 되어있네?
+//왜냐? 모달은 a->b 한테 신청 상점은 b->a 한테 신청인데. 상점에서 신청을 해야 되는거라 주체가 달라
+    // otherUserId에 해당하는 챗방의 chat_id와 item_id를 가져옴
     const { data: existingChatUser } = await supabase
       .from('chats_users')
       .select('chat_id, item_id,others_id')
