@@ -3,6 +3,7 @@ import { mapMarkerDataHandler } from '../../api/supabase.api';
 import { mapMarkerDataTypes } from '../../types/types';
 import DetailInfo from './DetailInfo';
 import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
+import AboutIndBookStore from './AboutIndBookStore';
 
 function KakaoMap() {
   const [markerData, setMarkerData] = useState<mapMarkerDataTypes[] | undefined>([]);
@@ -40,6 +41,7 @@ function KakaoMap() {
 
   return (
     <>
+      <AboutIndBookStore />
       {/* <RemovableCustomOverlayStyle /> */}
       <Map id={'map'} center={{ lat: 37.5759, lng: 126.9762 }} style={{ width: '100%', height: '450px' }} level={5}>
         {markerData?.map((position, index) => {
