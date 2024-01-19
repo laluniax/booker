@@ -76,37 +76,39 @@ const BookerTalkMain = () => {
         <St.PostButton onClick={onClickPostButton}>글쓰기</St.PostButton>
       </St.Title>
       <St.Container>
-        <St.CategoryWrapper>
-          <St.CategoryBox>
-            <St.BookRecommendBox>
-              <St.CategoryTitle>도서추천</St.CategoryTitle>
+        <St.CategoryAndPostListBox>
+          <St.CategoryWrapper>
+            <St.CategoryBox>
+              <St.BookRecommendBox>
+                <St.CategoryTitle>도서추천</St.CategoryTitle>
 
-              <St.GenreButtonbox>{recommendButtonHandler()}</St.GenreButtonbox>
-            </St.BookRecommendBox>
-            <St.FreeTalkBox>
-              <St.CategoryTitle>자유수다</St.CategoryTitle>
-              <St.GenreButtonbox>{freeTalkButtonHandler()}</St.GenreButtonbox>
-            </St.FreeTalkBox>
-          </St.CategoryBox>
-        </St.CategoryWrapper>
-        <St.PostListWrapper>
-          {data?.map((item, i) => {
-            return (
-              <St.PostListBox
-                key={i}
-                onClick={() => {
-                  navigation(`/detail/${item.id}`);
-                }}>
-                <St.PostTitle>{item.title}</St.PostTitle>
-                {/* <span>{item.user_id}</span> */}
-                {/* <St.PostContent>{item.content}</St.PostContent> */}
-                <St.PostNickName>
-                  {item.users.nickname} | {formatCreatedAt(item.created_at)}
-                </St.PostNickName>
-              </St.PostListBox>
-            );
-          })}
-        </St.PostListWrapper>
+                <St.GenreButtonbox>{recommendButtonHandler()}</St.GenreButtonbox>
+              </St.BookRecommendBox>
+              <St.FreeTalkBox>
+                <St.CategoryTitle>자유수다</St.CategoryTitle>
+                <St.GenreButtonbox>{freeTalkButtonHandler()}</St.GenreButtonbox>
+              </St.FreeTalkBox>
+            </St.CategoryBox>
+          </St.CategoryWrapper>
+          <St.PostListWrapper>
+            {data?.map((item, i) => {
+              return (
+                <St.PostListBox
+                  key={i}
+                  onClick={() => {
+                    navigation(`/detail/${item.id}`);
+                  }}>
+                  <St.PostTitle>{item.title}</St.PostTitle>
+                  {/* <span>{item.user_id}</span> */}
+                  {/* <St.PostContent>{item.content}</St.PostContent> */}
+                  <St.PostNickName>
+                    {item.users.nickname} | {formatCreatedAt(item.created_at)}
+                  </St.PostNickName>
+                </St.PostListBox>
+              );
+            })}
+          </St.PostListWrapper>
+        </St.CategoryAndPostListBox>
       </St.Container>
     </>
   );

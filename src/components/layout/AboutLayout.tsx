@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import * as St from './AboutLayout.styled';
 import AboutBookNav from '../bookintroduction/AboutBookNav';
+import * as St from './AboutLayout.styled';
 
 const AboutLayout = () => {
   return (

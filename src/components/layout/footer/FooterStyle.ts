@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   position: relative;
   min-height: 100vh; /* 화면 높이에 맞춤 */
-  padding-bottom: 17rem; /* 푸터 높이만큼 여백을 줍니다 */
 `;
 
 export const FooterWrapper = styled.div`
