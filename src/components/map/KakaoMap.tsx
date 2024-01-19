@@ -68,7 +68,7 @@ function KakaoMap() {
                           <div className="body">
                             <div className="img">
                               <img
-                                src="/images/independentBookStoreImage.png"
+                                src="/images/indBookStore/independentBookStoreImage.jpg"
                                 width="73"
                                 height="70"
                                 alt="독립서점 이미지"

@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../api/supabase.api';
-import Logo from '../../assets/Logo.png';
-import Prev from '../../assets/prev.png';
 import { useAuth } from '../../contexts/auth.context';
 import * as St from './Adminchatroom.styled';
 
@@ -17,14 +15,12 @@ interface Message {
 const AdminChatRoom = () => {
   /* 
     룸 id가 같은 메세지만 출력이 되어야 함
-    
     */
   const [answerMessage, setAnswerMessage] = useState('');
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const params = useParams();
   const roomId = params.roomId;
-  //   console.log(params);
   const auth = useAuth();
   const navigate = useNavigate();
 
@@ -77,9 +73,9 @@ const AdminChatRoom = () => {
           <St.ChatHeader>
             <St.LogoWrapper>
               <St.PrevBtn onClick={PrevHandler}>
-                <img src={Prev} alt="Prev" width={30} height={30} />
+                <img src="images/chat/prev.png" alt="Prev" width={30} height={30} />
               </St.PrevBtn>
-              <img src={Logo} alt="Logo" />
+              <img src="/images/common/logo.png" alt="Logo" />
             </St.LogoWrapper>
           </St.ChatHeader>
           <St.MainMessage>

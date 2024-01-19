@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-
 import { useCreateOrGetChat, useSendMessage } from '../../api/chatApi';
 import { supabase } from '../../api/supabase.api';
-import Logo from '../../assets/Logo.png';
-import Prev from '../../assets/prev.png';
 import { ChatId, chatFunctionsState, otherPerson, person, sendMessages } from '../../atom/product.atom';
 import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
@@ -193,8 +190,8 @@ const Chat = () => {
     console.log('checkChatWithUserother', otherUserId);
 
     // userId에 해당하는 챗방의 chat_id와 item_id를 가져옴
-//.eq('others_id', userId);  .eq('user_id', otherUserId); 거꾸로 되어있네?
-//왜냐? 모달은 a->b 한테 신청 상점은 b->a 한테 신청인데. 상점에서 신청을 해야 되는거라 주체가 달라
+    //.eq('others_id', userId);  .eq('user_id', otherUserId); 거꾸로 되어있네?
+    //왜냐? 모달은 a->b 한테 신청 상점은 b->a 한테 신청인데. 상점에서 신청을 해야 되는거라 주체가 달라
     // otherUserId에 해당하는 챗방의 chat_id와 item_id를 가져옴
     const { data: existingChatUser } = await supabase
       .from('chats_users')
@@ -279,15 +276,15 @@ const Chat = () => {
               {isAsk ? (
                 <St.LogoWrapper>
                   <St.PrevBtn onClick={prevHandler}>
-                    <img src={Prev} alt="Prev" width={30} height={30} />
+                    <img src="/images/chat/prev.png" alt="Prev" width={30} height={30} />
                   </St.PrevBtn>
                   <St.ChatHeader>
-                    <img src={Logo} alt="Logo" />
+                    <img src="/images/common/logo.png" alt="Logo" />
                   </St.ChatHeader>
                 </St.LogoWrapper>
               ) : (
                 <St.ChatHeader>
-                  <img src={Logo} alt="Logo" />
+                  <img src="/images/common/logo.png" alt="Logo" />
                 </St.ChatHeader>
               )}
               <St.ChatBody>

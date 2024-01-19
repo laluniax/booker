@@ -5,17 +5,17 @@ const AboutIndBookStore = () => {
   return (
     <>
       <div>우리가 모르고 살았던 독립서점</div>
-      <St.Image src="./images/indBookStore(1).png" />
-      <St.Image src="./images/indBookStore(2).png" />
-      <St.Image src="./images/indBookStore(3).png" />
-      <St.Image src="./images/indBookStore(4).png" />
-      <St.Image src="./images/indBookStore(5).png" />
-      <St.Image src="./images/indBookStore(6).png" />
-      <St.Image src="./images/indBookStore(7).png" />
-      <St.Image src="./images/indBookStore(8).png" />
-      <St.Image src="./images/indBookStore(9).png" />
-      <St.Image src="./images/indBookStore(10).png" />
-      <St.Image src="./images/indBookStore(11).png" />
+      <St.Image src="./images/indBookStore/indBookStore(1).png" />
+      <St.Image src="./images/indBookStore/indBookStore(2).png" />
+      <St.Image src="./images/indBookStore/indBookStore(3).png" />
+      <St.Image src="./images/indBookStore/indBookStore(4).png" />
+      <St.Image src="./images/indBookStore/indBookStore(5).png" />
+      <St.Image src="./images/indBookStore/indBookStore(6).png" />
+      <St.Image src="./images/indBookStore/indBookStore(7).png" />
+      <St.Image src="./images/indBookStore/indBookStore(8).png" />
+      <St.Image src="./images/indBookStore/indBookStore(9).png" />
+      <St.Image src="./images/indBookStore/indBookStore(10).png" />
+      <St.Image src="./images/indBookStore/indBookStore(11).png" />
       <div>독립서점이란?</div>
       <St.TextArea>
         독립서점은 대규모 자본이나 큰 유통망에 의지하지 않고 서점 주인의 취향대로 꾸며진 작은 서점을 의미한다. 서점
@@ -25,7 +25,7 @@ const AboutIndBookStore = () => {
         기준으로 서가를 구분하지 않는다는 특징과 기성 출판사가 아닌 소규모 출판사에서 출판한 독립출판서적도 판매한다.
       </St.TextArea>
       <div>
-        <St.TitleImage src="/images/indBookStore(12).png" />
+        <St.TitleImage src="/images/indBookStore/indBookStore(12).png" />
         <St.TextArea>
           1. 나의 취향을 찾는 곳 대형서점에 가면 가장 먼저 보는 것은 바로 베스트셀러 1위부터 10위 목록이다. 베스트셀러를
           보면 최신 트렌드를 한눈에 파악할 수 있다는 장점이 있다. 하지만 나의 취향은 철저하게 배제된 채 '대중적인'이라는

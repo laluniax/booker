@@ -1,6 +1,5 @@
 import { githubLoginHandler } from '../../api/supabase.api';
-import githubLogo from '../../styles/assets/githubLogo.png'
-
+import * as St from './Form.stlyed';
 
 export const GithubLogin = async () => {
   const result = await githubLoginHandler();
@@ -30,10 +29,5 @@ export const GithubLogin = async () => {
 // select * from auth.users;
 
 export const GithubLoginBtn = () => {
-  return (
-
-      <img width="30px" src={githubLogo} alt="깃허브 로고" onClick={GithubLogin} />
-
-
-  );
+  return <St.SnsLogo src="/images/snslogo/githubLogo.png" alt="깃허브 로고" onClick={GithubLogin} />;
 };

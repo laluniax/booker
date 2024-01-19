@@ -26,24 +26,26 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
         onClick={() => {
           navigate('/');
         }}>
-        <St.Image src="/images/logo.png" />
+        <St.Image src="/images/common/logo.png" />
       </div>
       <St.HeaderUl>
-        <St.HeaderLi>
-          <a href="/bookertalk">북커톡</a>
-        </St.HeaderLi>
-        <St.HeaderLi>
-          <a href="/aboutbooks">도서소개</a>
-        </St.HeaderLi>
-        <St.HeaderLi>
-          <a href="/survey">책 추천 받기</a>
-        </St.HeaderLi>
-        <St.HeaderLi>
-          <a href="/market">중고거래</a>
-        </St.HeaderLi>
-        <St.HeaderLi>
-          <a href="/indBookStores">독립서점</a>
-        </St.HeaderLi>
+        <St.Test>
+          <St.HeaderLi>
+            <a href="/bookertalk">북커톡</a>
+          </St.HeaderLi>
+          <St.HeaderLi>
+            <a href="/aboutbooks">도서소개</a>
+          </St.HeaderLi>
+          <St.HeaderLi>
+            <a href="/survey">책 추천 받기</a>
+          </St.HeaderLi>
+          <St.HeaderLi>
+            <a href="/market">중고거래</a>
+          </St.HeaderLi>
+          <St.HeaderLi>
+            <a href="/indBookStores">독립서점</a>
+          </St.HeaderLi>
+        </St.Test>
       </St.HeaderUl>
       <St.HeaderUl>
         {searchBarOpen ? (
@@ -61,7 +63,7 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
           </form>
         ) : null}
         <St.HeaderBtn onClick={() => setSearchBarOpen(!searchBarOpen)}>
-          <img src="/images/serchIcon.jpg" alt="serchIcon" style={{ width: '30px', height: '30px' }} />
+          <St.Image src="/images/header/searchIcon.jpg" alt="searchIcon" style={{ width: '30px', height: '30px' }} />
         </St.HeaderBtn>
         {auth.session !== null ? (
           <>
@@ -72,7 +74,7 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
               <img src={auth.session.user.user_metadata.user_img} alt="유저 프로필 이미지" />
             </St.HeaderBtn>
             <St.HeaderBtn onClick={onClickSignoutHandler}>
-              {/* <St.Image src="/images/profileIcon.png" /> */}
+              <St.Image src="/images/header/profileIcon.png" />
             </St.HeaderBtn>
           </>
         ) : (

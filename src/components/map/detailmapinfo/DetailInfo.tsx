@@ -6,7 +6,7 @@ function DetailMapInfo({ markerInfo }: { markerInfo: mapMarkerDataTypes }) {
     <>
       <St.Container>
         <div>{markerInfo.name}</div>
-        <img src="/images/bookImage.png" width="150" height="150" alt="독립서점 이미지" />
+        <img src="/images/indBookStore/bookImage.png" width="150" height="150" alt="독립서점 이미지" />
         <St.MarkerDataDetail>
           <div>
             주소 : {markerInfo.address} (우) {markerInfo.postal_code}

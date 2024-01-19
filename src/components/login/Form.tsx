@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signinHandler } from '../../api/supabase.api';
-import * as St from './Form.stlye';
+import * as St from './Form.stlyed';
 import ImageSlideshow from './MainImgSlide';
 import { GithubLoginBtn } from './github';
 import { GoogleLoginBtn } from './google';
