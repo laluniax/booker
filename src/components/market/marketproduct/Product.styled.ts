@@ -16,6 +16,14 @@ export const SliderWrapper = styled.div`
   height: 30rem;
   overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+export const Logo = styled.img`
+  max-width: 25rem;
+  max-height: 4.3766rem;
 `;
 
 export const SliderUl = styled.ul`
@@ -38,7 +46,6 @@ export const SliderBtn = styled.button`
   height: 2.5rem;
   top: 50%;
   font-size: 1.5rem;
-  cursor: pointer;
   &.prev {
     left: 1rem;
   }
@@ -126,7 +133,6 @@ export const ProductUser = styled.div`
   & button {
     border: 0.1rem solid black;
     background-color: transparent;
-    cursor: pointer;
   }
 `;
 
@@ -190,8 +196,6 @@ export const SendButton = styled.button`
   color: white;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
-
   &:hover {
     background-color: #45a049;
   }

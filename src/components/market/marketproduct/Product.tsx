@@ -3,10 +3,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { useRecoilState } from 'recoil';
 import { useCreateOrGetChat, useSendMessage } from '../../../api/chatApi';
-import { deleteProductHandler, getProductHandler, getUserSessionHandler, supabase } from '../../../api/supabase.api';
+import {
+  deleteProductHandler,
+  deleteProductImgStorage,
+  getProductHandler,
+  getUserSessionHandler,
+  supabase,
+} from '../../../api/supabase.api';
 import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/product.atom';
 
 import { Session } from '@supabase/supabase-js';
+import logo from '../../../assets/Logo.png';
 import { ProductsTypes } from '../../../types/types';
 import { MessageType } from '../../qna/ChatModal';
 import { categoryArr } from '../marketpost/Post';
@@ -147,17 +154,24 @@ const Product = () => {
     }
   }, [currentSlide, slideLength]);
 
-  // const onClickUpdateButton = () => {
-  //   navigate(`/marketpost/${}`)
-  // }
-
   const onClickDeleteButton = async () => {
     if (window.confirm('삭제하시겠습니까?')) {
-      const result = await deleteProductHandler(Number(params));
+      const result = await deleteProductHandler(params as string);
+      const resultStorage = await deleteProductImgStorage(params as string);
       navigate(`/market`);
     } else {
       return false;
     }
+  };
+
+  const onClickLikesButton = () => {
+    if (!session && window.confirm('로그인 페이지로 이동하시겠습니까?')) navigate(`/login`);
+  };
+
+  const onClickDMButton = () => {
+    session
+      ? product?.user_id && DmClickhandler(product.user_id, Number(product.id))
+      : window.confirm('로그인 페이지로 이동하시겠습니까?') && navigate(`/login`);
   };
 
   useEffect(() => {
@@ -173,14 +187,18 @@ const Product = () => {
       <St.Title>중고 거래 상세페이지</St.Title>
       <St.ProductInfo>
         <St.SliderWrapper>
-          {/* 이미지 슬라이드로 할 지, 클릭 시 커지는 것으로 할 지 */}
-          <St.SliderUl ref={slideRef}>
-            {product?.product_img?.map((img, i) => (
-              <St.SliderLi key={i}>
-                <img src={img} />
-              </St.SliderLi>
-            ))}
-          </St.SliderUl>
+          {' '}
+          {product?.product_img?.length === 0 ? (
+            <St.Logo src={logo} />
+          ) : (
+            <St.SliderUl ref={slideRef}>
+              {product?.product_img?.map((img, i) => (
+                <St.SliderLi key={i}>
+                  <img src={img} />
+                </St.SliderLi>
+              ))}
+            </St.SliderUl>
+          )}
           <St.SliderBtn onClick={onClickPrevBtn} className="prev">
             〈
           </St.SliderBtn>
@@ -210,10 +228,8 @@ const Product = () => {
             ) : null}
           </St.PriceBtnWrapper>
           <St.ProductBtn>
-            <St.ProductLikes>좋아요</St.ProductLikes>
-            <St.ProductLikes onClick={() => product?.user_id && DmClickhandler(product.user_id, Number(product.id))}>
-              대화 시작하기
-            </St.ProductLikes>
+            <St.ProductLikes onClick={onClickLikesButton}>좋아요</St.ProductLikes>
+            <St.ProductLikes onClick={onClickDMButton}>대화 시작하기</St.ProductLikes>
             {/* 여기에 채팅 모달을 조건부 렌더링합니다. */}
             {isChatModalOpen && (
               <St.ChatModalWrapper>

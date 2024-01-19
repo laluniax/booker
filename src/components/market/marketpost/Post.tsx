@@ -6,6 +6,8 @@ import {
   getUserSessionHandler,
   sumbitProductHandler,
   updateProductHandler,
+  updateProductImgPublicUrlHandler,
+  uploadProductImgStorageUrl,
 } from '../../../api/supabase.api';
 import * as St from './Post.styled';
 
@@ -48,8 +50,6 @@ const Post = () => {
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('건강/취미');
   const [productGrade, setProductGrade] = useState('최상');
-  // const [product, setProduct] = useState<ProductsTypes>();
-
   const [productImg, setProductImg] = useState<File[]>([]);
   const [tempImg, setTempImg] = useState<string[]>([]);
 
@@ -65,9 +65,6 @@ const Post = () => {
 
   const getProduct = async () => {
     const result = await getProductHandler(params as string);
-    // const img = await downloadImgFromStorageHandler(params as string);
-    console.log(result[0]);
-    // console.log(img);
     setUserId(result[0].user_id);
     setTitle(result[0].title);
     setContent(result[0].content);
@@ -77,13 +74,20 @@ const Post = () => {
     setTempImg(result[0].product_img);
   };
   const onSubmitProduct = async () => {
+    if (title === '' || content === '' || price === '') {
+      alert('입력되지 않은 항목이 있습니다.');
+      return;
+    }
     try {
       if (params) {
         const result = await updateProductHandler(
-          { userId, title, content, price, category, productGrade, productImg },
+          { userId, title, content, price, category, productGrade },
           params as string,
         );
-        console.log(result);
+        const imgUrls = await uploadProductImgStorageUrl(result[0].id, productImg);
+        await updateProductImgPublicUrlHandler(imgUrls.imgUrls, result[0].id);
+        const updateImgUrls = result[0].product_img.concat(imgUrls.imgUrls);
+        await updateProductImgPublicUrlHandler(updateImgUrls, result[0].id);
         navigate(`/product/${params}`);
       } else {
         const result = await sumbitProductHandler({
@@ -93,8 +97,9 @@ const Post = () => {
           price,
           category,
           productGrade,
-          productImg,
         });
+        const imgUrls = await uploadProductImgStorageUrl(result[0].id, productImg);
+        await updateProductImgPublicUrlHandler(imgUrls.imgUrls, result[0].id);
         navigate(`/product/${result[0].id}`);
       }
     } catch (error) {
@@ -104,7 +109,11 @@ const Post = () => {
   };
 
   const multipleImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (productImg.length > 4) return;
+    if (tempImg.length > 4) {
+      alert('이미지는 5개까지 등록 가능합니다.');
+      return;
+    }
+
     if (e.target.files) {
       const imgList = Array.from(e.target.files);
       setProductImg((prevImgList) => [...prevImgList, ...imgList]);
@@ -124,15 +133,6 @@ const Post = () => {
     params && getProduct();
   }, []);
 
-  // useEffect(() => {
-  // setUserId(product?.users.id as string);
-  // setTitle(product?.title as string);
-  // setContent(product?.content as string);
-  // setPrice(product?.price as string);
-  // setCategory(product?.category as string);
-  // setProductGrade(product?.product_grade as string);
-  // setTempImg(product?.product_img as string[]);
-  // }, [product]);
   return (
     <St.Container>
       <St.PostImg>
@@ -148,6 +148,7 @@ const Post = () => {
       <St.PostLabel>상품명 | </St.PostLabel>
       <St.PostInput
         type="text"
+        placeholder="상품명을 입력해주세요"
         value={title}
         onChange={(e) => {
           setTitle(e.target.value);
@@ -158,6 +159,7 @@ const Post = () => {
       <St.PostLabel>가격 | </St.PostLabel>
       <St.PostInput
         type="number"
+        placeholder="00"
         value={price}
         onChange={(e) => {
           setPrice(e.target.value);
@@ -186,6 +188,7 @@ const Post = () => {
       <br />
       <St.PostLabel>상품 설명 | </St.PostLabel>
       <St.PostTextArea
+        placeholder="상품 설명을 입력해주세요"
         value={content}
         onChange={(e) => {
           setContent(e.target.value);

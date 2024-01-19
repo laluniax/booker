@@ -1,6 +1,8 @@
+import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getCategoryProductListHandler, getProductListHandler } from '../../api/supabase.api';
+import { getCategoryProductListHandler, getProductListHandler, getUserSessionHandler } from '../../api/supabase.api';
+import logo from '../../assets/Logo.png';
 import * as St from './MarketList.styled';
 import { categoryArr } from './marketpost/Post';
 
@@ -17,10 +19,17 @@ export type ListTypes = {
 };
 
 const MarketList = () => {
+  const [session, setSession] = useState<Session | null>(null);
   const [list, setList] = useState<ListTypes[]>([]);
   const navigate = useNavigate();
   const params = useParams().id;
   const category = categoryArr[Number(params)];
+
+  const getUserSession = async () => {
+    const result = await getUserSessionHandler();
+    console.log(result);
+    setSession(result.session);
+  };
 
   const getProductList = async () => {
     if (params) {
@@ -33,6 +42,7 @@ const MarketList = () => {
   };
 
   useEffect(() => {
+    getUserSession();
     getProductList();
   }, [params]);
 
@@ -57,7 +67,14 @@ const MarketList = () => {
                 onClick={() => {
                   navigate(`/product/${item.id}`);
                 }}>
-                <St.ProductImg src={item.product_img[0]} />
+                {item.product_img.length === 0 ? (
+                  <St.LogoImg>
+                    <img src={logo} />
+                  </St.LogoImg>
+                ) : (
+                  <St.ProductImg src={item.product_img[0]} />
+                )}
+
                 <St.ProductTitle>{item.title}</St.ProductTitle>
                 <St.ProductInfo>
                   <St.ProductPrice>{item.price} 원</St.ProductPrice>
@@ -70,7 +87,11 @@ const MarketList = () => {
       </St.CategoryProductsWrapper>
       <St.PostButton
         onClick={() => {
-          navigate('/marketpost');
+          {
+            session
+              ? navigate('/marketpost')
+              : window.confirm('로그인 페이지로 이동하시겠습니까?') && navigate(`/login`);
+          }
         }}>
         글쓰기
       </St.PostButton>

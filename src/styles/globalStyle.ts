@@ -33,8 +33,8 @@ const GlobalStyle = createGlobalStyle`
         -moz-osx-font-smoothing: grayscale;
         -ms-overflow-style: none;
         ::-webkit-scrollbar {
-    display: none;
-}
+            display: none;
+        }
     }
     ol, ul {
         list-style: none;
@@ -59,6 +59,8 @@ const GlobalStyle = createGlobalStyle`
     html {
         font-size: 62.5%;
     }
-
+    button {
+        cursor: pointer;
+    }
 `;
 export default GlobalStyle;
