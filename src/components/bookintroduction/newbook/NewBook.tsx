@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
 import * as St from './NewBook.styled';
 
@@ -14,15 +15,33 @@ interface NewBooks {
 }
 const NewBook = () => {
   const [newBook, setNewBook] = useState<NewBooks[]>([]);
+  const [ref, inView] = useInView();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
   const navigate = useNavigate();
-  useEffect(() => {
-    getaNewBook();
-  }, []);
+
   const getaNewBook = async () => {
-    const response = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks');
-    setNewBook(response.data.item);
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(
+        `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks?page=${page}`,
+      );
+      setNewBook((prev) => [...prev, ...response.data.item]);
+      setPage((page) => page + 1);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
-  console.log(newBook);
+
+  useEffect(() => {
+    if (inView) {
+      getaNewBook();
+    }
+  }, [inView]);
 
   const GotoDetailPage = (isbn13: string) => {
     navigate(`/aboutBook/${isbn13}`);
@@ -53,6 +72,7 @@ const NewBook = () => {
               </St.BookImageWrapper>
             );
           })}
+          <div ref={ref} />
         </St.Body>
       </St.Container>
     </St.Section>

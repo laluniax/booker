@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
 import * as St from './BookSpecial.styled';
 
@@ -15,17 +16,33 @@ interface Special {
 
 const BookSpecial = () => {
   const [special, setSpecial] = useState<Special[]>([]);
-
-  useEffect(() => {
-    getSpecial();
-  }, []);
+  const [ref, inView] = useInView();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
 
   const navigate = useNavigate();
 
   const getSpecial = async () => {
-    const response = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special');
-    setSpecial(response.data.item);
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special?page=${page}`);
+      setSpecial((prev) => [...prev, ...response.data.item]);
+      setPage((page) => page + 1);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  useEffect(() => {
+    if (inView) {
+      getSpecial();
+    }
+  }, [inView]);
+
   const GotoDetailPage = (isbn13: string) => {
     navigate(`/aboutBook/${isbn13}`);
   };
@@ -56,6 +73,7 @@ const BookSpecial = () => {
               </St.BookImageWrapper>
             );
           })}
+          <div ref={ref} />
         </St.Body>
       </St.Container>
     </St.Section>
