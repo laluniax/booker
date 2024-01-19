@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-
-
-
+import { useCreateOrGetChat, useSendMessage } from '../../api/ChatApi';
+import { supabase } from '../../api/supabase.api';
+import { ChatId, chatFunctionsState, otherPerson, person, sendMessages } from '../../atom/product.atom';
+import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
 import * as St from './ChatStyle';
-import { ChatId, chatFunctionsState, otherPerson, person, sendMessages } from '../../atom/product.atom';
-import { useCreateOrGetChat, useSendMessage } from '../../api/chatApi';
-import { supabase } from '../../api/supabase.api';
-import { useAuth } from '../../contexts/auth.context';
 
 export type MessageType = {
   id: number;
@@ -142,14 +139,14 @@ const Chat = () => {
 
     fetchUsers();
     fetchMessages();
- 
+
     // 메시지 변경사항을 감지할 채널 구독
     const messagesSubscription = supabase
       .channel('custom-all-channel')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, async (payload: any) => {
         console.log('Changes received!', payload);
         fetchMessages(); // 데이터베이스에 변화가 있을 때 메시지 다시 가져오기
-        
+
         // setChatId(payload.new.chat_id); //메시지 창 열기
       })
       .subscribe();
@@ -204,16 +201,15 @@ const Chat = () => {
     console.log('checkChatWithUserother', otherUserId);
 
     // userId에 해당하는 챗방의 chat_id와 item_id를 가져옴
-//.eq('others_id', userId);  .eq('user_id', otherUserId); 거꾸로 되어있네?
-//왜냐? 모달은 a->b 한테 신청 상점은 b->a 한테 신청인데. 상점에서 신청을 해야 되는거라 주체가 달라
+    //.eq('others_id', userId);  .eq('user_id', otherUserId); 거꾸로 되어있네?
+    //왜냐? 모달은 a->b 한테 신청 상점은 b->a 한테 신청인데. 상점에서 신청을 해야 되는거라 주체가 달라
     // otherUserId에 해당하는 챗방의 chat_id와 item_id를 가져옴
     const { data: existingChatUser } = await supabase
       .from('chats_users')
       .select('chat_id, item_id,others_id')
-      .eq('user_id',userId );
+      .eq('user_id', userId);
 
     console.log('existingChatUser', existingChatUser);
-    
 
     const { data: existingChatOther } = await supabase
       .from('chats_users')
@@ -222,26 +218,25 @@ const Chat = () => {
 
     console.log('existingChatOther', existingChatOther);
 
-
     if (existingChatUser && existingChatOther) {
       let commonChatId = null;
 
       // Check for a common chat_id and item_id
       for (let chatUser of existingChatUser) {
-          for (let chatOther of existingChatOther) {
-              if (chatUser.chat_id === chatOther.chat_id && chatUser.item_id === chatOther.item_id) {
-                  commonChatId = chatUser.chat_id;
-                  break;
-              }
+        for (let chatOther of existingChatOther) {
+          if (chatUser.chat_id === chatOther.chat_id && chatUser.item_id === chatOther.item_id) {
+            commonChatId = chatUser.chat_id;
+            break;
           }
-          if (commonChatId) break;
+        }
+        if (commonChatId) break;
       }
 
       if (commonChatId) {
-          // A common chat_id is found
-          setChatId(commonChatId);
+        // A common chat_id is found
+        setChatId(commonChatId);
       }
-  }
+    }
   }
 
   // // 사용자 정보와 그들의 마지막 메시지를 불러오는 함수//이거 잘못 되었다, 상대방이랑 나 모두 비교해서 가져와야 되는데 //일단보류
@@ -281,8 +276,6 @@ const Chat = () => {
   //   setUsers(usersWithMessages);
   // };
 
-  
-
   // 사용자 목록을 렌더링하는 함수
   const renderUserList = () => {
     return users
@@ -304,7 +297,6 @@ const Chat = () => {
   //     setIsChatModalOpen(true);
   //   }
   // };
-
 
   return (
     <>

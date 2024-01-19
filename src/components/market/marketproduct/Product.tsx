@@ -2,13 +2,13 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useRecoilState } from 'recoil';
-import { useCreateOrGetChat, useSendMessage } from '../../../api/chatApi';
+import { useCreateOrGetChat, useSendMessage } from '../../../api/ChatApi';
 import { getProductHandler, supabase } from '../../../api/supabase.api';
 import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/product.atom';
 
+import { MessageType } from '../../qna/ChatModal';
 import { ListTypes } from '../MarketList';
 import * as St from './Product.styled';
-import { MessageType } from '../../qna/ChatModal';
 
 const Product = () => {
   const params = useParams();
@@ -31,7 +31,6 @@ const Product = () => {
   const [chatId, setChatId] = useRecoilState(ChatId);
   const { mutate: sendDirectMessage } = useSendMessage();
 
-  
   // DM 클릭 핸들러
   const DmClickhandler = async (otherUserId: string, productId: number) => {
     const {
@@ -39,12 +38,13 @@ const Product = () => {
     } = await supabase.auth.getUser();
 
     if (user?.id === otherUserId) {
-      alert('자신에게 채팅을 보낼 수 없습니다 ')
-     return; }else{   
+      alert('자신에게 채팅을 보낼 수 없습니다 ');
+      return;
+    } else {
       if (user) {
-        const userId=user?.id
+        const userId = user?.id;
         setIsChatModalOpen(true);
-      
+
         createOrGetChat({ userId, otherUserId, productId });
 
         setOtherLoginPersonal(otherUserId);
@@ -66,26 +66,25 @@ const Product = () => {
     };
 
     fetchMessages();
-    
+
     const messagesSubscription = supabase
       .channel('custom-all-channel')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, async (payload: any) => {
         console.log('Changes received!', payload);
         fetchMessages(); // 데이터베이스에 변화가 있을 때 메시지 다시 가져오기
         // setChatId(payload.new.chat_id); //메시지 창 열기
-
       })
       .subscribe();
 
-        // 채팅방 변경사항을 감지할 채널 구독
+    // 채팅방 변경사항을 감지할 채널 구독
     const chatChannel = supabase
-    .channel('chat-channel')
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {
-      console.log('New chat!', payload);
-      // 새 채팅방이 생성되었을 때 필요한 동작을 수행합니다.
-      fetchMessages();
-    })
-    .subscribe();
+      .channel('chat-channel')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {
+        console.log('New chat!', payload);
+        // 새 채팅방이 생성되었을 때 필요한 동작을 수행합니다.
+        fetchMessages();
+      })
+      .subscribe();
 
     return () => {
       messagesSubscription?.unsubscribe();
@@ -97,23 +96,20 @@ const Product = () => {
     setInputValue(event.target.value);
   };
 
+  // 메시지 전송 핸들러
+  const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && inputValue.trim()) {
+      sendDirectMessage({ content: inputValue, authorId: otherLoginPersonal, chatId: chatId });
+      setInputValue('');
+    }
+  };
+  const sendDmMessage = async () => {
+    if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
 
- // 메시지 전송 핸들러
- const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-  if (event.key === 'Enter' && inputValue.trim()) {
-    sendDirectMessage({ content: inputValue, authorId: otherLoginPersonal, chatId:chatId });
+    sendDirectMessage({ content: inputValue, authorId: otherLoginPersonal, chatId: chatId });
+
     setInputValue('');
-  }
-};
-const sendDmMessage = async () => {
-  if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-      
-  sendDirectMessage({ content: inputValue, authorId: otherLoginPersonal, chatId:chatId });
-
-  setInputValue('');
-};
-  
-
+  };
 
   // 메시지 컴포넌트를 렌더링하는 함수
   const renderMessages = () => {
@@ -188,26 +184,26 @@ const sendDmMessage = async () => {
             <St.ProductLikes onClick={() => product?.user_id && DmClickhandler(product.user_id, Number(product.id))}>
               대화 시작하기
             </St.ProductLikes>
-               {/* 여기에 채팅 모달을 조건부 렌더링합니다. */}
-          {isChatModalOpen && (
-            <St.ChatModalWrapper>
-              {/* 채팅 모달 내용 */}
-              <St.ChatModalHeader>
-                <div>채팅</div>
-                <button onClick={() => setIsChatModalOpen(false)}>닫기</button>
-              </St.ChatModalHeader>
-              <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
-              <St.ChatModalFooter>
-                <St.InputField
-                  value={inputValue}
-                  onChange={InputChanger}
-                  onKeyDown={KeyPresshandler}
-                  placeholder="메시지를 입력해주세요"
-                />
-                <St.SendButton onClick={ sendDmMessage}>전송</St.SendButton>
-              </St.ChatModalFooter>
-            </St.ChatModalWrapper>
-          )}
+            {/* 여기에 채팅 모달을 조건부 렌더링합니다. */}
+            {isChatModalOpen && (
+              <St.ChatModalWrapper>
+                {/* 채팅 모달 내용 */}
+                <St.ChatModalHeader>
+                  <div>채팅</div>
+                  <button onClick={() => setIsChatModalOpen(false)}>닫기</button>
+                </St.ChatModalHeader>
+                <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
+                <St.ChatModalFooter>
+                  <St.InputField
+                    value={inputValue}
+                    onChange={InputChanger}
+                    onKeyDown={KeyPresshandler}
+                    placeholder="메시지를 입력해주세요"
+                  />
+                  <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
+                </St.ChatModalFooter>
+              </St.ChatModalWrapper>
+            )}
           </St.ProductBtn>
           <St.ProductUser
             onClick={() => {
