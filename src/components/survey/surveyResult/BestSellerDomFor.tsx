@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Bestseller } from '../../../types/types';
 
 const BestSellerDomFor = () => {
   const [bestsellers, setBestsellers] = useState<Bestseller[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<Bestseller[]>([]);
   const { genre } = useParams<{ genre?: string }>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -51,8 +52,13 @@ const BestSellerDomFor = () => {
     }
   };
 
+  const surveyList = () => {
+    navigate('/survey');
+  };
+
   return (
     <div>
+      <button onClick={() => surveyList()}>목록보기</button>
       {filteredBooks.map((item, idx) => (
         <div key={idx}>
           <h2>{item.bestRank}</h2>
