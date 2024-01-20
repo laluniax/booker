@@ -1,19 +1,12 @@
-import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signoutHandler } from '../../../api/supabase.api';
 import { useAuth } from '../../../contexts/auth.context';
 import * as St from './Header.styled';
+import SearchArea from './SearchArea';
 
-type StatePropsTypes = {
-  searchKeyword: string;
-  setSearchKeyword: Dispatch<SetStateAction<string>>;
-};
-
-const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
+const Header = () => {
   const navigate = useNavigate();
   const auth = useAuth();
-
-  const [searchBarOpen, setSearchBarOpen] = useState(false);
 
   const onClickSignoutHandler = async () => {
     await signoutHandler();
@@ -48,30 +41,17 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
         </St.HeaderLiBox>
       </St.HeaderUl>
       <St.HeaderUl>
-        {searchBarOpen ? (
-          <St.SearchBox
-            onSubmit={(e) => {
-              e.preventDefault();
-              console.log(searchKeyword);
-            }}>
-            <St.SearchBar
-              type="text"
-              value={searchKeyword}
-              // 문자열 모든 공백 제거하여 input 값으로 받아옴
-              onChange={(e) => setSearchKeyword(e.target.value.replace(/(\s*)/g, ''))}
-            />
-          </St.SearchBox>
-        ) : null}
-        <St.HeaderBtn onClick={() => setSearchBarOpen(!searchBarOpen)}>
-          <St.Image src="/images/header/searchIcon.jpg" alt="searchIcon" style={{ width: '32px', height: '33px' }} />
-        </St.HeaderBtn>
+        <SearchArea />
         {auth.session !== null ? (
           <>
             <St.HeaderBtn
               onClick={() => {
                 navigate(`/profile/${auth.session?.user.id}`);
               }}>
-              <img src={auth.session.user.user_metadata.user_img} alt="유저 프로필 이미지" />
+              <img
+                src={auth.session.user.user_metadata.user_img || `${process.env.PUBLIC_URL}/images/common/Logo.png`}
+                alt="유저 프로필 이미지"
+              />
             </St.HeaderBtn>
             <St.HeaderBtn onClick={onClickSignoutHandler}>
               <St.Image src="/images/header/profileIcon.png" />

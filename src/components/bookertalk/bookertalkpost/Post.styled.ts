@@ -158,7 +158,6 @@ export const SubmitButtonBox = styled.div`
   align-items: right;
   justify-content: right;
   width: 86%;
-  float: right;
 `;
 
 export const SubmitButton = styled.button`

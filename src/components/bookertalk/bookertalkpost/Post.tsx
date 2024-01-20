@@ -231,6 +231,9 @@ const Post = () => {
             )}
           </St.CategoryAndGenreBox>
 
+          <St.SubmitButtonBox>
+            <St.SubmitButton type="submit">완료</St.SubmitButton>
+          </St.SubmitButtonBox>
           <Editor
             initialValue="내용을 입력해주세요 !"
             previewStyle="vertical"
@@ -244,9 +247,6 @@ const Post = () => {
               addImageBlobHook: onUploadImage,
             }}
           />
-          <St.SubmitButtonBox>
-            <St.SubmitButton type="submit">완료</St.SubmitButton>
-          </St.SubmitButtonBox>
         </St.Form>
       </St.FormWrapper>{' '}
     </St.Container>
