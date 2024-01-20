@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  position: relative;
+  min-height: 100vh; /* 화면 높이에 맞춤 */
+`;
+
 export const FooterWrapper = styled.div`
   background-color: #000;
-  padding-bottom: 17rem;
-  height: 13rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20rem; /* 푸터 높이 */
 `;
 export const FooterBox = styled.div`
   width: 100rem;

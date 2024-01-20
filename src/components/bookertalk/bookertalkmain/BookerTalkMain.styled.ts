@@ -1,21 +1,25 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: flex;
+  grid-template-columns: 35rem 1fr; /* 사이드바와 메인 컨텐츠 영역 구분 */
+  gap: 5rem;
+  min-height: 100vh; /* 화면 높이에 맞춰 최소 높이 설정 */
 `;
-
+export const CategoryAndPostListBox = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+`;
 export const Title = styled.div`
   margin: 0rem 0rem 5rem 30rem;
   padding-bottom: 0.5rem;
   border-bottom: 0.2rem solid black;
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 600;
 `;
 
 export const CategoryWrapper = styled.div`
-  display: flex;
-  width: 35rem;
-  justify-content: space-between;
+  width: 25rem;
 `;
 
 export const CategoryBox = styled.div`
@@ -23,14 +27,13 @@ export const CategoryBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 16rem;
-  padding: 2rem;
+  width: 25rem;
+  height: 70rem;
   background: #f5f5f5;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   line-height: 1.2;
-  margin-left: 8rem;
 `;
 
 export const BookRecommendBox = styled.div`
@@ -38,7 +41,7 @@ export const BookRecommendBox = styled.div`
 `;
 
 export const CategoryTitle = styled.h1`
-  font-size: 1.8rem;
+  font-size: 3rem;
   font-weight: bold;
 `;
 
@@ -60,18 +63,18 @@ export const GenreButton = styled.button`
 export const FreeTalkBox = styled.div`
   margin-top: 1rem;
 `;
-export const PostListWrapper = styled.div``;
+export const PostListWrapper = styled.div`
+  width: 90rem;
+`;
 
 export const PostListBox = styled.div`
   display: flex;
-  width: 70rem;
   height: 4rem;
-  font-size: 1.5rem;
-  gap: 2rem;
+  font-size: 1.8rem;
   align-items: center;
   border-bottom: 1px solid #000;
   justify-content: space-between;
-  margin: 2px;
+  margin-top: 1.5rem;
 `;
 export const PostTitle = styled.span`
   margin-left: 0.2rem;
