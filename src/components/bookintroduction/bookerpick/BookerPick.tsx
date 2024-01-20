@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
 import * as St from './BookerPick.styled';
 
@@ -15,22 +16,38 @@ interface BookerPicks {
 
 const BookerPick = () => {
   const [bookerPick, setBookerPick] = useState<BookerPicks[]>([]);
-  useEffect(() => {
-    getaNewBook();
-  }, []);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [ref, inView] = useInView();
 
   const navigate = useNavigate();
 
   const getaNewBook = async () => {
-    const response = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks');
-    setBookerPick(response.data.item);
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(
+        `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks?page=${page}`,
+      );
+      setBookerPick((prev) => [...prev, ...response.data.item]);
+      setPage((page) => page + 1);
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  useEffect(() => {
+    if (inView) {
+      getaNewBook();
+    }
+  }, [inView]);
 
   const GotoDetailPage = (isbn13: string) => {
     navigate(`/aboutBook/${isbn13}`);
   };
 
-  /* 중첩 라우터 , 레이아웃을 하나 만들고  */
   return (
     <St.Section>
       <St.Container>
@@ -57,6 +74,7 @@ const BookerPick = () => {
               </St.BookImageWrapper>
             );
           })}
+          <div ref={ref} />
         </St.Body>
       </St.Container>
     </St.Section>

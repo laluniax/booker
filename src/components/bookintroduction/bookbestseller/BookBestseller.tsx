@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
 import * as St from './BookIntroduction.styled';
 
@@ -16,26 +17,40 @@ interface Bestseller {
 const BookBestseller = () => {
   const [bestSeller, setBestseller] = useState<Bestseller[]>([]);
 
+  const [page, setPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [ref, inView] = useInView();
+
   const navigate = useNavigate();
 
-  console.log(bestSeller);
   const bookBestseller = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+
     try {
-      const response = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller');
-      console.log(response);
-      setBestseller(response.data.item);
-    } catch (err) {
-      console.log('err : ', err);
+      const response = await axios.get(
+        `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller?page=${page}`,
+      );
+      setBestseller((prev) => [...prev, ...response.data.item]);
+      setPage((page) => page + 1);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    bookBestseller();
-  }, []);
+    if (inView) {
+      bookBestseller();
+    }
+  }, [inView]);
 
   const GotoDetailPage = (isbn13: number) => {
     navigate(`/aboutBook/${isbn13}`);
   };
+
+  console.log(inView, '야호');
 
   return (
     <St.Container>
@@ -63,6 +78,7 @@ const BookBestseller = () => {
             </St.BookImageWrapper>
           );
         })}
+        <div ref={ref}></div>
       </St.Body>
     </St.Container>
   );

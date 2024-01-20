@@ -17,6 +17,7 @@ export const ChatWrapper = styled.div`
   border-radius: 2rem;
   padding: 8px;
   overflow: hidden;
+  background-color: white;
 `;
 export const ChatHeader = styled.div`
   display: flex;

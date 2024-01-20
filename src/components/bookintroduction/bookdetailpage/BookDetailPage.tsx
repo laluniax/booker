@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import * as St from './BookDetailPage.styled';
 
 interface BookData {
@@ -15,43 +15,48 @@ interface BookData {
 }
 
 const BookDetailPage = () => {
-  const { itemId } = useParams();
-  const [detailData, setDetailData] = useState<BookData[]>([]);
+  const params = useParams();
+  console.log(params);
+  const itemId = params.itemid;
+  const [detailData, setDetailData] = useState<BookData | null>(null);
 
+  console.log(typeof detailData);
   useEffect(() => {
     getBooks();
   }, []);
-  const navigate = useNavigate();
-  const getBooks = async () => {
-    const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/search?isbn=${itemId}`);
 
-    setDetailData(response.data.aladinData.item);
+  const getBooks = async () => {
+    try {
+      const response = await axios.get(
+        `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/search?isbn=${itemId}`,
+      );
+      setDetailData(response.data.aladinData.item[0]);
+    } catch (error) {
+      console.error('Failed to fetch book data:', error);
+    }
   };
+  console.log(detailData);
+  if (!detailData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <St.Container>
-      {detailData.map((book) => {
-        return (
-          <>
-            <St.Category>{detailData[0].categoryName}</St.Category>
-            <St.BookWrapper>
-              <St.Bookinfo>
-                <St.BookTitle>{detailData[0].title}</St.BookTitle>
-                <St.BookImage>
-                  <img src={detailData[0].cover} alt={detailData[0].title} />
-                </St.BookImage>
-              </St.Bookinfo>
-              <St.BookIntro>
-                <St.Bookauthor>{detailData[0].author}</St.Bookauthor>
-                <St.Publisher>{detailData[0].publisher}</St.Publisher>
-                <St.Description>{detailData[0].description}</St.Description>
-                <St.PubData>출간일:{detailData[0].pubDate}</St.PubData>
-              </St.BookIntro>
-            </St.BookWrapper>
-          </>
-        );
-      })}
-      {/* */}
+      <St.Category>{detailData.categoryName}</St.Category>
+      <St.BookWrapper>
+        <St.Bookinfo>
+          <St.BookTitle>{detailData.title}</St.BookTitle>
+          <St.BookImage>
+            <img src={detailData.cover} alt={detailData.title} />
+          </St.BookImage>
+        </St.Bookinfo>
+        <St.BookIntro>
+          <St.Bookauthor>{detailData.author}</St.Bookauthor>
+          <St.Publisher>{detailData.publisher}</St.Publisher>
+          <St.Description>{detailData.description}</St.Description>
+          <St.PubData>출간일:{detailData.pubDate}</St.PubData>
+        </St.BookIntro>
+      </St.BookWrapper>
     </St.Container>
   );
 };

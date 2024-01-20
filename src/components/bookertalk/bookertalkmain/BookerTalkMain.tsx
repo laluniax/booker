@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { filteredCategory, getPostsHandler, getUserSessionHandler } from '../../../api/supabase.api';
 import { PostsTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
+import Pagination from '../Pagination';
 import { CateGenresTypes, categoryUuid } from '../bookertalkpost/Post';
 import * as St from './BookerTalkMain.styled';
 
@@ -13,6 +14,8 @@ const BookerTalkMain = () => {
 
   const [data, setData] = useState<PostsTypes[]>();
   const [session, setSession] = useState<Session | null>();
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [postsPerPage, setPostsPerPage] = useState<number>(10);
 
   const getUserSession = async () => {
     const result = await getUserSessionHandler();
@@ -69,6 +72,10 @@ const BookerTalkMain = () => {
     getPosts();
   }, [params]);
 
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  const currentPosts = data?.slice(indexOfFirst, indexOfLast);
+
   return (
     <>
       <St.Title>
@@ -91,7 +98,7 @@ const BookerTalkMain = () => {
             </St.CategoryBox>
           </St.CategoryWrapper>
           <St.PostListWrapper>
-            {data?.map((item, i) => {
+            {currentPosts?.map((item, i) => {
               return (
                 <St.PostListBox
                   key={i}
@@ -109,6 +116,7 @@ const BookerTalkMain = () => {
             })}
           </St.PostListWrapper>
         </St.CategoryAndPostListBox>
+        <Pagination postsPerPage={postsPerPage} totalPosts={data?.length ?? 0} paginate={setCurrentPage} />
       </St.Container>
     </>
   );
