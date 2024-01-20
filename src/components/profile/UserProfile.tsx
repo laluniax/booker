@@ -100,7 +100,7 @@ const UserProfile = () => {
     <St.Container>
       <St.Title>마이페이지</St.Title>
       <St.ProfileWrapper>
-        <St.ProfileImg src={tempImg} />
+        <St.ProfileImg src={tempImg || `${process.env.PUBLIC_URL}/images/common/Logo.png`} />
         <St.ProfileInfo>
           {editing ? (
             <>
