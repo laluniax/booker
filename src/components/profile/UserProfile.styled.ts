@@ -127,3 +127,18 @@ export const ProductImg = styled.img`
 export const ProductPrice = styled.div``;
 
 export const ProductDate = styled.div``;
+
+export const FollowWrapper = styled.div``;
+
+export const Follow = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+export const FollowImg = styled.img`
+  width: 3rem;
+  height: 3rem;
+`;
+
+export const FollowNickname = styled.div``;

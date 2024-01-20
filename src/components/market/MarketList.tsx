@@ -68,7 +68,7 @@ const MarketList = () => {
                 }}>
                 {item.product_img.length === 0 ? (
                   <St.LogoImg>
-                    <img src="images/common/logo.png" alt="logo" />
+                    <img src={`${process.env.PUBLIC_URL}/images/common/logo.png`} alt="logo" />
                   </St.LogoImg>
                 ) : (
                   <St.ProductImg src={item.product_img[0]} />

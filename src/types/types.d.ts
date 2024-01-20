@@ -71,6 +71,15 @@ type PostsTypes = {
   user_id: string | null;
   users: Tables<'users'>;
 };
+
+type FollowsTypes = {
+  created_at: string;
+  follow_from: string | null;
+  follow_id: string | null;
+  follow_to: string | null;
+  id: number;
+  users: Tables<'users'>;
+};
 export type mapMarkerDataTypes = {
   id: number;
   gov_id: string;
@@ -224,26 +233,37 @@ export interface Database {
           },
         ];
       };
-      followers: {
+      follows: {
         Row: {
           created_at: string;
-          follower_id: string | null;
+          follow_from: string | null;
+          follow_id: string | null;
+          follow_to: string | null;
           id: number;
-          user_id: string | null;
         };
         Insert: {
           created_at?: string;
-          follower_id?: string | null;
+          follow_from?: string | null;
+          follow_id?: string | null;
+          follow_to?: string | null;
           id?: number;
-          user_id?: string | null;
         };
         Update: {
           created_at?: string;
-          follower_id?: string | null;
+          follow_from?: string | null;
+          follow_id?: string | null;
+          follow_to?: string | null;
           id?: number;
-          user_id?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: 'follows_follow_to_fkey';
+            columns: ['follow_to'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       genres: {
         Row: {
@@ -395,7 +415,7 @@ export interface Database {
           genre_id: string | null;
           id: number;
           post_img: string[] | null;
-          tags: string | null;
+          tags: string[] | null;
           title: string | null;
           user_id: string | null;
         };
@@ -405,7 +425,7 @@ export interface Database {
           genre_id?: string | null;
           id?: number;
           post_img?: string[] | null;
-          tags?: string | null;
+          tags?: string[] | null;
           title?: string | null;
           user_id?: string | null;
         };
@@ -415,7 +435,7 @@ export interface Database {
           genre_id?: string | null;
           id?: number;
           post_img?: string[] | null;
-          tags?: string | null;
+          tags?: string[] | null;
           title?: string | null;
           user_id?: string | null;
         };

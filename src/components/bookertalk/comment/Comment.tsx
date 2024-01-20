@@ -59,22 +59,27 @@ const Comment = () => {
   }, [params]);
   return (
     <St.Container>
-      <St.CommentForm>
-        <St.FormUserData>
-          <St.UserImg src={metaData?.user_img} />
-          <div>{metaData?.full_name}</div>
-        </St.FormUserData>
-        <St.CommentTextArea
-          value={content}
-          onChange={(e) => {
-            setContent(e.target.value);
-          }}
-        />
-        <br />
-        <St.CommentSubmit>
-          <button onClick={insertComment}>댓글 작성하기</button>
-        </St.CommentSubmit>
-      </St.CommentForm>
+      {session ? (
+        <St.CommentForm>
+          <St.FormUserData>
+            <St.UserImg src={metaData?.user_img} />
+            <div>{metaData?.full_name}</div>
+          </St.FormUserData>
+          <St.CommentTextArea
+            value={content}
+            onChange={(e) => {
+              setContent(e.target.value);
+            }}
+          />
+          <br />
+          <St.CommentSubmit>
+            <button onClick={insertComment}>댓글 작성하기</button>
+          </St.CommentSubmit>
+        </St.CommentForm>
+      ) : (
+        <></>
+      )}
+
       <St.CommentWrapper>
         {data?.comments
           .sort((a, b) => a.id - b.id)

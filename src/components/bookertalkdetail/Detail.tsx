@@ -1,7 +1,7 @@
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor, Viewer } from '@toast-ui/react-editor';
-import { useEffect, useRef, useState } from 'react';
+import { Viewer } from '@toast-ui/react-editor';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import { deletePostHandler, deletePostImgStorageHandler, filteredPostId } from '../../api/supabase.api';
@@ -13,18 +13,8 @@ import * as St from './Detail.styled';
 const Detail = () => {
   const params = useParams().id;
   const [data, setData] = useState<PostsTypes>();
-  const [isEdting, setIsEditing] = useState(false);
-  const toastRef = useRef<Editor>(null);
-  const [title, setTitle] = useState('');
-  const [genre, setGenre] = useState('');
-  const [tag, setTag] = useState('');
 
   const navigation = useNavigate();
-
-  const setContentHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const markdownContent = toastRef.current?.getInstance().getMarkdown();
-  };
 
   const getPosts = async () => {
     const result = await filteredPostId(params as string);
@@ -57,41 +47,17 @@ const Detail = () => {
     <St.Container>
       <St.Title>BOOKER TALK</St.Title>
       <St.PostWrapper>
-        {/* {isEdting ? (
-          // 편집 모드일 때 렌더링할 내용
-          <div>
-            <input
-              value={title}
-              onChange={(e) => {
-                setTitle(e.target.value);
-              }}
-            />
-
-            <select value={genre}></select>
-
-            <Editor initialValue={data?.content || ''} ref={toastRef} />
-            <button
-              onClick={() => {
-                setIsEditing(false);
-              }}>
-              저장
-            </button>
-            <button>취소</button>
-            <button
-              onClick={(e) => {
-                setContentHandler(e);
-              }}>
-              테스트
-            </button>
-          </div>
-        ) : ( */}
-
         <div>
           <St.PostTitle>{data?.title}</St.PostTitle>
           <St.PostUserInfo>
             <St.PostImgNickNameDate>
-              <St.PostUserImg src={data?.users.user_img ?? undefined} />
-              <St.PostUserNickname>{data?.users.nickname}</St.PostUserNickname>
+              <St.PostUserImg
+                src={data?.users.user_img ?? undefined}
+                onClick={() => navigation(`/profile/${data?.user_id}`)}
+              />
+              <St.PostUserNickname onClick={() => navigation(`/profile/${data?.user_id}`)}>
+                {data?.users.nickname}
+              </St.PostUserNickname>
               <St.PostDate>{formatCreatedAt(data?.created_at as string)}</St.PostDate>
             </St.PostImgNickNameDate>
             <St.PostBtnWrapper>

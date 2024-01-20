@@ -93,7 +93,6 @@ export const ProductLikes = styled.div``;
 
 export const PostButton = styled.button`
   all: unset;
-  float: right;
   padding: 0.5rem 1rem;
   border: 0.2rem solid black;
   cursor: pointer;
