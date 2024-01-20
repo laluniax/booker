@@ -21,9 +21,7 @@ export function useCreateOrGetChat() {
     otherUserId: string;
     productId: number;
   }) => {
-    console.log('챗확인1', userId);
-    console.log('챗확인2', otherUserId);
-    console.log('챗확인3', productId);
+
     // userId와 productId에 대한 챗방 존재 여부 확인
     const { data: chatUser } = await supabase
       .from('chats_users')
@@ -33,20 +31,11 @@ export function useCreateOrGetChat() {
       .eq('item_id', productId)
       .maybeSingle();
 
-    // // otherUserId와 productId에 대한 챗방 존재 여부 확인
-    // const { data: chatOther } = await supabase
-    //     .from('chats_users')
-    //     .select('chat_id')
-    //     .eq('others_id', otherUserId)
-    //     .eq('item_id', productId)
-    //     .maybeSingle();
 
-    //     console.log('챗방확인1',chatUser)
-    //     console.log('챗방확인2',chatOther)
     // // 두 결과가 같은 chat_id를 가지고 있는지 확인
     if (chatUser && chatUser.chat_id) {
       setChatId(chatUser.chat_id);
-      console.log('4챗방확인4');
+
     } else {
       // 기존 챗방이 없으므로 새 챗방 생성
       const { data: newChatData, error: newChatError } = (await supabase
@@ -63,11 +52,11 @@ export function useCreateOrGetChat() {
 
       // 새 챗방에 두 사용자를 chats_users에 추가
       if (newChatData) {
-        console.log('1', newChatData.id);
+ 
 
         const { error } = await supabase.from('chats_users').insert([
           { chat_id: newChatData.id, user_id: userId, others_id: otherUserId, item_id: productId },
-          { chat_id: newChatData.id, others_id: userId, user_id: otherUserId,  item_id: productId },
+          { chat_id: newChatData.id, others_id: userId, user_id: otherUserId, item_id: productId },
         ]);
 
         if (error) {
@@ -102,10 +91,7 @@ export function useSendMessage() {
     authorId: string;
     chatId: string;
   }) => {
-    console.log('1', content);
-    console.log('1', authorId);
-    console.log('1', chatId);
-
+ 
     const { error } = await supabase
       .from('messages')
       .insert([{ content: content, author_id: authorId, chat_id: chatId }]);
@@ -114,7 +100,7 @@ export function useSendMessage() {
       throw new Error('메시지 삽입 중 오류가 발생했습니다');
     }
   };
-  console.log('메시지 성공');
+
   return useMutation(sendDirectMessage, {
     onSuccess: () => {
       // 메시지 전송 성공 시 취할 행동, 예: 쿼리 무효화나 업데이트

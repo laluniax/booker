@@ -6,7 +6,7 @@ import {
   updateSubCommentHandler,
 } from '../../../api/supabase.api';
 import { SubCommentTypes } from '../../../types/types';
-import { foramtCreatedAt } from '../../../utils/date';
+import { formatCreatedAt } from '../../../utils/date';
 import * as St from './Comment.styled';
 
 type Props = {
@@ -22,14 +22,17 @@ const SubComment = ({ commentId, session }: Props) => {
   const [inputSubComment, setInputSubComment] = useState('');
   const [subCommentId, setSubCommentId] = useState<number>();
 
-  const insertSubComment = async () => {
-    const result = await insertSubCommentHandler(commentId as number, session as string, content);
-    setContent('');
-  };
   const getSubCommentsInfo = async () => {
     const result = await getSubCommentsInfoHandler(commentId as number);
     setData(result[0]);
   };
+
+  const insertSubComment = async () => {
+    const result = await insertSubCommentHandler(commentId as number, session as string, content);
+    getSubCommentsInfo();
+    setContent('');
+  };
+
   const updateSubComment = async () => {
     const result = await updateSubCommentHandler(inputSubComment, subCommentId as number);
     // setContent('');
@@ -41,6 +44,7 @@ const SubComment = ({ commentId, session }: Props) => {
 
   const deleteSubComment = async (subCommentId: number) => {
     const result = await deleteSubCommentHandler(subCommentId);
+    getSubCommentsInfo();
   };
 
   return (
@@ -65,7 +69,7 @@ const SubComment = ({ commentId, session }: Props) => {
                         <St.SubCommentUser>
                           <St.SubCommentImg src={item.users.user_img ?? undefined} />
                           <St.SubCommentNickname>{item.users.nickname} | </St.SubCommentNickname>
-                          <St.SubCommentDate>{foramtCreatedAt(item.created_at)}</St.SubCommentDate>
+                          <St.SubCommentDate>{formatCreatedAt(item.created_at)}</St.SubCommentDate>
                         </St.SubCommentUser>
                         {session === item.user_id ? (
                           <St.CommentBtnDiv>
@@ -129,13 +133,19 @@ const SubComment = ({ commentId, session }: Props) => {
               })}
           </St.SubCommentBox>
 
-          <St.SubCommentTextArea
-            value={content}
-            onChange={(e) => {
-              setContent(e.target.value);
-            }}
-          />
-          <St.SubCommentSubmitBtn onClick={insertSubComment}>등록</St.SubCommentSubmitBtn>
+          {session ? (
+            <>
+              <St.SubCommentTextArea
+                value={content}
+                onChange={(e) => {
+                  setContent(e.target.value);
+                }}
+              />
+              <St.SubCommentSubmitBtn onClick={insertSubComment}>등록</St.SubCommentSubmitBtn>
+            </>
+          ) : (
+            <></>
+          )}
         </>
       ) : (
         <St.SubCommentAddBtn
@@ -143,7 +153,7 @@ const SubComment = ({ commentId, session }: Props) => {
             setToggleOpen(true);
             getSubCommentsInfo();
           }}>
-          답글 입력하기
+          답글 펼치기
         </St.SubCommentAddBtn>
       )}
     </St.SubCommentWrapper>

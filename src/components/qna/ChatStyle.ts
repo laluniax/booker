@@ -1,9 +1,7 @@
 import styled from 'styled-components';
-
 export const Container = styled.div`
   position: relative;
   width: 100%;
-  height: 100vh;
 `;
 export const ChatWrapper = styled.div`
   width: 390px;
@@ -77,9 +75,15 @@ export const TalkButtonWrapper = styled.div`
   position: fixed;
   bottom: 30px;
   right: 10px;
+  z-index: 1000;
 `;
 
-export const TalkButton = styled.button``;
+// Close 버튼
+export const TalkButton = styled.img`
+  border-radius: 100%;
+  width: 13rem;
+  height: 13rem;
+`;
 
 export const MessageComponent = styled.div<MessageProps>`
   padding: 10px;
@@ -139,6 +143,7 @@ export const ChatModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
+
   bottom: 0;
   right: 0;
   width: 300px;

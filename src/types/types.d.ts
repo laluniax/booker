@@ -15,6 +15,7 @@ type CommentTypes = {
   created_at: string;
   genre_id: string | null;
   id: number;
+  post_img: string[] | null;
   tags: string | null;
   title: string | null;
   user_id: string | null;
@@ -46,6 +47,63 @@ type SubComments = {
   users: Tables<'users'>;
 };
 
+type ProductsTypes = {
+  category: string | null;
+  content: string | null;
+  created_at: string;
+  id: number;
+  price: string | null;
+  product_grade: string | null;
+  product_img: string[] | null;
+  title: string | null;
+  user_id: string | null;
+  users: Tables<'users'>;
+};
+
+type PostsTypes = {
+  content: string | null;
+  created_at: string;
+  genre_id: string | null;
+  id: number;
+  post_img: string[] | null;
+  tags: string | null;
+  title: string | null;
+  user_id: string | null;
+  users: Tables<'users'>;
+};
+
+type FollowsTypes = {
+  created_at: string;
+  follow_from: string | null;
+  follow_id: string | null;
+  follow_to: string | null;
+  id: number;
+  users: Tables<'users'>;
+};
+export type mapMarkerDataTypes = {
+  id: number;
+  gov_id: string;
+  name: string;
+  category1: string;
+  category2: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  weekdays_open_at: number;
+  weekdays_close_at: number;
+  saturday_open_at: number;
+  saturday_close_at: number;
+  sunday_open_at: number;
+  sunday_close_at: number;
+  closedDay_open_at: number;
+  closedDay_close_at: number;
+  closedDay_guide: string;
+  tel_num: number;
+  optn_dc: string;
+  adit_dc: string;
+  postal_code: number;
+};
+
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export interface Database {
@@ -72,35 +130,44 @@ export interface Database {
       chats: {
         Row: {
           created_at: string;
-          id: number;
+          id: string;
         };
         Insert: {
           created_at?: string;
-          id?: number;
+          id?: string;
         };
         Update: {
           created_at?: string;
-          id?: number;
+          id?: string;
         };
         Relationships: [];
       };
       chats_users: {
         Row: {
-          chat_id: number | null;
+          chat_id: string | null;
           created_at: string;
           id: number;
+          item_id: number | null;
+          other_id: string | null;
+          others_id: string | null;
           user_id: string | null;
         };
         Insert: {
-          chat_id?: number | null;
+          chat_id?: string | null;
           created_at?: string;
           id?: number;
+          item_id?: number | null;
+          other_id?: string | null;
+          others_id?: string | null;
           user_id?: string | null;
         };
         Update: {
-          chat_id?: number | null;
+          chat_id?: string | null;
           created_at?: string;
           id?: number;
+          item_id?: number | null;
+          other_id?: string | null;
+          others_id?: string | null;
           user_id?: string | null;
         };
         Relationships: [
@@ -109,6 +176,13 @@ export interface Database {
             columns: ['chat_id'];
             isOneToOne: false;
             referencedRelation: 'chats';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'chats_users_others_id_fkey';
+            columns: ['others_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
             referencedColumns: ['id'];
           },
           {
@@ -159,26 +233,37 @@ export interface Database {
           },
         ];
       };
-      followers: {
+      follows: {
         Row: {
           created_at: string;
-          follower_id: string | null;
+          follow_from: string | null;
+          follow_id: string | null;
+          follow_to: string | null;
           id: number;
-          user_id: string | null;
         };
         Insert: {
           created_at?: string;
-          follower_id?: string | null;
+          follow_from?: string | null;
+          follow_id?: string | null;
+          follow_to?: string | null;
           id?: number;
-          user_id?: string | null;
         };
         Update: {
           created_at?: string;
-          follower_id?: string | null;
+          follow_from?: string | null;
+          follow_id?: string | null;
+          follow_to?: string | null;
           id?: number;
-          user_id?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: 'follows_follow_to_fkey';
+            columns: ['follow_to'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       genres: {
         Row: {
@@ -287,21 +372,21 @@ export interface Database {
       messages: {
         Row: {
           author_id: string | null;
-          chat_id: number | null;
+          chat_id: string | null;
           content: string | null;
           created_at: string;
           id: number;
         };
         Insert: {
           author_id?: string | null;
-          chat_id?: number | null;
+          chat_id?: string | null;
           content?: string | null;
           created_at?: string;
           id?: number;
         };
         Update: {
           author_id?: string | null;
-          chat_id?: number | null;
+          chat_id?: string | null;
           content?: string | null;
           created_at?: string;
           id?: number;
@@ -329,7 +414,8 @@ export interface Database {
           created_at: string;
           genre_id: string | null;
           id: number;
-          tags: string | null;
+          post_img: string[] | null;
+          tags: string[] | null;
           title: string | null;
           user_id: string | null;
         };
@@ -338,7 +424,8 @@ export interface Database {
           created_at?: string;
           genre_id?: string | null;
           id?: number;
-          tags?: string | null;
+          post_img?: string[] | null;
+          tags?: string[] | null;
           title?: string | null;
           user_id?: string | null;
         };
@@ -347,7 +434,8 @@ export interface Database {
           created_at?: string;
           genre_id?: string | null;
           id?: number;
-          tags?: string | null;
+          post_img?: string[] | null;
+          tags?: string[] | null;
           title?: string | null;
           user_id?: string | null;
         };
@@ -374,6 +462,7 @@ export interface Database {
           content: string | null;
           created_at: string;
           id: number;
+          onsale: boolean | null;
           price: string | null;
           product_grade: string | null;
           product_img: string[] | null;
@@ -385,6 +474,7 @@ export interface Database {
           content?: string | null;
           created_at?: string;
           id?: number;
+          onsale?: boolean | null;
           price?: string | null;
           product_grade?: string | null;
           product_img?: string[] | null;
@@ -396,6 +486,7 @@ export interface Database {
           content?: string | null;
           created_at?: string;
           id?: number;
+          onsale?: boolean | null;
           price?: string | null;
           product_grade?: string | null;
           product_img?: string[] | null;
@@ -626,27 +717,3 @@ export type Enums<
   : PublicEnumNameOrOptions extends keyof Database['public']['Enums']
     ? Database['public']['Enums'][PublicEnumNameOrOptions]
     : never;
-
-export type mapMarkerDataTypes = {
-  id: number;
-  gov_id: string;
-  name: string;
-  category1: string;
-  category2: string;
-  address: string;
-  latitude: number;
-  longitude: number;
-  weekdays_open_at: number;
-  weekdays_close_at: number;
-  saturday_open_at: number;
-  saturday_close_at: number;
-  sunday_open_at: number;
-  sunday_close_at: number;
-  closedDay_open_at: number;
-  closedDay_close_at: number;
-  closedDay_guide: string;
-  tel_num: number;
-  optn_dc: string;
-  adit_dc: string;
-  postal_code: number;
-};

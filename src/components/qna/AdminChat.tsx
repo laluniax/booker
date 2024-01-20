@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../api/supabase.api';
-import Logo from '../../assets/Logo.png';
 import * as St from './Adminchat.styled';
 
 const AdminChat = () => {
@@ -32,7 +31,7 @@ const AdminChat = () => {
     <St.Container>
       <St.ChatWrapper>
         <St.ChatHeader>
-          <img src={Logo} alt="Logo" />
+          <img src="/images/common/logo.png" alt="Logo" />
         </St.ChatHeader>
         <St.ChatBody>
           {/* 채팅방 출력 */}

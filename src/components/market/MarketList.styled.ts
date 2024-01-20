@@ -58,7 +58,17 @@ export const ProductCard = styled.div`
   border: 0.2rem solid black;
   cursor: pointer;
 `;
-
+export const LogoImg = styled.div`
+  width: 18rem;
+  height: 18rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & img {
+    width: 15rem;
+  }
+`;
 export const ProductImg = styled.img`
   width: 18rem;
   height: 18rem;
@@ -83,7 +93,6 @@ export const ProductLikes = styled.div``;
 
 export const PostButton = styled.button`
   all: unset;
-  float: right;
   padding: 0.5rem 1rem;
   border: 0.2rem solid black;
   cursor: pointer;

@@ -16,6 +16,7 @@ interface Bestseller {
 
 const BookBestseller = () => {
   const [bestSeller, setBestseller] = useState<Bestseller[]>([]);
+
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [ref, inView] = useInView();
