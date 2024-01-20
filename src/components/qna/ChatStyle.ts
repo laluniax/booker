@@ -4,12 +4,13 @@ export const Container = styled.div`
   width: 100%;
 `;
 export const ChatWrapper = styled.div`
-  width: 390px;
-  height: 590px;
+  width: 50rem;
+  height: 60rem;
   box-sizing: border-box;
   position: fixed;
-  bottom: 100px;
-  right: 10px;
+  z-index: 1000;
+  bottom: 140px;
+  right: 15px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 2rem;
   padding: 8px;
@@ -38,28 +39,59 @@ export const ChatBody = styled.div`
   padding: 8px;
   margin: 0px 16px;
 `;
+export const ChatTopBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 9rem;
+`;
+export const MainMessage = styled.p`
+  font-size: 1.4rem;
+`;
 
-export const MainMessage = styled.p``;
-
-export const AskWrapper = styled.div`
-  margin: 16px 16px 12px;
-  width: 100%;
+// 문의하기 버튼
+export const AskButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 export const AskButton = styled.button`
-  width: 90%;
-  border: none;
-  padding: 1rem;
+  all: unset;
+  background-color: gray;
+  margin-top: 2rem;
+  width: 35rem;
+  height: 4rem;
+  text-align: center;
+  border-radius: 2rem;
+  background-color: #000;
+  color: #7fd4f3;
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #1f1f1f;
+    color: #8eddfa;
+  }
 `;
+
+export const Contour = styled.div`
+  border-bottom: 2px solid #000;
+  margin-top: 2rem;
+  border-bottom-style: dotted;
+`;
+
 export const ChatInputWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 0px 6px 0px 14px;
   z-index: 999;
 `;
 
 export const Input = styled.input`
-  width: 90%;
+  margin-top: 2rem;
+  width: 95%;
   position: relative;
 
   min-height: 50px;
@@ -86,13 +118,18 @@ export const TalkButton = styled.img`
 `;
 
 export const MessageComponent = styled.div<MessageProps>`
+  display: flex;
+  /* flex-direction: column; */
+
   padding: 10px;
   margin: 5px;
   border-radius: 10px;
-  max-width: 80%;
+  max-width: 45%;
+  font-size: 1.3rem;
   word-wrap: break-word;
-  align-self: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
-  background-color: ${(props) => (props.isOutgoing ? '#DCF8C6' : '#FFFFFF')}; // 예시 색상
+  justify-content: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
+  background-color: ${(props) => (props.isOutgoing ? '#DCF8C6' : '#000')}; // 예시 색상
+  color: ${(props) => (props.isOutgoing ? '#DCF8C6' : '#fff')};
 `;
 
 // Props 타입 정의
@@ -100,15 +137,27 @@ export type MessageProps = {
   isOutgoing: boolean;
 };
 
+//고객센터 채팅내역
+
+export const UserItemBox = styled.div`
+  margin-top: 3rem;
+  align-items: center;
+  margin-left: 2rem;
+`;
+
 export const UserItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 40rem;
+  height: 5rem;
   padding: 10px;
-  margin-bottom: 5px;
-  background-color: #f9f9f9;
+  margin-bottom: 1rem;
+  border: 1px solid #000;
+  color: #000;
   border-radius: 4px;
   cursor: pointer;
+  margin-left: 2rem;
 
   &:hover {
     background-color: #e9e9e9;
@@ -117,28 +166,29 @@ export const UserItem = styled.div`
 
 export const UserEmail = styled.div`
   font-weight: bold;
+  font-size: 1.3rem;
 `;
 
 export const UserLastMessage = styled.div`
   color: #666;
-  font-size: 0.9em;
+  font-size: 1.2rem;
 `;
 
 export const DMButton = styled.button`
   padding: 5px 10px;
   margin-left: 10px;
   border: none;
-  border-radius: 4px;
-  background-color: #4e9af1;
-  color: white;
+  border-radius: 1rem;
+  background-color: #000;
+  color: #fff;
   cursor: pointer;
 
   &:hover {
-    background-color: #3b82f6;
+    background-color: #1f1f1f;
   }
 `;
 
-// 모달 래퍼
+// 채팅 모달 래퍼
 export const ChatModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -146,24 +196,45 @@ export const ChatModalWrapper = styled.div`
 
   bottom: 0;
   right: 0;
-  width: 300px;
-  height: 400px;
+  width: 48rem;
+  height: 60rem;
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 1rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  z-index: 1000;
+  z-index: 2000;
+  bottom: 66px;
+  right: 10px;
 `;
 
 // 모달 헤더
 export const ChatModalHeader = styled.div`
   padding: 10px;
-  background-color: #f5f5f5;
+  background-color: #000;
   border-bottom: 1px solid #ddd;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 5rem;
+`;
+
+export const ChatModalTitle = styled.p`
+  font-size: 1.5rem;
+  margin-left: 0.4rem;
+  color: #fff;
+`;
+
+export const ChatModalCloseButton = styled.button`
+  all: unset;
+  font-size: 2.6rem;
+  margin-right: 0.4rem;
+  color: #fff;
+
+  &:hover {
+    cursor: pointer;
+    color: #7fd4f3;
+  }
 `;
 
 // 모달 바디
@@ -180,26 +251,38 @@ export const ChatModalFooter = styled.div`
   border-top: 1px solid #ddd;
   display: flex;
   align-items: center;
+  height: 7rem;
 `;
 
 // 입력 필드 및 전송 버튼
 export const InputField = styled.input`
+  all: unset;
   flex-grow: 1;
   margin-right: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 2px;
+  height: 4rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #000;
+
+  ::placeholder {
+    font-size: 1.5rem;
+  }
 `;
 
 export const SendButton = styled.button`
   padding: 10px 15px;
-  background-color: #4caf50;
-  color: white;
+  background-color: #000;
+  color: #7fd4f3;
   border: none;
-  border-radius: 4px;
+  height: 4.4rem;
+  border-radius: 1rem;
   cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: bold;
 
   &:hover {
-    background-color: #45a049;
+    background-color: #262626;
   }
 `;

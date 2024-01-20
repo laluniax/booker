@@ -15,12 +15,12 @@ const Header = () => {
 
   return (
     <St.Container>
-      <div
+      <St.ImageWrapper
         onClick={() => {
           navigate('/');
         }}>
         <St.Image src="/images/common/logo.png" />
-      </div>
+      </St.ImageWrapper>
       <St.HeaderUl>
         <St.HeaderLiBox>
           <St.HeaderLi>
