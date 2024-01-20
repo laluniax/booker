@@ -1,18 +1,27 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  position: relative;
   background-color: black;
   color: #fff;
   height: 11rem;
   padding: 2rem;
   display: flex;
+  gap: 5rem;
   /* justify-content: space-between; */
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
 `;
 
-export const Image = styled.img``;
+export const ImageWrapper = styled.div`
+  width: 30rem;
+  height: 5rem;
+`;
+
+export const Image = styled.img`
+  cursor: pointer;
+`;
 
 export const NavbarWrapper = styled.div`
   align-items: center;
@@ -55,8 +64,21 @@ export const HeaderLiBox = styled.div`
   justify-content: center;
   width: 73rem;
   height: 2rem;
-  gap: 4rem;
+  gap: 3rem;
   letter-spacing: 0.1rem;
   /* padding-left: 18rem;
   padding-right: 18rem; */
+`;
+
+// 검색
+export const SearchBox = styled.form`
+  position: absolute; // 절대 위치 설정
+  right: 20%;
+  top: 48%; // 상위 요소의 아래쪽에 위치
+`;
+export const SearchBar = styled.input`
+  all: unset;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #fff;
+  width: 16rem;
 `;

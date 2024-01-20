@@ -22,12 +22,12 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
 
   return (
     <St.Container>
-      <div
+      <St.ImageWrapper
         onClick={() => {
           navigate('/');
         }}>
         <St.Image src="/images/common/logo.png" />
-      </div>
+      </St.ImageWrapper>
       <St.HeaderUl>
         <St.HeaderLiBox>
           <St.HeaderLi>
@@ -49,21 +49,21 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
       </St.HeaderUl>
       <St.HeaderUl>
         {searchBarOpen ? (
-          <form
+          <St.SearchBox
             onSubmit={(e) => {
               e.preventDefault();
               console.log(searchKeyword);
             }}>
-            <input
+            <St.SearchBar
               type="text"
               value={searchKeyword}
               // 문자열 모든 공백 제거하여 input 값으로 받아옴
               onChange={(e) => setSearchKeyword(e.target.value.replace(/(\s*)/g, ''))}
             />
-          </form>
+          </St.SearchBox>
         ) : null}
         <St.HeaderBtn onClick={() => setSearchBarOpen(!searchBarOpen)}>
-          <St.Image src="/images/header/searchIcon.jpg" alt="searchIcon" style={{ width: '30px', height: '30px' }} />
+          <St.Image src="/images/header/searchIcon.jpg" alt="searchIcon" style={{ width: '32px', height: '33px' }} />
         </St.HeaderBtn>
         {auth.session !== null ? (
           <>
