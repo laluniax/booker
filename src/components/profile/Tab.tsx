@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { filterPostsByUserIdHandler, filterProductsByUserIdHandler } from '../../api/supabase.api';
-import { Tables } from '../../types/types';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+  filterPostsByUserIdHandler,
+  filterProductsByUserIdHandler,
+  getFollowListHandler,
+  unFollowHandler,
+} from '../../api/supabase.api';
+import { FollowsTypes, Tables } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
 import * as St from './UserProfile.styled';
 
@@ -15,19 +20,29 @@ const Tab = ({ userSession, userData }: Props) => {
   const [active, setActive] = useState('1');
   const [postsList, setPostsList] = useState<Tables<'posts'>[]>();
   const [productsList, setProductsList] = useState<Tables<'products'>[]>();
+  const [followList, setFollowList] = useState<FollowsTypes[]>([]);
 
-  console.log(productsList);
+  const params = useParams().id;
 
   const filterPostByUserId = async () => {
     const posts = await filterPostsByUserIdHandler(userData?.id as string);
     const products = await filterProductsByUserIdHandler(userData?.id as string);
-    console.log(posts);
     setPostsList(posts);
     setProductsList(products);
   };
+  // 팔로우 목록 불러오기
+  const getFollowList = async () => {
+    const result = await getFollowListHandler(params as string);
+    setFollowList(result);
+  };
+
+  // const onClickUnfollowBtn = async () => {
+  //   const result = await unFollowHandler();
+  // };
 
   useEffect(() => {
     userData && filterPostByUserId();
+    userSession && getFollowList();
   }, [userSession, userData]);
 
   return (
@@ -88,7 +103,34 @@ const Tab = ({ userSession, userData }: Props) => {
             </St.ProductWrapper>
           </div>
         )}
-        {active === '2' && <div>팔로우 목록</div>}
+        {active === '2' && (
+          <St.FollowWrapper>
+            {followList?.map((item, i) => {
+              return (
+                <St.Follow
+                  key={i}
+                  onClick={() => {
+                    navigate(`/profile/${item.follow_to}`);
+                  }}>
+                  <St.FollowImg src={item.users.user_img ?? undefined} />
+                  <St.FollowNickname>{item.users.nickname}</St.FollowNickname>
+                  {params === userSession ? (
+                    <button
+                      onClick={async (e) => {
+                        e.stopPropagation();
+                        await unFollowHandler(item.follow_id as string);
+                        getFollowList();
+                      }}>
+                      팔로우 취소하기
+                    </button>
+                  ) : (
+                    <></>
+                  )}
+                </St.Follow>
+              );
+            })}
+          </St.FollowWrapper>
+        )}
         {active === '3' && <div>좋아요한 글</div>}
       </St.ProfileContent>
     </div>

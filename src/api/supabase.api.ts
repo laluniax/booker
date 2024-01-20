@@ -47,7 +47,6 @@ export const githubLoginHandler = async () => {
   return { data, error };
 };
 
-
 // 소셜 로그인 핸들러(kakao)
 export const kakaoLoginHandler = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
@@ -63,8 +62,6 @@ export const kakaoLoginHandler = async () => {
   });
   return { data, error };
 };
-
-
 
 // 소셜 로그인 핸들러(Google)
 export const googleLoginHandler = async () => {
@@ -131,6 +128,40 @@ export const deleteUserImgHandler = async (params: string) => {
 // storage에서 public URL 받아오기
 export const getPublicUrlHandler = (params: string) => {
   const { data } = supabase.storage.from('user_img').getPublicUrl(`${params}/${params}`);
+  return data;
+};
+
+// 팔로우 하기
+export const followHandler = async (followId: string, params: string, session: string) => {
+  const { data, error } = await supabase
+    .from('follows')
+    .insert([{ follow_id: followId, follow_to: params, follow_from: session }])
+    .select();
+  if (error) throw error;
+  return data;
+};
+// 언팔로우 하기
+export const unFollowHandler = async (followId: string) => {
+  const { error } = await supabase.from('follows').delete().eq('follow_id', followId);
+  return error;
+};
+
+// 팔로우 목록 가져오기
+export const getFollowListHandler = async (session: string) => {
+  const { data, error } = await supabase.from('follows').select('*, users(*)').eq('follow_from', session);
+  if (error) throw error;
+  return data;
+};
+// 팔로우 필터링
+export const filteringFollowHandler = async (followId: string) => {
+  const { data, error } = await supabase.from('follows').select('*').eq('follow_id', followId);
+  if (error) throw error;
+  return data;
+};
+// 팚로우 id 목록 가져오기 (팔로우 중인지 필터링하여 판단)
+export const followIdListHandler = async () => {
+  const { data, error } = await supabase.from('follows').select('follow_id');
+  if (error) throw error;
   return data;
 };
 

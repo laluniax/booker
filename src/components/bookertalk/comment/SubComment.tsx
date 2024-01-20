@@ -133,13 +133,19 @@ const SubComment = ({ commentId, session }: Props) => {
               })}
           </St.SubCommentBox>
 
-          <St.SubCommentTextArea
-            value={content}
-            onChange={(e) => {
-              setContent(e.target.value);
-            }}
-          />
-          <St.SubCommentSubmitBtn onClick={insertSubComment}>등록</St.SubCommentSubmitBtn>
+          {session ? (
+            <>
+              <St.SubCommentTextArea
+                value={content}
+                onChange={(e) => {
+                  setContent(e.target.value);
+                }}
+              />
+              <St.SubCommentSubmitBtn onClick={insertSubComment}>등록</St.SubCommentSubmitBtn>
+            </>
+          ) : (
+            <></>
+          )}
         </>
       ) : (
         <St.SubCommentAddBtn
@@ -147,7 +153,7 @@ const SubComment = ({ commentId, session }: Props) => {
             setToggleOpen(true);
             getSubCommentsInfo();
           }}>
-          답글 입력하기
+          답글 펼치기
         </St.SubCommentAddBtn>
       )}
     </St.SubCommentWrapper>
