@@ -13,15 +13,15 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }: PaginationProps) => 
   }
   return (
     <St.Container>
-      <ul className="pagination">
+      <St.PaginationUl className="pagination">
         {pageNumbers.map((number) => (
-          <li key={number} className="page-item">
-            <span onClick={() => paginate(number)} className="page-link">
+          <St.PaginationLi key={number} className="page-item">
+            <St.PaginationSpan onClick={() => paginate(number)} className="page-link">
               {number}
-            </span>
-          </li>
+            </St.PaginationSpan>
+          </St.PaginationLi>
         ))}
-      </ul>
+      </St.PaginationUl>
     </St.Container>
   );
 };

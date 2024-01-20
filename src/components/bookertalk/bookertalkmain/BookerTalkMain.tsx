@@ -1,30 +1,36 @@
+import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { filteredCategory } from '../../../api/supabase.api';
+import { filteredCategory, getPostsHandler, getUserSessionHandler } from '../../../api/supabase.api';
+import { PostsTypes } from '../../../types/types';
+import { formatCreatedAt } from '../../../utils/date';
 import Pagination from '../Pagination';
 import { CateGenresTypes, categoryUuid } from '../bookertalkpost/Post';
 import * as St from './BookerTalkMain.styled';
 
-// post 타입
-export type Tablesposts = {
-  id: number;
-  created_at: string;
-  title: string;
-  content: string;
-  tags: string[];
-  user_id: string;
-  genre_id: string;
-};
-
 const BookerTalkMain = () => {
   const navigation = useNavigate();
   const params = useParams().id;
-  const date = new Date();
 
-  const [data, setData] = useState<Tablesposts[]>();
+  const [data, setData] = useState<PostsTypes[]>();
+  const [session, setSession] = useState<Session | null>();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [postsPerPage, setPostsPerPage] = useState<number>(10);
 
+  const getUserSession = async () => {
+    const result = await getUserSessionHandler();
+    setSession(result.session);
+  };
+
+  const getPosts = async () => {
+    if (params) {
+      const result = await filteredCategory(params as string);
+      setData(result.sort((a, b) => b.id - a.id));
+    } else {
+      const result = await getPostsHandler();
+      setData(result.sort((a, b) => b.id - a.id));
+    }
+  };
   const recommendButtonHandler = () =>
     Object.keys(categoryUuid)
       .slice(0, 8)
@@ -43,12 +49,6 @@ const BookerTalkMain = () => {
         </St.GenreButton>
       ));
 
-  // 포스트의 id랑 똑같은 정보 가져오는 함수
-  const getFilteredCategoryPosts = async () => {
-    const result = await filteredCategory(params as string);
-    setData(result);
-  };
-
   // genreUuid를 찾아서 key 역추적
   const findKeyByValue = (obj: CateGenresTypes, genreUuid: string) => {
     for (const key of Object.keys(obj)) {
@@ -58,18 +58,29 @@ const BookerTalkMain = () => {
     }
   };
 
+  const onClickPostButton = () => {
+    if (session) {
+      navigation('/bookertalk/write');
+    } else if (!session && window.confirm('로그인 페이지로 이동하시겠습니까?')) {
+      navigation(`/login`);
+      return;
+    } else return;
+  };
+
   useEffect(() => {
-    params && getFilteredCategoryPosts();
+    getUserSession();
+    getPosts();
   }, [params]);
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
   const currentPosts = data?.slice(indexOfFirst, indexOfLast);
+
   return (
     <>
       <St.Title>
-        {params ? findKeyByValue(categoryUuid, params as string) : '북커톡'}
-        <St.PostButton onClick={() => navigation('/bookertalk/write')}>글쓰기</St.PostButton>
+        {params ? findKeyByValue(categoryUuid, params as string) : 'BOOKER TALK'}
+        <St.PostButton onClick={onClickPostButton}>글쓰기</St.PostButton>
       </St.Title>
       <St.Container>
         <St.CategoryAndPostListBox>
@@ -77,6 +88,7 @@ const BookerTalkMain = () => {
             <St.CategoryBox>
               <St.BookRecommendBox>
                 <St.CategoryTitle>도서추천</St.CategoryTitle>
+
                 <St.GenreButtonbox>{recommendButtonHandler()}</St.GenreButtonbox>
               </St.BookRecommendBox>
               <St.FreeTalkBox>
@@ -95,15 +107,15 @@ const BookerTalkMain = () => {
                   }}>
                   <St.PostTitle>{item.title}</St.PostTitle>
                   {/* <span>{item.user_id}</span> */}
-                  {/* <St.PostContent>{item.created_at}</St.PostContent> */}
-                  {/* <St.PostDate>{item.content}</St.PostDate> */}
-                  <St.PostNickName>닉네임</St.PostNickName>
+                  {/* <St.PostContent>{item.content}</St.PostContent> */}
+                  <St.PostNickName>
+                    {item.users.nickname} | {formatCreatedAt(item.created_at)}
+                  </St.PostNickName>
                 </St.PostListBox>
               );
             })}
           </St.PostListWrapper>
         </St.CategoryAndPostListBox>
-
         <Pagination postsPerPage={postsPerPage} totalPosts={data?.length ?? 0} paginate={setCurrentPage} />
       </St.Container>
     </>
