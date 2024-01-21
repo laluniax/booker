@@ -165,6 +165,9 @@ export const CardTitle = styled.div`
   width: 16ch; /* 5글자의 너비 */
   word-wrap: break-word;
   letter-spacing: 0.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const CardContent = styled.div`
@@ -384,6 +387,7 @@ export const MarketProductCard = styled.div`
   width: 30rem;
   height: 45rem;
   border-radius: 1rem;
+  line-height: 1.2;
   overflow: hidden;
   cursor: pointer;
   transition: background-color 0.5s ease-in-out;
@@ -469,6 +473,10 @@ export const ProductTitle = styled.div`
   word-wrap: break-word;
   letter-spacing: 0.1rem;
   margin-left: 1rem;
+  // 한 줄 초과 시 ...으로 표시
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 export const ProductContent = styled.div`
   font-size: 1.8rem;

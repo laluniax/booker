@@ -31,7 +31,7 @@ const Header = () => {
               <a href="/aboutbooks">도서소개</a>
             </St.HeaderLi>
             <St.HeaderLi>
-              <a href="/survey">책 추천 받기</a>
+              <a href="/survey">맞춤추천</a>
             </St.HeaderLi>
             <St.HeaderLi>
               <a href="/market">중고거래</a>

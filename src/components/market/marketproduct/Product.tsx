@@ -166,6 +166,8 @@ const Product = () => {
 
   const onClickLikesButton = () => {
     if (!session && window.confirm('로그인 페이지로 이동하시겠습니까?')) navigate(`/login`);
+    alert('기능 구현 중');
+    return;
   };
 
   const onClickDMButton = () => {
@@ -184,11 +186,13 @@ const Product = () => {
 
   return (
     <St.Container>
+      <St.PrevButton
+        onClick={() => navigate(`/market/${categoryArr.indexOf(product?.category as string)}`)}></St.PrevButton>
       <St.Title>중고 거래 상세페이지</St.Title>
-      <St.ProductInfo>
+      <St.ProductWrapper>
         {product?.product_img?.length === 0 ? (
           <St.LogoWrapper>
-            <St.Logo src="/images/common/logo.png" alt="Logo" />
+            <St.Logo src={`${process.env.PUBLIC_URL}/images/common/logo.png`} alt="Logo" />
           </St.LogoWrapper>
         ) : (
           <St.SliderWrapper>
@@ -211,7 +215,7 @@ const Product = () => {
             )}
           </St.SliderWrapper>
         )}
-        <div>
+        <St.ProductInfo>
           <St.ProductTitle>{product?.title}</St.ProductTitle>
           <St.ProductCategory>
             <span>카테고리 | </span>
@@ -227,41 +231,46 @@ const Product = () => {
             </St.ProductPrice>
             {session?.user.id === product?.user_id ? (
               <St.ProductBtn>
-                <St.UpdateBtn onClick={() => navigate(`/marketpost/${product?.id}`)}>수정</St.UpdateBtn>
-                <St.UpdateBtn onClick={onClickDeleteButton}>삭제</St.UpdateBtn>
+                <St.UpdateBtn onClick={() => navigate(`/marketpost/${product?.id}`)}>
+                  <img src={`${process.env.PUBLIC_URL}/images/market/edit.png`} />
+                </St.UpdateBtn>
+                <St.UpdateBtn onClick={onClickDeleteButton}>
+                  <img src={`${process.env.PUBLIC_URL}/images/market/delete.png`} />
+                </St.UpdateBtn>
               </St.ProductBtn>
             ) : null}
           </St.PriceBtnWrapper>
-          <St.ProductBtn>
-            {product?.onsale ? (
-              <>
-                <St.ProductLikes onClick={onClickLikesButton}>좋아요</St.ProductLikes>
-                <St.ProductLikes onClick={onClickDMButton}>대화 시작하기</St.ProductLikes>
-              </>
-            ) : (
-              <St.ProductSoldOut>판매 완료된 상품입니다.</St.ProductSoldOut>
-            )}
+          <St.ProductLikesChatUser>
+            <St.ProductBtn>
+              {product?.onsale ? (
+                <>
+                  <St.ProductLikes onClick={onClickLikesButton}>좋아요</St.ProductLikes>
+                  <St.ProductLikes onClick={onClickDMButton}>대화 시작하기</St.ProductLikes>
+                </>
+              ) : (
+                <St.ProductSoldOut>판매 완료된 상품입니다.</St.ProductSoldOut>
+              )}
 
-            {/* 여기에 채팅 모달을 조건부 렌더링합니다. */}
-            {isChatModalOpen && (
-              <St.ChatModalWrapper>
-                {/* 채팅 모달 내용 */}
-                <St.ChatModalHeader>
-                  <St.ChatModalTitle>채팅</St.ChatModalTitle>
-                  <St.ChatModalCloseButton onClick={() => setIsChatModalOpen(false)}>x</St.ChatModalCloseButton>
-                </St.ChatModalHeader>
-                <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
-                <St.ChatModalFooter>
-                  <St.InputField
-                    value={inputValue}
-                    onChange={InputChanger}
-                    onKeyDown={KeyPresshandler}
-                    placeholder="메세지를 입력해주세요"
-                  />
-                  <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
-                </St.ChatModalFooter>
-                {/* 채팅 모달 내용 */}
-                {/* <St.ChatModalHeader>
+              {/* 여기에 채팅 모달을 조건부 렌더링합니다. */}
+              {isChatModalOpen && (
+                <St.ChatModalWrapper>
+                  {/* 채팅 모달 내용 */}
+                  <St.ChatModalHeader>
+                    <St.ChatModalTitle>채팅</St.ChatModalTitle>
+                    <St.ChatModalCloseButton onClick={() => setIsChatModalOpen(false)}>x</St.ChatModalCloseButton>
+                  </St.ChatModalHeader>
+                  <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
+                  <St.ChatModalFooter>
+                    <St.InputField
+                      value={inputValue}
+                      onChange={InputChanger}
+                      onKeyDown={KeyPresshandler}
+                      placeholder="메세지를 입력해주세요"
+                    />
+                    <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
+                  </St.ChatModalFooter>
+                  {/* 채팅 모달 내용 */}
+                  {/* <St.ChatModalHeader>
                  <div>채팅</div>
                   <button onClick={() => setIsChatModalOpen(false)}>닫기</button>
                 </St.ChatModalHeader>
@@ -275,23 +284,23 @@ const Product = () => {
                   />
                   <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
                 </St.ChatModalFooter> */}
-              </St.ChatModalWrapper>
-            )}
-          </St.ProductBtn>
-          <St.ProductUser>
-            <img src={product?.users.user_img ?? undefined} />
-            <div>{product?.users.nickname}</div>
-            <button
-              onClick={() => {
-                navigate(`/profile/${product?.user_id}`);
-              }}>
-              프로필 방문
-            </button>
-          </St.ProductUser>
-        </div>
-      </St.ProductInfo>
+                </St.ChatModalWrapper>
+              )}
+            </St.ProductBtn>
+            <St.ProductUser>
+              <img src={product?.users.user_img ?? undefined} />
+              <div>{product?.users.nickname}</div>
+              <button
+                onClick={() => {
+                  navigate(`/profile/${product?.user_id}`);
+                }}>
+                프로필 방문
+              </button>
+            </St.ProductUser>
+          </St.ProductLikesChatUser>
+        </St.ProductInfo>
+      </St.ProductWrapper>
       <St.ProductContent>{product?.content}</St.ProductContent>
-      <button onClick={() => navigate(`/market/${categoryArr.indexOf(product?.category as string)}`)}>목록보기</button>
     </St.Container>
   );
 };

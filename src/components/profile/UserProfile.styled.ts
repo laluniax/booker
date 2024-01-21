@@ -5,16 +5,13 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.div`
-  /* padding: 5rem;
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 700; */
-
+  width: 90rem;
   padding-bottom: 0.5rem;
   border-bottom: 0.2rem solid black;
   font-size: 4rem;
   font-weight: 600;
-  margin: 0 0 5rem 30rem;
+  margin: 0 auto;
+  margin-bottom: 5rem;
 `;
 
 export const ProfileWrapper = styled.div`

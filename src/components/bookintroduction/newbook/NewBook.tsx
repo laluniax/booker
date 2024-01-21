@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../survey/Loading';
 import * as St from '../BookIntroduction.styled';
 
 interface NewBooks {
@@ -18,6 +19,8 @@ const NewBook = () => {
   const [ref, inView] = useInView();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const getaNewBook = async () => {
@@ -25,11 +28,13 @@ const NewBook = () => {
     setIsLoading(true);
 
     try {
+      setLoading(true);
       const response = await axios.get(
         `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks?page=${page}`,
       );
       setNewBook((prev) => [...prev, ...response.data.item]);
       setPage((page) => page + 1);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     } finally {
@@ -52,6 +57,7 @@ const NewBook = () => {
         <St.CategoryTitle>신간도서</St.CategoryTitle>
       </St.Header>
       <St.Body>
+        {loading ? <Loading /> : null}
         {newBook.map((book) => {
           return (
             <St.BookCardWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
