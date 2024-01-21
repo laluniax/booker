@@ -5,7 +5,7 @@ import { MessageType } from '../components/qna/ChatModal';
 
 export const productState = atom({
   key: 'productState', // 고유한 키
-  default: '', // 기본값
+  default: 0, // 기본값
 });
 export const person = atom({
   key: 'person', // 고유한 키
@@ -25,32 +25,19 @@ export const sendMessages = atom<MessageType[]>({
   default: [], // 초기값은 빈 배열
 });
 
+export const chatRoomsState = atom<ChatRoom[]>({
+  key: 'chatRoomsState',
+  default: [], // 초기값은 빈 배열
+});
 
-// product.atom.ts 또는 관련된 Recoil 상태 정의 파일
-
-export type ChatFunctions = {
-
-  KeyPresshandler: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  sendDmMessage: () => void;
- 
+type ChatRoom = {
+  chat_id: string;
+  receiverNickname?: string; // 추가됨
+  lastMessage?: string;
+  others_id:string;
+  item_id:number;
+  user_id:string;
 };
-
-
-
-export const chatFunctionsState = atom<ChatFunctions>({
-  key: 'chatFunctionsState',
-  default: {
-
- 
-    KeyPresshandler: async () => {},
-    sendDmMessage: async () => {},
-  },
-});
-
-export const chatModalState = atom({
-  key: 'chatModalState',
-  default: false,
-});
 
 // // ======================================
 // // 사용법

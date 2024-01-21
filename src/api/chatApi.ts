@@ -5,8 +5,6 @@ import { useRecoilState } from 'recoil';
 import { ChatId } from '../atom/product.atom';
 import { ChatData } from '../components/qna/ChatModal';
 
-// 공통으로 뺐어요(물론 .env를 쓰는게 더 바람직해요)
-
 // 챗방 생성 또는 가져오기 로직을 커스텀 훅으로 분리
 export function useCreateOrGetChat() {
   const queryClient = useQueryClient();
@@ -21,7 +19,6 @@ export function useCreateOrGetChat() {
     otherUserId: string;
     productId: number;
   }) => {
-
     // userId와 productId에 대한 챗방 존재 여부 확인
     const { data: chatUser } = await supabase
       .from('chats_users')
@@ -31,11 +28,10 @@ export function useCreateOrGetChat() {
       .eq('item_id', productId)
       .maybeSingle();
 
-
     // // 두 결과가 같은 chat_id를 가지고 있는지 확인
     if (chatUser && chatUser.chat_id) {
       setChatId(chatUser.chat_id);
-
+      // console.log('같은챗방아이디',chatUser.chat_id)
     } else {
       // 기존 챗방이 없으므로 새 챗방 생성
       const { data: newChatData, error: newChatError } = (await supabase
@@ -52,11 +48,9 @@ export function useCreateOrGetChat() {
 
       // 새 챗방에 두 사용자를 chats_users에 추가
       if (newChatData) {
- 
-
         const { error } = await supabase.from('chats_users').insert([
           { chat_id: newChatData.id, user_id: userId, others_id: otherUserId, item_id: productId },
-          { chat_id: newChatData.id, others_id: userId, user_id: otherUserId, item_id: productId },
+          // { chat_id: newChatData.id, others_id: userId, user_id: otherUserId, item_id: productId },
         ]);
 
         if (error) {
@@ -81,20 +75,22 @@ export function useCreateOrGetChat() {
 // 메시지 전송 로직을 커스텀 훅으로 분리
 export function useSendMessage() {
   const queryClient = useQueryClient();
-
   const sendDirectMessage = async ({
     content,
-    authorId,
-    chatId,
+    author_id,
+    chat_id,
+    item_id,
+    others_id,
   }: {
     content: string;
-    authorId: string;
-    chatId: string;
+    author_id: string;
+    chat_id: string;
+    item_id: number;
+    others_id: string;
   }) => {
- 
     const { error } = await supabase
       .from('messages')
-      .insert([{ content: content, author_id: authorId, chat_id: chatId }]);
+      .insert([{ content: content, author_id: author_id, chat_id: chat_id, item_id: item_id, others_id: others_id }]);
 
     if (error) {
       throw new Error('메시지 삽입 중 오류가 발생했습니다');
@@ -109,62 +105,4 @@ export function useSendMessage() {
   });
 }
 
-// // 컴포넌트에서 사용 예
-//   function ChatComponent({ userId, otherUserId, productId }) {
-//     const { mutate: createOrGetChat } = useCreateOrGetChat();
 
-//     const handleCreateChat = () => {
-//       createOrGetChat({ userId, otherUserId, productId });
-//     };
-
-//     // ...
-//   }
-
-// 메시지 전송 핸들러
-//   const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-//     if (event.key === 'Enter' && inputValue.trim()) {
-//       sendMessage({ content: inputValue, authorId: otherLoginPersonal, chatId });
-//       setInputValue('');
-//     }
-//   };
-
-//   // ... 나머지 컴포넌트 코드
-// };
-
-export {};
-
-// const addTodo = async (newTodo) => {
-//   await axios.post(`${SERVER_URI}/todos`, newTodo);
-// };
-
-// 쿼리 invalidation 사용 예시
-
-// import { addTodo } from "../../../api/todos";
-// import { QueryClient, useMutation } from "react-query";
-// ...
-
-// function Input() {
-// ...
-//     const queryClient = new QueryClient();
-
-//     const mutation = useMutation(addTodo, {
-//       onSuccess: () => {
-//         // Invalidate and refresh
-//         // 이렇게 하면, todos라는 이름으로 만들었던 query를
-//         // invalidate 할 수 있어요.
-//         queryClient.invalidateQueries("todos");
-//       },
-//   });
-
-// Mutation.mutate()
-
-// 쿼리 컴포넌트 사용 예시
-
-// const { isLoading, isError, data } = useQuery("todos", getTodos);
-
-// if (isLoading) {
-//   return <p>로딩중입니다....!</p>;
-// }
-
-// if (isError) {
-//   return <p>오류가 발생하였습니다...!</p>;
