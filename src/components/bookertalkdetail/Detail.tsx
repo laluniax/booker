@@ -45,37 +45,46 @@ const Detail = () => {
   }, []);
   return (
     <St.Container>
-      <St.Title>BOOKER TALK</St.Title>
-      <St.PostWrapper>
+      <St.PrevButton
+        onClick={() => {
+          navigation(`/bookertalk/${data?.genre_id}`);
+        }}></St.PrevButton>
+      <St.TitleAndPostWrapper>
         <div>
-          <St.PostTitle>{data?.title}</St.PostTitle>
+          <St.Title>{data?.title}</St.Title>
           <St.PostUserInfo>
             <St.PostImgNickNameDate>
               <St.PostUserImg
                 src={data?.users.user_img ?? undefined}
                 onClick={() => navigation(`/profile/${data?.user_id}`)}
               />
+
               <St.PostUserNickname onClick={() => navigation(`/profile/${data?.user_id}`)}>
-                {data?.users.nickname}
+                {data?.users.nickname} |
               </St.PostUserNickname>
               <St.PostDate>{formatCreatedAt(data?.created_at as string)}</St.PostDate>
             </St.PostImgNickNameDate>
+
             <St.PostBtnWrapper>
-              <button onClick={onClickUpdatePostButton}>수정</button>
-              <button onClick={onClickDeletePostButton}>삭제</button>
+              <St.EditAndDeleteButton onClick={onClickUpdatePostButton}>수정</St.EditAndDeleteButton>
+              <St.EditAndDeleteButton onClick={onClickDeletePostButton}>삭제</St.EditAndDeleteButton>
             </St.PostBtnWrapper>
           </St.PostUserInfo>
-          <St.ViewerWrapper>{data?.content && <Viewer initialValue={data?.content} />}</St.ViewerWrapper>
-          <St.PostTags>{parseTags()} </St.PostTags>
-          <Comment />
-          <button
-            onClick={() => {
-              navigation(`/bookertalk/${data?.genre_id}`);
-            }}>
-            목록 보기
-          </button>
         </div>
-      </St.PostWrapper>
+        <St.PostWrapper>
+          <St.ViewerWrapper>{data?.content && <Viewer initialValue={data?.content} />}</St.ViewerWrapper>
+        </St.PostWrapper>
+        <St.TagsWrapper>
+          <St.PostTags>{parseTags()} </St.PostTags>
+        </St.TagsWrapper>
+      </St.TitleAndPostWrapper>
+
+      <br />
+      <br />
+      <br />
+      <St.CommentTitle>댓글</St.CommentTitle>
+      <br />
+      <Comment />
     </St.Container>
   );
 };

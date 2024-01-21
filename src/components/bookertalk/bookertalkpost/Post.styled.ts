@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   height: 100vh;
+  margin-bottom: 10rem;
 `;
 export const FormWrapper = styled.div`
-  margin-top: 5rem;
+  margin-top: 10rem;
 `;
 
 export const Form = styled.form`
@@ -117,20 +118,25 @@ export const CategoryAndGenreBox = styled.div`
   justify-content: center;
   gap: 2rem;
   margin-top: 2rem;
+  margin-bottom: 2rem;
 `;
 
 export const CategorySelect = styled.select`
   font-size: 15px;
-  width: 20rem;
+  width: 23rem;
   height: 4rem;
+  border-radius: 1rem;
+  text-align: center;
 `;
 
 export const CategoryOption = styled.option``;
 
 export const GenreSelect = styled.select`
   font-size: 15px;
-  width: 20rem;
+  width: 23rem;
   height: 4rem;
+  text-align: center;
+  border-radius: 1rem;
 `;
 
 export const GenreOption = styled.option``;
@@ -155,9 +161,10 @@ export const ContentInput = styled.textarea`
 
 export const SubmitButtonBox = styled.div`
   display: flex;
-  align-items: right;
   justify-content: right;
-  width: 86%;
+  height: 6rem;
+  margin-top: 1rem;
+  align-items: center;
 `;
 
 export const SubmitButton = styled.button`
@@ -165,6 +172,10 @@ export const SubmitButton = styled.button`
   font-size: 2rem;
   background-color: #000;
   padding: 1rem;
+  width: 15rem;
+  height: 2.5rem;
+  text-align: center;
+  margin-right: 1rem;
   border-radius: 1rem;
   color: #fff;
 
