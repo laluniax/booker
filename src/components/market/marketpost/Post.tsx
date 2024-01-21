@@ -162,6 +162,7 @@ const Post = () => {
         placeholder="00"
         value={price}
         onChange={(e) => {
+          if (e.target.value.length > 8) return;
           setPrice(e.target.value);
         }}
       />

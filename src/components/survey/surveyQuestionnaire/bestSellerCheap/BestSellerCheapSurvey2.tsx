@@ -9,11 +9,21 @@ const BestSellerCheapSurvey2 = () => {
   };
   return (
     <St.Container>
-      <h2>어떤 소설을 읽고 싶나요??</h2>
-      <button onClick={() => answerClickHandler('아일랜드소설')}>아일랜드소설</button>
-      <button onClick={() => answerClickHandler('한국소설')}>한국소설</button>
-      <button onClick={() => answerClickHandler('영미소설')}>영미소설</button>
-      <button onClick={() => answerClickHandler('일본소설')}>일본소설</button>
+      <St.Question>Q2. 어떤 소설을 읽고 싶나요??</St.Question>
+      <St.Answer>
+        <button onClick={() => answerClickHandler('아일랜드소설')}>아일랜드소설</button>
+      </St.Answer>
+      <St.Answer>
+        <button onClick={() => answerClickHandler('한국소설')}>한국소설</button>
+      </St.Answer>
+
+      <St.Answer>
+        <button onClick={() => answerClickHandler('영미소설')}>영미소설</button>
+      </St.Answer>
+
+      <St.Answer>
+        <button onClick={() => answerClickHandler('일본소설')}>일본소설</button>
+      </St.Answer>
     </St.Container>
   );
 };
