@@ -10,7 +10,6 @@ import AboutLayout from '../components/layout/AboutLayout';
 import Layout from '../components/layout/Layout';
 
 import AdminChat from '../components/qna/AdminChat';
-import AdminChatRoom from '../components/qna/AdminChatRoom';
 import BestSellerCheapSurvey from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey';
 import BestSellerCheapSurvey2 from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey2';
 import BestSellerDomForSurvey from '../components/survey/surveyQuestionnaire/bestSellerDomFor/BestSellerDomForSurvey';
@@ -83,7 +82,6 @@ const Router = () => {
           <Route path="/product/:id" element={<MarketProduct />} />
           {/* Qna 페이지 */}
           <Route path="/chat" element={<AdminChat />} />
-          <Route path="/chat/:roomid" element={<AdminChatRoom />} />
           {/* 도서소개 페이지  */}
           <Route element={<AboutLayout />}>
             <Route path="/aboutbook/bestseller" element={<BookBestseller />} />

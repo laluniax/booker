@@ -50,8 +50,6 @@ const BookBestseller = () => {
     navigate(`/aboutBook/${isbn13}`);
   };
 
-  console.log(inView, '야호');
-
   return (
     <St.Container>
       <St.Header>

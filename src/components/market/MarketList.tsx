@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getCategoryProductListHandler, getProductListHandler, getUserSessionHandler } from '../../api/supabase.api';
 import { ProductsTypes } from '../../types/types';
 import * as St from './MarketList.styled';
+import Pagination from './Pagination';
 import { categoryArr } from './marketpost/Post';
 
 const MarketList = () => {
@@ -15,6 +16,10 @@ const MarketList = () => {
   const navigate = useNavigate();
   const params = useParams().id;
   const category = categoryArr[Number(params)];
+
+  //페이지네이션 state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(10);
 
   const getUserSession = async () => {
     const result = await getUserSessionHandler();
@@ -37,6 +42,10 @@ const MarketList = () => {
     getProductList();
   }, [params]);
 
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  const currentPosts = list?.slice(indexOfFirst, indexOfLast);
+
   return (
     <St.Container>
       <St.Title>{category ? category : '중고거래'}</St.Title>
@@ -51,7 +60,7 @@ const MarketList = () => {
           </St.CategoryBox>
         </St.CategoryWrapper>
         <St.ProductsWrapper>
-          {list.map((item, i) => {
+          {currentPosts.map((item, i) => {
             return (
               <St.ProductCard
                 key={i}
@@ -90,6 +99,7 @@ const MarketList = () => {
         }}>
         글쓰기
       </St.PostButton>
+      <Pagination postsPerPage={postsPerPage} totalPosts={list.length} paginate={setCurrentPage} />s
     </St.Container>
   );
 };

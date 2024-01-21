@@ -25,23 +25,16 @@ export const sendMessages = atom<MessageType[]>({
   default: [], // 초기값은 빈 배열
 });
 
-
 // product.atom.ts 또는 관련된 Recoil 상태 정의 파일
 
 export type ChatFunctions = {
-
   KeyPresshandler: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   sendDmMessage: () => void;
- 
 };
-
-
 
 export const chatFunctionsState = atom<ChatFunctions>({
   key: 'chatFunctionsState',
   default: {
-
- 
     KeyPresshandler: async () => {},
     sendDmMessage: async () => {},
   },
@@ -52,6 +45,15 @@ export const chatModalState = atom({
   default: false,
 });
 
+export const showChatModal = atom({
+  key: 'showChatModal',
+  default: false,
+});
+
+export const globalModalSwitch = atom({
+  key: 'globalModalSwitch',
+  default: false,
+});
 // // ======================================
 // // 사용법
 // export const textState = atom({
