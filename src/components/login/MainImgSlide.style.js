@@ -4,13 +4,16 @@ import rightIcon from '../../styles/assets/right_btn.png';
 
 export const SlideshowContainer = styled.div`
   position: relative;
-  width: 120%;
+  width: 100%;
   height: 100vh; // Use viewport height to fill the entire screen
   margin-top: 80px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
   grid-column: 1; // 슬라이드쇼를 첫 번째 열에 배치합니다
+  @media (max-width: 768px) {
+    display: none; // 작은 화면에서는 열을 쌓습니다
+  }
 
   @media (min-width: 300px) {
     height: 80vh;
