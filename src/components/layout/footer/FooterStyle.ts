@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
-  min-height: 100vh; /* 화면 높이에 맞춤 */
+  margin-top: 100vh;
+  /* min-height: 100vh; 화면 높이에 맞춤 */
 `;
 
 export const FooterWrapper = styled.div`

@@ -16,6 +16,8 @@ export const ChatWrapper = styled.div`
 
   background-color: white;
   overflow: scroll;
+
+  z-index: 999;
 `;
 export const LogoWrapper = styled.div`
   display: flex;

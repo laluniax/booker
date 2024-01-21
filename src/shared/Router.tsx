@@ -10,7 +10,6 @@ import AboutLayout from '../components/layout/AboutLayout';
 import Layout from '../components/layout/Layout';
 
 import AdminChat from '../components/qna/AdminChat';
-import AdminChatRoom from '../components/qna/AdminChatRoom';
 import BestSellerCheapSurvey from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey';
 import BestSellerCheapSurvey2 from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey2';
 import BestSellerDomForSurvey from '../components/survey/surveyQuestionnaire/bestSellerDomFor/BestSellerDomForSurvey';
@@ -28,6 +27,7 @@ import BookerTalk from '../pages/BookerTalk';
 import BookerTalkDetail from '../pages/BookerTalkDetail';
 import BookerTalkPost from '../pages/BookerTalkPost';
 import Home from '../pages/Home';
+import IndBookStores from '../pages/IndBookStores';
 import Login from '../pages/Login';
 import Market from '../pages/Market';
 import MarketPost from '../pages/MarketPost';
@@ -36,7 +36,6 @@ import Profile from '../pages/Profile';
 import Register from '../pages/Register';
 import Search from '../pages/Search';
 import Survey from '../pages/Survey';
-import IndBookStores from '../pages/IndBookStores';
 
 const Router = () => {
   return (
@@ -83,7 +82,6 @@ const Router = () => {
           <Route path="/product/:id" element={<MarketProduct />} />
           {/* Qna 페이지 */}
           <Route path="/chat" element={<AdminChat />} />
-          <Route path="/chat/:roomid" element={<AdminChatRoom />} />
           {/* 도서소개 페이지  */}
           <Route element={<AboutLayout />}>
             <Route path="/aboutbook/bestseller" element={<BookBestseller />} />
