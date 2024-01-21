@@ -96,6 +96,12 @@ export const PostListBox = styled.div`
   border-bottom: 1px solid #000;
   justify-content: space-between;
   margin-top: 1.5rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #dbdbdb;
+    border-radius: 1rem;
+  }
 `;
 export const PostTitle = styled.span`
   margin-left: 0.2rem;

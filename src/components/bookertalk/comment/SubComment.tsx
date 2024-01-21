@@ -63,7 +63,7 @@ const SubComment = ({ commentId, session }: Props) => {
               .map((item, i) => {
                 return (
                   <St.Subcomment key={i}>
-                    <div> ┗ </div>
+                    <St.SubCommentNextText> ┗ </St.SubCommentNextText>
                     <div>
                       <St.SubCommentUserAndBtn>
                         <St.SubCommentUser>
@@ -74,40 +74,40 @@ const SubComment = ({ commentId, session }: Props) => {
                         {session === item.user_id ? (
                           <St.CommentBtnDiv>
                             {isEditing ? (
-                              <>
+                              <St.CommentEditSubmitBtnBox>
                                 {item.id === subCommentId ? (
-                                  <>
-                                    <button
+                                  <St.SubCommentEditSubmitBtnBox>
+                                    <St.SubCommentEditSubmitButton
                                       onClick={() => {
                                         updateSubComment();
                                       }}>
-                                      완료
-                                    </button>
-                                    <button
+                                      완료 |
+                                    </St.SubCommentEditSubmitButton>
+                                    <St.SubCommentEditSubmitButton
                                       onClick={() => {
                                         deleteSubComment(item.id);
                                       }}>
                                       삭제
-                                    </button>
-                                  </>
+                                    </St.SubCommentEditSubmitButton>
+                                  </St.SubCommentEditSubmitBtnBox>
                                 ) : null}
-                              </>
+                              </St.CommentEditSubmitBtnBox>
                             ) : (
                               <>
-                                <button
+                                <St.SubCommentButton
                                   onClick={() => {
                                     setIsEditing(true);
                                     setSubCommentId(item.id);
                                     setInputSubComment(item.content as string);
                                   }}>
-                                  수정
-                                </button>
-                                <button
+                                  수정 |
+                                </St.SubCommentButton>
+                                <St.SubCommentButton
                                   onClick={() => {
                                     deleteSubComment(item.id);
                                   }}>
                                   삭제
-                                </button>
+                                </St.SubCommentButton>
                               </>
                             )}
                           </St.CommentBtnDiv>
@@ -117,7 +117,7 @@ const SubComment = ({ commentId, session }: Props) => {
                       </St.SubCommentUserAndBtn>
                       <St.SubCommentContent>
                         {item.id === subCommentId ? (
-                          <input
+                          <St.subCommentEditInput
                             value={inputSubComment}
                             onChange={(e) => {
                               setInputSubComment(e.target.value);
@@ -134,7 +134,7 @@ const SubComment = ({ commentId, session }: Props) => {
           </St.SubCommentBox>
 
           {session ? (
-            <>
+            <St.SubCommentTextAreaBox>
               <St.SubCommentTextArea
                 value={content}
                 onChange={(e) => {
@@ -142,7 +142,7 @@ const SubComment = ({ commentId, session }: Props) => {
                 }}
               />
               <St.SubCommentSubmitBtn onClick={insertSubComment}>등록</St.SubCommentSubmitBtn>
-            </>
+            </St.SubCommentTextAreaBox>
           ) : (
             <></>
           )}

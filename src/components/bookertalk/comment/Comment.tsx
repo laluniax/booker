@@ -73,7 +73,7 @@ const Comment = () => {
           />
           <br />
           <St.CommentSubmit>
-            <button onClick={insertComment}>댓글 작성하기</button>
+            <St.CommentSubmitButton onClick={insertComment}>댓글 작성하기</St.CommentSubmitButton>
           </St.CommentSubmit>
         </St.CommentForm>
       ) : (
@@ -99,26 +99,26 @@ const Comment = () => {
                         <>
                           {item.id === commentId ? (
                             <>
-                              <button
+                              <St.CommentButton
                                 onClick={() => {
                                   // setCommentId(item.comment_id);
                                   updateComment();
                                 }}>
                                 완료
-                              </button>
-                              <button
+                              </St.CommentButton>
+                              <St.CommentButton
                                 onClick={() => {
                                   // setCommentId(item.comment_id);
                                   deleteComment(item.id);
                                 }}>
                                 삭제
-                              </button>
+                              </St.CommentButton>
                             </>
                           ) : null}
                         </>
                       ) : (
-                        <>
-                          <button
+                        <St.CommentButtonBox>
+                          <St.CommentButton
                             onClick={() => {
                               // setCommentId(item.comment_id);
                               // updateComment();
@@ -127,15 +127,15 @@ const Comment = () => {
                               setInputComment(item.content as string);
                             }}>
                             수정
-                          </button>
-                          <button
+                          </St.CommentButton>
+                          <St.CommentButton
                             onClick={() => {
                               // setCommentId(item.id);
                               deleteComment(item.id);
                             }}>
                             삭제
-                          </button>
-                        </>
+                          </St.CommentButton>
+                        </St.CommentButtonBox>
                       )}
                     </St.CommentBtnDiv>
                   ) : (

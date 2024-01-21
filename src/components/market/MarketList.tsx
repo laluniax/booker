@@ -64,13 +64,15 @@ const MarketList = () => {
                     <img src={`${process.env.PUBLIC_URL}/images/common/logo.png`} alt="logo" />
                   </St.LogoImg>
                 ) : (
-                  <St.ProductImg src={(item.product_img && item.product_img[0]) ?? undefined} />
+                  <St.ProductImg>
+                    <img src={(item.product_img && item.product_img[0]) ?? undefined} />
+                  </St.ProductImg>
                 )}
 
                 <St.ProductTitle>{item.title}</St.ProductTitle>
                 <St.ProductInfo>
                   <St.ProductPrice>{item.price} 원</St.ProductPrice>
-                  <St.ProductLikes>♥️ 10</St.ProductLikes>
+                  <St.ProductLikes>♥️</St.ProductLikes>
                 </St.ProductInfo>
                 {item.onsale ? null : <St.Onsale>판매 완료</St.Onsale>}
               </St.ProductCard>

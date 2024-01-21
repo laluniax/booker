@@ -18,8 +18,10 @@ export const CategoryProductsWrapper = styled.div`
 export const CategoryWrapper = styled.div`
   display: flex;
   width: 20rem;
-  align-items: center;
+  height: 100%;
+  /* align-items: center; */
   justify-content: center;
+
   /* margin-top: 4rem; */
   /* padding-left: 7rem; */
 `;
@@ -27,7 +29,7 @@ export const CategoryBox = styled.div`
   display: flex;
   flex-direction: column;
   /* align-items: center; */
-  width: 12rem;
+  width: 15rem;
   padding: 1rem 1rem 1rem 1.5rem;
   background: #f5f5f5;
   border-radius: 0.8rem;
@@ -43,11 +45,11 @@ export const CategoryBtn = styled.button`
 `;
 
 export const ProductsWrapper = styled.div`
-  width: 80rem;
+  width: 90rem;
   height: 100%;
   display: grid;
-  grid-template-columns: 19rem 19rem 19rem 19rem;
-  gap: 1rem;
+  grid-template-columns: 20rem 20rem 20rem 20rem;
+  gap: 2.5rem;
   line-height: 1.5;
 `;
 
@@ -76,29 +78,40 @@ export const Onsale = styled.div`
 
 export const LogoImg = styled.div`
   width: 18rem;
-  height: 18rem;
+  height: 23rem;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   & img {
-    width: 15rem;
+    width: 18rem;
   }
 `;
-export const ProductImg = styled.img`
+export const ProductImg = styled.div`
   width: 18rem;
-  height: 18rem;
-  object-fit: cover;
+  height: 23rem;
+  margin: 0 auto;
+  & img {
+    width: 18rem;
+    height: 23rem;
+    object-fit: cover;
+  }
 `;
 
 export const ProductTitle = styled.div`
   font-size: 2rem;
   font-weight: bold;
+  margin: 1rem 1rem 0 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const ProductInfo = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: 0 1rem;
 `;
 
 export const ProductPrice = styled.div`

@@ -104,3 +104,7 @@ export const SearchBar = styled.input`
   border-bottom: 0.1rem solid #fff;
   width: 15rem;
 `;
+
+export const HeaderUserImage = styled.img`
+  border-radius: 1rem;
+`;
