@@ -36,25 +36,41 @@ const Main = () => {
 
           <St.CardBox>
             <St.BookerTalkCard>
-              <St.BookerTalkCardImage />
+              <St.BookerTalkCardImage
+                onClick={() => {
+                  navigate(`/bookertalk/a249535a-b19a-4fb4-bcd9-0788e780a2ac`);
+                }}
+              />
               <St.CardTitle>책 추천 받습니다.</St.CardTitle>
               <St.CardContent>줜님</St.CardContent>
             </St.BookerTalkCard>
 
             <St.BookerTalkCard>
-              <St.BookerTalkCardImage2 />
+              <St.BookerTalkCardImage2
+                onClick={() => {
+                  navigate(`/bookertalk/3c5d132b-1ca6-430d-a467-4315a2d86618`);
+                }}
+              />
               <St.CardTitle2>언어의 온도 추천합니다.</St.CardTitle2>
               <St.CardContent>강낭콩님</St.CardContent>
             </St.BookerTalkCard>
 
             <St.BookerTalkCard>
-              <St.BookerTalkCardImage3 />
+              <St.BookerTalkCardImage3
+                onClick={() => {
+                  navigate(`/bookertalk/8114a2cd-d916-4f38-a735-83815ecb0b83`);
+                }}
+              />
               <St.CardTitle3>에세이 책 추천 5권 공유합니다.</St.CardTitle3>
               <St.CardContent>Respect님</St.CardContent>
             </St.BookerTalkCard>
 
             <St.BookerTalkCard>
-              <St.BookerTalkCardImage4 />
+              <St.BookerTalkCardImage4
+                onClick={() => {
+                  navigate(`/bookertalk/15c0651c-47e5-45e7-91c6-f244443a9123`);
+                }}
+              />
               <St.CardTitle4>IT 관련 책 추천 받습니다.</St.CardTitle4>
               <St.CardContent>규갓님</St.CardContent>
             </St.BookerTalkCard>

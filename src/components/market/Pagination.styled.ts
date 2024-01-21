@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   font-size: large;
+  padding: 3rem 0;
 `;
 export const PaginationUl = styled.ul`
   display: flex;

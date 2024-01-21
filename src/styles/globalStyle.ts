@@ -54,13 +54,34 @@ const GlobalStyle = createGlobalStyle`
 
     * {
         box-sizing: border-box;
+
     };
 
+    body {
+                /* font-family: "GmarketSansMedium"; */
+                font-family: 'Pretendard-Regular';
+    }
+    a {
+                font-family: "GmarketSansMedium";
+
+    }
     html {
         font-size: 62.5%;
     }
     button {
         cursor: pointer;
+    }
+    @font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    }
+    @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
     }
 `;
 export default GlobalStyle;
