@@ -85,9 +85,9 @@ const Chat = () => {
     return messages
       .filter((message: MessageType) => String(message.chat_id) === chatId)
       .map((message: MessageType) => (
-        <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-          {message.content}
-        </St.MessageComponent>
+        <St.MessageWrapper key={message.id} isOutgoing={message.author_id === LoginPersonal}>
+          <St.MessageComponent isOutgoing={message.author_id === LoginPersonal}>{message.content}</St.MessageComponent>
+        </St.MessageWrapper>
       ));
   };
   useEffect(() => {
@@ -228,8 +228,8 @@ const Chat = () => {
             <St.ChatModalWrapper>
               {/* 채팅 모달 내용 */}
               <St.ChatModalHeader>
-                <div>채팅</div>
-                <button onClick={() => setIsChatModalOpen(false)}>닫기</button>
+                <St.ChatModalTitle>채팅</St.ChatModalTitle>
+                <St.ChatModalCloseButton onClick={() => setIsChatModalOpen(false)}>x</St.ChatModalCloseButton>
               </St.ChatModalHeader>
               <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
               <St.ChatModalFooter>
@@ -237,7 +237,7 @@ const Chat = () => {
                   value={inputValue}
                   onChange={InputChanger}
                   onKeyDown={KeyPresshandler}
-                  placeholder="메시지를 입력해주세요"
+                  placeholder="메세지를 입력해주세요"
                 />
                 <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
               </St.ChatModalFooter>
@@ -251,33 +251,34 @@ const Chat = () => {
                   <St.PrevBtn onClick={prevHandler}>
                     <img src="/images/chat/prev.png" alt="Prev" width={30} height={30} />
                   </St.PrevBtn>
-                  <St.ChatHeader>
-                    <img src="/images/common/logo.png" alt="Logo" />
-                  </St.ChatHeader>
+                  <St.ChatHeader>{/* <img src="/images/common/logo.png" alt="Logo" /> */}</St.ChatHeader>
                 </St.LogoWrapper>
               ) : (
-                <St.ChatHeader>
-                  <img src="/images/common/logo.png" alt="Logo" />
-                </St.ChatHeader>
+                <St.ChatHeader>{/* <img src="/images/common/logo.png" alt="Logo" /> */}</St.ChatHeader>
               )}
-              <St.ChatBody>
+              <St.ChatTopBox>
                 <St.MainMessage>
-                  안녕하세요 :두_손을_들고_있는_사람: <br />
-                  새로운 지식으로 시작되는 어쩌구저쩌구, 북커입니다:책:
-                  <br />​ 무엇을 도와드릴까요?
+                  안녕하세요 !
+                  <br />
+                  책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝ <br />
+                  궁금한 점이 있으신가요?{' '}
+                  <St.AskButtonWrapper>
+                    <St.AskButton
+                      style={isAsk ? { display: 'none' } : { display: 'block' }}
+                      onClick={() => setIsAsk(true)}>
+                      문의하기
+                    </St.AskButton>
+                  </St.AskButtonWrapper>
+                  <St.Contour />
                 </St.MainMessage>
-              </St.ChatBody>
-              <St.AskWrapper>
-                <St.AskButton style={isAsk ? { display: 'none' } : { display: 'block' }} onClick={() => setIsAsk(true)}>
-                  문의하기 :질주:
-                </St.AskButton>
-              </St.AskWrapper>
+              </St.ChatTopBox>
+
               {isAsk ? (
                 <>
                   <ChatLog />
                   <St.ChatInputWrapper>
                     <St.Input
-                      placeholder="메시지를 입력해주세요"
+                      placeholder="메세지를 입력해주세요"
                       value={askMessage}
                       onChange={onChangeMessageHandler}
                       onKeyDown={onKeyDownHandler}
@@ -287,7 +288,7 @@ const Chat = () => {
               ) : (
                 <>
                   {/* Chats 컴포넌트의 UI 추가 */}
-                  <div>{renderUserList()}</div>
+                  <St.UserItemBox>{renderUserList()}</St.UserItemBox>
                 </>
               )}
             </St.ChatWrapper>

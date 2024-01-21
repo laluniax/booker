@@ -245,7 +245,7 @@ const Post = () => {
             }}
           />
           <St.SubmitButtonBox>
-            <St.SubmitButton type="submit">완료</St.SubmitButton>
+            <St.SubmitButton type="submit">게시하기</St.SubmitButton>
           </St.SubmitButtonBox>
         </St.Form>
       </St.FormWrapper>{' '}

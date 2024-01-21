@@ -1,24 +1,32 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  height: 100vh;
+`;
 
 export const Title = styled.div`
-display: flex;
-justify-content: flex-start;
-margin-top: 5rem;
-margin-left: 63rem;
-font-size: 2rem;
-border-bottom: 0.15rem solid black;
-width: 35%;
-padding-bottom: 0.5rem;
-`
+  margin: 0rem 0rem 5rem 40rem;
+  font-size: 2rem;
+  border-bottom: 0.2rem solid black;
+  width: 80rem;
+  padding-bottom: 0.5rem;
+  & img {
+    width: 10rem;
+    margin-right: 0.5rem;
+  }
+`;
 
 export const BtnContainaer = styled.div`
-display: flex;
-flex-direction: column;
-margin-top: 10rem;
+  margin-top: 10rem;
+  margin-left: 30rem;
+  & div {
+    border-bottom: 0.1rem solid black;
+    padding: 3rem 0;
+  }
+`;
 
-button {
-font-size: 1.5rem;
-}
-`
+export const SurveyButton = styled.button`
+  border: none;
+  background-color: transparent;
+  font-size: 2rem;
+`;

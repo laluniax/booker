@@ -41,13 +41,15 @@ const ChatLog = () => {
       {messages.map((message) => (
         <div key={message.id}>
           {message.message_type === 'question' ? (
-            <St.CustomerChatLogWrapper>
-              <p>{message.content}</p>
-            </St.CustomerChatLogWrapper>
+            <St.CustomerMessageBox>
+              <St.CustomerChatLogWrapper>
+                <St.MessageContent>{message.content}</St.MessageContent>
+              </St.CustomerChatLogWrapper>
+            </St.CustomerMessageBox>
           ) : (
             <St.AdminChatLogWrapper>
-              <p>admin</p>
-              <p>{message.content}</p>
+              <St.AdminName>관리자</St.AdminName>
+              <St.MessageContent>{message.content}</St.MessageContent>
             </St.AdminChatLogWrapper>
           )}
         </div>
