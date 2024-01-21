@@ -71,13 +71,15 @@ const MarketList = () => {
                     <img src={`${process.env.PUBLIC_URL}/images/common/logo.png`} alt="logo" />
                   </St.LogoImg>
                 ) : (
-                  <St.ProductImg src={item.product_img[0]} />
+                  <St.ProductImg>
+                    <img src={item.product_img[0]} />
+                  </St.ProductImg>
                 )}
 
                 <St.ProductTitle>{item.title}</St.ProductTitle>
                 <St.ProductInfo>
                   <St.ProductPrice>{item.price} 원</St.ProductPrice>
-                  <St.ProductLikes>♥️ 10</St.ProductLikes>
+                  <St.ProductLikes>♥️</St.ProductLikes>
                 </St.ProductInfo>
               </St.ProductCard>
             );
