@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  height: 100vh;
+`;
 
 export const Title = styled.div`
   margin: 0rem 0rem 5rem 30rem;
@@ -55,8 +57,8 @@ export const ProductsWrapper = styled.div`
 
 export const ProductCard = styled.div`
   position: relative;
-  width: 19rem;
-  height: 25rem;
+  width: 20rem;
+  height: 30rem;
   padding: 0.5rem;
   border: 0.2rem solid black;
   cursor: pointer;

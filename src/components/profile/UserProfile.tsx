@@ -110,33 +110,38 @@ const UserProfile = () => {
         <St.ProfileInfo>
           {editing ? (
             <>
-              <St.ProfileNicknameInput
-                type="text"
-                value={nickname}
-                onChange={(e) => {
-                  setNickname(e.target.value);
-                }}
-              />
-              <br />
-              <St.ProfileLabel htmlFor="imgInput">이미지 업로드</St.ProfileLabel>
-              <St.ProfileImgInput
-                id="imgInput"
-                type="file"
-                accept="image/*"
-                ref={imgRef}
-                onChange={updateUserTempImg}
-              />
-              <br />
+              <St.ProfileNicknameEmail>
+                <St.ProfileNicknameInput
+                  type="text"
+                  maxLength={10}
+                  value={nickname}
+                  onChange={(e) => {
+                    setNickname(e.target.value);
+                  }}
+                />
+                <br />
+                <St.ProfileLabel htmlFor="imgInput">이미지 업로드</St.ProfileLabel>
+                <St.ProfileImgInput
+                  id="imgInput"
+                  type="file"
+                  accept="image/*"
+                  ref={imgRef}
+                  onChange={updateUserTempImg}
+                />
+              </St.ProfileNicknameEmail>
+
               <St.ProfileBtn onClick={updateUserData}>프로필 수정완료</St.ProfileBtn>
             </>
           ) : (
             <>
               {userSession?.user.id === params ? (
                 <>
-                  <St.ProfileNickname>
-                    안녕하세요! {nickname || userSession?.user.user_metadata.preferred_username}님
-                  </St.ProfileNickname>
-                  <St.ProfileEmail>{userData?.email}</St.ProfileEmail>
+                  <St.ProfileNicknameEmail>
+                    <St.ProfileNickname>
+                      안녕하세요! {nickname || userSession?.user.user_metadata.preferred_username}님
+                    </St.ProfileNickname>
+                    <St.ProfileEmail>{userData?.email}</St.ProfileEmail>
+                  </St.ProfileNicknameEmail>
                   <St.ProfileBtn
                     onClick={() => {
                       setEditing(true);
