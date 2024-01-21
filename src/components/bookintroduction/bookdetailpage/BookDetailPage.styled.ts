@@ -1,13 +1,46 @@
 import styled from 'styled-components';
 
-export const Container = styled.section``;
+export const Container = styled.div`
+  min-height: 90rem;
+  margin-top: 10rem;
+`;
 export const BookWrapper = styled.div``;
-export const BookTitle = styled.h2``;
-export const Category = styled.p``;
-export const BookImage = styled.div``;
-export const Bookinfo = styled.div``;
-export const BookIntro = styled.div``;
-export const Bookauthor = styled.p``;
-export const Publisher = styled.p``;
-export const Description = styled.p``;
-export const PubData = styled.span``;
+export const BookTitle = styled.h2`
+  font-size: 5rem;
+  margin-bottom: 2rem;
+`;
+export const InfoHeader = styled.div``;
+
+export const BookImage = styled.div`
+  display: flex;
+`;
+
+export const BookIntro = styled.div`
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  padding: 2rem;
+`;
+
+export const BookDetailBox = styled.div``;
+
+export const Bookauthor = styled.div`
+  margin-top: 2rem;
+  font-size: 2rem;
+`;
+
+export const Publisher = styled.div`
+  margin-top: 1rem;
+  font-size: 2rem;
+`;
+
+export const Description = styled.div`
+  font-size: 2rem;
+  margin-top: 1rem;
+`;
+
+export const PubData = styled.div`
+  font-size: 2rem;
+  margin-top: 1rem;
+`;

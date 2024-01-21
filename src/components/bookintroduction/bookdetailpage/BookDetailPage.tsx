@@ -42,20 +42,22 @@ const BookDetailPage = () => {
 
   return (
     <St.Container>
-      <St.Category>{detailData.categoryName}</St.Category>
+      {/* <St.Category>{detailData.categoryName}</St.Category> */}
       <St.BookWrapper>
-        <St.Bookinfo>
-          <St.BookTitle>{detailData.title}</St.BookTitle>
+        <St.InfoHeader>
           <St.BookImage>
-            <img src={detailData.cover} alt={detailData.title} />
+            <img src={detailData.cover} width={590} height={700} alt={detailData.title} />
+            <St.BookIntro>
+              <St.BookDetailBox>
+                <St.BookTitle>{detailData.title}</St.BookTitle>
+                <St.Bookauthor>저자 | {detailData.author}</St.Bookauthor>
+                <St.Publisher>출판사 | {detailData.publisher}</St.Publisher>
+                <St.PubData>출판일 | {detailData.pubDate}</St.PubData>
+                <St.Description>{detailData.description}</St.Description>
+              </St.BookDetailBox>
+            </St.BookIntro>
           </St.BookImage>
-        </St.Bookinfo>
-        <St.BookIntro>
-          <St.Bookauthor>{detailData.author}</St.Bookauthor>
-          <St.Publisher>{detailData.publisher}</St.Publisher>
-          <St.Description>{detailData.description}</St.Description>
-          <St.PubData>출간일:{detailData.pubDate}</St.PubData>
-        </St.BookIntro>
+        </St.InfoHeader>
       </St.BookWrapper>
     </St.Container>
   );

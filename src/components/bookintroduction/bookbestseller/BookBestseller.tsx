@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
-import * as St from './BookIntroduction.styled';
+import * as St from '../BookIntroduction.styled';
 
 interface Bestseller {
   author: string;
@@ -55,27 +55,25 @@ const BookBestseller = () => {
   return (
     <St.Container>
       <St.Header>
-        <h2>베스트셀러</h2>
+        <St.CategoryTitle>베스트셀러</St.CategoryTitle>
       </St.Header>
       <St.Body>
         {bestSeller.map((book) => {
           return (
-            <St.BookImageWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
-              <St.BookGenre>{book.categoryName}</St.BookGenre>
+            <St.BookCardWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
               <br />
-              <St.BookWrapper>
+              <St.BookCardWrapper>
                 <St.BookImg>
-                  <img src={book.cover} alt="책 이미지" width={200} height={250} />
+                  <img src={book.cover} alt="책 이미지" width={230} height={290} />
                 </St.BookImg>
                 <St.BookIntro>
+                  {/* <St.BookGenre>{book.categoryName}</St.BookGenre> */}
                   <St.Title>{book.title}</St.Title>
-                  <St.AuthWrapper>
-                    <St.Author>{book.author}</St.Author>
-                    <St.Plot>{book.publisher}</St.Plot>
-                  </St.AuthWrapper>
+                  <St.Author>저자 | {book.author}</St.Author>
+                  <St.Plot>출판사 | {book.publisher}</St.Plot>
                 </St.BookIntro>
-              </St.BookWrapper>
-            </St.BookImageWrapper>
+              </St.BookCardWrapper>
+            </St.BookCardWrapper>
           );
         })}
         <div ref={ref}></div>
