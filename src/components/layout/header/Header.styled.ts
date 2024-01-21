@@ -1,17 +1,21 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  position: relative;
   background-color: black;
   color: #fff;
   height: 11rem;
+  font-size: 1.5rem;
+`;
+
+export const Wrapper = styled.div`
+  position: relative;
+  width: 140rem;
+  height: 11rem;
   padding: 2rem;
+  margin: 0 auto;
   display: flex;
   gap: 5rem;
-  /* justify-content: space-between; */
-  justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
 `;
 
 export const ImageWrapper = styled.div`
@@ -90,12 +94,13 @@ export const HeaderLiBox = styled.div`
 // 검색
 export const SearchBox = styled.form`
   position: absolute; // 절대 위치 설정
-  right: 20%;
-  top: 48%; // 상위 요소의 아래쪽에 위치
+  right: 17%;
+  top: 38%; // 상위 요소의 아래쪽에 위치
 `;
 export const SearchBar = styled.input`
   all: unset;
-  font-size: 1.5rem;
-  border-bottom: 1px solid #fff;
-  width: 16rem;
+  font-size: 1.6rem;
+  padding: 0.5rem;
+  border-bottom: 0.1rem solid #fff;
+  width: 15rem;
 `;

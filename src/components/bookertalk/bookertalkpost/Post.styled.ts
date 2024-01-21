@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 67rem;
+  height: 100vh;
 `;
 export const FormWrapper = styled.div`
   margin-top: 5rem;

@@ -240,7 +240,22 @@ const Product = () => {
               <St.ChatModalWrapper>
                 {/* 채팅 모달 내용 */}
                 <St.ChatModalHeader>
-                  <div>채팅</div>
+                  <St.ChatModalTitle>채팅</St.ChatModalTitle>
+                  <St.ChatModalCloseButton onClick={() => setIsChatModalOpen(false)}>x</St.ChatModalCloseButton>
+                </St.ChatModalHeader>
+                <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
+                <St.ChatModalFooter>
+                  <St.InputField
+                    value={inputValue}
+                    onChange={InputChanger}
+                    onKeyDown={KeyPresshandler}
+                    placeholder="메세지를 입력해주세요"
+                  />
+                  <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
+                </St.ChatModalFooter>
+                {/* 채팅 모달 내용 */}
+                {/* <St.ChatModalHeader>
+                 <div>채팅</div>
                   <button onClick={() => setIsChatModalOpen(false)}>닫기</button>
                 </St.ChatModalHeader>
                 <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
@@ -252,7 +267,7 @@ const Product = () => {
                     placeholder="메시지를 입력해주세요"
                   />
                   <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
-                </St.ChatModalFooter>
+                </St.ChatModalFooter> */}
               </St.ChatModalWrapper>
             )}
           </St.ProductBtn>

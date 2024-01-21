@@ -76,9 +76,9 @@ const Chat = () => {
     return messages
       .filter((message: MessageType) => String(message.chat_id) === chatId)
       .map((message: MessageType) => (
-        <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-          {message.content}
-        </St.MessageComponent>
+        <St.MessageWrapper key={message.id} isOutgoing={message.author_id === LoginPersonal}>
+          <St.MessageComponent isOutgoing={message.author_id === LoginPersonal}>{message.content}</St.MessageComponent>
+        </St.MessageWrapper>
       ));
   };
   useEffect(() => {

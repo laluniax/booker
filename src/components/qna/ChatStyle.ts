@@ -9,11 +9,11 @@ export const ChatWrapper = styled.div`
   box-sizing: border-box;
   position: fixed;
   z-index: 1000;
-  bottom: 140px;
-  right: 15px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  bottom: 14rem;
+  right: 1.5rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 0.7rem 2.9rem 0;
   border-radius: 2rem;
-  padding: 8px;
+  padding: 0.8rem;
 
   background-color: white;
   overflow: scroll;
@@ -27,17 +27,17 @@ export const PrevBtn = styled.div`
 `;
 export const ChatHeader = styled.div`
   display: flex;
-  padding: 8px;
-  margin: 16px 16px 12px;
+  padding: 0.8rem;
+  margin: 1.6rem 1.6rem 1.2rem;
   overflow: hidden;
 `;
 
 export const ChatBody = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 8px;
-  margin: 0px 16px;
+  gap: 1.2rem;
+  padding: 0.8rem;
+  margin: 0 1.6rem;
 `;
 export const ChatTopBox = styled.div`
   display: flex;
@@ -85,7 +85,7 @@ export const ChatInputWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0px 6px 0px 14px;
+  padding: 0 0.6rem 0 1.4rem;
   z-index: 999;
 `;
 
@@ -94,8 +94,8 @@ export const Input = styled.input`
   width: 95%;
   position: relative;
 
-  min-height: 50px;
-  padding: 0px 6px 0px 14px;
+  min-height: 5rem;
+  padding: 0 0.6rem 0 1.4rem;
   border-radius: 1rem;
   border: none;
   background: linear-gradient(92.34deg, rgba(239, 239, 240, 0.8) 48.04%, rgba(247, 247, 248, 0.8) 100%);
@@ -105,8 +105,8 @@ export const Input = styled.input`
 `;
 export const TalkButtonWrapper = styled.div`
   position: fixed;
-  bottom: 30px;
-  right: 10px;
+  bottom: 3rem;
+  right: 1rem;
   z-index: 1000;
 `;
 
@@ -117,19 +117,20 @@ export const TalkButton = styled.img`
   height: 13rem;
 `;
 
-export const MessageComponent = styled.div<MessageProps>`
+export const MessageWrapper = styled.div<MessageProps>`
   display: flex;
-  /* flex-direction: column; */
+  justify-content: ${(props) => (props.isOutgoing ? 'flex-start' : 'flex-end')};
+`;
 
+export const MessageComponent = styled.div<MessageProps>`
+  /* flex-direction: column; */
   padding: 10px;
-  margin: 5px;
-  border-radius: 10px;
-  max-width: 45%;
+  margin: 0.5rem;
+  border-radius: 1rem;
   font-size: 1.3rem;
   word-wrap: break-word;
-  justify-content: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
-  background-color: ${(props) => (props.isOutgoing ? '#DCF8C6' : '#000')}; // 예시 색상
-  color: ${(props) => (props.isOutgoing ? '#DCF8C6' : '#fff')};
+  background-color: ${(props) => (props.isOutgoing ? '#7fd4f3' : '#000')}; // 예시 색상
+  color: ${(props) => (props.isOutgoing ? '#000' : '#fff')};
 `;
 
 // Props 타입 정의
@@ -151,11 +152,11 @@ export const UserItem = styled.div`
   justify-content: space-between;
   width: 40rem;
   height: 5rem;
-  padding: 10px;
+  padding: 1rem;
   margin-bottom: 1rem;
-  border: 1px solid #000;
+  border: 0.1rem solid #000;
   color: #000;
-  border-radius: 4px;
+  border-radius: 0.4rem;
   cursor: pointer;
   margin-left: 2rem;
 
@@ -175,8 +176,8 @@ export const UserLastMessage = styled.div`
 `;
 
 export const DMButton = styled.button`
-  padding: 5px 10px;
-  margin-left: 10px;
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
   border: none;
   border-radius: 1rem;
   background-color: #000;
@@ -199,20 +200,20 @@ export const ChatModalWrapper = styled.div`
   width: 48rem;
   height: 60rem;
   background-color: white;
-  border: 1px solid #ccc;
+  border: 0.1rem solid #ccc;
   border-radius: 1rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.2);
   overflow: hidden;
   z-index: 2000;
-  bottom: 66px;
-  right: 10px;
+  bottom: 6.6rem;
+  right: 1rem;
 `;
 
 // 모달 헤더
 export const ChatModalHeader = styled.div`
-  padding: 10px;
+  padding: 1rem;
   background-color: #000;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 0.1rem solid #ddd;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -239,16 +240,16 @@ export const ChatModalCloseButton = styled.button`
 
 // 모달 바디
 export const ChatModalBody = styled.div`
-  padding: 10px;
+  padding: 1rem;
   overflow-y: auto;
   flex-grow: 1;
 `;
 
 // 모달 푸터
 export const ChatModalFooter = styled.div`
-  padding: 10px;
+  padding: 1rem;
   background-color: #f5f5f5;
-  border-top: 1px solid #ddd;
+  border-top: 0.1rem solid #ddd;
   display: flex;
   align-items: center;
   height: 7rem;
@@ -258,13 +259,13 @@ export const ChatModalFooter = styled.div`
 export const InputField = styled.input`
   all: unset;
   flex-grow: 1;
-  margin-right: 10px;
-  padding: 2px;
+  margin-right: 1rem;
+  padding: 0.2rem;
   height: 4rem;
   background-color: #fff;
   border-radius: 1rem;
   font-size: 1.5rem;
-  border-bottom: 1px solid #000;
+  border-bottom: 0.1rem solid #000;
 
   ::placeholder {
     font-size: 1.5rem;
@@ -272,7 +273,7 @@ export const InputField = styled.input`
 `;
 
 export const SendButton = styled.button`
-  padding: 10px 15px;
+  padding: 1rem 1.5rem;
   background-color: #000;
   color: #7fd4f3;
   border: none;

@@ -1,3 +1,4 @@
+import { Session } from '@supabase/supabase-js';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
@@ -12,7 +13,7 @@ import {
   updateUserAuthUserImgHandler,
   uploadUserImgHandler,
 } from '../../api/supabase.api';
-import { FollowsTypes, Tables } from '../../types/types';
+import { Tables } from '../../types/types';
 import Tab from './Tab';
 import * as St from './UserProfile.styled';
 
@@ -21,24 +22,23 @@ const UserProfile = () => {
 
   const imgRef = useRef<HTMLInputElement>(null);
 
-  const [userSession, setUserSession] = useState<string | undefined>('');
+  const [userSession, setUserSession] = useState<Session | null>(null);
   const [userData, setUserData] = useState<Tables<'users'>>();
   const [editing, setEditing] = useState(false);
   const [nickname, setNickname] = useState('');
   const [tempImg, setTempImg] = useState(''); // 화면에서 보여줄 이미지
   const [uploadFile, setUploadFile] = useState<File>(); // 실제로 업로드 할 파일
-  const [followList, setFollowList] = useState<FollowsTypes[]>();
   const [followId, setFollowId] = useState('');
   const [following, setFollowing] = useState(false); // 팔로잉:거짓 이 기본
 
   const getUserData = async () => {
     const result = await getUserDataHandler(params as string);
     const session = await getUserSessionHandler();
-    const newFollowId = params + '-' + userSession;
+    const newFollowId = params + '-' + userSession?.user.id;
     setUserData(result[0]);
     setNickname(result[0].nickname);
     setTempImg(result[0].user_img);
-    setUserSession(session.session?.user.id);
+    setUserSession(session.session);
     setFollowId(newFollowId);
   };
 
@@ -81,7 +81,7 @@ const UserProfile = () => {
   };
   // 팔로우하기
   const onClickFollowBtn = async () => {
-    const result = await followHandler(followId, params as string, userSession as string);
+    const result = await followHandler(followId, params as string, userSession?.user.id as string);
     followIdList();
   };
   // 언팔로우하기
@@ -92,7 +92,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     getUserData();
-  }, [params, userSession]);
+  }, [params]);
   useEffect(() => {
     followIdList();
   }, [followId]);
@@ -100,7 +100,13 @@ const UserProfile = () => {
     <St.Container>
       <St.Title>마이페이지</St.Title>
       <St.ProfileWrapper>
-        <St.ProfileImg src={tempImg || `${process.env.PUBLIC_URL}/images/common/Logo.png`} />
+        <St.ProfileImg
+          src={
+            tempImg ||
+            userSession?.user.user_metadata.avatar_url ||
+            `${process.env.PUBLIC_URL}/images/header/profileImg.png`
+          }
+        />
         <St.ProfileInfo>
           {editing ? (
             <>
@@ -125,9 +131,11 @@ const UserProfile = () => {
             </>
           ) : (
             <>
-              {userSession === params ? (
+              {userSession?.user.id === params ? (
                 <>
-                  <St.ProfileNickname>안녕하세요! {nickname}님</St.ProfileNickname>
+                  <St.ProfileNickname>
+                    안녕하세요! {nickname || userSession?.user.user_metadata.preferred_username}님
+                  </St.ProfileNickname>
                   <St.ProfileEmail>{userData?.email}</St.ProfileEmail>
                   <St.ProfileBtn
                     onClick={() => {

@@ -1,3 +1,4 @@
+import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
@@ -11,7 +12,7 @@ import { formatCreatedAt } from '../../utils/date';
 import * as St from './UserProfile.styled';
 
 type Props = {
-  userSession: string | undefined;
+  userSession: Session | null;
   userData: Tables<'users'> | undefined;
 };
 
@@ -114,7 +115,7 @@ const Tab = ({ userSession, userData }: Props) => {
                   }}>
                   <St.FollowImg src={item.users.user_img ?? undefined} />
                   <St.FollowNickname>{item.users.nickname}</St.FollowNickname>
-                  {params === userSession ? (
+                  {params === userSession?.user.id ? (
                     <button
                       onClick={async (e) => {
                         e.stopPropagation();
