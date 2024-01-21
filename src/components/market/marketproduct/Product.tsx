@@ -27,11 +27,8 @@ const Product = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideLength, setSlideLength] = useState(0);
   const [inputValue, setInputValue] = useState('');
+  // const [productId, setProductId] = useRecoilState(productState);
   const [productId, setProductId] = useRecoilState(productState);
-
-  // const { createOrGetChatWithUser, KeyPresshandler, sendDmMessage } = useRecoilValue(chatFunctionsState);
-  //리코일 작동안되는 부분 해결 하고, 함수를 리코일 비동기 하려면 로직을 리코일로 옮기고.
-
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [messages, setMessages] = useRecoilState(sendMessages);
@@ -55,52 +52,12 @@ const Product = () => {
         setIsChatModalOpen(true);
 
         createOrGetChat({ userId, otherUserId, productId });
-
+        setProductId(productId);
         setOtherLoginPersonal(otherUserId);
+        setLoginPersonal(userId);
       }
     }
   };
-
-  // useEffect를 사용하여 채팅 데이터 로드
-  useEffect(() => {
-    // 현재 채팅방의 메시지를 가져오는 함수
-    const fetchMessages = async () => {
-      if (chatId) {
-        let { data, error } = await supabase.from('messages').select('*').eq('chat_id', chatId);
-        if (error) {
-          console.error('Error fetching messages:', error);
-        } else {
-          setMessages(data ?? []);
-        }
-      }
-    };
-
-    fetchMessages();
-
-    const messagesSubscription = supabase
-      .channel('custom-all-channel')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, async (payload: any) => {
-        console.log('Changes received!', payload);
-        fetchMessages(); // 데이터베이스에 변화가 있을 때 메시지 다시 가져오기
-        // setChatId(payload.new.chat_id); //메시지 창 열기
-      })
-      .subscribe();
-
-    // 채팅방 변경사항을 감지할 채널 구독
-    const chatChannel = supabase
-      .channel('chat-channel')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {
-        console.log('New chat!', payload);
-        // 새 채팅방이 생성되었을 때 필요한 동작을 수행합니다.
-        fetchMessages();
-      })
-      .subscribe();
-
-    return () => {
-      messagesSubscription?.unsubscribe();
-      chatChannel?.unsubscribe();
-    };
-  }, [chatId]);
 
   const InputChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -109,22 +66,42 @@ const Product = () => {
   // 메시지 전송 핸들러
   const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && inputValue.trim()) {
-      sendDirectMessage({ content: inputValue, authorId: otherLoginPersonal, chatId: chatId });
+      sendDirectMessage({
+        content: inputValue,
+        author_id: LoginPersonal,
+        chat_id: chatId,
+        item_id: productId,
+        others_id: otherLoginPersonal,
+      });
+      setChatId(chatId)
       setInputValue('');
+  
     }
   };
+
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
 
-    sendDirectMessage({ content: inputValue, authorId: otherLoginPersonal, chatId: chatId });
-
+    sendDirectMessage({
+      content: inputValue,
+      author_id: LoginPersonal,
+      chat_id: chatId,
+      item_id: productId,
+      others_id: otherLoginPersonal,
+    });
+    setChatId(chatId)
     setInputValue('');
   };
 
-  // 메시지 컴포넌트를 렌더링하는 함수
+
   const renderMessages = () => {
     return messages
-      .filter((message: MessageType) => String(message.chat_id) === chatId)
+      .filter(
+        (message: MessageType) =>
+          (message.author_id === LoginPersonal || message.author_id === otherLoginPersonal) &&
+          message.chat_id === chatId &&
+          message.item_id === productId,
+      )
       .map((message: MessageType) => (
         <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
           {message.content}
@@ -140,7 +117,6 @@ const Product = () => {
     const result = await getProductHandler(params as string);
     setProduct(result[0]);
     setSlideLength(result[0].product_img.length);
-    setProductId(result[0]);
   };
 
   const onClickPrevBtn = useCallback(() => {
@@ -170,7 +146,7 @@ const Product = () => {
 
   const onClickDMButton = () => {
     session
-      ? product?.user_id && DmClickhandler(product.user_id, Number(product.id))
+      ? product?.user_id && DmClickhandler(product.user_id, product.id)
       : window.confirm('로그인 페이지로 이동하시겠습니까?') && navigate(`/login`);
   };
 
