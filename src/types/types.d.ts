@@ -19,25 +19,6 @@ export type BooksInfoTypes = {
   bestRank: number;
   isbn13: string;
 };
-// export type Special = {
-//   author: string;
-//   categoryName: string;
-//   cover: string;
-//   publisher: string;
-//   title: string;
-//   bestRank: number;
-//   isbn13: string;
-// };
-
-// export type NewBooks = {
-//   author: string;
-//   categoryName: string;
-//   cover: string;
-//   publisher: string;
-//   title: string;
-//   bestRank: number;
-//   isbn13: string;
-// };
 // getCommentsInfoHandler 함수의 types
 type CommentTypes = {
   comments: Comments[];
