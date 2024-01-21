@@ -49,7 +49,7 @@ const Header = () => {
                 onClick={() => {
                   navigate(`/profile/${auth.session?.user.id}`);
                 }}>
-                <img
+                <St.HeaderUserImage
                   src={
                     auth.session.user.user_metadata.user_img ||
                     auth.session.user.user_metadata.avatar_url ||
