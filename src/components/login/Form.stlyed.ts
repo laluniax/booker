@@ -9,24 +9,31 @@ export const Container = styled.div`
   @media (max-width: 768px) {
     grid-template-columns: 1fr; // 작은 화면에서는 열을 쌓습니다
   }
+  margin-left: 12rem;
 `;
 //로그인 컨테이너
 export const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start; // 왼쪽 정렬
+  /* align-items: flex-start; // 왼쪽 정렬 */
   padding: 2rem;
-  background-color: #fff; // 배경색은 흰색
   //   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // 그림자 효과
-  width: 400px; // 너비 설정
-  margin-left: auto; // 자동 마진으로 오른쪽 정렬
-  margin-right: 2rem; // 우측 여백
+  width: 40rem; // 너비 설정
   border-radius: 4px; // 모서리 둥글게
+  margin-left: 15rem;
+  font-size: 1.5rem;
+
+  @media (max-width: 768px) {
+  }
 `;
 
 // 제목 스타일
 export const Title = styled.h2`
+  display: flex;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
   margin-bottom: 1rem; // 제목 아래 여백
   color: #333; // 색상 설정
 `;
@@ -47,9 +54,11 @@ export const Label = styled.label`
 // 인풋 스타일
 export const Input = styled.input`
   width: 100%;
-  padding: 0.5rem;
+  padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 1.5rem;
+  margin-top: 1rem;
 `;
 
 // 버튼 스타일
@@ -57,9 +66,10 @@ export const Button = styled.button`
   width: 100%;
   padding: 0.8rem;
   border: none;
-  background-color: #007bff; // 버튼 색상
+  background-color: #000; // 버튼 색상
   color: white;
-  border-radius: 4px;
+  border-radius: 2rem;
+  font-size: 1.7rem;
   cursor: pointer;
   &:hover {
     background-color: #0056b3; // 호버 색상
@@ -67,6 +77,8 @@ export const Button = styled.button`
 `;
 
 export const SignUpLink = styled.div`
+  display: flex;
+  justify-content: center;
   margin-top: 1rem;
   cursor: pointer;
   color: #4a90e2;
@@ -78,10 +90,17 @@ export const SignUpLink = styled.div`
 // 에러 텍스트용 스타일 컴포넌트
 export const ErrorText = styled.div`
   color: red;
-  font-size: 0.8rem;
-  margin-top: 0.25rem;
+  font-size: 1.3rem;
+  margin-top: 0.7rem;
 `;
 
 export const SnsLogo = styled.img`
-  width: 3rem;
+  width: 4rem;
+  margin-left: 1rem;
+`;
+
+export const SocialLoginBtnBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

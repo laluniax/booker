@@ -28,6 +28,7 @@ import BookerTalk from '../pages/BookerTalk';
 import BookerTalkDetail from '../pages/BookerTalkDetail';
 import BookerTalkPost from '../pages/BookerTalkPost';
 import Home from '../pages/Home';
+import IndBookStores from '../pages/IndBookStores';
 import Login from '../pages/Login';
 import Market from '../pages/Market';
 import MarketPost from '../pages/MarketPost';
@@ -36,7 +37,6 @@ import Profile from '../pages/Profile';
 import Register from '../pages/Register';
 import Search from '../pages/Search';
 import Survey from '../pages/Survey';
-import IndBookStores from '../pages/IndBookStores';
 
 const Router = () => {
   return (

@@ -58,12 +58,12 @@ const Header = () => {
             </St.HeaderBtn>
           </>
         ) : (
-          <St.HeaderBtn
+          <St.LoginBtn
             onClick={() => {
               navigate('/login');
             }}>
             로그인
-          </St.HeaderBtn>
+          </St.LoginBtn>
         )}
       </St.HeaderUl>
     </St.Container>

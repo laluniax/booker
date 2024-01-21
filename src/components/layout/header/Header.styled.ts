@@ -36,6 +36,11 @@ export const HeaderLi = styled.li`
   & a {
     text-decoration: none;
     color: #fff;
+
+    &:hover {
+      cursor: pointer;
+      color: #7fd4f3;
+    }
   }
 `;
 
@@ -53,6 +58,18 @@ export const HeaderBtn = styled.button`
     /* background-color: white; */
     /* border-radius: 50%; */
     object-fit: cover;
+  }
+`;
+
+export const LoginBtn = styled.div`
+  display: flex;
+  text-align: center;
+  align-items: center;
+  font-size: 1.7rem;
+
+  &:hover {
+    cursor: pointer;
+    color: #7fd4f3;
   }
 `;
 

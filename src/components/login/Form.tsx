@@ -85,6 +85,7 @@ const Form = () => {
       </div>
       <St.LoginContainer>
         <div>
+          <St.Title>로그인</St.Title>
           <St.InputGroup>
             <St.Input
               placeholder="이메일:"
@@ -110,13 +111,13 @@ const Form = () => {
         </div>
 
         <br />
-        <St.SignUpLink onClick={moveToSignUpHandler}>회원가입</St.SignUpLink>
+        <St.SignUpLink onClick={moveToSignUpHandler}>회원이 아니신가요?</St.SignUpLink>
         <br />
-        <div>
+        <St.SocialLoginBtnBox>
           <GoogleLoginBtn />
           <GithubLoginBtn />
           {/* <KakaoLoginBtn/> */}
-        </div>
+        </St.SocialLoginBtnBox>
       </St.LoginContainer>
     </St.Container>
   );
