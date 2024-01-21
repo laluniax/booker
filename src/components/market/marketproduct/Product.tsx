@@ -233,14 +233,36 @@ const Product = () => {
             ) : null}
           </St.PriceBtnWrapper>
           <St.ProductBtn>
-            <St.ProductLikes onClick={onClickLikesButton}>좋아요</St.ProductLikes>
-            <St.ProductLikes onClick={onClickDMButton}>대화 시작하기</St.ProductLikes>
+            {product?.onsale ? (
+              <>
+                <St.ProductLikes onClick={onClickLikesButton}>좋아요</St.ProductLikes>
+                <St.ProductLikes onClick={onClickDMButton}>대화 시작하기</St.ProductLikes>
+              </>
+            ) : (
+              <St.ProductSoldOut>판매 완료된 상품입니다.</St.ProductSoldOut>
+            )}
+
             {/* 여기에 채팅 모달을 조건부 렌더링합니다. */}
             {isChatModalOpen && (
               <St.ChatModalWrapper>
                 {/* 채팅 모달 내용 */}
                 <St.ChatModalHeader>
-                  <div>채팅</div>
+                  <St.ChatModalTitle>채팅</St.ChatModalTitle>
+                  <St.ChatModalCloseButton onClick={() => setIsChatModalOpen(false)}>x</St.ChatModalCloseButton>
+                </St.ChatModalHeader>
+                <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
+                <St.ChatModalFooter>
+                  <St.InputField
+                    value={inputValue}
+                    onChange={InputChanger}
+                    onKeyDown={KeyPresshandler}
+                    placeholder="메세지를 입력해주세요"
+                  />
+                  <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
+                </St.ChatModalFooter>
+                {/* 채팅 모달 내용 */}
+                {/* <St.ChatModalHeader>
+                 <div>채팅</div>
                   <button onClick={() => setIsChatModalOpen(false)}>닫기</button>
                 </St.ChatModalHeader>
                 <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
@@ -252,7 +274,7 @@ const Product = () => {
                     placeholder="메시지를 입력해주세요"
                   />
                   <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
-                </St.ChatModalFooter>
+                </St.ChatModalFooter> */}
               </St.ChatModalWrapper>
             )}
           </St.ProductBtn>

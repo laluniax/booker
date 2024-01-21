@@ -2,14 +2,17 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
+<<<<<<< HEAD
   margin-top: 100vh;
+=======
+>>>>>>> 4d2852b8d6eb0de41cceaf3b600bad8f30cb791b
   /* min-height: 100vh; 화면 높이에 맞춤 */
 `;
 
 export const FooterWrapper = styled.div`
   background-color: #000;
   position: absolute;
-  bottom: 0;
+  top: 0;
   width: 100%;
   height: 20rem; /* 푸터 높이 */
 `;

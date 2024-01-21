@@ -4,15 +4,28 @@ export const Container = styled.div`
   background-color: black;
   color: #fff;
   height: 11rem;
-  padding: 2rem;
-  display: flex;
-  /* justify-content: space-between; */
-  justify-content: center;
-  align-items: center;
   font-size: 1.5rem;
 `;
 
-export const Image = styled.img``;
+export const Wrapper = styled.div`
+  position: relative;
+  width: 140rem;
+  height: 11rem;
+  padding: 2rem;
+  margin: 0 auto;
+  display: flex;
+  gap: 5rem;
+  align-items: center;
+`;
+
+export const ImageWrapper = styled.div`
+  width: 30rem;
+  height: 5rem;
+`;
+
+export const Image = styled.img`
+  cursor: pointer;
+`;
 
 export const NavbarWrapper = styled.div`
   align-items: center;
@@ -27,6 +40,11 @@ export const HeaderLi = styled.li`
   & a {
     text-decoration: none;
     color: #fff;
+
+    &:hover {
+      cursor: pointer;
+      color: #7fd4f3;
+    }
   }
 `;
 
@@ -47,6 +65,18 @@ export const HeaderBtn = styled.button`
   }
 `;
 
+export const LoginBtn = styled.div`
+  display: flex;
+  text-align: center;
+  align-items: center;
+  font-size: 1.7rem;
+
+  &:hover {
+    cursor: pointer;
+    color: #7fd4f3;
+  }
+`;
+
 export const HeaderLiBox = styled.div`
   /* margin-left: 3rem; */
   margin-top: 0.3rem;
@@ -55,8 +85,26 @@ export const HeaderLiBox = styled.div`
   justify-content: center;
   width: 73rem;
   height: 2rem;
-  gap: 4rem;
+  gap: 3rem;
   letter-spacing: 0.1rem;
   /* padding-left: 18rem;
   padding-right: 18rem; */
+`;
+
+// 검색
+export const SearchBox = styled.form`
+  position: absolute; // 절대 위치 설정
+  right: 17%;
+  top: 38%; // 상위 요소의 아래쪽에 위치
+`;
+export const SearchBar = styled.input`
+  all: unset;
+  font-size: 1.6rem;
+  padding: 0.5rem;
+  border-bottom: 0.1rem solid #fff;
+  width: 15rem;
+`;
+
+export const HeaderUserImage = styled.img`
+  border-radius: 1rem;
 `;

@@ -50,6 +50,7 @@ const Post = () => {
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('건강/취미');
   const [productGrade, setProductGrade] = useState('최상');
+  const [onSale, setOnSale] = useState(true);
   const [productImg, setProductImg] = useState<File[]>([]);
   const [tempImg, setTempImg] = useState<string[]>([]);
 
@@ -81,7 +82,7 @@ const Post = () => {
     try {
       if (params) {
         const result = await updateProductHandler(
-          { userId, title, content, price, category, productGrade },
+          { userId, title, content, price, category, productGrade, onSale },
           params as string,
         );
         const imgUrls = await uploadProductImgStorageUrl(result[0].id, productImg);
@@ -97,6 +98,7 @@ const Post = () => {
           price,
           category,
           productGrade,
+          onSale,
         });
         const imgUrls = await uploadProductImgStorageUrl(result[0].id, productImg);
         await updateProductImgPublicUrlHandler(imgUrls.imgUrls, result[0].id);
@@ -135,65 +137,93 @@ const Post = () => {
 
   return (
     <St.Container>
-      <St.PostImg>
-        {tempImg.map((item, i) => {
-          //key 추가해줘야 함
-          return <img key={i} src={item} alt={item} />;
-        })}
-      </St.PostImg>
+      <St.Title>상품등록</St.Title>
+
+      <St.PostWrapper>
+        <St.Imgupload>상품업로드</St.Imgupload>
+        <St.PostImg>
+          <St.PostImgWrapper>
+            {tempImg.map((item, i) => {
+              //key 추가해줘야 함
+              return <img key={i} src={item} alt={item} />;
+            })}
+          </St.PostImgWrapper>
+        </St.PostImg>
+      </St.PostWrapper>
       <St.PostImgLabel htmlFor="img">이미지 업로드</St.PostImgLabel>
       <St.PostImgInput id="img" type="file" multiple accept="image/*" onChange={multipleImgHandler} />
       <br />
-
-      <St.PostLabel>상품명 | </St.PostLabel>
-      <St.PostInput
-        type="text"
-        placeholder="상품명을 입력해주세요"
-        value={title}
-        onChange={(e) => {
-          setTitle(e.target.value);
-        }}
-      />
-      <br />
-
-      <St.PostLabel>가격 | </St.PostLabel>
-      <St.PostInput
-        type="number"
-        placeholder="00"
-        value={price}
-        onChange={(e) => {
-          setPrice(e.target.value);
-        }}
-      />
-      <br />
-      <St.PostCategory
-        value={category}
-        onChange={(e) => {
-          setCategory(e.target.value);
-        }}>
-        {categoryArr.map((item, i) => {
-          return <option key={i}>{item}</option>;
-        })}
-      </St.PostCategory>
-      <St.PostGrade
-        value={productGrade}
-        onChange={(e) => {
-          setProductGrade(e.target.value);
-        }}>
-        {gradeArr.map((item, i) => {
-          return <option key={i}>{item}</option>;
-        })}
-      </St.PostGrade>
+      <St.ItemWrapper>
+        <St.PostLabel>상품명 </St.PostLabel>
+        <St.PostInput
+          type="text"
+          placeholder="상품명을 입력해주세요"
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        />
+      </St.ItemWrapper>
 
       <br />
-      <St.PostLabel>상품 설명 | </St.PostLabel>
-      <St.PostTextArea
-        placeholder="상품 설명을 입력해주세요"
-        value={content}
-        onChange={(e) => {
-          setContent(e.target.value);
-        }}
-      />
+      <St.PriceWrapper>
+        <St.PostLabel>가격 </St.PostLabel>
+        <St.PostInput
+          type="number"
+          placeholder="가격을 입력해주세요"
+          value={price}
+          onChange={(e) => {
+            if (e.target.value.length > 8) return;
+            setPrice(e.target.value);
+          }}
+        />
+      </St.PriceWrapper>
+
+      <br />
+      <St.CategoryWrapper>
+        <St.PostCategory
+          value={category}
+          onChange={(e) => {
+            setCategory(e.target.value);
+          }}>
+          {categoryArr.map((item, i) => {
+            return <option key={i}>{item}</option>;
+          })}
+        </St.PostCategory>
+
+        <St.PostGrade
+          value={productGrade}
+          onChange={(e) => {
+            setProductGrade(e.target.value);
+          }}>
+          {gradeArr.map((item, i) => {
+            return <option key={i}>{item}</option>;
+          })}
+        </St.PostGrade>
+      </St.CategoryWrapper>
+      {params ? (
+        <>
+          <St.PostLabel>판매 상태</St.PostLabel>
+          <St.PostOnSale value={onSale.toString()} onChange={(e) => setOnSale(e.target.value === 'true')}>
+            <option value="true">판매 중</option>
+            <option value="false">판매 완료</option>
+          </St.PostOnSale>
+        </>
+      ) : (
+        <></>
+      )}
+      <br />
+      <St.InfoWrapper>
+        <St.PostLabel>상품 설명 </St.PostLabel>
+        <St.PostTextArea
+          placeholder="상품 설명을 입력해주세요"
+          value={content}
+          onChange={(e) => {
+            setContent(e.target.value);
+          }}
+        />
+      </St.InfoWrapper>
+
       <br />
       <St.PostSubmitBtn onClick={onSubmitProduct}>등록하기</St.PostSubmitBtn>
     </St.Container>
