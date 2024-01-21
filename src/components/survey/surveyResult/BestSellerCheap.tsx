@@ -46,7 +46,7 @@ const BestSellerCheap = () => {
 
   return (
     <St.Container>
-      <St.BackToListBtn onClick={() => surveyList()}>목록 보기</St.BackToListBtn>
+      <St.BackToListBtn onClick={() => surveyList()}></St.BackToListBtn>
       {loading ? <Loading /> : null}
       <St.ResultWrapper>
         {filteredBooks.map((item, idx) => (

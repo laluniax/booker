@@ -50,7 +50,7 @@ const BookSpecial = () => {
   return (
     <St.Container>
       <St.Header>
-        <St.CategoryTitle>베스트셀러</St.CategoryTitle>
+        <St.CategoryTitle>스페셜</St.CategoryTitle>
       </St.Header>
       <St.Body>
         {special.map((book) => {
