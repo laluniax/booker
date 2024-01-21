@@ -114,8 +114,9 @@ export const ProductLikes = styled.button`
   height: 3rem;
 `;
 
-export const ProductChat = styled.button`
-  background-color: #bcbcbc;
+export const ProductSoldOut = styled.div`
+  font-size: 1.5rem;
+  margin: 0 auto;
 `;
 
 export const ProductUser = styled.div`

@@ -63,6 +63,7 @@ type ProductsTypes = {
   content: string | null;
   created_at: string;
   id: number;
+  onsale: boolean | null;
   price: string | null;
   product_grade: string | null;
   product_img: string[] | null;

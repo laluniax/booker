@@ -2,24 +2,16 @@ import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCategoryProductListHandler, getProductListHandler, getUserSessionHandler } from '../../api/supabase.api';
+import { ProductsTypes } from '../../types/types';
 import * as St from './MarketList.styled';
 import { categoryArr } from './marketpost/Post';
 
-export type ListTypes = {
-  id: string;
-  category: string;
-  title: string;
-  content: string;
-  created_at: string;
-  product_img: string[];
-  price: string;
-  user_id: string;
-  product_grade: string;
-};
-
 const MarketList = () => {
   const [session, setSession] = useState<Session | null>(null);
-  const [list, setList] = useState<ListTypes[]>([]);
+  const [list, setList] = useState<ProductsTypes[]>([]);
+
+  console.log(list);
+
   const navigate = useNavigate();
   const params = useParams().id;
   const category = categoryArr[Number(params)];
@@ -63,16 +55,17 @@ const MarketList = () => {
             return (
               <St.ProductCard
                 key={i}
+                className={item.onsale ? '' : 'soldout'}
                 onClick={() => {
                   navigate(`/product/${item.id}`);
                 }}>
-                {item.product_img.length === 0 ? (
+                {item.product_img?.length === 0 ? (
                   <St.LogoImg>
                     <img src={`${process.env.PUBLIC_URL}/images/common/logo.png`} alt="logo" />
                   </St.LogoImg>
                 ) : (
                   <St.ProductImg>
-                    <img src={item.product_img[0]} />
+                    <img src={(item.product_img && item.product_img[0]) ?? undefined} />
                   </St.ProductImg>
                 )}
 
@@ -81,6 +74,7 @@ const MarketList = () => {
                   <St.ProductPrice>{item.price} 원</St.ProductPrice>
                   <St.ProductLikes>♥️</St.ProductLikes>
                 </St.ProductInfo>
+                {item.onsale ? null : <St.Onsale>판매 완료</St.Onsale>}
               </St.ProductCard>
             );
           })}

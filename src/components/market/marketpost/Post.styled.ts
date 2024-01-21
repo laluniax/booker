@@ -37,6 +37,8 @@ export const PostCategory = styled.select``;
 
 export const PostGrade = styled.select``;
 
+export const PostOnSale = styled.select``;
+
 export const PostTextArea = styled.textarea`
   resize: none;
   width: 50rem;
