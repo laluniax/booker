@@ -173,6 +173,7 @@ type ProductTypes = {
   price: string;
   category: string;
   productGrade: string;
+  onSale: boolean;
 };
 
 // 상품 등록하기
@@ -252,12 +253,12 @@ const deleteProductImgList = async (productId: string) => {
 
 // 상품 업데이트하기
 export const updateProductHandler = async (
-  { title, content, price, category, productGrade }: ProductTypes,
+  { title, content, price, category, productGrade, onSale }: ProductTypes,
   params: string,
 ) => {
   const { data, error } = await supabase
     .from('products')
-    .update({ title, content, price, category, product_grade: productGrade })
+    .update({ title, content, price, category, product_grade: productGrade, onsale: onSale })
     .eq('id', params)
     .select();
   if (error) throw error;
