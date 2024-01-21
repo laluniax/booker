@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  height: 100vh;
+  min-height: 120rem;
+`;
 
 export const Title = styled.div`
   margin: 0rem 0rem 5rem 30rem;
@@ -54,14 +57,28 @@ export const ProductsWrapper = styled.div`
 `;
 
 export const ProductCard = styled.div`
+  position: relative;
   width: 20rem;
-  height: 31rem;
+  height: 30rem;
+  padding: 0.5rem;
   border: 0.2rem solid black;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  &.soldout {
+    background: rgba(0, 0, 0, 0.5);
+    & img {
+      opacity: 0.5;
+    }
+  }
 `;
+export const Onsale = styled.div`
+  position: absolute;
+  color: #fff;
+  font-size: 3rem;
+  font-weight: 800;
+  top: 9rem;
+  left: 4rem;
+`;
+
 export const LogoImg = styled.div`
   width: 18rem;
   height: 23rem;

@@ -2,7 +2,14 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useCreateOrGetChat, useSendMessage } from '../../api/chatApi';
 import { supabase } from '../../api/supabase.api';
-import { ChatId, chatFunctionsState, otherPerson, person, sendMessages } from '../../atom/product.atom';
+import {
+  ChatId,
+  chatFunctionsState,
+  globalModalSwitch,
+  otherPerson,
+  person,
+  sendMessages,
+} from '../../atom/product.atom';
 import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
@@ -23,6 +30,8 @@ export type ChatData = {
   id: string;
 };
 const Chat = () => {
+  // 문쨩
+  const [문길, set문길] = useRecoilState(globalModalSwitch);
   //모달창을 열고 닫는 state
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
   const [isAsk, setIsAsk] = useState<boolean>(false);
@@ -208,10 +217,11 @@ const Chat = () => {
   const prevHandler = () => {
     setIsAsk(false);
   };
+
   return (
     <>
       {auth.session.profile.isAdmin ? (
-        isSwitch && <AdminChat />
+        문길 && <AdminChat />
       ) : (
         <St.Container>
           {isChatModalOpen && (
@@ -289,7 +299,10 @@ const Chat = () => {
         <St.TalkButton
           src="/images/customerchatting/bookerchattingicon.png"
           alt="bookerchattingicon"
-          onClick={() => setIsSwitch(!isSwitch)}
+          onClick={() => {
+            set문길(!문길);
+            setIsSwitch(!isSwitch);
+          }}
         />
         {/* {isSwitch ? 'close' : 'open'} */}
       </St.TalkButtonWrapper>

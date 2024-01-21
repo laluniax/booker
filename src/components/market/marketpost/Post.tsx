@@ -50,6 +50,7 @@ const Post = () => {
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('건강/취미');
   const [productGrade, setProductGrade] = useState('최상');
+  const [onSale, setOnSale] = useState(true);
   const [productImg, setProductImg] = useState<File[]>([]);
   const [tempImg, setTempImg] = useState<string[]>([]);
 
@@ -81,7 +82,7 @@ const Post = () => {
     try {
       if (params) {
         const result = await updateProductHandler(
-          { userId, title, content, price, category, productGrade },
+          { userId, title, content, price, category, productGrade, onSale },
           params as string,
         );
         const imgUrls = await uploadProductImgStorageUrl(result[0].id, productImg);
@@ -97,6 +98,7 @@ const Post = () => {
           price,
           category,
           productGrade,
+          onSale,
         });
         const imgUrls = await uploadProductImgStorageUrl(result[0].id, productImg);
         await updateProductImgPublicUrlHandler(imgUrls.imgUrls, result[0].id);
@@ -185,7 +187,17 @@ const Post = () => {
           return <option key={i}>{item}</option>;
         })}
       </St.PostGrade>
-
+      {params ? (
+        <>
+          <St.PostLabel>판매 상태</St.PostLabel>
+          <St.PostOnSale value={onSale.toString()} onChange={(e) => setOnSale(e.target.value === 'true')}>
+            <option value="true">판매 중</option>
+            <option value="false">판매 완료</option>
+          </St.PostOnSale>
+        </>
+      ) : (
+        <></>
+      )}
       <br />
       <St.PostLabel>상품 설명 | </St.PostLabel>
       <St.PostTextArea

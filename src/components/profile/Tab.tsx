@@ -37,17 +37,13 @@ const Tab = ({ userSession, userData }: Props) => {
     setFollowList(result);
   };
 
-  // const onClickUnfollowBtn = async () => {
-  //   const result = await unFollowHandler();
-  // };
-
   useEffect(() => {
     userData && filterPostByUserId();
     userSession && getFollowList();
   }, [userSession, userData]);
 
   return (
-    <div>
+    <St.TabWrapper>
       {' '}
       <St.ProfileTab>
         <St.TabMenu
@@ -66,14 +62,17 @@ const Tab = ({ userSession, userData }: Props) => {
         </St.TabMenu>
         <St.TabMenu
           onClick={() => {
-            setActive('3');
+            alert('기능 구현 중');
+            return;
           }}
+          // onClick={() => {
+          //   setActive('3');
+          // }}
           className={active === '3' ? 'active' : ''}>
           좋아요한 글
         </St.TabMenu>
       </St.ProfileTab>
       <St.ProfileContent>
-        {/* 여기서 스위치를 써도 좋을듯..? */}
         {active === '1' && (
           <div>
             <St.TabListTitle>북커톡</St.TabListTitle>
@@ -92,12 +91,16 @@ const Tab = ({ userSession, userData }: Props) => {
               {productsList?.map((item, i) => {
                 return (
                   <St.Product key={i} onClick={() => navigate(`/product/${item.id}`)}>
-                    {item.product_img && <St.ProductImg src={item.product_img[0]} />}
-                    <div>
+                    {item.product_img && (
+                      <St.ProductImg src={item.product_img[0] || `${process.env.PUBLIC_URL}/images/common/logo.png`} />
+                    )}
+                    <St.ProductTitlePrice>
                       <St.ProductTitle>{item.title}</St.ProductTitle>
-                      <St.ProductPrice>{item.price}</St.ProductPrice>
-                    </div>
-                    <St.ProductDate>{formatCreatedAt(item.created_at)}</St.ProductDate>
+                      <St.ProductPrice>{item.price} 원</St.ProductPrice>
+                    </St.ProductTitlePrice>
+                    <St.ProductDate>
+                      {item.onsale ? '판매 중' : '판매 완료'} | {formatCreatedAt(item.created_at)}
+                    </St.ProductDate>
                   </St.Product>
                 );
               })}
@@ -116,14 +119,14 @@ const Tab = ({ userSession, userData }: Props) => {
                   <St.FollowImg src={item.users.user_img ?? undefined} />
                   <St.FollowNickname>{item.users.nickname}</St.FollowNickname>
                   {params === userSession?.user.id ? (
-                    <button
+                    <St.UnfollowBtn
                       onClick={async (e) => {
                         e.stopPropagation();
                         await unFollowHandler(item.follow_id as string);
                         getFollowList();
                       }}>
                       팔로우 취소하기
-                    </button>
+                    </St.UnfollowBtn>
                   ) : (
                     <></>
                   )}
@@ -134,7 +137,7 @@ const Tab = ({ userSession, userData }: Props) => {
         )}
         {active === '3' && <div>좋아요한 글</div>}
       </St.ProfileContent>
-    </div>
+    </St.TabWrapper>
   );
 };
 
