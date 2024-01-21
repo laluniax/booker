@@ -1,12 +1,18 @@
+import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { filterPostsByUserIdHandler, filterProductsByUserIdHandler } from '../../api/supabase.api';
-import { Tables } from '../../types/types';
-import { foramtCreatedAt } from '../../utils/date';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+  filterPostsByUserIdHandler,
+  filterProductsByUserIdHandler,
+  getFollowListHandler,
+  unFollowHandler,
+} from '../../api/supabase.api';
+import { FollowsTypes, Tables } from '../../types/types';
+import { formatCreatedAt } from '../../utils/date';
 import * as St from './UserProfile.styled';
 
 type Props = {
-  userSession: string | undefined;
+  userSession: Session | null;
   userData: Tables<'users'> | undefined;
 };
 
@@ -15,23 +21,29 @@ const Tab = ({ userSession, userData }: Props) => {
   const [active, setActive] = useState('1');
   const [postsList, setPostsList] = useState<Tables<'posts'>[]>();
   const [productsList, setProductsList] = useState<Tables<'products'>[]>();
+  const [followList, setFollowList] = useState<FollowsTypes[]>([]);
 
-  console.log(productsList);
+  const params = useParams().id;
 
   const filterPostByUserId = async () => {
     const posts = await filterPostsByUserIdHandler(userData?.id as string);
     const products = await filterProductsByUserIdHandler(userData?.id as string);
-    console.log(posts);
     setPostsList(posts);
     setProductsList(products);
+  };
+  // 팔로우 목록 불러오기
+  const getFollowList = async () => {
+    const result = await getFollowListHandler(params as string);
+    setFollowList(result);
   };
 
   useEffect(() => {
     userData && filterPostByUserId();
+    userSession && getFollowList();
   }, [userSession, userData]);
 
   return (
-    <div>
+    <St.TabWrapper>
       {' '}
       <St.ProfileTab>
         <St.TabMenu
@@ -50,14 +62,17 @@ const Tab = ({ userSession, userData }: Props) => {
         </St.TabMenu>
         <St.TabMenu
           onClick={() => {
-            setActive('3');
+            alert('기능 구현 중');
+            return;
           }}
+          // onClick={() => {
+          //   setActive('3');
+          // }}
           className={active === '3' ? 'active' : ''}>
           좋아요한 글
         </St.TabMenu>
       </St.ProfileTab>
       <St.ProfileContent>
-        {/* 여기서 스위치를 써도 좋을듯..? */}
         {active === '1' && (
           <div>
             <St.TabListTitle>북커톡</St.TabListTitle>
@@ -66,7 +81,7 @@ const Tab = ({ userSession, userData }: Props) => {
                 return (
                   <St.Post key={i} onClick={() => navigate(`/detail/${item.id}`)}>
                     <St.PostTitle>{item.title}</St.PostTitle>
-                    <St.PostDate>{foramtCreatedAt(item.created_at)}</St.PostDate>
+                    <St.PostDate>{formatCreatedAt(item.created_at)}</St.PostDate>
                   </St.Post>
                 );
               })}
@@ -76,22 +91,53 @@ const Tab = ({ userSession, userData }: Props) => {
               {productsList?.map((item, i) => {
                 return (
                   <St.Product key={i} onClick={() => navigate(`/product/${item.id}`)}>
-                    {item.product_img && <St.ProductImg src={item.product_img[0]} />}
-                    <div>
+                    {item.product_img && (
+                      <St.ProductImg src={item.product_img[0] || `${process.env.PUBLIC_URL}/images/common/logo.png`} />
+                    )}
+                    <St.ProductTitlePrice>
                       <St.ProductTitle>{item.title}</St.ProductTitle>
-                      <St.ProductPrice>{item.price}</St.ProductPrice>
-                    </div>
-                    <St.ProductDate>{foramtCreatedAt(item.created_at)}</St.ProductDate>
+                      <St.ProductPrice>{item.price} 원</St.ProductPrice>
+                    </St.ProductTitlePrice>
+                    <St.ProductDate>
+                      {item.onsale ? '판매 중' : '판매 완료'} | {formatCreatedAt(item.created_at)}
+                    </St.ProductDate>
                   </St.Product>
                 );
               })}
             </St.ProductWrapper>
           </div>
         )}
-        {active === '2' && <div>팔로우 목록</div>}
+        {active === '2' && (
+          <St.FollowWrapper>
+            {followList?.map((item, i) => {
+              return (
+                <St.Follow
+                  key={i}
+                  onClick={() => {
+                    navigate(`/profile/${item.follow_to}`);
+                  }}>
+                  <St.FollowImg src={item.users.user_img ?? undefined} />
+                  <St.FollowNickname>{item.users.nickname}</St.FollowNickname>
+                  {params === userSession?.user.id ? (
+                    <St.UnfollowBtn
+                      onClick={async (e) => {
+                        e.stopPropagation();
+                        await unFollowHandler(item.follow_id as string);
+                        getFollowList();
+                      }}>
+                      팔로우 취소하기
+                    </St.UnfollowBtn>
+                  ) : (
+                    <></>
+                  )}
+                </St.Follow>
+              );
+            })}
+          </St.FollowWrapper>
+        )}
         {active === '3' && <div>좋아요한 글</div>}
       </St.ProfileContent>
-    </div>
+    </St.TabWrapper>
   );
 };
 

@@ -1,4 +1,4 @@
-export const foramtCreatedAt = (createdAt: Date | string) => {
+export const formatCreatedAt = (createdAt: Date | string) => {
   const date = new Date(createdAt);
   const now = Date.now();
   const milliSeconds = now - date.getTime();

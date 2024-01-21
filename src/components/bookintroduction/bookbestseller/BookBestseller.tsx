@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
-import * as St from './BookIntroduction.styled';
+import * as St from '../BookIntroduction.styled';
 
 interface Bestseller {
   author: string;
@@ -15,18 +16,35 @@ interface Bestseller {
 
 const BookBestseller = () => {
   const [bestSeller, setBestseller] = useState<Bestseller[]>([]);
-  useEffect(() => {
-    bookBestseller();
-  }, []);
+
+  const [page, setPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [ref, inView] = useInView();
 
   const navigate = useNavigate();
 
-  console.log(bestSeller);
   const bookBestseller = async () => {
-    const response = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller');
-    console.log(response);
-    setBestseller(response.data.item);
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(
+        `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller?page=${page}`,
+      );
+      setBestseller((prev) => [...prev, ...response.data.item]);
+      setPage((page) => page + 1);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  useEffect(() => {
+    if (inView) {
+      bookBestseller();
+    }
+  }, [inView]);
 
   const GotoDetailPage = (isbn13: number) => {
     navigate(`/aboutBook/${isbn13}`);
@@ -35,29 +53,28 @@ const BookBestseller = () => {
   return (
     <St.Container>
       <St.Header>
-        <h2>베스트셀러</h2>
+        <St.CategoryTitle>베스트셀러</St.CategoryTitle>
       </St.Header>
       <St.Body>
         {bestSeller.map((book) => {
           return (
-            <St.BookImageWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
-              <St.BookGenre>{book.categoryName}</St.BookGenre>
+            <St.BookCardWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
               <br />
-              <St.BookWrapper>
+              <St.BookCardWrapper>
                 <St.BookImg>
-                  <img src={book.cover} alt="책 이미지" width={200} height={250} />
+                  <img src={book.cover} alt="책 이미지" width={230} height={290} />
                 </St.BookImg>
                 <St.BookIntro>
+                  {/* <St.BookGenre>{book.categoryName}</St.BookGenre> */}
                   <St.Title>{book.title}</St.Title>
-                  <St.AuthWrapper>
-                    <St.Author>{book.author}</St.Author>
-                    <St.Plot>{book.publisher}</St.Plot>
-                  </St.AuthWrapper>
+                  <St.Author>저자 | {book.author}</St.Author>
+                  <St.Plot>출판사 | {book.publisher}</St.Plot>
                 </St.BookIntro>
-              </St.BookWrapper>
-            </St.BookImageWrapper>
+              </St.BookCardWrapper>
+            </St.BookCardWrapper>
           );
         })}
+        <div ref={ref}></div>
       </St.Body>
     </St.Container>
   );

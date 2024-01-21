@@ -13,7 +13,6 @@ import {
 import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/product.atom';
 
 import { Session } from '@supabase/supabase-js';
-import logo from '../../../assets/Logo.png';
 import { ProductsTypes } from '../../../types/types';
 import { MessageType } from '../../qna/ChatModal';
 import { categoryArr } from '../marketpost/Post';
@@ -27,7 +26,6 @@ const Product = () => {
   const [product, setProduct] = useState<ProductsTypes>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideLength, setSlideLength] = useState(0);
-
   const [inputValue, setInputValue] = useState('');
   // const [productId, setProductId] = useRecoilState(productState);
   const [productId, setProductId] = useRecoilState(productState);
@@ -164,11 +162,12 @@ const Product = () => {
     <St.Container>
       <St.Title>중고 거래 상세페이지</St.Title>
       <St.ProductInfo>
-        <St.SliderWrapper>
-          {' '}
-          {product?.product_img?.length === 0 ? (
-            <St.Logo src={logo} />
-          ) : (
+        {product?.product_img?.length === 0 ? (
+          <St.LogoWrapper>
+            <St.Logo src="/images/common/logo.png" alt="Logo" />
+          </St.LogoWrapper>
+        ) : (
+          <St.SliderWrapper>
             <St.SliderUl ref={slideRef}>
               {product?.product_img?.map((img, i) => (
                 <St.SliderLi key={i}>
@@ -176,14 +175,18 @@ const Product = () => {
                 </St.SliderLi>
               ))}
             </St.SliderUl>
-          )}
-          <St.SliderBtn onClick={onClickPrevBtn} className="prev">
-            〈
-          </St.SliderBtn>
-          <St.SliderBtn onClick={onClickNextBtn} className="next">
-            〉
-          </St.SliderBtn>
-        </St.SliderWrapper>
+            {currentSlide !== 0 && (
+              <St.SliderBtn onClick={onClickPrevBtn} className="prev">
+                〈
+              </St.SliderBtn>
+            )}
+            {currentSlide !== slideLength - 1 && (
+              <St.SliderBtn onClick={onClickNextBtn} className="next">
+                〉
+              </St.SliderBtn>
+            )}
+          </St.SliderWrapper>
+        )}
         <div>
           <St.ProductTitle>{product?.title}</St.ProductTitle>
           <St.ProductCategory>
@@ -206,14 +209,36 @@ const Product = () => {
             ) : null}
           </St.PriceBtnWrapper>
           <St.ProductBtn>
-            <St.ProductLikes onClick={onClickLikesButton}>좋아요</St.ProductLikes>
-            <St.ProductLikes onClick={onClickDMButton}>대화 시작하기</St.ProductLikes>
+            {product?.onsale ? (
+              <>
+                <St.ProductLikes onClick={onClickLikesButton}>좋아요</St.ProductLikes>
+                <St.ProductLikes onClick={onClickDMButton}>대화 시작하기</St.ProductLikes>
+              </>
+            ) : (
+              <St.ProductSoldOut>판매 완료된 상품입니다.</St.ProductSoldOut>
+            )}
+
             {/* 여기에 채팅 모달을 조건부 렌더링합니다. */}
             {isChatModalOpen && (
               <St.ChatModalWrapper>
                 {/* 채팅 모달 내용 */}
                 <St.ChatModalHeader>
-                  <div>채팅</div>
+                  <St.ChatModalTitle>채팅</St.ChatModalTitle>
+                  <St.ChatModalCloseButton onClick={() => setIsChatModalOpen(false)}>x</St.ChatModalCloseButton>
+                </St.ChatModalHeader>
+                <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
+                <St.ChatModalFooter>
+                  <St.InputField
+                    value={inputValue}
+                    onChange={InputChanger}
+                    onKeyDown={KeyPresshandler}
+                    placeholder="메세지를 입력해주세요"
+                  />
+                  <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
+                </St.ChatModalFooter>
+                {/* 채팅 모달 내용 */}
+                {/* <St.ChatModalHeader>
+                 <div>채팅</div>
                   <button onClick={() => setIsChatModalOpen(false)}>닫기</button>
                 </St.ChatModalHeader>
                 <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
@@ -225,7 +250,7 @@ const Product = () => {
                     placeholder="메시지를 입력해주세요"
                   />
                   <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
-                </St.ChatModalFooter>
+                </St.ChatModalFooter> */}
               </St.ChatModalWrapper>
             )}
           </St.ProductBtn>

@@ -6,7 +6,7 @@ import {
   updateSubCommentHandler,
 } from '../../../api/supabase.api';
 import { SubCommentTypes } from '../../../types/types';
-import { foramtCreatedAt } from '../../../utils/date';
+import { formatCreatedAt } from '../../../utils/date';
 import * as St from './Comment.styled';
 
 type Props = {
@@ -63,51 +63,51 @@ const SubComment = ({ commentId, session }: Props) => {
               .map((item, i) => {
                 return (
                   <St.Subcomment key={i}>
-                    <div> ┗ </div>
+                    <St.SubCommentNextText> ┗ </St.SubCommentNextText>
                     <div>
                       <St.SubCommentUserAndBtn>
                         <St.SubCommentUser>
                           <St.SubCommentImg src={item.users.user_img ?? undefined} />
                           <St.SubCommentNickname>{item.users.nickname} | </St.SubCommentNickname>
-                          <St.SubCommentDate>{foramtCreatedAt(item.created_at)}</St.SubCommentDate>
+                          <St.SubCommentDate>{formatCreatedAt(item.created_at)}</St.SubCommentDate>
                         </St.SubCommentUser>
                         {session === item.user_id ? (
                           <St.CommentBtnDiv>
                             {isEditing ? (
-                              <>
+                              <St.CommentEditSubmitBtnBox>
                                 {item.id === subCommentId ? (
-                                  <>
-                                    <button
+                                  <St.SubCommentEditSubmitBtnBox>
+                                    <St.SubCommentEditSubmitButton
                                       onClick={() => {
                                         updateSubComment();
                                       }}>
-                                      완료
-                                    </button>
-                                    <button
+                                      완료 |
+                                    </St.SubCommentEditSubmitButton>
+                                    <St.SubCommentEditSubmitButton
                                       onClick={() => {
                                         deleteSubComment(item.id);
                                       }}>
                                       삭제
-                                    </button>
-                                  </>
+                                    </St.SubCommentEditSubmitButton>
+                                  </St.SubCommentEditSubmitBtnBox>
                                 ) : null}
-                              </>
+                              </St.CommentEditSubmitBtnBox>
                             ) : (
                               <>
-                                <button
+                                <St.SubCommentButton
                                   onClick={() => {
                                     setIsEditing(true);
                                     setSubCommentId(item.id);
                                     setInputSubComment(item.content as string);
                                   }}>
-                                  수정
-                                </button>
-                                <button
+                                  수정 |
+                                </St.SubCommentButton>
+                                <St.SubCommentButton
                                   onClick={() => {
                                     deleteSubComment(item.id);
                                   }}>
                                   삭제
-                                </button>
+                                </St.SubCommentButton>
                               </>
                             )}
                           </St.CommentBtnDiv>
@@ -117,7 +117,7 @@ const SubComment = ({ commentId, session }: Props) => {
                       </St.SubCommentUserAndBtn>
                       <St.SubCommentContent>
                         {item.id === subCommentId ? (
-                          <input
+                          <St.subCommentEditInput
                             value={inputSubComment}
                             onChange={(e) => {
                               setInputSubComment(e.target.value);
@@ -133,13 +133,19 @@ const SubComment = ({ commentId, session }: Props) => {
               })}
           </St.SubCommentBox>
 
-          <St.SubCommentTextArea
-            value={content}
-            onChange={(e) => {
-              setContent(e.target.value);
-            }}
-          />
-          <St.SubCommentSubmitBtn onClick={insertSubComment}>등록</St.SubCommentSubmitBtn>
+          {session ? (
+            <St.SubCommentTextAreaBox>
+              <St.SubCommentTextArea
+                value={content}
+                onChange={(e) => {
+                  setContent(e.target.value);
+                }}
+              />
+              <St.SubCommentSubmitBtn onClick={insertSubComment}>등록</St.SubCommentSubmitBtn>
+            </St.SubCommentTextAreaBox>
+          ) : (
+            <></>
+          )}
         </>
       ) : (
         <St.SubCommentAddBtn
@@ -147,7 +153,7 @@ const SubComment = ({ commentId, session }: Props) => {
             setToggleOpen(true);
             getSubCommentsInfo();
           }}>
-          답글 입력하기
+          답글 펼치기
         </St.SubCommentAddBtn>
       )}
     </St.SubCommentWrapper>

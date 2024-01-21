@@ -10,7 +10,6 @@ import AboutLayout from '../components/layout/AboutLayout';
 import Layout from '../components/layout/Layout';
 
 import AdminChat from '../components/qna/AdminChat';
-import AdminChatRoom from '../components/qna/AdminChatRoom';
 import BestSellerCheapSurvey from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey';
 import BestSellerCheapSurvey2 from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey2';
 import BestSellerDomForSurvey from '../components/survey/surveyQuestionnaire/bestSellerDomFor/BestSellerDomForSurvey';
@@ -28,6 +27,7 @@ import BookerTalk from '../pages/BookerTalk';
 import BookerTalkDetail from '../pages/BookerTalkDetail';
 import BookerTalkPost from '../pages/BookerTalkPost';
 import Home from '../pages/Home';
+import IndBookStores from '../pages/IndBookStores';
 import Login from '../pages/Login';
 import Market from '../pages/Market';
 import MarketPost from '../pages/MarketPost';
@@ -52,8 +52,9 @@ const Router = () => {
           <Route path="/bookertalk" element={<BookerTalk />} />
           <Route path="/bookertalk/:id" element={<BookerTalk />} />
           <Route path="/bookertalk/write" element={<BookerTalkPost />} />
+          <Route path="/bookertalk/write/:id" element={<BookerTalkPost />} />
           <Route path="/detail/:id" element={<BookerTalkDetail />} />
-
+          <Route path="/indbookstores" element={<IndBookStores />} />
           {/* 도서 소개 페이지 */}
           <Route path="/aboutbooks" element={<AboutBooks />} />
           {/* 중고책 판매 / 중고책 상세 페이지 */}
@@ -81,7 +82,6 @@ const Router = () => {
           <Route path="/product/:id" element={<MarketProduct />} />
           {/* Qna 페이지 */}
           <Route path="/chat" element={<AdminChat />} />
-          <Route path="/chat/:roomid" element={<AdminChatRoom />} />
           {/* 도서소개 페이지  */}
           <Route element={<AboutLayout />}>
             <Route path="/aboutbook/bestseller" element={<BookBestseller />} />

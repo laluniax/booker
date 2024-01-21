@@ -4,6 +4,7 @@ import { signupHandler, supabase } from '../../api/supabase.api';
 import * as St from './Register.style';
 
 const Form = () => {
+  const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement | null>(null);
   // const [password, setPassword] = useState('');
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -18,14 +19,17 @@ const Form = () => {
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isRepasswordValid, setIsRepasswordValid] = useState(false);
   const [isNicknameValid, setIsNicknameValid] = useState(false);
-  
 
+  // 로그인 창으로 이동
+  const moveToSignInHandler = () => {
+    navigate('/login');
+  };
 
   // 이메일 유효성 검사 함수
   const validateEmail = (email: string): boolean => {
     if (email.trim() === '') {
       setEmailError('이메일을 입력해주세요');
-      return false
+      return false;
     }
 
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -141,13 +145,12 @@ const Form = () => {
     }
   };
 
-
   const SignUpHandler = async () => {
-  // 모든 유효성 검사가 통과되었는지 확인
-  if (!isEmailValid || !isPasswordValid || !isRepasswordValid || !isNicknameValid) {
-    alert('모든 입력란을 올바르게 채워주세요.');
-    return;
-  }
+    // 모든 유효성 검사가 통과되었는지 확인
+    if (!isEmailValid || !isPasswordValid || !isRepasswordValid || !isNicknameValid) {
+      alert('모든 입력란을 올바르게 채워주세요.');
+      return;
+    }
 
     try {
       const result = await signupHandler(
@@ -226,7 +229,8 @@ const Form = () => {
         ))}
       <St.Button onClick={checkNickName}>중복확인</St.Button>
       <hr />
-      <St.Button onClick={SignUpHandler}>회원가입</St.Button>
+      <St.RegisterButton onClick={SignUpHandler}>가입하기</St.RegisterButton>
+      <St.SignInLink onClick={moveToSignInHandler}>이미 회원이신가요?</St.SignInLink>
     </St.Container>
   );
 };

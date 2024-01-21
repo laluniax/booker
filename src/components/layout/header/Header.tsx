@@ -1,19 +1,12 @@
-import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signoutHandler } from '../../../api/supabase.api';
 import { useAuth } from '../../../contexts/auth.context';
 import * as St from './Header.styled';
+import SearchArea from './SearchArea';
 
-type StatePropsTypes = {
-  searchKeyword: string;
-  setSearchKeyword: Dispatch<SetStateAction<string>>;
-};
-
-const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
+const Header = () => {
   const navigate = useNavigate();
   const auth = useAuth();
-
-  const [searchBarOpen, setSearchBarOpen] = useState(false);
 
   const onClickSignoutHandler = async () => {
     await signoutHandler();
@@ -22,64 +15,63 @@ const Header = ({ searchKeyword, setSearchKeyword }: StatePropsTypes) => {
 
   return (
     <St.Container>
-      <div
-        onClick={() => {
-          navigate('/');
-        }}>
-        로고
-      </div>
-      <St.HeaderUl>
-        <St.HeaderLi>
-          <a href="/bookertalk">북커톡</a>
-        </St.HeaderLi>
-        <St.HeaderLi>
-          <a href="/aboutbooks">도서소개</a>
-        </St.HeaderLi>
-        <St.HeaderLi>
-          <a href="/survey">책 추천 받기</a>
-        </St.HeaderLi>
-        <St.HeaderLi>
-          <a href="/market">중고거래</a>
-        </St.HeaderLi>
-        <St.HeaderLi>
-          <a href="/indBookStores">독립서점</a>
-        </St.HeaderLi>
-      </St.HeaderUl>
-      <St.HeaderUl>
-        {searchBarOpen ? (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              console.log(searchKeyword);
-            }}>
-            <input
-              type="text"
-              value={searchKeyword}
-              // 문자열 모든 공백 제거하여 input 값으로 받아옴
-              onChange={(e) => setSearchKeyword(e.target.value.replace(/(\s*)/g, ''))}
-            />
-          </form>
-        ) : null}
-        <St.HeaderBtn onClick={() => setSearchBarOpen(!searchBarOpen)}>서치</St.HeaderBtn>
-        {auth.session !== null ? (
-          <>
-            <St.HeaderBtn
+      <St.Wrapper>
+        <St.ImageWrapper
+          onClick={() => {
+            navigate('/');
+          }}>
+          <St.Image src="/images/common/logo.png" />
+        </St.ImageWrapper>
+        <St.HeaderUl>
+          <St.HeaderLiBox>
+            <St.HeaderLi>
+              <a href="/bookertalk">북커톡</a>
+            </St.HeaderLi>
+            <St.HeaderLi>
+              <a href="/aboutbooks">도서소개</a>
+            </St.HeaderLi>
+            <St.HeaderLi>
+              <a href="/survey">책 추천 받기</a>
+            </St.HeaderLi>
+            <St.HeaderLi>
+              <a href="/market">중고거래</a>
+            </St.HeaderLi>
+            <St.HeaderLi>
+              <a href="/indBookStores">독립서점</a>
+            </St.HeaderLi>
+          </St.HeaderLiBox>
+        </St.HeaderUl>
+        <St.HeaderUl>
+          <SearchArea />
+          {auth.session !== null ? (
+            <>
+              <St.HeaderBtn
+                onClick={() => {
+                  navigate(`/profile/${auth.session?.user.id}`);
+                }}>
+                <St.HeaderUserImage
+                  src={
+                    auth.session.user.user_metadata.user_img ||
+                    auth.session.user.user_metadata.avatar_url ||
+                    `${process.env.PUBLIC_URL}/images/header/profileImg.png`
+                  }
+                  alt="유저 프로필 이미지"
+                />
+              </St.HeaderBtn>
+              <St.HeaderBtn onClick={onClickSignoutHandler}>
+                <St.Image src="/images/header/profileIcon.png" />
+              </St.HeaderBtn>
+            </>
+          ) : (
+            <St.LoginBtn
               onClick={() => {
-                navigate(`/profile/${auth.session?.user.id}`);
+                navigate('/login');
               }}>
-              <img src={auth.session.user.user_metadata.user_img} alt="유저 프로필 이미지" />
-            </St.HeaderBtn>
-            <St.HeaderBtn onClick={onClickSignoutHandler}>로그아웃</St.HeaderBtn>
-          </>
-        ) : (
-          <St.HeaderBtn
-            onClick={() => {
-              navigate('/login');
-            }}>
-            로그인
-          </St.HeaderBtn>
-        )}
-      </St.HeaderUl>
+              로그인
+            </St.LoginBtn>
+          )}
+        </St.HeaderUl>
+      </St.Wrapper>
     </St.Container>
   );
 };

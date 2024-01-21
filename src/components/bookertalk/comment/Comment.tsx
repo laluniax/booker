@@ -9,7 +9,7 @@ import {
   updateCommentHandler,
 } from '../../../api/supabase.api';
 import { CommentTypes } from '../../../types/types';
-import { foramtCreatedAt } from '../../../utils/date';
+import { formatCreatedAt } from '../../../utils/date';
 import * as St from './Comment.styled';
 import SubComment from './SubComment';
 
@@ -26,7 +26,6 @@ const Comment = () => {
   const getCommentsInfo = async () => {
     const result = await getCommentsInfoHandler(params);
     setData(result[0] as CommentTypes);
-    console.log(result[0]);
   };
 
   const getUserSession = async () => {
@@ -60,22 +59,27 @@ const Comment = () => {
   }, [params]);
   return (
     <St.Container>
-      <St.CommentForm>
-        <St.FormUserData>
-          <St.UserImg src={metaData?.user_img} />
-          <div>{metaData?.full_name}</div>
-        </St.FormUserData>
-        <St.CommentTextArea
-          value={content}
-          onChange={(e) => {
-            setContent(e.target.value);
-          }}
-        />
-        <br />
-        <St.CommentSubmit>
-          <button onClick={insertComment}>댓글 작성하기</button>
-        </St.CommentSubmit>
-      </St.CommentForm>
+      {session ? (
+        <St.CommentForm>
+          <St.FormUserData>
+            <St.UserImg src={metaData?.user_img} />
+            <div>{metaData?.full_name}</div>
+          </St.FormUserData>
+          <St.CommentTextArea
+            value={content}
+            onChange={(e) => {
+              setContent(e.target.value);
+            }}
+          />
+          <br />
+          <St.CommentSubmit>
+            <St.CommentSubmitButton onClick={insertComment}>댓글 작성하기</St.CommentSubmitButton>
+          </St.CommentSubmit>
+        </St.CommentForm>
+      ) : (
+        <></>
+      )}
+
       <St.CommentWrapper>
         {data?.comments
           .sort((a, b) => a.id - b.id)
@@ -86,7 +90,7 @@ const Comment = () => {
                   <St.UserImg src={item.users.user_img ?? undefined} />
                   <St.CommentNicknameCreatedAt>
                     <St.CommentNickname>{item.users.nickname}</St.CommentNickname>
-                    <St.CommentCreatedAt>{foramtCreatedAt(item.created_at)}</St.CommentCreatedAt>
+                    <St.CommentCreatedAt>{formatCreatedAt(item.created_at)}</St.CommentCreatedAt>
                   </St.CommentNicknameCreatedAt>
 
                   {session === item.user_id ? (
@@ -95,26 +99,26 @@ const Comment = () => {
                         <>
                           {item.id === commentId ? (
                             <>
-                              <button
+                              <St.CommentButton
                                 onClick={() => {
                                   // setCommentId(item.comment_id);
                                   updateComment();
                                 }}>
                                 완료
-                              </button>
-                              <button
+                              </St.CommentButton>
+                              <St.CommentButton
                                 onClick={() => {
                                   // setCommentId(item.comment_id);
                                   deleteComment(item.id);
                                 }}>
                                 삭제
-                              </button>
+                              </St.CommentButton>
                             </>
                           ) : null}
                         </>
                       ) : (
-                        <>
-                          <button
+                        <St.CommentButtonBox>
+                          <St.CommentButton
                             onClick={() => {
                               // setCommentId(item.comment_id);
                               // updateComment();
@@ -123,15 +127,15 @@ const Comment = () => {
                               setInputComment(item.content as string);
                             }}>
                             수정
-                          </button>
-                          <button
+                          </St.CommentButton>
+                          <St.CommentButton
                             onClick={() => {
                               // setCommentId(item.id);
                               deleteComment(item.id);
                             }}>
                             삭제
-                          </button>
-                        </>
+                          </St.CommentButton>
+                        </St.CommentButtonBox>
                       )}
                     </St.CommentBtnDiv>
                   ) : (

@@ -39,6 +39,15 @@ type ChatRoom = {
   user_id:string;
 };
 
+export const showChatModal = atom({
+  key: 'showChatModal',
+  default: false,
+});
+
+export const globalModalSwitch = atom({
+  key: 'globalModalSwitch',
+  default: false,
+});
 // // ======================================
 // // 사용법
 // export const textState = atom({

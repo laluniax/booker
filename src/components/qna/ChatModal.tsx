@@ -1,15 +1,14 @@
-import { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { useSendMessage } from '../../api/chatApi';
+
+import { useEffect, useState } from 'react';
+import { useRecoilState, useSetRecoilState,useRecoilValue } from 'recoil';
+import { useCreateOrGetChat, useSendMessage } from '../../api/chatApi';
 import { supabase } from '../../api/supabase.api';
-import Logo from '../../assets/Logo.png';
-import Prev from '../../assets/prev.png';
-import { ChatId, chatRoomsState, otherPerson, person, productState, sendMessages } from '../../atom/product.atom';
+import { ChatId, chatRoomsState, globalModalSwitch, otherPerson, person, productState, sendMessages } from '../../atom/product.atom';
+
 import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
 import * as St from './ChatStyle';
-
 export type MessageType = {
   id: number;
   content: string;
@@ -24,19 +23,18 @@ export type UserType = {
   lastMessage?: string; // lastMessage 속성 추가 (옵셔널로 처리)
   nickname: string;
 };
-
 export type ChatData = {
   id: string;
 };
-
 const Chat = () => {
+  // 문쨩
+  const [문길, set문길] = useRecoilState(globalModalSwitch);
   //모달창을 열고 닫는 state
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
   const [isAsk, setIsAsk] = useState<boolean>(false);
   //메세지 저장 state
   const [askMessage, setAskMessage] = useState<string>('');
-
-const [user,setUsers] = useState('')
+  const [users, setUsers] = useState<UserType[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
@@ -62,8 +60,8 @@ const [user,setUsers] = useState('')
     // console.log(user?.id)
     // console.log(otherUserId)
     if (user && user.email) {
-      const userId = user.id;
-      setUsers(userId)
+      // const userId = user.id;
+      // setUsers(userId)
       if (user) {
         // await checkChatWithUser(user.id, otherUserId, item_id, chat_id);
         setChatId(chat_id);
@@ -120,20 +118,18 @@ const [user,setUsers] = useState('')
           message.item_id === productId,
       )
       .map((message: MessageType) => (
-        <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-          {message.content}
-        </St.MessageComponent>
+        <St.MessageWrapper key={message.id} isOutgoing={message.author_id === LoginPersonal}>
+          <St.MessageComponent isOutgoing={message.author_id === LoginPersonal}>{message.content}</St.MessageComponent>
+        </St.MessageWrapper>
       ));
   };
 
 
 
   const auth = useAuth();
-
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
   };
-
   //메세지보내는 함수
   const sendMessage = async () => {
     if (!auth.session) return;
@@ -145,17 +141,14 @@ const [user,setUsers] = useState('')
       content: askMessage,
       message_type: 'question',
     });
-
     setAskMessage(''); // 메시지 전송 후 입력 필드 초기화
   };
-
   const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault(); // 폼 제출 방지
       sendMessage();
     }
   };
-
   if (!auth.session) return null;
 
   async function checkChatWithUser(userId: string, otherUserId: string, itemid: number, chat_id: string) {
@@ -172,7 +165,6 @@ const [user,setUsers] = useState('')
       .eq('item_id', itemid);
 
     console.log('existingChatUser', existingChatUser);
-
     const { data: existingChatOther } = await supabase
       .from('chats_users')
       .select('chat_id,  user_id')
@@ -196,7 +188,6 @@ const [user,setUsers] = useState('')
 
         if (commonChatId) break;
       }
-
       if (commonChatId) {
         setChatId(commonChatId);
         setLoginPersonal(userId);
@@ -226,7 +217,7 @@ const [user,setUsers] = useState('')
   return (
     <>
       {auth.session.profile.isAdmin ? (
-        isSwitch && <AdminChat />
+        문길 && <AdminChat />
       ) : (
         <St.Container>
           {isChatModalOpen && (
@@ -243,7 +234,7 @@ const [user,setUsers] = useState('')
                   value={inputValue}
                   onChange={InputChanger}
                   onKeyDown={KeyPresshandler}
-                  placeholder="메시지를 입력해주세요"
+                  placeholder="메세지를 입력해주세요"
                 />
                 <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
               </St.ChatModalFooter>
@@ -255,35 +246,36 @@ const [user,setUsers] = useState('')
               {isAsk ? (
                 <St.LogoWrapper>
                   <St.PrevBtn onClick={prevHandler}>
-                    <img src={Prev} alt="Prev" width={30} height={30} />
+                    <img src="/images/chat/prev.png" alt="Prev" width={30} height={30} />
                   </St.PrevBtn>
-                  <St.ChatHeader>
-                    <img src={Logo} alt="Logo" />
-                  </St.ChatHeader>
+                  <St.ChatHeader>{/* <img src="/images/common/logo.png" alt="Logo" /> */}</St.ChatHeader>
                 </St.LogoWrapper>
               ) : (
-                <St.ChatHeader>
-                  <img src={Logo} alt="Logo" />
-                </St.ChatHeader>
+                <St.ChatHeader>{/* <img src="/images/common/logo.png" alt="Logo" /> */}</St.ChatHeader>
               )}
-              <St.ChatBody>
+              <St.ChatTopBox>
                 <St.MainMessage>
-                  안녕하세요 🙌 <br />
-                  새로운 지식으로 시작되는 어쩌구저쩌구, 북커입니다📚
-                  <br />​ 무엇을 도와드릴까요?
+                  안녕하세요 !
+                  <br />
+                  책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝ <br />
+                  궁금한 점이 있으신가요?{' '}
+                  <St.AskButtonWrapper>
+                    <St.AskButton
+                      style={isAsk ? { display: 'none' } : { display: 'block' }}
+                      onClick={() => setIsAsk(true)}>
+                      문의하기
+                    </St.AskButton>
+                  </St.AskButtonWrapper>
+                  <St.Contour />
                 </St.MainMessage>
-              </St.ChatBody>
-              <St.AskWrapper>
-                <St.AskButton style={isAsk ? { display: 'none' } : { display: 'block' }} onClick={() => setIsAsk(true)}>
-                  문의하기 💨
-                </St.AskButton>
-              </St.AskWrapper>
+              </St.ChatTopBox>
+
               {isAsk ? (
                 <>
                   <ChatLog />
                   <St.ChatInputWrapper>
                     <St.Input
-                      placeholder="메시지를 입력해주세요"
+                      placeholder="메세지를 입력해주세요"
                       value={askMessage}
                       onChange={onChangeMessageHandler}
                       onKeyDown={onKeyDownHandler}
@@ -301,10 +293,17 @@ const [user,setUsers] = useState('')
         </St.Container>
       )}
       <St.TalkButtonWrapper>
-        <St.TalkButton onClick={() => setIsSwitch(!isSwitch)}>{isSwitch ? 'close' : 'open'}</St.TalkButton>
+        <St.TalkButton
+          src="/images/customerchatting/bookerchattingicon.png"
+          alt="bookerchattingicon"
+          onClick={() => {
+            set문길(!문길);
+            setIsSwitch(!isSwitch);
+          }}
+        />
+        {/* {isSwitch ? 'close' : 'open'} */}
       </St.TalkButtonWrapper>
     </>
   );
 };
-
 export default Chat;
