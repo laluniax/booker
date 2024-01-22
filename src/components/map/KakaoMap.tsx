@@ -40,7 +40,9 @@ function KakaoMap() {
     <St.Container>
       <St.MapContainer>
         {/* <RemovableCustomOverlayStyle /> */}
+
         <St.Map>
+          <St.Title>전국에 독립서점은 얼마나 있을까?</St.Title>{' '}
           <Map id={'map'} center={{ lat: 37.5759, lng: 126.9762 }} style={{ width: '100%', height: '60rem' }} level={5}>
             {markerData?.map((position, index) => {
               return (
@@ -74,7 +76,9 @@ function KakaoMap() {
                                 alt="독립서점 이미지"
                               />
                             </div>
-                            <button onClick={() => selectMarkerInfoHandler(position.id)}>상세보기</button>
+                            <St.DetailButton onClick={() => selectMarkerInfoHandler(position.id)}>
+                              상세보기
+                            </St.DetailButton>
                           </div>
                         </div>
                       </div>
