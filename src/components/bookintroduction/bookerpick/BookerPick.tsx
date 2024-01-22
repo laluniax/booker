@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../survey/Loading';
 import * as St from '../BookIntroduction.styled';
 
 interface BookerPicks {
@@ -19,6 +20,7 @@ const BookerPick = () => {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [ref, inView] = useInView();
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -27,11 +29,13 @@ const BookerPick = () => {
     setIsLoading(true);
 
     try {
+      setLoading(true);
       const response = await axios.get(
         `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks?page=${page}`,
       );
       setBookerPick((prev) => [...prev, ...response.data.item]);
       setPage((page) => page + 1);
+      setLoading(false);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -54,10 +58,10 @@ const BookerPick = () => {
         <St.CategoryTitle>북커픽</St.CategoryTitle>
       </St.Header>
       <St.Body>
+        {loading ? <Loading /> : null}
         {bookerPick.map((book) => {
           return (
             <St.BookCardWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
-              {/* <St.BookGenre>{book.categoryName}</St.BookGenre> */}
               <St.BookCardWrapper>
                 <St.BookImg>
                   <img src={book.cover} alt="책 이미지" width={230} height={290} />

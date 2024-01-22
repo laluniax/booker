@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../survey/Loading';
 import * as St from '../BookIntroduction.styled';
 
 interface Bestseller {
@@ -16,11 +17,10 @@ interface Bestseller {
 
 const BookBestseller = () => {
   const [bestSeller, setBestseller] = useState<Bestseller[]>([]);
-
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [ref, inView] = useInView();
-
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const bookBestseller = async () => {
@@ -28,11 +28,13 @@ const BookBestseller = () => {
     setIsLoading(true);
 
     try {
+      setLoading(true);
       const response = await axios.get(
         `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller?page=${page}`,
       );
       setBestseller((prev) => [...prev, ...response.data.item]);
       setPage((page) => page + 1);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     } finally {
@@ -56,6 +58,7 @@ const BookBestseller = () => {
         <St.CategoryTitle>베스트셀러</St.CategoryTitle>
       </St.Header>
       <St.Body>
+        {loading ? <Loading /> : null}
         {bestSeller.map((book) => {
           return (
             <St.BookCardWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
@@ -65,7 +68,6 @@ const BookBestseller = () => {
                   <img src={book.cover} alt="책 이미지" width={230} height={290} />
                 </St.BookImg>
                 <St.BookIntro>
-                  {/* <St.BookGenre>{book.categoryName}</St.BookGenre> */}
                   <St.Title>{book.title}</St.Title>
                   <St.Author>저자 | {book.author}</St.Author>
                   <St.Plot>출판사 | {book.publisher}</St.Plot>
