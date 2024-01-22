@@ -1,14 +1,19 @@
 import styled from 'styled-components';
+import PrevBtn from '../../../styles/assets/buttonimages/prev2.png';
 
 export const Container = styled.div`
   width: 90rem;
   margin: 0 auto;
 `;
-export const BackToListBtn = styled.button`
-  border: none;
-  background-color: transparent;
-  color: #74c0fc;
-  padding: 1rem;
+export const BackToListBtn = styled.div`
+  background: url(${PrevBtn});
+  background-size: contain;
+  width: 5rem;
+  height: 5rem;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const ResultWrapper = styled.div``;
