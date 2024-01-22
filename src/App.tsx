@@ -42,7 +42,7 @@ const App = () => {
               .select('nickname')
               .eq('id', chatUser.user_id)
               .single();
-      console.log(user)
+      // console.log(user)
             if (userError) throw userError;
 
             //챗방 마지막 메시지 
