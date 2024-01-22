@@ -65,10 +65,11 @@ const UserProfile = () => {
       console.log(error);
     }
   };
+  // 프로필 업데이트 함수
   const updateUserData = async () => {
     await updateUserAuthNicknameHandler(nickname);
     // storage에 사진 삭제 후 업로드
-    await updateUserImg();
+    uploadFile && (await updateUserImg());
     setEditing(false);
   };
 

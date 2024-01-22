@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
 import { mapMarkerDataHandler } from '../../api/supabase.api';
 import { mapMarkerDataTypes } from '../../types/types';
-import DetailMapInfo from './detailmapinfo/DetailInfo';
-import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
-import AboutIndBookStore from './aboutindbookstore/AboutIndBookStore';
 import * as St from './KakaoMap.styled';
+import AboutIndBookStore from './aboutindbookstore/AboutIndBookStore';
+import DetailMapInfo from './detailmapinfo/DetailInfo';
 
 function KakaoMap() {
   const [markerData, setMarkerData] = useState<mapMarkerDataTypes[] | undefined>([]);
@@ -37,7 +37,7 @@ function KakaoMap() {
   };
 
   return (
-    <>
+    <St.Container>
       <St.MapContainer>
         {/* <RemovableCustomOverlayStyle /> */}
         <St.Map>
@@ -92,7 +92,7 @@ function KakaoMap() {
         )}
       </St.MapContainer>
       <AboutIndBookStore />
-    </>
+    </St.Container>
   );
 }
 export default KakaoMap;

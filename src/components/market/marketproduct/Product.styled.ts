@@ -185,6 +185,7 @@ export const ProductContent = styled.div`
   margin: 5rem auto;
   padding: 5rem;
   font-size: 1.6rem;
+  line-height: 2;
 `;
 
 // 모달 래퍼

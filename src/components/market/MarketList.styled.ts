@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 110vh;
+  height: 120vh;
   min-height: 120rem;
 `;
 
@@ -76,6 +76,7 @@ export const ProductsWrapper = styled.div`
   /* grid-template-columns: 1fr 1fr 1fr 1fr; */
   gap: 1rem;
   line-height: 1.5;
+  margin-bottom: 2rem;
 `;
 
 export const ProductCard = styled.div`
