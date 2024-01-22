@@ -33,7 +33,7 @@ const App = () => {
               .single(); // 채팅방에 속한 '받는 사람'은 한 명만 있다고 가정
 
 
-              console.log(chatUser)
+              // console.log(chatUser)
             if (chatUserError) throw chatUserError;
       
             // 'users' 테이블에서 '받는 사람'의 닉네임 가져오기

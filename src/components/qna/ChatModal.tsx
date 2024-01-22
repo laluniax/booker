@@ -91,7 +91,11 @@ const Chat = () => {
   //dm메시지 전송
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-
+    console.log(inputValue);
+    console.log('i', LoginPersonal);
+    console.log(chatId);
+    console.log(productId);
+    console.log('u', otherLoginPersonal);
     sendDirectMessage({
       content: inputValue,
       author_id: LoginPersonal,
@@ -142,42 +146,42 @@ const Chat = () => {
   };
   if (!auth.session) return null;
 
-  async function checkChatWithUser(userId: string, otherUserId: string, itemid: number, chat_id: string) {
-    // 상점 채팅시 발신자 other 수신자 user// 메인 채팅시 반대로 생각하면 됨.
-    const { data: existingChatUser } = await supabase
-      .from('chats_users')
-      .select('chat_id, others_id')
-      .eq('user_id', otherUserId)
-      .eq('item_id', itemid);
+  // async function checkChatWithUser(userId: string, otherUserId: string, itemid: number, chat_id: string) {
+  //   // 상점 채팅시 발신자 other 수신자 user// 메인 채팅시 반대로 생각하면 됨.
+  //   const { data: existingChatUser } = await supabase
+  //     .from('chats_users')
+  //     .select('chat_id, others_id')
+  //     .eq('user_id', otherUserId)
+  //     .eq('item_id', itemid);
 
-    const { data: existingChatOther } = await supabase
-      .from('chats_users')
-      .select('chat_id,  user_id')
-      .eq('others_id', userId)
-      .eq('item_id', itemid);
+  //   const { data: existingChatOther } = await supabase
+  //     .from('chats_users')
+  //     .select('chat_id,  user_id')
+  //     .eq('others_id', userId)
+  //     .eq('item_id', itemid);
 
-    if (existingChatUser && existingChatOther) {
-      let commonChatId = null;
+  //   if (existingChatUser && existingChatOther) {
+  //     let commonChatId = null;
 
-      for (let chatUser of existingChatUser) {
-        for (let chatOther of existingChatOther) {
-          if (chatUser.chat_id === chatOther.chat_id) {
-            commonChatId = chatUser.chat_id;
+  //     for (let chatUser of existingChatUser) {
+  //       for (let chatOther of existingChatOther) {
+  //         if (chatUser.chat_id === chatOther.chat_id) {
+  //           commonChatId = chatUser.chat_id;
 
-            break;
-          }
-        }
+  //           break;
+  //         }
+  //       }
 
-        if (commonChatId) break;
-      }
-      if (commonChatId) {
-        setChatId(commonChatId);
-        setLoginPersonal(userId);
-        setOtherLoginPersonal(otherUserId);
-        setProductId(itemid);
-      }
-    }
-  }
+  //       if (commonChatId) break;
+  //     }
+  //     if (commonChatId) {
+  //       setChatId(commonChatId);
+  //       setLoginPersonal(userId);
+  //       setOtherLoginPersonal(otherUserId);
+  //       setProductId(itemid);
+  //     }
+  //   }
+  // }
 
   const prevHandler = () => {
     setIsAsk(false);

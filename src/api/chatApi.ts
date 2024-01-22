@@ -90,7 +90,7 @@ export function useSendMessage() {
   }) => {
     const { error } = await supabase
       .from('messages')
-      .insert([{ content: content, author_id: author_id, chat_id: chat_id, item_id: item_id, others_id: others_id }]);
+      .insert([{ content, author_id, chat_id, item_id, others_id }]);
 
     if (error) {
       throw new Error('메시지 삽입 중 오류가 발생했습니다');

@@ -81,7 +81,11 @@ const Product = () => {
 
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-
+    console.log(inputValue);
+    console.log("i",LoginPersonal);
+    console.log(chatId);
+    console.log(productId);
+    console.log("u",otherLoginPersonal);
     sendDirectMessage({
       content: inputValue,
       author_id: LoginPersonal,
