@@ -42,7 +42,7 @@ const Comment = () => {
 
   const updateComment = async () => {
     const result = await updateCommentHandler(inputComment, commentId as number);
-    console.log(result);
+
     getCommentsInfo();
     setIsEditing(false);
     setCommentId(undefined);
@@ -101,14 +101,12 @@ const Comment = () => {
                             <>
                               <St.CommentButton
                                 onClick={() => {
-                                  // setCommentId(item.comment_id);
                                   updateComment();
                                 }}>
                                 완료
                               </St.CommentButton>
                               <St.CommentButton
                                 onClick={() => {
-                                  // setCommentId(item.comment_id);
                                   deleteComment(item.id);
                                 }}>
                                 삭제
@@ -120,8 +118,6 @@ const Comment = () => {
                         <St.CommentButtonBox>
                           <St.CommentButton
                             onClick={() => {
-                              // setCommentId(item.comment_id);
-                              // updateComment();
                               setIsEditing(true);
                               setCommentId(item.id);
                               setInputComment(item.content as string);
@@ -130,7 +126,6 @@ const Comment = () => {
                           </St.CommentButton>
                           <St.CommentButton
                             onClick={() => {
-                              // setCommentId(item.id);
                               deleteComment(item.id);
                             }}>
                             삭제

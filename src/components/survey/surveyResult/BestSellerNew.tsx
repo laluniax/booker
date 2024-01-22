@@ -15,7 +15,6 @@ const BestSellerNew = () => {
   useEffect(() => {
     fetchData();
   }, [genre]);
-  console.log(genre);
   const fetchData = async () => {
     try {
       setLoading(true);

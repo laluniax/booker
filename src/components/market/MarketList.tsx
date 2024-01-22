@@ -11,8 +11,6 @@ const MarketList = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [list, setList] = useState<ProductsTypes[]>([]);
 
-  console.log(list);
-
   const navigate = useNavigate();
   const params = useParams().id;
   const category = categoryArr[Number(params)];
@@ -23,7 +21,6 @@ const MarketList = () => {
 
   const getUserSession = async () => {
     const result = await getUserSessionHandler();
-    console.log(result);
     setSession(result.session);
   };
 

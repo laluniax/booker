@@ -124,8 +124,6 @@ const BookerTalkMain = () => {
                       navigation(`/detail/${item.id}`);
                     }}>
                     <St.PostTitle>{item.title}</St.PostTitle>
-                    {/* <span>{item.user_id}</span> */}
-                    {/* <St.PostContent>{item.content}</St.PostContent> */}
                     <St.PostNickName>
                       {item.users.nickname} | {formatCreatedAt(item.created_at)}
                     </St.PostNickName>
