@@ -7,10 +7,10 @@ import Famouspainting2 from '../../styles/assets/famouspainitngimages/painting1.
 import Famouspainting3 from '../../styles/assets/famouspainitngimages/painting3.jpg';
 import Famouspainting4 from '../../styles/assets/famouspainitngimages/painting4.jpg';
 const images = [
-  { image: Famouspainting1, alt: 'Karina' },
-  { image: Famouspainting2, alt: 'Winter' },
-  { image: Famouspainting3, alt: 'Jijle' },
-  { image: Famouspainting4, alt: 'NingNing' },
+  { image: Famouspainting1, alt: 'Famouspainting1' },
+  { image: Famouspainting2, alt: 'Famouspainting2' },
+  { image: Famouspainting3, alt: 'Famouspainting3' },
+  { image: Famouspainting4, alt: 'Famouspainting4' },
 ];
 
 const ImageSlideshow = () => {

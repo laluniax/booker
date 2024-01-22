@@ -1,9 +1,16 @@
-
-import { useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState,useRecoilValue } from 'recoil';
-import { useCreateOrGetChat, useSendMessage } from '../../api/chatApi';
+import { useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { useSendMessage } from '../../api/chatApi';
 import { supabase } from '../../api/supabase.api';
-import { ChatId, chatRoomsState, globalModalSwitch, otherPerson, person, productState, sendMessages } from '../../atom/product.atom';
+import {
+  ChatId,
+  chatRoomsState,
+  globalModalSwitch,
+  otherPerson,
+  person,
+  productState,
+  sendMessages,
+} from '../../atom/product.atom';
 
 import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
@@ -28,13 +35,12 @@ export type ChatData = {
 };
 const Chat = () => {
   // 문쨩
-  const [문길, set문길] = useRecoilState(globalModalSwitch);
+  const [isOpen, setIsOpen] = useRecoilState(globalModalSwitch);
   //모달창을 열고 닫는 state
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
   const [isAsk, setIsAsk] = useState<boolean>(false);
   //메세지 저장 state
   const [askMessage, setAskMessage] = useState<string>('');
-  const [users, setUsers] = useState<UserType[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
@@ -46,8 +52,6 @@ const Chat = () => {
   const [productId, setProductId] = useRecoilState(productState);
   const chatRooms = useRecoilValue(chatRoomsState);
 
-
-
   const InputChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -57,20 +61,14 @@ const Chat = () => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    // console.log(user?.id)
-    // console.log(otherUserId)
     if (user && user.email) {
-      // const userId = user.id;
-      // setUsers(userId)
       if (user) {
-        // await checkChatWithUser(user.id, otherUserId, item_id, chat_id);
         setChatId(chat_id);
         setLoginPersonal(otherUserId);
         setOtherLoginPersonal(user.id);
         setProductId(item_id);
 
         setIsChatModalOpen(true);
-        // setOtherLoginPersonal(otherUserId);
       }
     }
   };
@@ -93,11 +91,7 @@ const Chat = () => {
   //dm메시지 전송
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
- console.log(inputValue)
- console.log(LoginPersonal)
- console.log(chatId)
- console.log(productId)
- console.log(otherLoginPersonal)
+
     sendDirectMessage({
       content: inputValue,
       author_id: LoginPersonal,
@@ -124,8 +118,6 @@ const Chat = () => {
       ));
   };
 
-
-
   const auth = useAuth();
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
@@ -134,7 +126,6 @@ const Chat = () => {
   const sendMessage = async () => {
     if (!auth.session) return;
     if (!askMessage.trim()) return; // 메시지가 비어있지 않은지 확인
-    console.log('sendMessage 실행');
     await supabase.from('qna').insert({
       room_id: auth.session.user.id,
       sender_id: auth.session.user.id,
@@ -152,11 +143,6 @@ const Chat = () => {
   if (!auth.session) return null;
 
   async function checkChatWithUser(userId: string, otherUserId: string, itemid: number, chat_id: string) {
-   console.log(userId)
-   console.log(otherUserId)
-   console.log(itemid)
-   console.log(chat_id)
-   
     // 상점 채팅시 발신자 other 수신자 user// 메인 채팅시 반대로 생각하면 됨.
     const { data: existingChatUser } = await supabase
       .from('chats_users')
@@ -164,18 +150,14 @@ const Chat = () => {
       .eq('user_id', otherUserId)
       .eq('item_id', itemid);
 
-    console.log('existingChatUser', existingChatUser);
     const { data: existingChatOther } = await supabase
       .from('chats_users')
       .select('chat_id,  user_id')
       .eq('others_id', userId)
       .eq('item_id', itemid);
 
-    console.log('existingChatOther', existingChatOther);
     if (existingChatUser && existingChatOther) {
       let commonChatId = null;
-
-
 
       for (let chatUser of existingChatUser) {
         for (let chatOther of existingChatOther) {
@@ -217,7 +199,7 @@ const Chat = () => {
   return (
     <>
       {auth.session.profile.isAdmin ? (
-        문길 && <AdminChat />
+        isOpen && <AdminChat />
       ) : (
         <St.Container>
           {isChatModalOpen && (
@@ -248,10 +230,10 @@ const Chat = () => {
                   <St.PrevBtn onClick={prevHandler}>
                     <img src="/images/chat/prev.png" alt="Prev" width={30} height={30} />
                   </St.PrevBtn>
-                  <St.ChatHeader>{/* <img src="/images/common/logo.png" alt="Logo" /> */}</St.ChatHeader>
+                  <St.ChatHeader></St.ChatHeader>
                 </St.LogoWrapper>
               ) : (
-                <St.ChatHeader>{/* <img src="/images/common/logo.png" alt="Logo" /> */}</St.ChatHeader>
+                <St.ChatHeader></St.ChatHeader>
               )}
               <St.ChatTopBox>
                 <St.MainMessage>
@@ -297,11 +279,10 @@ const Chat = () => {
           src="/images/customerchatting/bookerchattingicon.png"
           alt="bookerchattingicon"
           onClick={() => {
-            set문길(!문길);
+            setIsOpen(!isOpen);
             setIsSwitch(!isSwitch);
           }}
         />
-        {/* {isSwitch ? 'close' : 'open'} */}
       </St.TalkButtonWrapper>
     </>
   );

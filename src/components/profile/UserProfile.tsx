@@ -1,6 +1,6 @@
 import { Session } from '@supabase/supabase-js';
 import { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   deleteUserImgHandler,
   followHandler,
@@ -30,6 +30,8 @@ const UserProfile = () => {
   const [uploadFile, setUploadFile] = useState<File>(); // 실제로 업로드 할 파일
   const [followId, setFollowId] = useState('');
   const [following, setFollowing] = useState(false); // 팔로잉:거짓 이 기본
+
+  const navigate = useNavigate();
 
   const getUserData = async () => {
     const result = await getUserDataHandler(params as string);
@@ -81,8 +83,15 @@ const UserProfile = () => {
   };
   // 팔로우하기
   const onClickFollowBtn = async () => {
-    const result = await followHandler(followId, params as string, userSession?.user.id as string);
-    followIdList();
+    if (!userSession) {
+      if (window.confirm('로그인 페이지로 이동하시겠습니까?')) {
+        navigate(`/login`);
+        return;
+      } else return;
+    } else {
+      const result = await followHandler(followId, params as string, userSession?.user.id as string);
+      followIdList();
+    }
   };
   // 언팔로우하기
   const onClickUnfollowBtn = async () => {

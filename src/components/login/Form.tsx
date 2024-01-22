@@ -9,7 +9,6 @@ import { GoogleLoginBtn } from './google';
 
 const Form = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);
-  // const [password, setPassword] = useState('');
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
   const [emailError, setEmailError] = useState('');
@@ -58,19 +57,11 @@ const Form = () => {
     try {
       const result = await signinHandler(emailRef.current?.value || '', passwordRef.current?.value || '');
 
-      console.log('result', result);
-
-      //   const { data, error } = await supabase.auth.signInWithPassword({
-      //     email: emailRef.current?.value || '',
-      //     password: password,
-      //   });
-
       if (result.error) {
         console.error('로그인중 오류 발생', result.error);
       } else {
         console.log('로그인 성공', result.data);
         // 로그인 성공 후 추가 작업 수행
-        // alert('로그인완료');
         navigate('/');
       }
     } catch (error) {
@@ -116,7 +107,6 @@ const Form = () => {
         <St.SocialLoginBtnBox>
           <GoogleLoginBtn />
           <GithubLoginBtn />
-          {/* <KakaoLoginBtn/> */}
         </St.SocialLoginBtnBox>
       </St.LoginContainer>
     </St.Container>

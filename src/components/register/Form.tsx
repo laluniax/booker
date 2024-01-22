@@ -166,7 +166,6 @@ console.log(nicknameRef.current?.value )
         return;
       }
 
-      // console.log('회원가입 성공:', result.data);
       alert('회원가입 완료');
       navigation('/login');
     } catch (error) {

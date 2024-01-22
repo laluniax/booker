@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../survey/Loading';
 import * as St from '../BookIntroduction.styled';
 
 interface Special {
@@ -19,6 +20,7 @@ const BookSpecial = () => {
   const [ref, inView] = useInView();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -27,9 +29,11 @@ const BookSpecial = () => {
     setIsLoading(true);
 
     try {
+      setLoading(true);
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special?page=${page}`);
       setSpecial((prev) => [...prev, ...response.data.item]);
       setPage((page) => page + 1);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     } finally {
@@ -50,9 +54,10 @@ const BookSpecial = () => {
   return (
     <St.Container>
       <St.Header>
-        <St.CategoryTitle>베스트셀러</St.CategoryTitle>
+        <St.CategoryTitle>스페셜</St.CategoryTitle>
       </St.Header>
       <St.Body>
+        {loading ? <Loading /> : null}
         {special.map((book) => {
           return (
             <St.BookCardWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
@@ -62,7 +67,6 @@ const BookSpecial = () => {
                   <img src={book.cover} alt="책 이미지" width={230} height={290} />
                 </St.BookImg>
                 <St.BookIntro>
-                  {/* <St.BookGenre>{book.categoryName}</St.BookGenre> */}
                   <St.Title>{book.title}</St.Title>
                   <St.Author>저자 | {book.author}</St.Author>
                   <St.Plot>출판사 | {book.publisher}</St.Plot>

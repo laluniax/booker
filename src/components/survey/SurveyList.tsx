@@ -20,51 +20,56 @@ const SurveyList = () => {
 
   return (
     <St.Container>
-      <St.Title>
-        <img src="images/common/logo.png" alt="Logo" />가 {nickname}님이 좋아할만한 책을 추천해드릴게요!
-      </St.Title>
-      <St.BtnContainaer>
-        <div>
-          <St.SurveyButton
-            onClick={() => {
-              navigate('/BestSellerDomForSurvey');
-            }}>
-            🔥Best Seller🔥 요즘 핫한 국내도서 vs 외국도서 추천받기!!
-          </St.SurveyButton>
-        </div>
-        <div>
-          <St.SurveyButton
-            onClick={() => {
-              navigate('/BestSellerGenreSurvey');
-            }}>
-            🔥Best Seller🔥 요즘 핫한 원하는 장르의 책 추천받기!!
-          </St.SurveyButton>
-        </div>
-        <div>
-          <St.SurveyButton
-            onClick={() => {
-              navigate('/BestSellerNewSurvey');
-            }}>
-            🔥Best Seller🔥 신작, 어디까지 읽어봤니??
-          </St.SurveyButton>
-        </div>
-        <div>
-          <St.SurveyButton
-            onClick={() => {
-              navigate('/BestSellerValueSurvey');
-            }}>
-            🔥Best Seller🔥 본인이 추구하는 가치에 걸맞는 책 추천받기!!
-          </St.SurveyButton>
-        </div>
-        <div>
-          <St.SurveyButton
-            onClick={() => {
-              navigate('/BestSellerCheapSurvey');
-            }}>
-            🔥Best Seller🔥 텅장러들을 위한 추천 도서!!
-          </St.SurveyButton>
-        </div>
-      </St.BtnContainaer>
+      <St.BtnContainer>
+        <St.TitleAndImageWrapper>
+          <St.Title>
+            <span>{nickname}</span> 님이 좋아할만한 책을 추천해드릴게요!
+          </St.Title>
+        </St.TitleAndImageWrapper>
+        <St.ServeyContentWrapper>
+          <St.SurveyContentBox>
+            <St.SurveyButton
+              onClick={() => {
+                navigate('/BestSellerDomForSurvey');
+              }}>
+              🔥Best Seller🔥 요즘 핫한 국내도서 vs 외국도서 추천받기!!
+            </St.SurveyButton>
+          </St.SurveyContentBox>
+
+          <St.SurveyContentBox>
+            <St.SurveyButton
+              onClick={() => {
+                navigate('/BestSellerGenreSurvey');
+              }}>
+              🔥Best Seller🔥 요즘 핫한 원하는 장르의 책 추천받기!!
+            </St.SurveyButton>
+          </St.SurveyContentBox>
+          <St.SurveyContentBox>
+            <St.SurveyButton
+              onClick={() => {
+                navigate('/BestSellerNewSurvey');
+              }}>
+              🔥Best Seller🔥 신작, 어디까지 읽어봤니??
+            </St.SurveyButton>
+          </St.SurveyContentBox>
+          <St.SurveyContentBox>
+            <St.SurveyButton
+              onClick={() => {
+                navigate('/BestSellerValueSurvey');
+              }}>
+              🔥Best Seller🔥 본인이 추구하는 가치에 걸맞는 책 추천받기!!
+            </St.SurveyButton>
+          </St.SurveyContentBox>
+          <St.SurveyContentBox>
+            <St.SurveyButton
+              onClick={() => {
+                navigate('/BestSellerCheapSurvey');
+              }}>
+              🔥Best Seller🔥 텅장러들을 위한 추천 도서!!
+            </St.SurveyButton>
+          </St.SurveyContentBox>
+        </St.ServeyContentWrapper>
+      </St.BtnContainer>
     </St.Container>
   );
 };
