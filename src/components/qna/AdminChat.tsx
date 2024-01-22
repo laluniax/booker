@@ -95,9 +95,10 @@ const AdminChat = () => {
               </St.LogoWrapper>
             </St.ChatHeader>
             <St.MainMessage>
-              안녕하세요 🙌 <br />
-              새로운 지식으로 시작되는 어쩌구저쩌구, 북커입니다📚
-              <br />​ 무엇을 도와드릴까요?
+              안녕하세요 !
+              <br />
+              책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝ <br />
+              궁금한 점이 있으신가요?{' '}
             </St.MainMessage>
             <St.ChatBody>
               {messages.map((message) => {

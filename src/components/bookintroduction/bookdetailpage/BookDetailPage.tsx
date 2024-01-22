@@ -16,11 +16,9 @@ interface BookData {
 
 const BookDetailPage = () => {
   const params = useParams();
-  console.log(params);
   const itemId = params.itemid;
   const [detailData, setDetailData] = useState<BookData | null>(null);
 
-  console.log(typeof detailData);
   useEffect(() => {
     getBooks();
   }, []);
@@ -35,14 +33,13 @@ const BookDetailPage = () => {
       console.error('Failed to fetch book data:', error);
     }
   };
-  console.log(detailData);
+
   if (!detailData) {
     return <div>Loading...</div>;
   }
 
   return (
     <St.Container>
-      {/* <St.Category>{detailData.categoryName}</St.Category> */}
       <St.BookWrapper>
         <St.InfoHeader>
           <St.BookImage>

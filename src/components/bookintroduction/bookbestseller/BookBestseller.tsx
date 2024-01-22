@@ -68,7 +68,6 @@ const BookBestseller = () => {
                   <img src={book.cover} alt="책 이미지" width={230} height={290} />
                 </St.BookImg>
                 <St.BookIntro>
-                  {/* <St.BookGenre>{book.categoryName}</St.BookGenre> */}
                   <St.Title>{book.title}</St.Title>
                   <St.Author>저자 | {book.author}</St.Author>
                   <St.Plot>출판사 | {book.publisher}</St.Plot>
