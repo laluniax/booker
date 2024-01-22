@@ -8385,7 +8385,7 @@ react-spinners@^0.13.8:
 
 react@^18.2.0:
   version "18.2.0"
-  resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
   dependencies:
     loose-envify "^1.1.0"
@@ -9047,6 +9047,11 @@ spdy@^4.0.2:
     http-deceiver "^1.2.7"
     select-hose "^2.0.0"
     spdy-transport "^3.0.0"
+
+spinners@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/spinners/-/spinners-1.2.2.tgz#0af88cb6b3de9a6884ab1e2e9220a612d72c73c3"
+  integrity sha512-gAErk8zdlRzdfDJ0OszajKDbTnEhDfljtMfxwl62l8FeG2PaKEyIKKrDi+4jaKP5STe5pfFL0+OVTTAHiGe2eg==
 
 sprintf-js@~1.0.2:
   version "1.0.3"

@@ -1,15 +1,10 @@
+
 import { useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState,useRecoilValue } from 'recoil';
 import { useCreateOrGetChat, useSendMessage } from '../../api/chatApi';
 import { supabase } from '../../api/supabase.api';
-import {
-  ChatId,
-  chatFunctionsState,
-  globalModalSwitch,
-  otherPerson,
-  person,
-  sendMessages,
-} from '../../atom/product.atom';
+import { ChatId, chatRoomsState, globalModalSwitch, otherPerson, person, productState, sendMessages } from '../../atom/product.atom';
+
 import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
@@ -18,7 +13,9 @@ export type MessageType = {
   id: number;
   content: string;
   author_id: string;
-  chat_id: number;
+  chat_id: string;
+  item_id: number;
+  others_id: string;
 };
 export type UserType = {
   id: string;
@@ -40,108 +37,95 @@ const Chat = () => {
   const [users, setUsers] = useState<UserType[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
-  //흐름  첫랜더링시 useEffect 실행 : 로그인 아이디+모든 사용자/메시지 => DmClickhandler (상대방정보가져옴)
-  //=> 이메일 챗방만들기함수 넘겨줌 => createOrGetChatWithUser 이메일 기반 데이터 조회 및 비교 해서 기존 챗방 있는지 확인
-  //=> 있으면 setChatId(chat방id값임) || 없으면 새로생성 => KeyPresshandler함수에 값을 입력하면 상대방에게 메시지가는 구조
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [otherLoginPersonal, setOtherLoginPersonal] = useRecoilState(otherPerson);
   const [messages, setMessages] = useRecoilState(sendMessages);
   const [chatId, setChatId] = useRecoilState(ChatId);
-  const setChatFunctions = useSetRecoilState(chatFunctionsState);
   const { mutate: sendDirectMessage } = useSendMessage();
-  const { mutate: createOrGetChat } = useCreateOrGetChat();
-  // const productId = useRecoilValue(productState); // Recoil에서 제품 ID 가져오기
+
+  const [productId, setProductId] = useRecoilState(productState);
+  const chatRooms = useRecoilValue(chatRoomsState);
+
+
+
   const InputChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
+  //모달에선 b->a로 보내면 a->b로 가는 형식이라. 받는 사람 보내는 사람이 a가 되기 때문에, 수정해야됨.
   // DM 클릭 핸들러
-  const DmClickhandler = async (otherUserId: string) => {
+  const DmClickhandler = async (otherUserId: string, item_id: number, chat_id: string) => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
+    // console.log(user?.id)
+    // console.log(otherUserId)
     if (user && user.email) {
       // const userId = user.id;
+      // setUsers(userId)
       if (user) {
-        await checkChatWithUser(user.id, otherUserId);
+        // await checkChatWithUser(user.id, otherUserId, item_id, chat_id);
+        setChatId(chat_id);
+        setLoginPersonal(otherUserId);
+        setOtherLoginPersonal(user.id);
+        setProductId(item_id);
+
         setIsChatModalOpen(true);
-        setOtherLoginPersonal(otherUserId);
+        // setOtherLoginPersonal(otherUserId);
       }
     }
   };
+
+  //모달 창 뜨고 메시지 보내는 핸들러들
   // 메시지 전송 핸들러
   const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && inputValue.trim()) {
-      sendDirectMessage({ content: inputValue, authorId: otherLoginPersonal, chatId: chatId });
+      sendDirectMessage({
+        content: inputValue,
+        author_id: LoginPersonal,
+        chat_id: chatId,
+        item_id: productId,
+        others_id: otherLoginPersonal,
+      });
       setInputValue('');
     }
   };
+
+  //dm메시지 전송
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-    sendDirectMessage({ content: inputValue, authorId: otherLoginPersonal, chatId: chatId });
+ console.log(inputValue)
+ console.log(LoginPersonal)
+ console.log(chatId)
+ console.log(productId)
+ console.log(otherLoginPersonal)
+    sendDirectMessage({
+      content: inputValue,
+      author_id: LoginPersonal,
+      chat_id: chatId,
+      item_id: productId,
+      others_id: otherLoginPersonal,
+    });
+
     setInputValue('');
   };
-  // 메시지 컴포넌트를 렌더링하는 함수
+
   const renderMessages = () => {
     return messages
-      .filter((message: MessageType) => String(message.chat_id) === chatId)
+      .filter(
+        (message: MessageType) =>
+          (message.author_id === LoginPersonal || message.author_id === otherLoginPersonal) &&
+          message.chat_id === chatId &&
+          message.item_id === productId,
+      )
       .map((message: MessageType) => (
         <St.MessageWrapper key={message.id} isOutgoing={message.author_id === LoginPersonal}>
           <St.MessageComponent isOutgoing={message.author_id === LoginPersonal}>{message.content}</St.MessageComponent>
         </St.MessageWrapper>
       ));
   };
-  useEffect(() => {
-    // 로그인한 사용자 정보 가져오기
-    supabase.auth.getUser().then(({ data }) => {
-      if (data.user) {
-        setLoginPersonal(data.user.id);
-      }
-    });
-    // 모든 사용자 가져오기
-    const fetchUsers = async () => {
-      let { data, error } = await supabase.from('users').select('*');
-      if (error) {
-        console.error('Error fetching users:', error);
-      } else {
-        setUsers(data as UserType[]);
-      }
-    };
-    // 선택된 사용자의 메시지 가져오기
-    const fetchMessages = async () => {
-      if (chatId) {
-        let { data, error } = await supabase.from('messages').select('*').eq('chat_id', chatId);
-        if (error) {
-          console.error('Error fetching messages:', error);
-        } else {
-          setMessages(data ?? []);
-        }
-      }
-    };
-    fetchUsers();
-    fetchMessages();
-    // 메시지 변경사항을 감지할 채널 구독
-    const messagesSubscription = supabase
-      .channel('custom-all-channel')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, async (payload: any) => {
-        console.log('Changes received!', payload);
-        fetchMessages(); // 데이터베이스에 변화가 있을 때 메시지 다시 가져오기
-        // setChatId(payload.new.chat_id); //메시지 창 열기
-      })
-      .subscribe();
-    // 채팅방 변경사항을 감지할 채널 구독
-    const chatChannel = supabase
-      .channel('chat-channel')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {
-        console.log('New chat!', payload);
-        // 새 채팅방이 생성되었을 때 필요한 동작을 수행합니다.
-      })
-      .subscribe();
-    // 구독 해지
-    return () => {
-      messagesSubscription?.unsubscribe();
-      chatChannel?.unsubscribe();
-    };
-  }, [chatId]);
+
+
+
   const auth = useAuth();
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
@@ -166,56 +150,68 @@ const Chat = () => {
     }
   };
   if (!auth.session) return null;
-  //챗방 만들기 //여기에 기존에 있는 챗방인지 아닌지 파악 하고 있으면 기존 거 쓰고 없으면 새로 //구현 되면 상대방이 챗을 받으면 챗창 오픈 되도록
-  async function checkChatWithUser(userId: string, otherUserId: string) {
-    console.log('checkChatWithUser', userId);
-    console.log('checkChatWithUserother', otherUserId);
-    // userId에 해당하는 챗방의 chat_id와 item_id를 가져옴
-    //.eq('others_id', userId);  .eq('user_id', otherUserId); 거꾸로 되어있네?
-    //왜냐? 모달은 a->b 한테 신청 상점은 b->a 한테 신청인데. 상점에서 신청을 해야 되는거라 주체가 달라
-    // otherUserId에 해당하는 챗방의 chat_id와 item_id를 가져옴
+
+  async function checkChatWithUser(userId: string, otherUserId: string, itemid: number, chat_id: string) {
+   console.log(userId)
+   console.log(otherUserId)
+   console.log(itemid)
+   console.log(chat_id)
+   
+    // 상점 채팅시 발신자 other 수신자 user// 메인 채팅시 반대로 생각하면 됨.
     const { data: existingChatUser } = await supabase
       .from('chats_users')
-      .select('chat_id, item_id,others_id')
-      .eq('user_id', userId);
+      .select('chat_id, others_id')
+      .eq('user_id', otherUserId)
+      .eq('item_id', itemid);
+
     console.log('existingChatUser', existingChatUser);
     const { data: existingChatOther } = await supabase
       .from('chats_users')
-      .select('chat_id, item_id,user_id')
-      .eq('others_id', otherUserId);
+      .select('chat_id,  user_id')
+      .eq('others_id', userId)
+      .eq('item_id', itemid);
+
     console.log('existingChatOther', existingChatOther);
     if (existingChatUser && existingChatOther) {
       let commonChatId = null;
-      // Check for a common chat_id and item_id
+
+
+
       for (let chatUser of existingChatUser) {
         for (let chatOther of existingChatOther) {
-          if (chatUser.chat_id === chatOther.chat_id && chatUser.item_id === chatOther.item_id) {
+          if (chatUser.chat_id === chatOther.chat_id) {
             commonChatId = chatUser.chat_id;
+
             break;
           }
         }
+
         if (commonChatId) break;
       }
       if (commonChatId) {
-        // A common chat_id is found
         setChatId(commonChatId);
+        setLoginPersonal(userId);
+        setOtherLoginPersonal(otherUserId);
+        setProductId(itemid);
       }
     }
   }
-  // 사용자 목록을 렌더링하는 함수
-  const renderUserList = () => {
-    return users
-      .filter((user) => user.id !== LoginPersonal)
-      .map((user) => (
-        <St.UserItem key={user.id}>
-          <St.UserEmail>{user.nickname}</St.UserEmail>
-          <St.UserLastMessage>{user.lastMessage || '메시지가 없습니다.'}</St.UserLastMessage>
-          <St.DMButton onClick={() => DmClickhandler(user.id)}>DM</St.DMButton>
-        </St.UserItem>
-      ));
-  };
+
   const prevHandler = () => {
     setIsAsk(false);
+  };
+
+  // 사용자 목록을 렌더링하는 함수
+  const renderChatRoomsList = () => {
+    return chatRooms.map((chatRoom) => (
+      <St.UserItem key={chatRoom.chat_id}>
+        <St.UserEmail>{chatRoom.receiverNickname}</St.UserEmail> {/* '받는 사람'의 닉네임을 표시 */}
+        <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
+        <St.DMButton onClick={() => DmClickhandler(chatRoom.others_id, chatRoom.item_id, chatRoom.chat_id)}>
+          Open Chat
+        </St.DMButton>
+      </St.UserItem>
+    ));
   };
 
   return (
@@ -228,8 +224,9 @@ const Chat = () => {
             <St.ChatModalWrapper>
               {/* 채팅 모달 내용 */}
               <St.ChatModalHeader>
-                <St.ChatModalTitle>채팅</St.ChatModalTitle>
-                <St.ChatModalCloseButton onClick={() => setIsChatModalOpen(false)}>x</St.ChatModalCloseButton>
+                <button onClick={() => setIsChatModalOpen(false)}>닫기</button>
+                <div>채팅</div>
+                <div>구매확정</div>
               </St.ChatModalHeader>
               <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
               <St.ChatModalFooter>
@@ -288,7 +285,7 @@ const Chat = () => {
               ) : (
                 <>
                   {/* Chats 컴포넌트의 UI 추가 */}
-                  <St.UserItemBox>{renderUserList()}</St.UserItemBox>
+                  <div>{renderChatRoomsList()}</div>
                 </>
               )}
             </St.ChatWrapper>
