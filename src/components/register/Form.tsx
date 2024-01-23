@@ -146,14 +146,14 @@ const Form = () => {
   };
 
   const SignUpHandler = async () => {
-    // // 모든 유효성 검사가 통과되었는지 확인
-    // if (!isEmailValid || !isPasswordValid || !isRepasswordValid || !isNicknameValid) {
-    //   alert('모든 입력란을 올바르게 채워주세요.');
-    //   return;
-    // }
-console.log(emailRef.current?.value)
-console.log( passwordRef.current?.value)
-console.log(nicknameRef.current?.value )
+    // 모든 유효성 검사가 통과되었는지 확인
+    if (!isEmailValid || !isPasswordValid || !isRepasswordValid || !isNicknameValid) {
+      alert('모든 입력란을 올바르게 채워주세요.');
+      return;
+    }
+// console.log(emailRef.current?.value)
+// console.log( passwordRef.current?.value)
+// console.log(nicknameRef.current?.value )
 
     try {
       const result = await signupHandler(

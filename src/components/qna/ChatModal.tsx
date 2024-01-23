@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useSendMessage } from '../../api/chatApi';
 import { supabase } from '../../api/supabase.api';
@@ -51,21 +51,48 @@ const Chat = () => {
 
   const [productId, setProductId] = useRecoilState(productState);
   const chatRooms = useRecoilValue(chatRoomsState);
+  const [loginUser,setLoginUser] = useState('')
 
-  console.log('messages',messages)
+  // console.log('messages',messages)
   // console.log('chatRooms',chatRooms[0].item_id)
 
+  useEffect(() => {
+
+    async function fetchLoggedInUser() {
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (user?.id) {
+          setLoginUser(user.id);
+        } else {
+
+          setLoginUser('');
+
+
+        }
+      } catch (error) {
+        console.error('Error fetching logged in user:', error);
+      }
+    }
+  
+    fetchLoggedInUser(); // Call the function to execute it
+  
+
+  }, []); 
+  
   const InputChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
-  //모달에선 b->a로 보내면 a->b로 가는 형식이라. 받는 사람 보내는 사람이 a가 되기 때문에, 수정해야됨.
+
   // DM 클릭 핸들러
   const DmClickhandler = async (item_id: number, chat_id: string) => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    console.log('item_id',item_id)
-    console.log('chat_id',chat_id)
+    // console.log('item_id',item_id)
+    // console.log('chat_id',chat_id)
     if (user && user.email) {
       if (user) {
         setChatId(chat_id);
@@ -121,10 +148,10 @@ const Chat = () => {
 
   
 
-  console.log('inputValue',inputValue);
-  console.log('i', LoginPersonal);
-  console.log('chatId',chatId);
-  console.log('productId',productId);
+  // console.log('inputValue',inputValue);
+  // console.log('i', LoginPersonal);
+  // console.log('chatId',chatId);
+  // console.log('productId',productId);
   // console.log('u', otherLoginPersonal);
   const auth = useAuth();
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,58 +177,38 @@ const Chat = () => {
   };
   if (!auth.session) return null;
 
-  // async function checkChatWithUser(userId: string, otherUserId: string, itemid: number, chat_id: string) {
-  //   // 상점 채팅시 발신자 other 수신자 user// 메인 채팅시 반대로 생각하면 됨.
-  //   const { data: existingChatUser } = await supabase
-  //     .from('chats_users')
-  //     .select('chat_id, others_id')
-  //     .eq('user_id', otherUserId)
-  //     .eq('item_id', itemid);
-
-  //   const { data: existingChatOther } = await supabase
-  //     .from('chats_users')
-  //     .select('chat_id,  user_id')
-  //     .eq('others_id', userId)
-  //     .eq('item_id', itemid);
-
-  //   if (existingChatUser && existingChatOther) {
-  //     let commonChatId = null;
-
-  //     for (let chatUser of existingChatUser) {
-  //       for (let chatOther of existingChatOther) {
-  //         if (chatUser.chat_id === chatOther.chat_id) {
-  //           commonChatId = chatUser.chat_id;
-
-  //           break;
-  //         }
-  //       }
-
-  //       if (commonChatId) break;
-  //     }
-  //     if (commonChatId) {
-  //       setChatId(commonChatId);
-  //       setLoginPersonal(userId);
-  //       setOtherLoginPersonal(otherUserId);
-  //       setProductId(itemid);
-  //     }
-  //   }
-  // }
 
   const prevHandler = () => {
     setIsAsk(false);
   };
 
-  // 사용자 목록을 렌더링하는 함수
+  // // 사용자 목록을 렌더링하는 함수
+  // const renderChatRoomsList = () => {
+  //   return chatRooms.map((chatRoom) => (
+  //     <St.UserItem key={chatRoom.chat_id}>
+  //       {/* <St.UserEmail>{chatRoom.receiverNickname}</St.UserEmail>  */}
+  //       <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
+  //       <St.DMButton onClick={() => DmClickhandler( chatRoom.item_id, chatRoom.chat_id)}> 
+  //         Open Chat
+  //       </St.DMButton>
+  //     </St.UserItem>
+  //   ));
+  // };
+  // console.log('LoginPersonal',loginUser)
+
   const renderChatRoomsList = () => {
-    return chatRooms.map((chatRoom) => (
-      <St.UserItem key={chatRoom.chat_id}>
-        <St.UserEmail>{chatRoom.receiverNickname}</St.UserEmail> 
-        <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
-        <St.DMButton onClick={() => DmClickhandler( chatRoom.item_id, chatRoom.chat_id)}> 
-          Open Chat
-        </St.DMButton>
-      </St.UserItem>
-    ));
+  
+    return chatRooms
+      .filter(chatRoom => chatRoom.user_id ===loginUser)
+      .map(chatRoom => (
+        <St.UserItem key={chatRoom.chat_id}>
+          <St.UserEmail>{chatRoom.sendNickname}</St.UserEmail> 
+          <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
+          <St.DMButton onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id)}> 
+            Open Chat
+          </St.DMButton>
+        </St.UserItem>
+      ));
   };
 
 
