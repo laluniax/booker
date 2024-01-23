@@ -19,20 +19,20 @@ export function useCreateOrGetChat() {
     otherUserId: string;
     productId: number;
   }) => {
-    // userId와 productId에 대한 챗방 존재 여부 확인
-    const { data: chatUser } = await supabase
+    // userId와 otherUserId에 대한 챗방 존재 여부 확인
+    let { data: chatUser, error } = await supabase
       .from('chats_users')
       .select('chat_id')
-      .eq('user_id', userId)
-      .eq('others_id', otherUserId)
+      .or(`user_id.eq.${userId},others_id.eq.${otherUserId}`)
       .eq('item_id', productId)
       .maybeSingle();
 
-    // // 두 결과가 같은 chat_id를 가지고 있는지 확인
+    // 챗방 아이디가 있으면 저장
     if (chatUser && chatUser.chat_id) {
       setChatId(chatUser.chat_id);
-      // console.log('같은챗방아이디',chatUser.chat_id)
-    } else {
+      console.log('챗방이 이미 존재')
+
+    } else if (!error) {
       // 기존 챗방이 없으므로 새 챗방 생성
       const { data: newChatData, error: newChatError } = (await supabase
         .from('chats')
@@ -49,7 +49,8 @@ export function useCreateOrGetChat() {
       // 새 챗방에 두 사용자를 chats_users에 추가
       if (newChatData) {
         const { error } = await supabase.from('chats_users').insert([
-          { chat_id: newChatData.id, user_id: userId, others_id: otherUserId, item_id: productId },
+          { chat_id: newChatData.id, user_id: userId, item_id: productId },
+          { chat_id: newChatData.id, user_id: otherUserId, item_id: productId },
           // { chat_id: newChatData.id, others_id: userId, user_id: otherUserId, item_id: productId },
         ]);
 
@@ -80,17 +81,15 @@ export function useSendMessage() {
     author_id,
     chat_id,
     item_id,
-    others_id,
+    // others_id,
   }: {
     content: string;
     author_id: string;
     chat_id: string;
     item_id: number;
-    others_id: string;
+    // others_id: string;
   }) => {
-    const { error } = await supabase
-      .from('messages')
-      .insert([{ content, author_id, chat_id, item_id, others_id }]);
+    const { error } = await supabase.from('messages').insert([{ content, author_id, chat_id, item_id }]); //others_id
 
     if (error) {
       throw new Error('메시지 삽입 중 오류가 발생했습니다');
@@ -104,5 +103,3 @@ export function useSendMessage() {
     },
   });
 }
-
-
