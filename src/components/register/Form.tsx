@@ -53,6 +53,7 @@ const Form = () => {
       setPasswordError('비밀번호는 최소 8자 이상이며, 최소 하나의 문자와 하나의 숫자를 포함해야 합니다');
     } else {
       setPasswordError('유효한 비밀번호입니다'); // 성공 메시지
+      setIsPasswordValid(true);
     }
   };
 
@@ -74,6 +75,7 @@ const Form = () => {
       setRepasswordError('비밀번호가 다릅니다');
     } else {
       setRepasswordError('비밀번호가 일치합니다'); // 성공 메시지
+      setIsRepasswordValid(true);
     }
   };
 
@@ -146,14 +148,14 @@ const Form = () => {
   };
 
   const SignUpHandler = async () => {
-    // // 모든 유효성 검사가 통과되었는지 확인
-    // if (!isEmailValid || !isPasswordValid || !isRepasswordValid || !isNicknameValid) {
-    //   alert('모든 입력란을 올바르게 채워주세요.');
-    //   return;
-    // }
-console.log(emailRef.current?.value)
-console.log( passwordRef.current?.value)
-console.log(nicknameRef.current?.value )
+    // 모든 유효성 검사가 통과되었는지 확인
+    if (!isEmailValid || !isPasswordValid || !isRepasswordValid || !isNicknameValid) {
+      alert('모든 입력란을 올바르게 채워주세요.');
+      return;
+    }
+    // console.log(emailRef.current?.value)
+    // console.log( passwordRef.current?.value)
+    // console.log(nicknameRef.current?.value )
 
     try {
       const result = await signupHandler(

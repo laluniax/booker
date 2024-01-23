@@ -30,11 +30,11 @@ export const chatRoomsState = atom<ChatRoom[]>({
   default: [], // 초기값은 빈 배열
 });
 
-type ChatRoom = {
+export type ChatRoom = {
   chat_id: string;
-  receiverNickname?: string; // 추가됨
+  sendNickname?: string; // 추가됨
   lastMessage?: string;
-  // others_id:string;
+  others_id:string;
   item_id:number;
   user_id:string;
 };
