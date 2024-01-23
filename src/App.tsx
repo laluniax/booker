@@ -28,21 +28,35 @@ const App = () => {
             // 'chats_users' 테이블에서 채팅방에 대한 '받는 사람'의 user_id 가져오기
             const { data: chatUser, error: chatUserError } = await supabase
               .from('chats_users')
-              .select('user_id,others_id,item_id') //others_id=>user_id로 바꿈 상점에서 a->b  받는 사람 b // 메인에서 b->a 받는사람 a 근데 b가 로직이 꼬여서 받는사람이자 보내는사람이 되버림.
+              .select('user_id,item_id') //others_id=>user_id로 바꿈 상점에서 a->b  받는 사람 b // 메인에서 b->a 받는사람 a 근데 b가 로직이 꼬여서 받는사람이자 보내는사람이 되버림.
               .eq('chat_id', chatRoom.id)
-              .single(); // 채팅방에 속한 '받는 사람'은 한 명만 있다고 가정
+              // .single(); // 채팅방에 속한 '받는 사람'은 한 명만 있다고 가정
 
 
-              console.log(chatUser)
+              console.log('chatUser',chatUser)
             if (chatUserError) throw chatUserError;
       
+              // 여기에서 chatUsers 배열의 각 요소에 대해 처리 필요
+    if (chatUser.length === 0) {
+      // 적절한 처리 로직
+      return {
+        chat_id: chatRoom.id,
+        user_id: '알 수 없음',
+        item_id: '알 수 없음',
+        receiverNickname: '알 수 없음',
+        lastMessage: '메시지가 없습니다.',
+      };
+    }
+
+    const firstChatUser = chatUser[0]; // 배열의 첫 번째 요소 사용
+
             // 'users' 테이블에서 '받는 사람'의 닉네임 가져오기
             const { data: user, error: userError } = await supabase
               .from('users')
               .select('nickname')
-              .eq('id', chatUser.user_id)
+              .eq('id', firstChatUser.user_id)
               .single();
-      console.log(user)
+      // console.log(user)
             if (userError) throw userError;
 
             //챗방 마지막 메시지 
@@ -60,9 +74,9 @@ const App = () => {
 
             return {
               chat_id: chatRoom.id,
-              others_id: chatUser?.user_id || '알 수 없음',
-              user_id: chatUser?.others_id || '알 수 없음',
-              item_id: chatUser?.item_id || '알 수 없음',
+              // others_id: chatUser?.others_id || '알 수 없음',
+              user_id: chatUser[0]?.user_id || '알 수 없음',
+              item_id: chatUser[0]?.item_id || '알 수 없음',
               receiverNickname: user.nickname, // '받는 사람'의 닉네임
               lastMessage: lastMessageData.content || '메시지가 없습니다.',
             };

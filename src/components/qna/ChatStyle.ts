@@ -124,8 +124,12 @@ export const MessageWrapper = styled.div<MessageProps>`
   justify-content: ${(props) => (props.isOutgoing ? 'flex-start' : 'flex-end')};
 `;
 
+
+
 export const MessageComponent = styled.div<MessageProps>`
   /* flex-direction: column; */
+  display: flex;
+    justify-content: ${props => props.isOutgoing ? 'flex-end' : 'flex-start'};
   padding: 10px;
   margin: 0.5rem;
   border-radius: 1rem;
@@ -134,6 +138,17 @@ export const MessageComponent = styled.div<MessageProps>`
   background-color: ${(props) => (props.isOutgoing ? '#7fd4f3' : '#000')}; // 예시 색상
   color: ${(props) => (props.isOutgoing ? '#000' : '#fff')};
 `;
+
+// export const MessageComponent = styled.div<MessageProps>`
+//   /* flex-direction: column; */
+//   padding: 10px;
+//   margin: 0.5rem;
+//   border-radius: 1rem;
+//   font-size: 1.3rem;
+//   word-wrap: break-word;
+//   background-color: ${(props) => (props.isOutgoing ? '#7fd4f3' : '#000')}; // 예시 색상
+//   color: ${(props) => (props.isOutgoing ? '#000' : '#fff')};
+// `;
 
 // Props 타입 정의
 export type MessageProps = {
