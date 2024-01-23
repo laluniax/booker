@@ -42,7 +42,7 @@ const Product = () => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-
+console.log()
     if (user?.id === otherUserId) {
       alert('자신에게 채팅을 보낼 수 없습니다 ');
       return;
@@ -71,7 +71,7 @@ const Product = () => {
         author_id: LoginPersonal,
         chat_id: chatId,
         item_id: productId,
-        others_id: otherLoginPersonal,
+        // others_id: otherLoginPersonal,
       });
       setChatId(chatId)
       setInputValue('');
@@ -81,13 +81,17 @@ const Product = () => {
 
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-
+    console.log(inputValue);
+    console.log("i",LoginPersonal);
+    console.log(chatId);
+    console.log(productId);
+    // console.log("u",otherLoginPersonal);
     sendDirectMessage({
       content: inputValue,
       author_id: LoginPersonal,
       chat_id: chatId,
       item_id: productId,
-      others_id: otherLoginPersonal,
+      // others_id: otherLoginPersonal,
     });
     setChatId(chatId)
     setInputValue('');
@@ -96,18 +100,15 @@ const Product = () => {
 
   const renderMessages = () => {
     return messages
-      .filter(
-        (message: MessageType) =>
-          (message.author_id === LoginPersonal || message.author_id === otherLoginPersonal) &&
-          message.chat_id === chatId &&
-          message.item_id === productId,
-      )
+      .filter((message: MessageType) => 
+        message.chat_id === chatId)
       .map((message: MessageType) => (
         <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
           {message.content}
         </St.MessageComponent>
       ));
   };
+  
 
   const getUserSession = async () => {
     const result = await getUserSessionHandler();

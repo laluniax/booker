@@ -34,7 +34,7 @@ type ChatRoom = {
   chat_id: string;
   receiverNickname?: string; // 추가됨
   lastMessage?: string;
-  others_id:string;
+  // others_id:string;
   item_id:number;
   user_id:string;
 };

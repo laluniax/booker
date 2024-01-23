@@ -288,22 +288,27 @@ export const SendButton = styled.button`
 `;
 
 export const MessageComponent = styled.div<MessageProps>`
-  /* padding: 10px;
-  margin: 5px;
-  border-radius: 10px;
-  max-width: 80%;
-  word-wrap: break-word;
-  align-self: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
-  background-color: ${(props) => (props.isOutgoing ? '#DCF8C6' : '#FFFFFF')}; // 예시 색상 */
-  display: flex;
   /* flex-direction: column; */
+  display: flex;
+    justify-content: ${props => props.isOutgoing ? 'flex-end' : 'flex-start'};
   padding: 10px;
-  margin: 5px;
-  border-radius: 10px;
-  max-width: 45%;
+  margin: 0.5rem;
+  border-radius: 1rem;
   font-size: 1.3rem;
   word-wrap: break-word;
-  justify-content: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
-  background-color: ${(props) => (props.isOutgoing ? '#DCF8C6' : '#000')}; // 예시 색상
-  color: ${(props) => (props.isOutgoing ? '#DCF8C6' : '#fff')};
+  background-color: ${(props) => (props.isOutgoing ? '#7fd4f3' : '#000')}; // 예시 색상
+  color: ${(props) => (props.isOutgoing ? '#000' : '#fff')};
 `;
+
+
+// export const MessageComponent = styled.div<MessageProps>`
+//   display: flex;
+//   justify-content: ${props => props.isOutgoing ? 'flex-end' : 'flex-start'};
+//   padding: 10px;
+//   margin: 5px;
+//   border-radius: 10px;
+//   max-width: 100%; /* You can adjust this as per your UI requirement */
+//   word-wrap: break-word;
+//   background-color: ${props => props.isOutgoing ? '#DCF8C6' : '#FFFFFF'};
+//   color: ${props => props.isOutgoing ? '#000' : '#000'}; // Adjust text color as needed
+// `;

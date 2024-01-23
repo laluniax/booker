@@ -52,20 +52,25 @@ const Chat = () => {
   const [productId, setProductId] = useRecoilState(productState);
   const chatRooms = useRecoilValue(chatRoomsState);
 
+  console.log('messages',messages)
+  // console.log('chatRooms',chatRooms[0].item_id)
+
   const InputChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
   //모달에선 b->a로 보내면 a->b로 가는 형식이라. 받는 사람 보내는 사람이 a가 되기 때문에, 수정해야됨.
   // DM 클릭 핸들러
-  const DmClickhandler = async (otherUserId: string, item_id: number, chat_id: string) => {
+  const DmClickhandler = async (item_id: number, chat_id: string) => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
+    console.log('item_id',item_id)
+    console.log('chat_id',chat_id)
     if (user && user.email) {
       if (user) {
         setChatId(chat_id);
-        setLoginPersonal(otherUserId);
-        setOtherLoginPersonal(user.id);
+        setLoginPersonal(user.id);
+        // setOtherLoginPersonal(otherUserId);
         setProductId(item_id);
 
         setIsChatModalOpen(true);
@@ -82,7 +87,7 @@ const Chat = () => {
         author_id: LoginPersonal,
         chat_id: chatId,
         item_id: productId,
-        others_id: otherLoginPersonal,
+        // others_id: otherLoginPersonal,
       });
       setInputValue('');
     }
@@ -91,13 +96,13 @@ const Chat = () => {
   //dm메시지 전송
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-
+ 
     sendDirectMessage({
       content: inputValue,
       author_id: LoginPersonal,
       chat_id: chatId,
       item_id: productId,
-      others_id: otherLoginPersonal,
+      // others_id: otherLoginPersonal,
     });
 
     setInputValue('');
@@ -105,19 +110,22 @@ const Chat = () => {
 
   const renderMessages = () => {
     return messages
-      .filter(
-        (message: MessageType) =>
-          (message.author_id === LoginPersonal || message.author_id === otherLoginPersonal) &&
-          message.chat_id === chatId &&
-          message.item_id === productId,
-      )
+      .filter((message: MessageType) => 
+        message.chat_id === chatId)
       .map((message: MessageType) => (
-        <St.MessageWrapper key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-          <St.MessageComponent isOutgoing={message.author_id === LoginPersonal}>{message.content}</St.MessageComponent>
-        </St.MessageWrapper>
+        <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
+          {message.content}
+        </St.MessageComponent>
       ));
   };
 
+  
+
+  console.log('inputValue',inputValue);
+  console.log('i', LoginPersonal);
+  console.log('chatId',chatId);
+  console.log('productId',productId);
+  // console.log('u', otherLoginPersonal);
   const auth = useAuth();
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
@@ -142,42 +150,42 @@ const Chat = () => {
   };
   if (!auth.session) return null;
 
-  async function checkChatWithUser(userId: string, otherUserId: string, itemid: number, chat_id: string) {
-    // 상점 채팅시 발신자 other 수신자 user// 메인 채팅시 반대로 생각하면 됨.
-    const { data: existingChatUser } = await supabase
-      .from('chats_users')
-      .select('chat_id, others_id')
-      .eq('user_id', otherUserId)
-      .eq('item_id', itemid);
+  // async function checkChatWithUser(userId: string, otherUserId: string, itemid: number, chat_id: string) {
+  //   // 상점 채팅시 발신자 other 수신자 user// 메인 채팅시 반대로 생각하면 됨.
+  //   const { data: existingChatUser } = await supabase
+  //     .from('chats_users')
+  //     .select('chat_id, others_id')
+  //     .eq('user_id', otherUserId)
+  //     .eq('item_id', itemid);
 
-    const { data: existingChatOther } = await supabase
-      .from('chats_users')
-      .select('chat_id,  user_id')
-      .eq('others_id', userId)
-      .eq('item_id', itemid);
+  //   const { data: existingChatOther } = await supabase
+  //     .from('chats_users')
+  //     .select('chat_id,  user_id')
+  //     .eq('others_id', userId)
+  //     .eq('item_id', itemid);
 
-    if (existingChatUser && existingChatOther) {
-      let commonChatId = null;
+  //   if (existingChatUser && existingChatOther) {
+  //     let commonChatId = null;
 
-      for (let chatUser of existingChatUser) {
-        for (let chatOther of existingChatOther) {
-          if (chatUser.chat_id === chatOther.chat_id) {
-            commonChatId = chatUser.chat_id;
+  //     for (let chatUser of existingChatUser) {
+  //       for (let chatOther of existingChatOther) {
+  //         if (chatUser.chat_id === chatOther.chat_id) {
+  //           commonChatId = chatUser.chat_id;
 
-            break;
-          }
-        }
+  //           break;
+  //         }
+  //       }
 
-        if (commonChatId) break;
-      }
-      if (commonChatId) {
-        setChatId(commonChatId);
-        setLoginPersonal(userId);
-        setOtherLoginPersonal(otherUserId);
-        setProductId(itemid);
-      }
-    }
-  }
+  //       if (commonChatId) break;
+  //     }
+  //     if (commonChatId) {
+  //       setChatId(commonChatId);
+  //       setLoginPersonal(userId);
+  //       setOtherLoginPersonal(otherUserId);
+  //       setProductId(itemid);
+  //     }
+  //   }
+  // }
 
   const prevHandler = () => {
     setIsAsk(false);
@@ -187,14 +195,15 @@ const Chat = () => {
   const renderChatRoomsList = () => {
     return chatRooms.map((chatRoom) => (
       <St.UserItem key={chatRoom.chat_id}>
-        <St.UserEmail>{chatRoom.receiverNickname}</St.UserEmail> {/* '받는 사람'의 닉네임을 표시 */}
+        <St.UserEmail>{chatRoom.receiverNickname}</St.UserEmail> 
         <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
-        <St.DMButton onClick={() => DmClickhandler(chatRoom.others_id, chatRoom.item_id, chatRoom.chat_id)}>
+        <St.DMButton onClick={() => DmClickhandler( chatRoom.item_id, chatRoom.chat_id)}> 
           Open Chat
         </St.DMButton>
       </St.UserItem>
     ));
   };
+
 
   return (
     <>
