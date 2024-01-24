@@ -151,9 +151,9 @@ const Form = () => {
       alert('모든 입력란을 올바르게 채워주세요.');
       return;
     }
-// console.log(emailRef.current?.value)
-// console.log( passwordRef.current?.value)
-// console.log(nicknameRef.current?.value )
+    // console.log(emailRef.current?.value)
+    // console.log( passwordRef.current?.value)
+    // console.log(nicknameRef.current?.value )
 
     try {
       const result = await signupHandler(

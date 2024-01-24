@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import * as St from './Pagination.styled';
 
 type PaginationProps = {
@@ -9,11 +9,15 @@ type PaginationProps = {
 
 const Pagination = ({ postsPerPage, totalPosts, paginate }: PaginationProps) => {
   const [selectedPage, setSelectedPage] = useState(1); // 선택된 페이지 번호 상태추가
-  const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pageNumbers.push(i);
-  }
+  // useMemo를 사용하여 개선
+  const pageNumbers = useMemo(() => {
+    const pages = [];
+    for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+      pages.push(i);
+    }
+    return pages;
+  }, [postsPerPage, totalPosts]);
 
   const handlePageClick = (number: number) => {
     setSelectedPage(number); // 선택된 페이지 번호 업데이트

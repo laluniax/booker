@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { filteredCategory, getPostsHandler, getUserSessionHandler } from '../../../api/supabase.api';
 import { PostsTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
-import Pagination from '../Pagination';
+import Pagination from '../../common/Pagination';
 import { CateGenresTypes, categoryUuid } from '../bookertalkpost/Post';
 import * as St from './BookerTalkMain.styled';
 
