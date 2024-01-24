@@ -13,6 +13,7 @@ import * as St from './Detail.styled';
 const Detail = () => {
   const params = useParams().id;
   const [data, setData] = useState<PostsTypes>();
+  console.log(data);
 
   const navigation = useNavigate();
 
@@ -78,7 +79,14 @@ const Detail = () => {
           <St.PostTags>{parseTags()} </St.PostTags>
         </St.TagsWrapper>
       </St.TitleAndPostWrapper>
-
+      <St.PostProfileBox
+        onClick={() => {
+          navigation(`/profile/${data?.user_id}`);
+        }}>
+        <St.PostProfileImg src={data?.users.user_img ?? undefined} />
+        <St.PostProfileNickname>{data?.users.nickname}</St.PostProfileNickname>
+        <St.PostProfileIntroText>{data?.users.intro_text}</St.PostProfileIntroText>
+      </St.PostProfileBox>
       <br />
       <br />
       <br />

@@ -43,7 +43,7 @@ const App = () => {
               .single();
 
             if (lastMessageError) throw lastMessageError;
-            console.log('lastMessageData', lastMessageData);
+            // console.log('lastMessageData', lastMessageData);
 
             let sendNickname = '알 수 없음'; // Default to unknown
             if (lastMessageData && lastMessageData.author_id) {
@@ -52,11 +52,11 @@ const App = () => {
                 .select('nickname')
                 .eq('id', lastMessageData.author_id)
                 .single();
-        
+
               // Handle userError if any...
               if (userData) {
                 sendNickname = userData.nickname; // Assign the fetched nickname
-                console.log('sendNickname',userData)
+                // console.log('sendNickname',userData)
               }
             }
 
@@ -72,11 +72,11 @@ const App = () => {
         // Flatten the array of arrays
         const flatChatRooms = updatedChatRooms.flat();
 
-        console.log('flatChatRooms', flatChatRooms);
+        // console.log('flatChatRooms', flatChatRooms);
         // Make sure flatChatRooms is of type ChatRoom[]
         setChatRooms(flatChatRooms as ChatRoom[]);
       } catch (error) {
-        console.error('채팅방 가져오기 오류:', error);
+        // console.error('채팅방 가져오기 오류:', error);
       }
     };
     fetchChatRooms();
@@ -107,7 +107,7 @@ const App = () => {
           table: 'messages',
         },
         (payload) => {
-          console.log('app전역관리', payload);
+          // console.log('app전역관리', payload);
           fetchMessages();
           fetchChatRooms();
         },
@@ -118,7 +118,7 @@ const App = () => {
     const chatChannel = supabase
       .channel('chat-channel')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {
-        console.log('New chat!', payload);
+        // console.log('New chat!', payload);
 
         fetchChatRooms();
       })
