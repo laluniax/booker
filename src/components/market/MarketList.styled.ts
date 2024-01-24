@@ -46,6 +46,7 @@ export const CategoryTitle = styled.div`
   font-size: 3rem;
   font-weight: bold;
   color: #003c52;
+  cursor: pointer;
 `;
 export const CategoryBtnBox = styled.div`
   display: flex;
