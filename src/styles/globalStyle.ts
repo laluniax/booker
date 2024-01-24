@@ -59,7 +59,7 @@ const GlobalStyle = createGlobalStyle`
 
     body {
                 /* font-family: "GmarketSansMedium"; */
-                font-family: 'Pretendard-Regular';
+                font-family: 'ChosunGu';
     }
     a {
                 font-family: "GmarketSansMedium";
@@ -83,5 +83,21 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     font-style: normal;
     }
+
+    @font-face {
+    font-family: 'ChosunGu';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+//로고 폰트 후보 
+@font-face {
+    font-family: 'Cafe24ClassicType-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Cafe24ClassicType-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 `;
 export default GlobalStyle;

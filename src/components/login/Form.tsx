@@ -71,44 +71,47 @@ const Form = () => {
 
   return (
     <St.Container>
-      <div>
+      <St.FormAndImageSlideWrapper>
         <ImageSlideshow />
-      </div>
-      <St.LoginContainer>
-        <div>
-          <St.Title>로그인</St.Title>
-          <St.InputGroup>
-            <St.Input
-              placeholder="이메일:"
-              type="email"
-              ref={emailRef}
-              onBlur={() => validateEmail(emailRef.current?.value || '')}
-              // . React에서 onBlur 이벤트는 사용자가 입력 필드를 입력하고 다른 부분을 클릭할 때, 즉 그 입력 필드에서 포커스가 벗어났을 때 호출됩니다
-              onKeyDown={handleKeyPress}
-            />
-            {emailError && <St.ErrorText>{emailError}</St.ErrorText>}
-          </St.InputGroup>
-          <St.InputGroup>
-            <St.Input
-              placeholder="비밀번호:"
-              type="password"
-              ref={passwordRef}
-              onBlur={() => validatePassword(passwordRef.current?.value || '')}
-              onKeyDown={handleKeyPress}
-            />
-            {passwordError && <St.ErrorText>{passwordError}</St.ErrorText>}
-          </St.InputGroup>
-          <St.Button onClick={signInWithEmail}>로그인</St.Button>
-        </div>
+        <St.LoginContainer>
+          <div>
+            <St.Title>로그인</St.Title>
+            <St.InputGroup>
+              <St.Label>이메일</St.Label>
+              <St.Input
+                placeholder="이메일"
+                type="email"
+                ref={emailRef}
+                onBlur={() => validateEmail(emailRef.current?.value || '')}
+                // . React에서 onBlur 이벤트는 사용자가 입력 필드를 입력하고 다른 부분을 클릭할 때, 즉 그 입력 필드에서 포커스가 벗어났을 때 호출됩니다
+                onKeyDown={handleKeyPress}
+              />
+              {emailError && <St.ErrorText>{emailError}</St.ErrorText>}
+            </St.InputGroup>
+            <br />
+            <St.InputGroup>
+              <St.Label>비밀번호</St.Label>
+              <St.Input
+                placeholder="비밀번호"
+                type="password"
+                ref={passwordRef}
+                onBlur={() => validatePassword(passwordRef.current?.value || '')}
+                onKeyDown={handleKeyPress}
+              />
+              {passwordError && <St.ErrorText>{passwordError}</St.ErrorText>}
+            </St.InputGroup>
+            <St.Button onClick={signInWithEmail}>로그인</St.Button>
+          </div>
 
-        <br />
-        <St.SignUpLink onClick={moveToSignUpHandler}>회원이 아니신가요?</St.SignUpLink>
-        <br />
-        <St.SocialLoginBtnBox>
-          <GoogleLoginBtn />
-          <GithubLoginBtn />
-        </St.SocialLoginBtnBox>
-      </St.LoginContainer>
+          <br />
+          <St.SignUpLink onClick={moveToSignUpHandler}>회원이 아니신가요?</St.SignUpLink>
+          <br />
+          <St.SocialLoginBtnBox>
+            <GoogleLoginBtn />
+            <GithubLoginBtn />
+          </St.SocialLoginBtnBox>
+        </St.LoginContainer>
+      </St.FormAndImageSlideWrapper>
     </St.Container>
   );
 };

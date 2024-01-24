@@ -2,15 +2,31 @@ import styled from 'styled-components';
 
 //전체 컨테이너
 export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-left: 25rem;
+
+  @media (max-width: 768px) {
+    margin-left: 4rem;
+  }
+`;
+
+export const FormAndImageSlideWrapper = styled.div`
   // background-color: yellow;
   display: grid;
   grid-template-columns: 1fr 1fr; // 두 열로 나눕니다
+  width: 150rem;
   height: 100vh; // 전체 뷰포트 높이를 차지하도록 설정합니다 (선택 사항)
+  gap: 6rem;
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr; // 작은 화면에서는 열을 쌓습니다
+    width: 50rem;
+    height: 80rem;
+    display: flex;
   }
-  margin-left: 12rem;
 `;
+
 //로그인 컨테이너
 export const LoginContainer = styled.div`
   display: flex;
@@ -21,9 +37,8 @@ export const LoginContainer = styled.div`
   //   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // 그림자 효과
   width: 40rem; // 너비 설정
   border-radius: 4px; // 모서리 둥글게
-  margin-left: 15rem;
   font-size: 1.5rem;
-
+  margin-left: 2rem;
   @media (max-width: 768px) {
   }
 `;
@@ -48,17 +63,20 @@ export const InputGroup = styled.div`
 export const Label = styled.label`
   display: block;
   margin-bottom: 0.5rem;
-  color: #666;
+  color: #000;
+  font-weight: bold;
 `;
 
 // 인풋 스타일
 export const Input = styled.input`
-  width: 100%;
+  width: 95%;
   padding: 1rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 2rem;
   font-size: 1.5rem;
   margin-top: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 1.5rem;
 `;
 
 // 버튼 스타일
@@ -91,7 +109,8 @@ export const SignUpLink = styled.div`
 export const ErrorText = styled.div`
   color: red;
   font-size: 1.3rem;
-  margin-top: 0.7rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 `;
 
 export const SnsLogo = styled.img`
