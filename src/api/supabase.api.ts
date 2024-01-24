@@ -111,6 +111,11 @@ export const updateUserAuthUserImgHandler = async (userImg: string) => {
   if (error) throw error;
   return data;
 };
+export const updateUserIntroTextHandler = async (params: string, introText: string) => {
+  const { data, error } = await supabase.from('users').update({ intro_text: introText }).eq('id', params).select();
+  if (error) throw error;
+  return data;
+};
 // 유저 정보 수정하기 (이미지 - storage에 저장)
 export const uploadUserImgHandler = async (params: string, userImg: File) => {
   const { data, error } = await supabase.storage.from('user_img').upload(`${params}/${params}`, userImg);

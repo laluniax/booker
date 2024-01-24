@@ -1,8 +1,18 @@
 import styled from 'styled-components';
+import Prev from '../../../styles/assets/buttonimages/prev2.png';
 
 export const Container = styled.div`
   min-height: 90rem;
   margin-top: 10rem;
+`;
+
+export const PrevButton = styled.div`
+  background: url(${Prev});
+  background-size: contain;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 2rem;
+  cursor: pointer;
 `;
 export const BookWrapper = styled.div``;
 export const BookTitle = styled.h2`

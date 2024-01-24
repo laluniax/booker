@@ -51,13 +51,12 @@ const Chat = () => {
 
   const [productId, setProductId] = useRecoilState(productState);
   const chatRooms = useRecoilValue(chatRoomsState);
-  const [loginUser,setLoginUser] = useState('')
+  const [loginUser, setLoginUser] = useState('');
 
   // console.log('messages',messages)
   // console.log('chatRooms',chatRooms[0].item_id)
 
   useEffect(() => {
-
     async function fetchLoggedInUser() {
       try {
         const {
@@ -67,21 +66,16 @@ const Chat = () => {
         if (user?.id) {
           setLoginUser(user.id);
         } else {
-
           setLoginUser('');
-
-
         }
       } catch (error) {
         console.error('Error fetching logged in user:', error);
       }
     }
-  
-    fetchLoggedInUser(); // Call the function to execute it
-  
 
-  }, []); 
-  
+    fetchLoggedInUser(); // Call the function to execute it
+  }, []);
+
   const InputChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -123,7 +117,7 @@ const Chat = () => {
   //dm메시지 전송
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
- 
+
     sendDirectMessage({
       content: inputValue,
       author_id: LoginPersonal,
@@ -137,16 +131,13 @@ const Chat = () => {
 
   const renderMessages = () => {
     return messages
-      .filter((message: MessageType) => 
-        message.chat_id === chatId)
+      .filter((message: MessageType) => message.chat_id === chatId)
       .map((message: MessageType) => (
         <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
           {message.content}
         </St.MessageComponent>
       ));
   };
-
-  
 
   // console.log('inputValue',inputValue);
   // console.log('i', LoginPersonal);
@@ -177,7 +168,6 @@ const Chat = () => {
   };
   if (!auth.session) return null;
 
-
   const prevHandler = () => {
     setIsAsk(false);
   };
@@ -188,7 +178,7 @@ const Chat = () => {
   //     <St.UserItem key={chatRoom.chat_id}>
   //       {/* <St.UserEmail>{chatRoom.receiverNickname}</St.UserEmail>  */}
   //       <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
-  //       <St.DMButton onClick={() => DmClickhandler( chatRoom.item_id, chatRoom.chat_id)}> 
+  //       <St.DMButton onClick={() => DmClickhandler( chatRoom.item_id, chatRoom.chat_id)}>
   //         Open Chat
   //       </St.DMButton>
   //     </St.UserItem>
@@ -197,24 +187,20 @@ const Chat = () => {
   // console.log('LoginPersonal',loginUser)
 
   const renderChatRoomsList = () => {
-  
     return chatRooms
-      .filter(chatRoom => chatRoom.user_id ===loginUser)
-      .map(chatRoom => (
+      .filter((chatRoom) => chatRoom.user_id === loginUser)
+      .map((chatRoom) => (
         <St.UserItem key={chatRoom.chat_id}>
-          <St.UserEmail>{chatRoom.sendNickname}</St.UserEmail> 
+          <St.UserEmail>{chatRoom.sendNickname}</St.UserEmail>
           <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
-          <St.DMButton onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id)}> 
-            Open Chat
-          </St.DMButton>
+          <St.DMButton onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id)}>Open Chat</St.DMButton>
         </St.UserItem>
       ));
   };
 
-
   return (
     <>
-      {auth.session.profile.isAdmin ? (
+      {auth.session.profile.is_admin ? (
         isOpen && <AdminChat />
       ) : (
         <St.Container>

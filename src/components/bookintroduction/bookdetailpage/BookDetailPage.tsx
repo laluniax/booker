@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as St from './BookDetailPage.styled';
 
 interface BookData {
@@ -17,6 +17,7 @@ interface BookData {
 const BookDetailPage = () => {
   const params = useParams();
   const itemId = params.itemid;
+  const navigate = useNavigate();
   const [detailData, setDetailData] = useState<BookData | null>(null);
 
   useEffect(() => {
@@ -40,6 +41,10 @@ const BookDetailPage = () => {
 
   return (
     <St.Container>
+      <St.PrevButton
+        onClick={() => {
+          navigate(`/aboutbooks`);
+        }}></St.PrevButton>
       <St.BookWrapper>
         <St.InfoHeader>
           <St.BookImage>
