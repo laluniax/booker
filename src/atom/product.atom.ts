@@ -34,9 +34,9 @@ export type ChatRoom = {
   chat_id: string;
   sendNickname?: string; // 추가됨
   lastMessage?: string;
-  others_id:string;
-  item_id:number;
-  user_id:string;
+  others_id: string;
+  item_id: number;
+  user_id: string;
 };
 
 export const showChatModal = atom({
@@ -48,6 +48,7 @@ export const globalModalSwitch = atom({
   key: 'globalModalSwitch',
   default: false,
 });
+
 // // ======================================
 // // 사용법
 // export const textState = atom({
