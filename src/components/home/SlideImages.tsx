@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import * as St from './MainImgSlide.style';
-
 // 명화
+import { useEffect, useState } from 'react';
+
 import Famouspainting1 from '../../styles/assets/famouspainitngimages/famouspainting2.png';
 import Famouspainting2 from '../../styles/assets/famouspainitngimages/painting1.jpg';
 import Famouspainting3 from '../../styles/assets/famouspainitngimages/painting3.jpg';
 import Famouspainting4 from '../../styles/assets/famouspainitngimages/painting4.jpg';
+
 const images = [
   { image: Famouspainting1, alt: 'Famouspainting1' },
   { image: Famouspainting2, alt: 'Famouspainting2' },
@@ -13,7 +13,7 @@ const images = [
   { image: Famouspainting4, alt: 'Famouspainting4' },
 ];
 
-const ImageSlideshow = () => {
+const SlideImages = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handlePrevClick = () => {
@@ -29,24 +29,7 @@ const ImageSlideshow = () => {
 
     return () => clearInterval(interval);
   }, []);
-
-  return (
-    <St.SlideshowContainer>
-      {/* <St.PrevButton onClick={handlePrevClick}>
-      </St.PrevButton> */}
-      {images.map((image, index) => (
-        <St.SlideshowImage
-          key={index}
-          src={image.image}
-          className={index === currentImageIndex ? 'active' : ''}
-          alt={image.alt}
-        />
-      ))}
-      {/* <St.NextButton onClick={handleNextClick}>
-        <St.RightIcon>next</St.RightIcon>
-      </St.NextButton> */}
-    </St.SlideshowContainer>
-  );
+  return <div>SlideImages</div>;
 };
 
-export default ImageSlideshow;
+export default SlideImages;

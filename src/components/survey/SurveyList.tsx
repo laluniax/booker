@@ -23,7 +23,7 @@ const SurveyList = () => {
       <St.BtnContainer>
         <St.TitleAndImageWrapper>
           <St.Title>
-            <span>{nickname}</span> 님이 좋아할만한 책을 추천해드릴게요!
+            <St.NickName>{nickname}</St.NickName> 님이 좋아할만한 책을 추천해드릴게요!
           </St.Title>
         </St.TitleAndImageWrapper>
         <St.ServeyContentWrapper>

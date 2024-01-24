@@ -69,7 +69,8 @@ export const LoginBtn = styled.div`
   display: flex;
   text-align: center;
   align-items: center;
-  font-size: 1.7rem;
+  font-size: 1.8rem;
+  font-family: 'GmarketSansMedium';
 
   &:hover {
     cursor: pointer;
