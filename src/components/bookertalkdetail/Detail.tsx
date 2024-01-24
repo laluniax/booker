@@ -8,10 +8,12 @@ import { deletePostHandler, deletePostImgStorageHandler, filteredPostId } from '
 import { PostsTypes } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
 import Comment from '../bookertalk/comment/Comment';
+import Like from '../common/like/Like';
 import * as St from './Detail.styled';
 
 const Detail = () => {
   const params = useParams().id;
+  const postId = params ? parseInt(params, 10) : undefined;
   const [data, setData] = useState<PostsTypes>();
   console.log(data);
 
@@ -78,6 +80,7 @@ const Detail = () => {
         <St.TagsWrapper>
           <St.PostTags>{parseTags()} </St.PostTags>
         </St.TagsWrapper>
+        <Like postId={postId} />
       </St.TitleAndPostWrapper>
       <St.PostProfileBox
         onClick={() => {
