@@ -73,15 +73,10 @@ const UserProfile = () => {
     <St.Container>
       <St.Title>마이페이지</St.Title>
       <St.ProfileWrapper>
-        <St.ProfileImg
-          src={
-            userSession?.user.user_metadata.user_img ||
-            userSession?.user.user_metadata.avatar_url ||
-            `${process.env.PUBLIC_URL}/images/header/profileImg.png`
-          }
-        />
-        <St.ProfileInfo>
-          {userSession?.user.id === params ? (
+        <St.ProfileImg src={userData?.user_img || `${process.env.PUBLIC_URL}/images/header/profileImg.png`} />
+        {userSession?.user.id === params ? (
+          // 마이 프로필
+          <St.ProfileInfo>
             <St.ProfileNicknameEmail>
               <St.ProfileNickname>
                 안녕하세요! {nickname || userSession?.user.user_metadata.preferred_username}님
@@ -89,19 +84,20 @@ const UserProfile = () => {
               <St.ProfileEmail>{userData?.email}</St.ProfileEmail>
               <St.ProfileIntroText>{userData?.intro_text}</St.ProfileIntroText>
             </St.ProfileNicknameEmail>
-          ) : (
-            <>
-              <St.ProfileNickname>{nickname}</St.ProfileNickname>
-              <St.ProfileEmail>{userData?.email}</St.ProfileEmail>
-              <St.ProfileIntroText>{userData?.intro_text}</St.ProfileIntroText>
-              {following ? (
-                <St.ProfileBtn onClick={onClickUnfollowBtn}>언팔로우</St.ProfileBtn>
-              ) : (
-                <St.ProfileBtn onClick={onClickFollowBtn}>팔로우</St.ProfileBtn>
-              )}
-            </>
-          )}
-        </St.ProfileInfo>
+          </St.ProfileInfo>
+        ) : (
+          // 타겟 유저 프로필
+          <St.ProfileInfo>
+            <St.ProfileNickname>{nickname}</St.ProfileNickname>
+            <St.ProfileEmail>{userData?.email}</St.ProfileEmail>
+            <St.ProfileIntroText>{userData?.intro_text}</St.ProfileIntroText>
+            {following ? (
+              <St.ProfileBtn onClick={onClickUnfollowBtn}>언팔로우</St.ProfileBtn>
+            ) : (
+              <St.ProfileBtn onClick={onClickFollowBtn}>팔로우</St.ProfileBtn>
+            )}{' '}
+          </St.ProfileInfo>
+        )}
       </St.ProfileWrapper>
       <Tab userSession={userSession} userData={userData} />
     </St.Container>

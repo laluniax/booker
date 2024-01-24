@@ -11,12 +11,10 @@ import {
   updateUserIntroTextHandler,
   uploadUserImgHandler,
 } from '../../api/supabase.api';
-import { Tables } from '../../types/types';
 import * as St from './Tab.styled';
 
 const EditProfile = () => {
   const [userSession, setUserSession] = useState<Session | null>(null);
-  const [userData, setUserData] = useState<Tables<'users'>>();
   const [tempImg, setTempImg] = useState(''); // 화면에서 보여줄 이미지
   const [uploadFile, setUploadFile] = useState<File>(); // 실제로 업로드 할 파일
   const [nickname, setNickname] = useState('');
@@ -28,9 +26,6 @@ const EditProfile = () => {
   const getUserData = async () => {
     const result = await getUserDataHandler(params as string);
     const session = await getUserSessionHandler();
-    const newFollowId = params + '-' + userSession?.user.id;
-    console.log(result);
-    setUserData(result[0]);
     setNickname(result[0].nickname);
     setTempImg(result[0].user_img);
     setUserSession(session.session);
