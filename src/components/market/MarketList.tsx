@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCategoryProductListHandler, getProductListHandler, getUserSessionHandler } from '../../api/supabase.api';
 import { ProductsTypes } from '../../types/types';
-import Pagination from '../common/Pagination';
+import Pagination from '../common/pagination/Pagination';
 import * as St from './MarketList.styled';
 import { categoryArr } from './marketpost/Post';
 
