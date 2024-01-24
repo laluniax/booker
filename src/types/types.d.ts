@@ -160,7 +160,6 @@ export interface Database {
           created_at: string;
           id: number;
           item_id: number | null;
-          other_id: string | null;
           others_id: string | null;
           user_id: string | null;
         };
@@ -169,7 +168,6 @@ export interface Database {
           created_at?: string;
           id?: number;
           item_id?: number | null;
-          other_id?: string | null;
           others_id?: string | null;
           user_id?: string | null;
         };
@@ -178,7 +176,6 @@ export interface Database {
           created_at?: string;
           id?: number;
           item_id?: number | null;
-          other_id?: string | null;
           others_id?: string | null;
           user_id?: string | null;
         };
@@ -381,6 +378,48 @@ export interface Database {
         };
         Relationships: [];
       };
+      likes: {
+        Row: {
+          id: number;
+          is_liked: boolean | null;
+          likes_count: number | null;
+          posts: number | null;
+          posts_users: string | null;
+          users: string | null;
+        };
+        Insert: {
+          id?: number;
+          is_liked?: boolean | null;
+          likes_count?: number | null;
+          posts?: number | null;
+          posts_users?: string | null;
+          users?: string | null;
+        };
+        Update: {
+          id?: number;
+          is_liked?: boolean | null;
+          likes_count?: number | null;
+          posts?: number | null;
+          posts_users?: string | null;
+          users?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'likes_posts_fkey';
+            columns: ['posts'];
+            isOneToOne: false;
+            referencedRelation: 'posts';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'likes_users_fkey';
+            columns: ['users'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       messages: {
         Row: {
           author_id: string | null;
@@ -388,6 +427,8 @@ export interface Database {
           content: string | null;
           created_at: string;
           id: number;
+          item_id: number | null;
+          others_id: string | null;
         };
         Insert: {
           author_id?: string | null;
@@ -395,6 +436,8 @@ export interface Database {
           content?: string | null;
           created_at?: string;
           id?: number;
+          item_id?: number | null;
+          others_id?: string | null;
         };
         Update: {
           author_id?: string | null;
@@ -402,6 +445,8 @@ export interface Database {
           content?: string | null;
           created_at?: string;
           id?: number;
+          item_id?: number | null;
+          others_id?: string | null;
         };
         Relationships: [
           {
@@ -600,6 +645,7 @@ export interface Database {
         Row: {
           email: string | null;
           id: string;
+          intro_text: string | null;
           isAdmin: boolean | null;
           nickname: string | null;
           user_img: string | null;
@@ -607,6 +653,7 @@ export interface Database {
         Insert: {
           email?: string | null;
           id: string;
+          intro_text?: string | null;
           isAdmin?: boolean | null;
           nickname?: string | null;
           user_img?: string | null;
@@ -614,6 +661,7 @@ export interface Database {
         Update: {
           email?: string | null;
           id?: string;
+          intro_text?: string | null;
           isAdmin?: boolean | null;
           nickname?: string | null;
           user_img?: string | null;
@@ -633,21 +681,7 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      get_comments_info: {
-        Args: {
-          post_id_input: number;
-        };
-        Returns: {
-          comment_id: number;
-          comment_created_at: string;
-          comment_post_id: number;
-          comment_user_id: string;
-          comment_content: string;
-          user_email: string;
-          user_nickname: string;
-          user_img: string;
-        }[];
-      };
+      [_ in never]: never;
     };
     Enums: {
       [_ in never]: never;

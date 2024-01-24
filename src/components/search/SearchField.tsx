@@ -258,9 +258,6 @@ const SearchField = () => {
           <>검색 결과가 없습니다.</>
         )}
       </St.SearchWrapper>
-      <St.SearchWrapper height={20}>
-        <St.SearchTitle>독립서점</St.SearchTitle>
-      </St.SearchWrapper>
     </St.Container>
   );
 };
