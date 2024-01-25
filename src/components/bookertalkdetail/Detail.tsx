@@ -133,8 +133,8 @@ const Detail = () => {
         <St.TagsWrapper>
           <St.PostTags>{parseTags()} </St.PostTags>
         </St.TagsWrapper>
-        <Like postId={postId} />
-      </St.TitleAndPostWrapper>
+      </St.TitleAndPostWrapper>{' '}
+      <Like postId={postId} />
       <St.PostProfileBox
         onClick={() => {
           navigation(`/profile/${data?.user_id}`);

@@ -116,6 +116,17 @@ export type mapMarkerDataTypes = {
   postal_code: number;
 };
 
+export type LikeProps = {
+  postId: number | undefined;
+};
+export type Message = {
+  created_at: string;
+  content: string;
+  sender_id: string;
+  message_type: string;
+  id: number;
+};
+
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export interface Database {
@@ -378,48 +389,6 @@ export interface Database {
         };
         Relationships: [];
       };
-      likes: {
-        Row: {
-          id: number;
-          is_liked: boolean | null;
-          likes_count: number | null;
-          posts: number | null;
-          posts_users: string | null;
-          users: string | null;
-        };
-        Insert: {
-          id?: number;
-          is_liked?: boolean | null;
-          likes_count?: number | null;
-          posts?: number | null;
-          posts_users?: string | null;
-          users?: string | null;
-        };
-        Update: {
-          id?: number;
-          is_liked?: boolean | null;
-          likes_count?: number | null;
-          posts?: number | null;
-          posts_users?: string | null;
-          users?: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'likes_posts_fkey';
-            columns: ['posts'];
-            isOneToOne: false;
-            referencedRelation: 'posts';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'likes_users_fkey';
-            columns: ['users'];
-            isOneToOne: false;
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
       messages: {
         Row: {
           author_id: string | null;
@@ -465,6 +434,39 @@ export interface Database {
           },
         ];
       };
+      post_likes: {
+        Row: {
+          id: number;
+          post_id: number;
+          user_id: string;
+        };
+        Insert: {
+          id?: number;
+          post_id: number;
+          user_id: string;
+        };
+        Update: {
+          id?: number;
+          post_id?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'post_likes_post_id_fkey';
+            columns: ['post_id'];
+            isOneToOne: false;
+            referencedRelation: 'posts';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'post_likes_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       posts: {
         Row: {
           content: string | null;
@@ -506,6 +508,42 @@ export interface Database {
           },
           {
             foreignKeyName: 'posts_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      product_likes: {
+        Row: {
+          created_at: string;
+          id: number;
+          post_id: number;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          post_id: number;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          post_id?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'product_likes_post_id_fkey';
+            columns: ['post_id'];
+            isOneToOne: false;
+            referencedRelation: 'products';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'product_likes_user_id_fkey';
             columns: ['user_id'];
             isOneToOne: false;
             referencedRelation: 'users';
@@ -691,16 +729,7 @@ export interface Database {
     };
   };
 }
-export type LikeProps = {
-  postId: number | undefined;
-};
-export type Message = {
-  created_at: string;
-  content: string;
-  sender_id: string;
-  message_type: string;
-  id: number;
-};
+
 export type Tables<
   PublicTableNameOrOptions extends
     | keyof (Database['public']['Tables'] & Database['public']['Views'])

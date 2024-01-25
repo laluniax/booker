@@ -27,7 +27,7 @@ const Like = ({ postId }: LikeProps) => {
     try {
       if (existingLike) {
         // 이미 좋아요한 경우, 좋아요 제거
-        await supabase.from('likes').delete().match({ id: existingLike.id });
+        await supabase.from('post_likes').delete().match({ id: existingLike.id });
         setLikes(likes.filter((like) => like.id !== existingLike.id));
       } else {
         // 좋아요하지 않은 경우, 좋아요 추가
@@ -50,6 +50,7 @@ const Like = ({ postId }: LikeProps) => {
       <St.CountLike>{likes.length}</St.CountLike>
       <button onClick={toggleLike}>
         {likes.some((like) => like.user_id === currentUserId) ? '좋아요 해제' : '좋아요'}
+        {/* {likes.some((like) => like.user_id === currentUserId) ? <img src={heart} /> : <img src={coloredheart} />} */}
       </button>
     </St.Container>
   );
