@@ -458,6 +458,7 @@ export const getLikeCount = async (postId: number | undefined) => {
   if (error) throw error;
   return data;
 };
+
 /* //게시글: 이미 좋아요 한 경우, 좋아요 제거
 export const cancelLike = async (existingLike: string) => {
   const { data, error } = await supabase.from('likes').delete().match({ id: existingLike.id });
@@ -480,6 +481,18 @@ export const getLikeCountP = async (postId: number | undefined) => {
 //상품: 좋아요 하지 않은 경우, 좋아요 추가
 export const Productlike = async (postId: number | undefined, currentUserId: string | undefined) => {
   const { data, error } = await supabase.from('product_likes').insert([{ post_id: postId, user_id: currentUserId }]);
+  if (error) throw error;
+  return data;
+};
+// 프로필에 좋아요 누른 게시글 불러오기
+export const getLikesPostsListHandler = async (userId: string) => {
+  const { data, error } = await supabase.from('post_likes').select('*,posts(*)').eq('user_id', userId);
+  if (error) throw error;
+  return data;
+};
+// 프로필에 좋아요 누른 상품 불러오기
+export const getLikesProductsListHandler = async (userId: string) => {
+  const { data, error } = await supabase.from('product_likes').select('*,products(*)').eq('user_id', userId);
   if (error) throw error;
   return data;
 };

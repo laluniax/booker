@@ -57,7 +57,6 @@ type SubComments = {
   user_id: string | null;
   users: Tables<'users'>;
 };
-
 type ProductsTypes = {
   category: string | null;
   content: string | null;
@@ -71,7 +70,6 @@ type ProductsTypes = {
   user_id: string | null;
   users: Tables<'users'>;
 };
-
 type PostsTypes = {
   content: string | null;
   created_at: string;
@@ -83,7 +81,6 @@ type PostsTypes = {
   user_id: string | null;
   users: Tables<'users'>;
 };
-
 type FollowsTypes = {
   created_at: string;
   follow_from: string | null;
@@ -91,6 +88,21 @@ type FollowsTypes = {
   follow_to: string | null;
   id: number;
   users: Tables<'users'>;
+};
+
+type PostsLikesTypes = {
+  created_at: string | null;
+  id: number;
+  post_id: number;
+  user_id: string;
+  posts: Tables<'posts'>;
+};
+type ProductsLikesTypes = {
+  created_at: string;
+  id: number;
+  post_id: number;
+  user_id: string;
+  products: Tables<'products'>;
 };
 export type mapMarkerDataTypes = {
   id: number;
@@ -436,16 +448,19 @@ export interface Database {
       };
       post_likes: {
         Row: {
+          created_at: string | null;
           id: number;
           post_id: number;
           user_id: string;
         };
         Insert: {
+          created_at?: string | null;
           id?: number;
           post_id: number;
           user_id: string;
         };
         Update: {
+          created_at?: string | null;
           id?: number;
           post_id?: number;
           user_id?: string;
