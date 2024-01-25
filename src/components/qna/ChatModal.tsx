@@ -139,11 +139,6 @@ const Chat = () => {
       ));
   };
 
-  // console.log('inputValue',inputValue);
-  // console.log('i', LoginPersonal);
-  // console.log('chatId',chatId);
-  // console.log('productId',productId);
-  // console.log('u', otherLoginPersonal);
   const auth = useAuth();
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
@@ -200,7 +195,7 @@ const Chat = () => {
 
   return (
     <>
-      {auth.session.profile.is_admin ? (
+      {auth.session.profile.isAdmin ? (
         isOpen && <AdminChat />
       ) : (
         <St.Container>
