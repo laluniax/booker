@@ -27,6 +27,8 @@ export const HeaderLogo = styled.div`
   margin-left: 9rem;
   width: 24rem;
   height: 5rem;
+
+  cursor: pointer;
 `;
 
 export const Container = styled.div`
@@ -68,7 +70,7 @@ export const HeaderLi = styled.li`
 
     &:hover {
       cursor: pointer;
-      color: #7fd4f3;
+      color: #fca311;
     }
   }
 `;
@@ -128,4 +130,26 @@ export const SearchBar = styled.input`
 
 export const HeaderUserImage = styled.img`
   border-radius: 1rem;
+`;
+
+export const Dropdown = styled.div`
+  position: absolute;
+  top: 76%; // 아이콘의 바로 아래 위치
+  right: 1%;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+`;
+
+export const DropdownItem = styled.a`
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+
+  &:hover {
+    background-color: #f1f1f1;
+  }
 `;
