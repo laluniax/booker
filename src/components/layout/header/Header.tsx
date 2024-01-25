@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signoutHandler } from '../../../api/supabase.api';
 import { useAuth } from '../../../contexts/auth.context';
@@ -7,6 +8,7 @@ import SearchArea from './SearchArea';
 const Header = () => {
   const navigate = useNavigate();
   const auth = useAuth();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const onClickSignoutHandler = async () => {
     await signoutHandler();
@@ -43,37 +45,22 @@ const Header = () => {
         </St.HeaderUl>
         <St.HeaderUl>
           <SearchArea />
-          {auth.session !== null ? (
-            <>
-              {/* <St.HeaderBtn
-                onClick={() => {
-                  navigate(`/profile/${auth.session?.user.id}`);
-                }}>
-                <St.HeaderUserImage
-                  src={
-                    auth.session.user.user_metadata.user_img ||
-                    auth.session.user.user_metadata.avatar_url ||
-                    `${process.env.PUBLIC_URL}/images/header/profileImg.png`
-                  }
-                  alt="유저 프로필 이미지"
-                />
-              </St.HeaderBtn> */}
-              <St.HeaderBtn onClick={onClickSignoutHandler}>
-                <St.ProfileIconImage />
-              </St.HeaderBtn>
-            </>
-          ) : (
-            // <St.LoginBtn
-            //   onClick={() => {
-            //     navigate('/login');
-            //   }}>
-            <St.HeaderBtn
-              onClick={() => {
-                navigate('/login');
-              }}>
+          {auth.session ? (
+            <St.HeaderBtn onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
               <St.ProfileIconImage />
+              {isDropdownOpen && (
+                <St.Dropdown>
+                  <St.DropdownItem onClick={() => navigate(`/profile/${auth.session?.user.id}`)}>
+                    마이페이지
+                  </St.DropdownItem>
+                  <St.DropdownItem onClick={onClickSignoutHandler}>로그아웃</St.DropdownItem>
+                </St.Dropdown>
+              )}
             </St.HeaderBtn>
-            // </St.LoginBtn>
+          ) : (
+            <St.LoginBtn onClick={() => navigate('/login')}>
+              <St.ProfileIconImage />
+            </St.LoginBtn>
           )}
         </St.HeaderUl>
       </St.Wrapper>
