@@ -298,6 +298,7 @@ export const ChatModalBody = styled.div`
   height: calc(100vh - 200px); //채팅창의 높이를 화면에 맞게 조정
 `;
 
+// 채팅창
 export const MessageComponent = styled.div<MessageProps>`
   display: flex;
   justify-content: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
@@ -305,12 +306,12 @@ export const MessageComponent = styled.div<MessageProps>`
   margin: 0.5rem;
   border-radius: 20px;
   font-size: 1.5rem;
-  max-width: 40%; /* 메시지의 최대 너비를 설정합니다. */
+  max-width: 40%;
   word-wrap: break-word;
-  background-color: ${(props) => (props.isOutgoing ? '#14213D' : '#FCA311')}; /* 배경 색상을 변경합니다. */
-  color: ${(props) => (props.isOutgoing ? '#fff' : '#fff')}; /* 텍스트 색상을 변경합니다. */
+  background-color: ${(props) => (props.isOutgoing ? '#14213D' : '#FCA311')};
+  color: ${(props) => (props.isOutgoing ? '#fff' : '#fff')};
   align-self: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
-  /* 추가: 메시지 버블 안에 텍스트가 중앙에 오도록 만듭니다. */
+
   align-items: center;
   font-weight: bold;
   text-align: ${(props) => (props.isOutgoing ? 'right' : 'left')};

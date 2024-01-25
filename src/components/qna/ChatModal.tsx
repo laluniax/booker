@@ -15,7 +15,7 @@ import {
 import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
-import * as St from './ChatStyle';
+import * as St from './ChatModal.styled';
 export type MessageType = {
   id: number;
   content: string;
