@@ -1,34 +1,46 @@
 import styled from 'styled-components';
+import trendImage1 from '../../../assets/indbookstoreimage/indbookstore1.webp';
+import trendImage2 from '../../../assets/indbookstoreimage/indbookstore2.webp';
+import trendImage3 from '../../../assets/indbookstoreimage/indbookstore3.webp';
 
 export const Container = styled.div`
   margin-top: 4rem;
   margin-bottom: 5rem;
 `;
 
-export const TitleImage = styled.img`
-  width: 120rem;
+export const TitleImage = styled.div`
+  background: url(${trendImage1});
+  background-size: contain;
+  margin-right: 3rem;
+  /* width: 120rem; */
   height: 50rem;
 `;
 
-export const TrendImage1 = styled.img`
+export const TrendImage1 = styled.div`
+  background: url(${trendImage1});
+  background-size: contain;
   width: 70rem;
   height: 38rem;
   margin-left: 5rem;
 `;
-export const TrendImage2 = styled.img`
+export const TrendImage2 = styled.div`
+  background: url(${trendImage2});
+  background-size: contain;
   width: 70rem;
   margin-left: 6rem;
+`;
+
+export const TrendImage3 = styled.div`
+  background: url(${trendImage3});
+  background-size: contain;
+  width: 100rem;
+  height: 90rem;
 `;
 
 export const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 4rem;
-`;
-
-export const Image = styled.img`
-  width: 100rem;
-  height: 90rem;
 `;
 
 export const Title = styled.h1`
