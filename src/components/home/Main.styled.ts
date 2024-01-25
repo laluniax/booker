@@ -91,7 +91,7 @@ export const BannerBookImage = styled.div`
   }
 `;
 export const BannerBookIntro = styled.div`
-  background-color: #ab8bed;
+  background-color: #14213d;
   margin-top: 1rem;
   height: 15rem;
 `;
@@ -121,7 +121,7 @@ export const BannerRecommendTitleBox = styled.div`
   display: flex;
   justify-content: left;
   align-items: center;
-  background-color: #d55cc2;
+  background-color: #fca311;
   width: 85rem;
   height: 8.5rem;
   margin-left: 2rem;

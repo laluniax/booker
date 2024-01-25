@@ -200,9 +200,11 @@ const Product = () => {
       <St.Title>중고 거래 상세페이지</St.Title>
       <St.ProductWrapper>
         {product?.product_img?.length === 0 ? (
-          <St.LogoWrapper>
-            <St.Logo src={`${process.env.PUBLIC_URL}/images/common/logo.png`} alt="Logo" />
-          </St.LogoWrapper>
+          <>
+            <St.LogoWrapper>
+              <St.Logo src={`${process.env.PUBLIC_URL}/images/common/logo.png`} alt="Logo" />
+            </St.LogoWrapper>
+          </>
         ) : (
           <St.SliderWrapper>
             <St.SliderUl ref={slideRef}>

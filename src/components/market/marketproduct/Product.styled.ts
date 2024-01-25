@@ -224,7 +224,8 @@ export const ChatModalHeader = styled.div`
 export const ChatModalTitle = styled.p`
   font-size: 1.5rem;
   margin-left: 0.4rem;
-  color: #fff;
+  font-weight: bold;
+  color: #fca311;
 `;
 
 export const ChatModalCloseButton = styled.button`
@@ -232,25 +233,29 @@ export const ChatModalCloseButton = styled.button`
   font-size: 2.6rem;
   margin-right: 0.4rem;
   color: #fff;
+  margin-bottom: 1rem;
 
   &:hover {
     cursor: pointer;
-    color: #7fd4f3;
+    color: #fca311;
   }
 `;
 
 // 모달 바디
 export const ChatModalBody = styled.div`
-  padding: 10px;
+  padding: 1rem;
   overflow-y: auto;
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  height: calc(100vh - 200px); //채팅창의 높이를 화면에 맞게 조정
 `;
 
 // 모달 푸터
 export const ChatModalFooter = styled.div`
-  padding: 10px;
+  padding: 1rem;
   background-color: #f5f5f5;
-  border-top: 1px solid #ddd;
+  border-top: 0.1rem solid #ddd;
   display: flex;
   align-items: center;
   height: 7rem;
@@ -276,7 +281,7 @@ export const InputField = styled.input`
 export const SendButton = styled.button`
   padding: 10px 15px;
   background-color: #000;
-  color: #7fd4f3;
+  color: #fca311;
   border: none;
   height: 4.4rem;
   border-radius: 1rem;
@@ -290,16 +295,21 @@ export const SendButton = styled.button`
 `;
 
 export const MessageComponent = styled.div<MessageProps>`
-  /* flex-direction: column; */
   display: flex;
   justify-content: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
-  padding: 10px;
+  padding: 1rem 2rem;
   margin: 0.5rem;
-  border-radius: 1rem;
-  font-size: 1.3rem;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  max-width: 40%; /* 메시지의 최대 너비를 설정합니다. */
   word-wrap: break-word;
-  background-color: ${(props) => (props.isOutgoing ? '#7fd4f3' : '#000')}; // 예시 색상
-  color: ${(props) => (props.isOutgoing ? '#000' : '#fff')};
+  background-color: ${(props) => (props.isOutgoing ? '#14213D' : '#FCA311')}; /* 배경 색상을 변경합니다. */
+  color: ${(props) => (props.isOutgoing ? '#fff' : '#fff')}; /* 텍스트 색상을 변경합니다. */
+  align-self: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
+  /* 추가: 메시지 버블 안에 텍스트가 중앙에 오도록 만듭니다. */
+  align-items: center;
+  font-weight: bold;
+  text-align: ${(props) => (props.isOutgoing ? 'right' : 'left')};
 `;
 
 // export const MessageComponent = styled.div<MessageProps>`
