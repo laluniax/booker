@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Logo from '../../styles/assets/buttonimages/logo.png';
 
 export const Container = styled.div`
-  height: 100vh;
+  min-height: 60rem;
   display: flex;
   justify-content: center;
 `;

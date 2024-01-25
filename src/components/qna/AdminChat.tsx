@@ -99,7 +99,7 @@ const AdminChat = () => {
               안녕하세요 !
               <br />
               책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝ <br />
-              궁금한 점이 있으신가요?{' '}
+              궁금한 점이 있으신가요?
             </St.MainMessage>
             <St.ChatBody>
               {messages.map((message) => {

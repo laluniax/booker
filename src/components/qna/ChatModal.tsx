@@ -34,7 +34,6 @@ export type ChatData = {
   id: string;
 };
 const Chat = () => {
-  // 문쨩
   const [isOpen, setIsOpen] = useRecoilState(globalModalSwitch);
   //모달창을 열고 닫는 state
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
@@ -203,9 +202,11 @@ const Chat = () => {
             <St.ChatModalWrapper>
               {/* 채팅 모달 내용 */}
               <St.ChatModalHeader>
-                <button onClick={() => setIsChatModalOpen(false)}>닫기</button>
-                <div>채팅</div>
-                <div>구매확정</div>
+                <St.HeaderChattingModalTitle>채팅</St.HeaderChattingModalTitle>
+                <div>
+                  <St.HeaderPurchaseConfirmationButton>구매확정</St.HeaderPurchaseConfirmationButton>
+                  <St.CloseButton onClick={() => setIsChatModalOpen(false)}>X</St.CloseButton>
+                </div>
               </St.ChatModalHeader>
               <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
               <St.ChatModalFooter>
@@ -264,7 +265,7 @@ const Chat = () => {
               ) : (
                 <>
                   {/* Chats 컴포넌트의 UI 추가 */}
-                  <div>{renderChatRoomsList()}</div>
+                  <St.ChatListWrapper>{renderChatRoomsList()}</St.ChatListWrapper>
                 </>
               )}
             </St.ChatWrapper>
