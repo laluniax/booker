@@ -195,7 +195,7 @@ const Chat = () => {
 
   return (
     <>
-      {auth.session.profile.is_admin ? (
+      {auth.session.profile.isAdmin ? (
         isOpen && <AdminChat />
       ) : (
         <St.Container>

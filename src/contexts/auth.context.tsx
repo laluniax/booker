@@ -4,7 +4,7 @@ import { supabase } from '../api/supabase.api';
 
 type AuthContextValue = {
   isAuthInitialized: boolean;
-  session: (Session & { profile: { nickname: string; is_admin: boolean; id: string } }) | null;
+  session: (Session & { profile: { nickname: string; isAdmin: boolean; id: string } }) | null;
 };
 
 const initialValue: AuthContextValue = {

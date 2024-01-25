@@ -32,7 +32,6 @@ const ProductsLike = ({ postId }: LikeProps) => {
         // 새로운 좋아요 추가
         const userLike = await Productlike(postId, currentUserId);
         if (userLike) {
-          // userLike가 배열이라고 가정
           setLikes([...likes, ...userLike]);
         }
       }
