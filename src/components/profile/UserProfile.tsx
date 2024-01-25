@@ -69,7 +69,7 @@ const UserProfile = () => {
 
   return (
     <St.Container>
-      <St.Title>마이페이지</St.Title>
+      <St.Title>프로필</St.Title>
       <St.ProfileWrapper>
         <St.ProfileImg src={userData?.user_img || `${process.env.PUBLIC_URL}/images/header/profileImg.png`} />
         {userSession?.user.id === params ? (

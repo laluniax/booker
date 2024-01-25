@@ -5,9 +5,11 @@ import {
   filterPostsByUserIdHandler,
   filterProductsByUserIdHandler,
   getFollowListHandler,
+  getLikesPostsListHandler,
+  getLikesProductsListHandler,
   unFollowHandler,
 } from '../../api/supabase.api';
-import { FollowsTypes, Tables } from '../../types/types';
+import { FollowsTypes, PostsLikesTypes, ProductsLikesTypes, Tables } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
 import Pagination from '../common/pagination/Pagination';
 import EditProfile from './EditProfile';
@@ -24,10 +26,15 @@ const Tab = ({ userSession, userData }: Props) => {
   const [postsList, setPostsList] = useState<Tables<'posts'>[]>();
   const [productsList, setProductsList] = useState<Tables<'products'>[]>();
   const [followList, setFollowList] = useState<FollowsTypes[]>([]);
-  const [currentPostsPage, setCurrentPostsPage] = useState<number>(1);
-  const [currentProductsPage, setCurrentProductsPage] = useState<number>(1);
+  const [postsLikes, setPostsLikes] = useState<PostsLikesTypes[]>([]);
+  const [productsLikes, setProductsLikes] = useState<ProductsLikesTypes[]>([]);
+  const [currentPostsPage, setCurrentPostsPage] = useState(1);
+  const [currentProductsPage, setCurrentProductsPage] = useState(1);
+  // console.log(postsLikes);
+  // console.log(productsLikes);
+  // console.log(userSession);
 
-  const [postsPerPage, setPostsPerPage] = useState<number>(3);
+  const [postsPerPage, setPostsPerPage] = useState(3);
 
   // console.log('session', userSession, 'userdata', userData);
 
@@ -36,6 +43,10 @@ const Tab = ({ userSession, userData }: Props) => {
   const filterPostByUserId = async () => {
     const posts = await filterPostsByUserIdHandler(userData?.id as string);
     const products = await filterProductsByUserIdHandler(userData?.id as string);
+    const postLikes = await getLikesPostsListHandler(params as string);
+    const productLikes = await getLikesProductsListHandler(params as string);
+    setPostsLikes(postLikes.sort((a, b) => b.id - a.id));
+    setProductsLikes(productLikes.sort((a, b) => b.id - a.id));
     setPostsList(posts.sort((a, b) => b.id - a.id));
     setProductsList(products.sort((a, b) => b.id - a.id));
   };
@@ -70,12 +81,8 @@ const Tab = ({ userSession, userData }: Props) => {
         </St.TabMenu>
         <St.TabMenu
           onClick={() => {
-            alert('기능 구현 중');
-            return;
+            setActive('3');
           }}
-          // onClick={() => {
-          //   setActive('3');
-          // }}
           className={active === '3' ? 'active' : ''}>
           좋아요한 글
         </St.TabMenu>
@@ -154,7 +161,52 @@ const Tab = ({ userSession, userData }: Props) => {
             })}
           </St.FollowWrapper>
         )}
-        {active === '3' && <div>좋아요한 글</div>}
+        {active === '3' && (
+          <div>
+            <St.TabListTitle>북커톡</St.TabListTitle>
+            <St.PostWraapper>
+              {postsLikes?.slice((currentPostsPage - 1) * 5, currentPostsPage * 5)?.map((item, i) => {
+                return (
+                  <St.Post key={i} onClick={() => navigate(`/detail/${item.id}`)}>
+                    <St.PostTitle>{item.posts.title}</St.PostTitle>
+                    <St.PostDate>{formatCreatedAt(item.posts.created_at as string)}</St.PostDate>
+                  </St.Post>
+                );
+              })}
+              <Pagination postsPerPage={5} totalPosts={postsLikes?.length ?? 0} paginate={setCurrentPostsPage} />
+            </St.PostWraapper>
+            {userSession?.user.id === params ? (
+              <>
+                <St.TabListTitle>중고거래</St.TabListTitle>
+                <St.ProductWrapper>
+                  {productsLikes?.slice((currentProductsPage - 1) * 5, currentProductsPage * 5)?.map((item, i) => {
+                    return (
+                      <St.Product key={i} onClick={() => navigate(`/product/${item.id}`)}>
+                        {item.products.product_img && (
+                          <St.ProductImg
+                            src={item.products.product_img[0] || `${process.env.PUBLIC_URL}/images/common/logo.png`}
+                          />
+                        )}
+                        <St.ProductTitlePrice>
+                          <St.ProductTitle>{item.products.title}</St.ProductTitle>
+                          <St.ProductPrice>{item.products.price} 원</St.ProductPrice>
+                        </St.ProductTitlePrice>
+                        <St.ProductDate>
+                          {item.products.onsale ? '판매 중' : '판매 완료'} | {formatCreatedAt(item.created_at)}
+                        </St.ProductDate>
+                      </St.Product>
+                    );
+                  })}
+                  <Pagination
+                    postsPerPage={5}
+                    totalPosts={productsLikes?.length ?? 0}
+                    paginate={setCurrentProductsPage}
+                  />
+                </St.ProductWrapper>
+              </>
+            ) : null}
+          </div>
+        )}
         {active === '4' && <EditProfile />}
       </St.ProfileContent>
     </St.TabWrapper>

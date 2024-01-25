@@ -43,6 +43,7 @@ function KakaoMap() {
       });
     }
   }, []);
+
   // 가져온 데이터 상태 변수에 저장
   useEffect(() => {
     //함수 호출하여 데이터 가져오기
@@ -74,9 +75,10 @@ function KakaoMap() {
         {/* <RemovableCustomOverlayStyle /> */}
 
         <St.Map>
-          <St.Title>전국에 독립서점은 얼마나 있을까?</St.Title>{' '}
+          <St.Title>전국에 독립서점은 얼마나 있을까?</St.Title>
+
           <Map id={'map'} center={currentPosition} style={{ width: '100%', height: '60rem' }} level={5}>
-            {/* //현재 위치 띄우는 맵 마커 */}
+            {/*현재 위치 띄우는 맵 마커 */}
             <MapMarker position={currentPosition}></MapMarker>
             {markerData?.map((position, index) => {
               return (

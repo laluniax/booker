@@ -253,7 +253,9 @@ const Product = () => {
             <St.ProductBtn>
               {product?.onsale ? (
                 <>
-                  <ProductsLike postId={postId} />
+                  <St.ProductsLikesWrapper>
+                    <ProductsLike postId={postId} />
+                  </St.ProductsLikesWrapper>
                   <St.ProductLikes onClick={onClickDMButton}>대화 시작하기</St.ProductLikes>
                 </>
               ) : (

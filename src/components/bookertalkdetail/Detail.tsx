@@ -17,7 +17,7 @@ import {
 import { PostsTypes } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
 import Comment from '../bookertalk/comment/Comment';
-import Like from '../common/like/PostsLike';
+import PostsLike from '../common/like/PostsLike';
 import * as St from './Detail.styled';
 
 const Detail = () => {
@@ -132,9 +132,11 @@ const Detail = () => {
         </St.PostWrapper>
         <St.TagsWrapper>
           <St.PostTags>{parseTags()} </St.PostTags>
-        </St.TagsWrapper>
-        <Like postId={postId} />
-      </St.TitleAndPostWrapper>
+        </St.TagsWrapper>{' '}
+        <St.LikesWrapper>
+          <PostsLike postId={postId} />
+        </St.LikesWrapper>
+      </St.TitleAndPostWrapper>{' '}
       <St.PostProfileBox
         onClick={() => {
           navigation(`/profile/${data?.user_id}`);

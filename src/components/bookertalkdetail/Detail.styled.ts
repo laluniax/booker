@@ -83,6 +83,10 @@ export const PostTags = styled.p`
   font-size: 2rem;
 `;
 
+export const LikesWrapper = styled.div`
+  padding: 5rem 15rem;
+`;
+
 export const TitleAndTagsBox = styled.div`
   display: flex;
   align-items: center;
