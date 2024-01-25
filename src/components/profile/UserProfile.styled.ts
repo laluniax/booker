@@ -40,7 +40,7 @@ export const ProfileImg = styled.img`
 `;
 
 export const ProfileInfo = styled.div`
-  width: 30rem;
+  width: 40rem;
   line-height: 2;
   text-align: end;
 `;

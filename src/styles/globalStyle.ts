@@ -70,6 +70,10 @@ const GlobalStyle = createGlobalStyle`
     }
     button {
         cursor: pointer;
+        font-family: 'ChosunGu';
+    }
+    input, textarea {
+        font-family: 'ChosunGu';
     }
     @font-face {
     font-family: 'GmarketSansMedium';

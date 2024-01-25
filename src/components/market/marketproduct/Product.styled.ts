@@ -165,6 +165,7 @@ export const ProductUser = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 1.8rem;
+  cursor: pointer;
   & img {
     width: 4rem;
     height: 4rem;
@@ -173,11 +174,12 @@ export const ProductUser = styled.div`
   & div {
     width: 20rem;
   }
-  & button {
-    border: none;
-    background-color: transparent;
-    color: #74c0fc;
-  }
+`;
+export const FollowBtn = styled.button`
+  border: none;
+  background-color: transparent;
+  width: 7rem;
+  color: #74c0fc;
 `;
 
 export const ProductContent = styled.div`
@@ -290,7 +292,7 @@ export const SendButton = styled.button`
 export const MessageComponent = styled.div<MessageProps>`
   /* flex-direction: column; */
   display: flex;
-    justify-content: ${props => props.isOutgoing ? 'flex-end' : 'flex-start'};
+  justify-content: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
   padding: 10px;
   margin: 0.5rem;
   border-radius: 1rem;
@@ -299,7 +301,6 @@ export const MessageComponent = styled.div<MessageProps>`
   background-color: ${(props) => (props.isOutgoing ? '#7fd4f3' : '#000')}; // 예시 색상
   color: ${(props) => (props.isOutgoing ? '#000' : '#fff')};
 `;
-
 
 // export const MessageComponent = styled.div<MessageProps>`
 //   display: flex;

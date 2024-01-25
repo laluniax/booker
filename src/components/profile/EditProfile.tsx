@@ -6,18 +6,23 @@ import {
   getPublicUrlHandler,
   getUserDataHandler,
   getUserSessionHandler,
+  nicknameValidationHandler,
   updateUserAuthNicknameHandler,
   updateUserAuthUserImgHandler,
   updateUserIntroTextHandler,
   uploadUserImgHandler,
 } from '../../api/supabase.api';
+import { Tables } from '../../types/types';
 import * as St from './Tab.styled';
 
 const EditProfile = () => {
   const [userSession, setUserSession] = useState<Session | null>(null);
+  const [userData, setUserData] = useState<Tables<'users'>>();
   const [tempImg, setTempImg] = useState(''); // 화면에서 보여줄 이미지
   const [uploadFile, setUploadFile] = useState<File>(); // 실제로 업로드 할 파일
   const [nickname, setNickname] = useState('');
+  const [nicknameValidation, setNicknameValidation] = useState(true);
+  const [validationText, setValidationText] = useState(false);
   const [introText, setIntroText] = useState('');
 
   const params = useParams().id;
@@ -28,6 +33,7 @@ const EditProfile = () => {
     const session = await getUserSessionHandler();
     setNickname(result[0].nickname);
     setTempImg(result[0].user_img);
+    setUserData(result[0]);
     setUserSession(session.session);
     setIntroText(result[0].intro_text);
   };
@@ -65,13 +71,51 @@ const EditProfile = () => {
       return;
     }
   };
-
+  // 닉네임 유효성(중복검사) 함수
+  const onClickNicknameValidation = async () => {
+    const result = await nicknameValidationHandler(nickname);
+    console.log(result);
+    // 닉네임 중복 검사
+    if (result.error) {
+      console.error('닉네임 중복 검사 중 오류 발생:', result.error);
+      return;
+    }
+    if (result.data) {
+      alert('중복된 닉네임입니다');
+      setNicknameValidation(false);
+    } else {
+      setNicknameValidation(true);
+    }
+    setValidationText(true);
+  };
   // 프로필 업데이트 함수
   const updateUserData = async () => {
     await updateUserAuthNicknameHandler(nickname);
     await updateUserIntroTextHandler(params as string, introText);
     alert('수정되었습니다.');
     getUserData();
+    setValidationText(false);
+  };
+  // 프로펠 업데이트 유효성 검사
+  const onClickUpdateUserData = () => {
+    if (!validationText) {
+      if (userData?.nickname === nickname) {
+        if (userData?.intro_text === introText) {
+          alert('변경내용이 없습니다.');
+          return;
+        }
+        updateUserData();
+      } else {
+        alert('닉네임 중복검사를 완료해주세요.');
+      }
+    } else {
+      if (nicknameValidation) {
+        updateUserData();
+      } else {
+        alert('프로필 변경이 불가능합니다.');
+        return;
+      }
+    }
   };
 
   useEffect(() => {
@@ -99,23 +143,34 @@ const EditProfile = () => {
       <St.ProfileNicknameEdit>
         <St.ProfileEditTitle>닉네임</St.ProfileEditTitle>
         <St.ProfileNicknameEditValidation>
-          <St.ProfileNicknameInput
-            type="text"
-            maxLength={10}
-            value={nickname}
-            onChange={(e) => {
-              setNickname(e.target.value);
-            }}
-          />
-          <St.ProfileNicknameValidation>닉네임 중복확인</St.ProfileNicknameValidation>
+          <div>
+            <St.ProfileNicknameInput
+              type="text"
+              maxLength={10}
+              value={nickname}
+              onChange={(e) => {
+                setNickname(e.target.value);
+              }}
+            />
+            <span>{nickname.length}/10</span>
+            {validationText ? (
+              <>{nicknameValidation ? <div>사용가능한 닉네임입니다.</div> : <div>중복된 닉네임입니다.</div>}</>
+            ) : null}
+          </div>
+          <St.ProfileNicknameValidation onClick={onClickNicknameValidation}>
+            닉네임 중복확인
+          </St.ProfileNicknameValidation>
         </St.ProfileNicknameEditValidation>
       </St.ProfileNicknameEdit>
       <St.ProfileIntroTextEdit>
         <St.ProfileEditTitle>한 줄 소개</St.ProfileEditTitle>
-        <St.ProfileIntroTextArea value={introText} onChange={(e) => setIntroText(e.target.value)} />
+        <St.ProfileIntroTextWrapper>
+          <St.ProfileIntroTextArea value={introText} onChange={(e) => setIntroText(e.target.value)} maxLength={80} />
+          <span>{introText.length}/80</span>
+        </St.ProfileIntroTextWrapper>
       </St.ProfileIntroTextEdit>
       <St.ProfileBtnDiv>
-        <St.ProfileBtn onClick={updateUserData}>프로필 수정완료</St.ProfileBtn>
+        <St.ProfileBtn onClick={onClickUpdateUserData}>프로필 수정완료</St.ProfileBtn>
       </St.ProfileBtnDiv>
     </St.ProfileEditWrapper>
   );

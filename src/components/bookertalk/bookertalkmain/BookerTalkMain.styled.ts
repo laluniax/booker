@@ -1,10 +1,5 @@
 import styled from 'styled-components';
 
-// 장르 버튼을 눌렀을 때 , 색 변경
-type GenreButtonProps = {
-  isSelected: boolean;
-};
-
 export const Container = styled.div`
   grid-template-columns: 35rem 1fr;
   gap: 5rem;
@@ -56,12 +51,15 @@ export const GenreButtonbox = styled.div`
   margin-top: 1rem;
 `;
 
-export const GenreButton = styled.button<GenreButtonProps>`
+export const GenreButton = styled.button`
   all: unset;
-  color: ${(props) => (props.isSelected ? '#015e80' : '#000')};
-  font-weight: ${(props) => (props.isSelected ? 'bold' : '')};
-  font-size: ${(props) => (props.isSelected ? '2rem' : '#000')};
-  border-bottom: ${(props) => (props.isSelected ? '1px solid #000' : '#000')};
+  color: black;
+  &.active {
+    color: #015e80;
+    font-weight: bold;
+    font-size: 2rem;
+    border-bottom: 0.1rem solid black;
+  }
   &:hover {
     cursor: pointer;
   }

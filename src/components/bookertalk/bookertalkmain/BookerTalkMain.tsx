@@ -41,7 +41,7 @@ const BookerTalkMain = () => {
       .map((genre) => (
         <St.GenreButton
           key={genre}
-          isSelected={selectedGenre === genre}
+          className={categoryUuid[genre] === params ? 'active' : ''}
           onClick={() => {
             setSelectedGenre(genre); // 선택된 장르 상태를 업데이트해서 색 변경
             navigation(`/bookertalk/${categoryUuid[genre]}`);
@@ -55,7 +55,7 @@ const BookerTalkMain = () => {
       .slice(8, 16)
       .map((genre) => (
         <St.GenreButton
-          isSelected={selectedGenre === genre}
+          className={categoryUuid[genre] === params ? 'active' : ''}
           key={genre}
           onClick={() => {
             setSelectedGenre(genre); // 선택된 장르 상태를 업데이트해서 색 변경

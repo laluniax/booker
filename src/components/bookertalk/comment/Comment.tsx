@@ -13,7 +13,11 @@ import { formatCreatedAt } from '../../../utils/date';
 import * as St from './Comment.styled';
 import SubComment from './SubComment';
 
-const Comment = () => {
+type PropsTypes = {
+  setCommentsCount: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const Comment = ({ setCommentsCount }: PropsTypes) => {
   const [data, setData] = useState<CommentTypes>();
   const [session, setSession] = useState<string | undefined>('');
   const [metaData, setMetaData] = useState<UserMetadata>();
@@ -26,6 +30,7 @@ const Comment = () => {
   const getCommentsInfo = async () => {
     const result = await getCommentsInfoHandler(params);
     setData(result[0] as CommentTypes);
+    setCommentsCount(result[0].comments.length);
   };
 
   const getUserSession = async () => {
@@ -149,7 +154,7 @@ const Comment = () => {
                     item.content
                   )}
                 </St.CommentContent>
-                <SubComment commentId={item.id} session={session} />
+                <SubComment commentId={item.id} session={session} setCommentsCount={setCommentsCount} />
               </St.Comment>
             );
           })}
