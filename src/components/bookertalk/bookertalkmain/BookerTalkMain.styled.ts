@@ -8,7 +8,7 @@ type GenreButtonProps = {
 export const Container = styled.div`
   grid-template-columns: 35rem 1fr;
   gap: 5rem;
-  min-height: 100vh;
+  min-height: 80rem;
   margin-top: 8rem;
 `;
 

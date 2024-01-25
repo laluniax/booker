@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import BannerBookImg from '../../styles/assets/bookimages/SampleBookImage2.jpg';
 import BookRecommendImg from '../../styles/assets/mainpageimages/book_recomend_image.png';
 import BookStoreImg from '../../styles/assets/mainpageimages/bookstore_image.png';
-import BannerSamplePaintingImg from '../../styles/assets/mainpageimages/famouspainting1.jpg';
+// import BannerSamplePaintingImg from '../../styles/assets/mainpageimages/famouspainting1.jpg';
 // 북커톡
 import BookertalkImage from '../../styles/assets/mainpageimages/book.jpg';
 import BookertalkImage2 from '../../styles/assets/mainpageimages/book2.jpg';
@@ -20,7 +20,7 @@ import ProductImage3 from '../../styles/assets/bookimages/productimage3.jpg';
 import ProductImage4 from '../../styles/assets/bookimages/productimage4.jpg';
 
 export const Container = styled.div`
-  height: 400rem;
+  min-height: 375rem;
 `;
 
 // 공통으로 쓰는 것들
@@ -50,6 +50,7 @@ export const Titlebox = styled.div`
 export const Title = styled.h2`
   font-size: 3.5rem;
   font-weight: bold;
+  color: #14213d;
 `;
 export const Detail = styled.div`
   font-size: 1.7rem;
@@ -83,6 +84,11 @@ export const BannerBookImage = styled.div`
 
   width: 30rem;
   height: 44rem;
+
+  @media (max-width: 768px) {
+    width: 20rem;
+    height: 30rem;
+  }
 `;
 export const BannerBookIntro = styled.div`
   background-color: #ab8bed;
@@ -102,15 +108,15 @@ export const BannerBookTitle = styled.div`
 
 // 배너 오른쪽 파트
 export const BannerRecommendBox = styled.div``;
-export const BannerRecommendImage = styled.div`
-  background: url(${BannerSamplePaintingImg});
-  background-size: contain;
-  object-fit: cover;
-  margin-left: 2rem;
+// export const BannerRecommendImage = styled.div`
+//   background: url(${BannerSamplePaintingImg});
+//   background-size: contain;
+//   object-fit: cover;
+//   margin-left: 2rem;
 
-  width: 85rem;
-  height: 51rem;
-`;
+//   width: 85rem;
+//   height: 51rem;
+// `;
 export const BannerRecommendTitleBox = styled.div`
   display: flex;
   justify-content: left;
@@ -120,6 +126,11 @@ export const BannerRecommendTitleBox = styled.div`
   height: 8.5rem;
   margin-left: 2rem;
   margin-top: 0.5rem;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0 5px #333;
+  }
 `;
 
 export const BannerRecommendTitle = styled.div`
@@ -286,7 +297,7 @@ export const BookIntroCard = styled.div`
   position: relative;
   margin-left: 3rem;
   width: 30rem;
-  height: 45rem;
+  height: 47rem;
   border-radius: 1rem;
   overflow: hidden;
   cursor: pointer;
@@ -304,8 +315,9 @@ export const BookIntroCard = styled.div`
   }
 
   &:hover {
-    background-color: #000;
-    color: #fff;
+    background-color: #e5e5e5;
+    color: #000;
+    /* box-shadow: 0 0 5px #fca311; */
     transition: background-image 0.5s ease-in-out;
     z-index: 20;
   }
@@ -363,7 +375,8 @@ export const BookIntroCardTitle = styled.div`
   margin-left: 1rem;
   font-size: 2rem;
   font-weight: bold;
-  width: 16ch;
+  padding-bottom: 0.2rem;
+  width: 20ch;
   word-wrap: break-word;
   letter-spacing: 0.1rem;
 `;
@@ -385,7 +398,7 @@ export const MarketProductCard = styled.div`
   position: relative;
   margin-left: 3rem;
   width: 30rem;
-  height: 45rem;
+  height: 47rem;
   border-radius: 1rem;
   line-height: 1.2;
   overflow: hidden;
@@ -404,8 +417,8 @@ export const MarketProductCard = styled.div`
   }
 
   &:hover {
-    background-color: #357c96;
-    color: #fff;
+    background-color: #e5e5e5;
+    color: #000;
     transition: background-image 0.5s ease-in-out;
     z-index: 1;
   }
@@ -461,18 +474,21 @@ export const MarketProductImage4 = styled.div`
 
 export const ProductPrice = styled.div`
   font-size: 2rem;
-  margin-left: 1rem;
   font-weight: bold;
+  margin-left: 1rem;
+  margin-bottom: 0.4rem;
+  font-family: 'GmarketSansMedium';
 `;
 
 export const ProductTitle = styled.div`
   margin-top: 1rem;
   font-size: 2rem;
   font-weight: bold;
-  width: 19ch; /* 5글자의 너비 */
+  width: 25ch; /* 5글자의 너비 */
   word-wrap: break-word;
   letter-spacing: 0.1rem;
   margin-left: 1rem;
+  margin-bottom: 0.4rem;
   // 한 줄 초과 시 ...으로 표시
   white-space: nowrap;
   overflow: hidden;

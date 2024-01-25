@@ -11,6 +11,10 @@ export const Container = styled.div`
   margin-top: 8rem;
   max-height: 60rem;
   overflow-y: auto;
+  color: #fff;
+  background-color: #000;
+  border: 2px solid #fff;
+  border-radius: 2rem;
 `;
 export const MarketNameAndImage = styled.div`
   height: 33rem;
@@ -22,7 +26,20 @@ export const MarketName = styled.h1`
   margin: 2rem 0 2rem 0;
   margin-top: 5rem;
   font-weight: bold;
+  color: #fca311;
+  text-align: center;
 `;
+
+export const DetailContent = styled.div`
+  color: #fff;
+  text-align: center;
+  line-height: 1.4;
+`;
+
+export const DetainSpan = styled.span`
+  color: #fca311;
+`;
+
 export const BookStoreImage = styled.img`
   background: url(${BookStoreImage1});
   background-size: contain;
