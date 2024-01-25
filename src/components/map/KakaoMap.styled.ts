@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  height: 400rem;
-`;
+export const Container = styled.div``;
 
 export const MapContainer = styled.div`
   width: 120rem;
@@ -18,6 +16,8 @@ export const Title = styled.h1`
   height: 4rem;
   font-size: 4rem;
   margin: 2rem auto;
+  color: #14213d;
+  font-weight: bold;
   align-items: center;
 `;
 

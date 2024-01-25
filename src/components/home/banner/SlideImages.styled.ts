@@ -1,26 +1,25 @@
 import styled, { keyframes } from 'styled-components';
-import leftIcon from '../../styles/assets/left_btn2.png';
-import rightIcon from '../../styles/assets/right_btn.png';
+import leftIcon from '../../../styles/assets/left_btn2.png';
+import rightIcon from '../../../styles/assets/right_btn.png';
 
 export const SlideshowContainer = styled.div`
   position: relative;
-  width: 100%;
-  height: 100vh; // Use viewport height to fill the entire screen
-  margin-top: 80px;
-  border-radius: 8px;
+  width: 85rem;
+  height: 51rem;
   overflow: hidden;
+  margin-left: 2rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
   grid-column: 1; // 슬라이드쇼를 첫 번째 열에 배치합니다
+
   @media (max-width: 768px) {
-    display: none; // 작은 화면에서는 열을 쌓습니다
+    width: 65rem;
+    height: 40rem;
   }
 
   @media (min-width: 300px) {
-    height: 80vh;
   }
 
   @media (min-width: 1024px) {
-    height: 80vh;
   }
 `;
 
@@ -35,9 +34,23 @@ export const fadeInOut = keyframes`
   }
 `;
 
+export const slideInLeft = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
 export const SlideshowImage = styled.img`
   width: 100%;
   height: 80vh;
+  background-size: contain;
+  width: 85rem;
+  height: 51rem;
   object-fit: cover;
   object-position: 50% 40%;
   position: absolute;
@@ -47,11 +60,16 @@ export const SlideshowImage = styled.img`
   transform: scale(1.1) translateX(-1rem) rotate(-5deg);
   transition: all 0.5s ease-in-out;
 
+  @media (max-width: 768px) {
+    width: 65rem;
+    height: 40rem;
+  }
+
   &.active {
     z-index: 1;
     opacity: 1;
     transform: scale(1) translateX(0) rotate(0);
-    animation: ${fadeInOut} 0.5s ease-in-out;
+    animation: ${fadeInOut} 0.7s ease-in-out;
   }
 `;
 
@@ -79,6 +97,13 @@ export const NextButton = styled.button`
   font-size: 18px;
   cursor: pointer;
   z-index: 2;
+
+  &.active {
+    z-index: 1;
+    opacity: 1;
+    transform: scale(1) translateX(0) rotate(0);
+    animation: ${slideInLeft} 0.7s ease-in-out;
+  }
 `;
 
 export const LeftIcon = styled.span`
