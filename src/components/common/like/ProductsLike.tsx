@@ -26,7 +26,7 @@ const ProductsLike = ({ postId }: LikeProps) => {
     try {
       if (existingLike) {
         // 기존 좋아요 제거
-        await supabase.from('productLikes').delete().match({ id: existingLike.id });
+        await supabase.from('product_likes').delete().match({ id: existingLike.id });
         setLikes(likes.filter((like) => like.id !== existingLike.id));
       } else {
         // 새로운 좋아요 추가
