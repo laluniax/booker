@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import githubIcon from '../../assets/snslogo/githublogo.webp';
+import googleIcon from '../../assets/snslogo/googlelogo.webp';
 
 //전체 컨테이너
 export const Container = styled.div`
@@ -113,9 +115,21 @@ export const ErrorText = styled.div`
   margin-bottom: 2rem;
 `;
 
-export const SnsLogo = styled.img`
-  width: 4rem;
+export const GithubIcon = styled.div`
+  width: 4.5rem;
+  height: 4.5rem;
   margin-left: 1rem;
+  background: url(${githubIcon});
+  background-size: contain;
+  cursor: pointer;
+`;
+
+export const GoogleIcon = styled.div`
+  width: 4rem;
+  height: 4rem;
+  background: url(${googleIcon});
+  background-size: contain;
+  cursor: pointer;
 `;
 
 export const SocialLoginBtnBox = styled.div`

@@ -6,7 +6,7 @@ const Footer = () => {
       <St.FooterWrapper>
         <St.FooterBox>
           <St.FooterContentwrapper>
-            <St.Logo src={`${process.env.PUBLIC_URL}/images/common/Logo.png`} alt="Logo" />
+            <St.LogoImage />
             <St.FooterContentBox>
               <St.FooterTitle> : 책과 관련된 모든 것</St.FooterTitle>
               <St.FooterContent>

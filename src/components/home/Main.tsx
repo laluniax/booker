@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import * as St from './Main.styled';
+import SlideImages from './banner/SlideImages';
 const Main = () => {
   const navigate = useNavigate();
   return (
@@ -16,9 +17,13 @@ const Main = () => {
           </St.BannerBookIntroBox>
 
           <St.BannerRecommendBox>
-            <St.BannerRecommendImage />
+            <SlideImages />
+            {/* <St.BannerRecommendImage /> */}
             <St.BannerRecommendTitleBox>
-              <St.BannerRecommendTitle>
+              <St.BannerRecommendTitle
+                onClick={() => {
+                  navigate(`/bookertalk`);
+                }}>
                 당신의 이름을 지어다가 며칠은 먹었다 라는 책이 요즘 재미있더라구요!
               </St.BannerRecommendTitle>
             </St.BannerRecommendTitleBox>
@@ -42,7 +47,7 @@ const Main = () => {
                 }}
               />
               <St.CardTitle>책 추천 받습니다.</St.CardTitle>
-              <St.CardContent>줜님</St.CardContent>
+              <St.CardContent>져져젼님</St.CardContent>
             </St.BookerTalkCard>
 
             <St.BookerTalkCard>
@@ -128,14 +133,14 @@ const Main = () => {
             <St.MarketProductCard>
               <St.MarketProductImage />
               <St.ProductTitle>푸바오 책 팝니다.</St.ProductTitle>
-              <St.ProductPrice>₩ 12,000₩</St.ProductPrice>
+              <St.ProductPrice>₩ 12,000</St.ProductPrice>
               <St.ProductContent>OO님</St.ProductContent>
             </St.MarketProductCard>
 
             <St.MarketProductCard>
               <St.MarketProductImage2 />
               <St.ProductTitle>쇼펜하우어 소품집 판매</St.ProductTitle>
-              <St.ProductPrice>₩ 20,000</St.ProductPrice>
+              <St.ProductPrice> ₩ 20,000</St.ProductPrice>
               <St.ProductContent>OO님</St.ProductContent>
             </St.MarketProductCard>
 

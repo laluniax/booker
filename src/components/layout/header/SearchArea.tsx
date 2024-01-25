@@ -43,11 +43,7 @@ const SearchArea = () => {
         ) : null}
       </St.SearchBox>{' '}
       <St.HeaderBtn onClick={() => setSearchBarOpen(!searchBarOpen)}>
-        <St.Image
-          src={`${process.env.PUBLIC_URL}/images/header/searchIcon.jpg`}
-          alt="searchIcon"
-          style={{ width: '32px', height: '33px' }}
-        />
+        <St.SearchIconImage />
       </St.HeaderBtn>
     </div>
   );

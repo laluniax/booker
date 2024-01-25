@@ -1,4 +1,5 @@
 import { googleLoginHandler } from '../../api/supabase.api';
+import * as St from './Form.styled';
 
 export const GoogleLogin = async () => {
   const result = await googleLoginHandler();
@@ -11,5 +12,5 @@ export const GoogleLogin = async () => {
 };
 
 export const GoogleLoginBtn = () => {
-  return <img width="35px" src="/images/snslogo/googleLogo.png" alt="googleLogo" onClick={GoogleLogin} />;
+  return <St.GoogleIcon onClick={GoogleLogin} />;
 };

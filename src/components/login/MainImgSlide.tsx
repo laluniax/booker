@@ -2,15 +2,16 @@ import { useEffect, useState } from 'react';
 import * as St from './MainImgSlide.style';
 
 // 명화
-import Famouspainting1 from '../../styles/assets/famouspainitngimages/famouspainting2.png';
-import Famouspainting2 from '../../styles/assets/famouspainitngimages/painting1.jpg';
-import Famouspainting3 from '../../styles/assets/famouspainitngimages/painting3.jpg';
-import Famouspainting4 from '../../styles/assets/famouspainitngimages/painting4.jpg';
+import loginImage1 from '../../assets/loginimage/loginimage1.webp';
+import loginImage2 from '../../assets/loginimage/loginimage2.webp';
+import loginImage3 from '../../assets/loginimage/loginimage3.webp';
+import loginImage4 from '../../assets/loginimage/loginimage4.webp';
+
 const images = [
-  { image: Famouspainting1, alt: 'Famouspainting1' },
-  { image: Famouspainting2, alt: 'Famouspainting2' },
-  { image: Famouspainting3, alt: 'Famouspainting3' },
-  { image: Famouspainting4, alt: 'Famouspainting4' },
+  { image: loginImage1, alt: 'loginimage1' },
+  { image: loginImage2, alt: 'loginimage2' },
+  { image: loginImage3, alt: 'loginimage3' },
+  { image: loginImage4, alt: 'loginimage4' },
 ];
 
 const ImageSlideshow = () => {

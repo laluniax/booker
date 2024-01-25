@@ -1,7 +1,36 @@
 import styled from 'styled-components';
+import logo from '../../../assets/common/logo.webp';
+import profileIcon from '../../../assets/header/profileicon.webp';
+import searchIcon from '../../../assets/header/searchicon.webp';
+
+export const SearchIconImage = styled.div`
+  background: url(${searchIcon});
+  background-size: contain;
+  margin-right: 3rem;
+  width: 5rem;
+  height: 5rem;
+  cursor: pointer;
+`;
+
+export const ProfileIconImage = styled.div`
+  background: url(${profileIcon});
+  background-size: contain;
+  margin-left: -1rem;
+  width: 5rem;
+  height: 5rem;
+  cursor: pointer;
+`;
+
+export const HeaderLogo = styled.div`
+  background: url(${logo});
+  background-size: contain;
+  margin-left: 9rem;
+  width: 24rem;
+  height: 5rem;
+`;
 
 export const Container = styled.div`
-  background-color: black;
+  background-color: #14213d;
   color: #fff;
   height: 11rem;
   font-size: 1.5rem;
@@ -21,10 +50,6 @@ export const Wrapper = styled.div`
 export const ImageWrapper = styled.div`
   width: 30rem;
   height: 5rem;
-`;
-
-export const Image = styled.img`
-  cursor: pointer;
 `;
 
 export const NavbarWrapper = styled.div`
@@ -56,13 +81,11 @@ export const HeaderBtn = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
-  & img {
-    width: 4rem;
-    height: 4rem;
-    /* background-color: white; */
-    /* border-radius: 50%; */
-    object-fit: cover;
-  }
+  /* & img { */
+  /* width: 4rem; */
+  /* height: 4rem; */
+  /* object-fit: cover; */
+  /* } */
 `;
 
 export const LoginBtn = styled.div`
@@ -79,7 +102,6 @@ export const LoginBtn = styled.div`
 `;
 
 export const HeaderLiBox = styled.div`
-  /* margin-left: 3rem; */
   margin-top: 0.3rem;
   display: flex;
   font-size: 1.8rem;
@@ -88,8 +110,6 @@ export const HeaderLiBox = styled.div`
   height: 2rem;
   gap: 3rem;
   letter-spacing: 0.1rem;
-  /* padding-left: 18rem;
-  padding-right: 18rem; */
 `;
 
 // 검색

@@ -20,7 +20,7 @@ const Header = () => {
           onClick={() => {
             navigate('/');
           }}>
-          <St.Image src="/images/common/logo.png" />
+          <St.HeaderLogo />
         </St.ImageWrapper>
         <St.HeaderUl>
           <St.HeaderLiBox>
@@ -45,7 +45,7 @@ const Header = () => {
           <SearchArea />
           {auth.session !== null ? (
             <>
-              <St.HeaderBtn
+              {/* <St.HeaderBtn
                 onClick={() => {
                   navigate(`/profile/${auth.session?.user.id}`);
                 }}>
@@ -57,18 +57,23 @@ const Header = () => {
                   }
                   alt="유저 프로필 이미지"
                 />
-              </St.HeaderBtn>
+              </St.HeaderBtn> */}
               <St.HeaderBtn onClick={onClickSignoutHandler}>
-                <St.Image src="/images/header/profileIcon.png" />
+                <St.ProfileIconImage />
               </St.HeaderBtn>
             </>
           ) : (
-            <St.LoginBtn
+            // <St.LoginBtn
+            //   onClick={() => {
+            //     navigate('/login');
+            //   }}>
+            <St.HeaderBtn
               onClick={() => {
                 navigate('/login');
               }}>
-              로그인
-            </St.LoginBtn>
+              <St.ProfileIconImage />
+            </St.HeaderBtn>
+            // </St.LoginBtn>
           )}
         </St.HeaderUl>
       </St.Wrapper>
