@@ -59,9 +59,9 @@ const BookerPick = () => {
       </St.Header>
       <St.Body>
         {loading ? <Loading /> : null}
-        {bookerPick.map((book) => {
+        {bookerPick.map((book, i) => {
           return (
-            <St.BookCardWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
+            <St.BookCardWrapper key={i} onClick={() => GotoDetailPage(book.isbn13)}>
               <St.BookCardWrapper>
                 <St.BookImg>
                   <img src={book.cover} alt="책 이미지" width={230} height={290} />

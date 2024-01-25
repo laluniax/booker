@@ -18,7 +18,6 @@ const UserProfile = () => {
   const [userSession, setUserSession] = useState<Session | null>(null);
   const [userData, setUserData] = useState<Tables<'users'>>();
   const [nickname, setNickname] = useState('');
-  const [tempImg, setTempImg] = useState(''); // 화면에서 보여줄 이미지
   const [followId, setFollowId] = useState('');
   const [following, setFollowing] = useState(false); // 팔로잉:거짓 이 기본
 
@@ -30,7 +29,6 @@ const UserProfile = () => {
     const newFollowId = params + '-' + userSession?.user.id;
     setUserData(result[0]);
     setNickname(result[0].nickname);
-    setTempImg(result[0].user_img);
     setUserSession(session.session);
     setFollowId(newFollowId);
   };

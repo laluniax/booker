@@ -91,7 +91,7 @@ export const TitleAndTagsBox = styled.div`
 export const PostProfileBox = styled.div`
   position: relative;
   width: 50rem;
-  height: 15rem;
+  height: 20rem;
   margin: 2rem auto;
   margin-top: 5rem;
   padding-top: 6rem;
@@ -119,6 +119,15 @@ export const PostProfileIntroText = styled.div`
   font-size: 1.6rem;
   color: #828282;
   padding-top: 2rem;
+`;
+
+export const FollowBtn = styled.button`
+  border: none;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  margin-top: 2rem;
 `;
 
 export const CommentTitle = styled.h2`

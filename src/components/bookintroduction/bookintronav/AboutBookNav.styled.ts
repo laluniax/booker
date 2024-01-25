@@ -31,11 +31,13 @@ export const Category = styled.div`
   margin-top: 1rem;
 `;
 
-export const CategoryList = styled.button<CategoryButtonProps>`
+export const CategoryList = styled.button`
   all: unset;
   font-size: 2rem;
-  color: ${(props) => (props.isSelected ? '#015e80;' : '#000')};
-  border-bottom: ${(props) => (props.isSelected ? '1px solid #000;' : '#000')};
+  &.active {
+    color: #015e80;
+    border-bottom: 0.1rem solid black;
+  }
   &:hover {
     cursor: pointer;
   }

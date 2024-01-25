@@ -58,9 +58,9 @@ const BookSpecial = () => {
       </St.Header>
       <St.Body>
         {loading ? <Loading /> : null}
-        {special.map((book) => {
+        {special.map((book, i) => {
           return (
-            <St.BookCardWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
+            <St.BookCardWrapper key={i} onClick={() => GotoDetailPage(book.isbn13)}>
               <br />
               <St.BookCardWrapper>
                 <St.BookImg>

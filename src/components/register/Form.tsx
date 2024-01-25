@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signupHandler, supabase } from '../../api/supabase.api';
+import { nicknameValidationHandler, signupHandler, supabase } from '../../api/supabase.api';
 import * as St from './Register.style';
 
 const Form = () => {
@@ -128,19 +128,16 @@ const Form = () => {
     }
 
     // 닉네임 중복 검사
-    const { data: nicknameData, error: nicknameError } = await supabase
-      .from('users')
-      .select('nickname')
-      .eq('nickname', nickname)
-      .maybeSingle();
+    const result = await nicknameValidationHandler(nickname);
+    console.log(result);
 
-    if (nicknameError) {
+    if (result.error) {
       console.error('닉네임 중복 검사 중 오류 발생:', nicknameError);
       setNicknameError('오류가 발생했습니다. 다시 시도해주세요.');
       return;
     }
 
-    if (nicknameData) {
+    if (result.data) {
       setNicknameError('중복된 닉네임입니다');
       setIsNicknameValid(false);
     } else {
