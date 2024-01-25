@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 110vh;
+  height: 120vh;
   min-height: 120rem;
 `;
 
@@ -46,6 +46,7 @@ export const CategoryTitle = styled.div`
   font-size: 3rem;
   font-weight: bold;
   color: #003c52;
+  cursor: pointer;
 `;
 export const CategoryBtnBox = styled.div`
   display: flex;
@@ -76,6 +77,7 @@ export const ProductsWrapper = styled.div`
   /* grid-template-columns: 1fr 1fr 1fr 1fr; */
   gap: 1rem;
   line-height: 1.5;
+  margin-bottom: 2rem;
 `;
 
 export const ProductCard = styled.div`

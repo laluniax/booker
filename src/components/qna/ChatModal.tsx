@@ -135,6 +135,7 @@ const Chat = () => {
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
 
+
     sendDirectMessage({
       content: inputValue,
       author_id: LoginPersonal,
@@ -149,6 +150,7 @@ const Chat = () => {
   //메시지 보여주는 것
   const renderMessages = () => {
     return messages
+      .filter((message: MessageType) => message.chat_id === chatId)
       .filter((message: MessageType) => message.chat_id === chatId)
       .map((message: MessageType) => (
         <div key={message.id}>

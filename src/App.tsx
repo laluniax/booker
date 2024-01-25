@@ -108,7 +108,7 @@ const App = () => {
         // Make sure flatChatRooms is of type ChatRoom[]
         setChatRooms(flatChatRooms as ChatRoom[]);
       } catch (error) {
-        console.error('채팅방 가져오기 오류:', error);
+        // console.error('채팅방 가져오기 오류:', error);
       }
     };
     console.log('app114');
@@ -180,7 +180,6 @@ const App = () => {
           table: 'messages',
         },
         (payload) => {
-          console.log('app전역관리', payload);
           fetchMessages();
           handleNewMessageCount(payload as MessagePayload);
 
@@ -196,8 +195,6 @@ const App = () => {
     const chatChannel = supabase
       .channel('chat-channel')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {
-        console.log('New chat!', payload);
-
         fetchChatRooms();
       })
       .subscribe();

@@ -111,6 +111,11 @@ export const updateUserAuthUserImgHandler = async (userImg: string) => {
   if (error) throw error;
   return data;
 };
+export const updateUserIntroTextHandler = async (params: string, introText: string) => {
+  const { data, error } = await supabase.from('users').update({ intro_text: introText }).eq('id', params).select();
+  if (error) throw error;
+  return data;
+};
 // 유저 정보 수정하기 (이미지 - storage에 저장)
 export const uploadUserImgHandler = async (params: string, userImg: File) => {
   const { data, error } = await supabase.storage.from('user_img').upload(`${params}/${params}`, userImg);
@@ -437,5 +442,38 @@ export const mapMarkerDataHandler = async () => {
   const { data, error } = await supabase.from('independentBookStores').select('*');
   console.log(data);
   console.log(error);
+  return data;
+};
+
+// 게시글: 좋아요 수를 불러오는 함수
+
+export const getLikeCount = async (postId: number | undefined) => {
+  const { data, error } = await supabase.from('likes').select('*').eq('post_id', postId);
+  if (error) throw error;
+  return data;
+};
+/* //게시글: 이미 좋아요 한 경우, 좋아요 제거
+export const cancelLike = async (existingLike: string) => {
+  const { data, error } = await supabase.from('likes').delete().match({ id: existingLike.id });
+  if (error) throw error;
+  return data;
+}; */
+//게시글: 좋아요 하지 않은 경우, 좋아요 추가
+export const like = async (postId: number | undefined, currentUserId: string | undefined) => {
+  const { data, error } = await supabase.from('likes').insert([{ post_id: postId, user_id: currentUserId }]);
+  if (error) throw error;
+  return data;
+};
+// 상품: 좋아요 수를 불러오는 함수
+
+export const getLikeCountP = async (postId: number | undefined) => {
+  const { data, error } = await supabase.from('productLikes').select('*').eq('post_id', postId);
+  if (error) throw error;
+  return data;
+};
+//상품: 좋아요 하지 않은 경우, 좋아요 추가
+export const Productlike = async (postId: number | undefined, currentUserId: string | undefined) => {
+  const { data, error } = await supabase.from('productLikes').insert([{ post_id: postId, user_id: currentUserId }]);
+  if (error) throw error;
   return data;
 };

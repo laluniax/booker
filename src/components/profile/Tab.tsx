@@ -9,7 +9,9 @@ import {
 } from '../../api/supabase.api';
 import { FollowsTypes, Tables } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
-import * as St from './UserProfile.styled';
+import Pagination from '../common/pagination/Pagination';
+import EditProfile from './EditProfile';
+import * as St from './Tab.styled';
 
 type Props = {
   userSession: Session | null;
@@ -22,6 +24,10 @@ const Tab = ({ userSession, userData }: Props) => {
   const [postsList, setPostsList] = useState<Tables<'posts'>[]>();
   const [productsList, setProductsList] = useState<Tables<'products'>[]>();
   const [followList, setFollowList] = useState<FollowsTypes[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [postsPerPage, setPostsPerPage] = useState<number>(10);
+
+  // console.log('session', userSession, 'userdata', userData);
 
   const params = useParams().id;
 
@@ -71,6 +77,15 @@ const Tab = ({ userSession, userData }: Props) => {
           className={active === '3' ? 'active' : ''}>
           좋아요한 글
         </St.TabMenu>
+        {userSession?.user.id === userData?.id && (
+          <St.TabMenu
+            onClick={() => {
+              setActive('4');
+            }}
+            className={active === '4' ? 'active' : ''}>
+            프로필 수정하기
+          </St.TabMenu>
+        )}
       </St.ProfileTab>
       <St.ProfileContent>
         {active === '1' && (
@@ -85,6 +100,7 @@ const Tab = ({ userSession, userData }: Props) => {
                   </St.Post>
                 );
               })}
+              <Pagination postsPerPage={postsPerPage} totalPosts={postsList?.length ?? 0} paginate={setCurrentPage} />
             </St.PostWraapper>
             <St.TabListTitle>중고거래</St.TabListTitle>
             <St.ProductWrapper>
@@ -104,6 +120,11 @@ const Tab = ({ userSession, userData }: Props) => {
                   </St.Product>
                 );
               })}
+              <Pagination
+                postsPerPage={postsPerPage}
+                totalPosts={productsList?.length ?? 0}
+                paginate={setCurrentPage}
+              />
             </St.ProductWrapper>
           </div>
         )}
@@ -136,6 +157,7 @@ const Tab = ({ userSession, userData }: Props) => {
           </St.FollowWrapper>
         )}
         {active === '3' && <div>좋아요한 글</div>}
+        {active === '4' && <EditProfile />}
       </St.ProfileContent>
     </St.TabWrapper>
   );
