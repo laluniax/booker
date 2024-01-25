@@ -16,10 +16,10 @@ const AboutIndBookStore = () => {
       </St.AboutIndeBox>
       <St.ImageWrapper>
         <div>
-          <St.TrendImage1 src="/images/indBookStore/indBookStore(2).png" />
-          <St.TrendImage2 src="/images/indBookStore/indBookStore(13).png" />
+          <St.TrendImage1 />
+          <St.TrendImage2 />
         </div>
-        <St.Image src="./images/indBookStore/indBookStore(3).png" />
+        <St.TrendImage3 />
       </St.ImageWrapper>
       <St.ContentWrapper>
         <St.MarketContent>독립서점이 점점 많아지고 있어요 ! </St.MarketContent>
@@ -29,7 +29,6 @@ const AboutIndBookStore = () => {
           사람들이 독립서점에 매력을 느끼는 이유는 무엇일까? <br />
           독립서점에 매력을 느끼는 3가지 이유를 발췌해왔어요 !
         </St.Title>
-        <St.TitleImage src="/images/indBookStore/indBookStore(12).png" />
 
         <St.Inde3ReasonContent>
           1. 나의 취향을 찾는 곳 대형서점에 가면 가장 먼저 보는 것은 바로 베스트셀러 1위부터 10위 목록이다. <br />
