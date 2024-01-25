@@ -691,7 +691,16 @@ export interface Database {
     };
   };
 }
-
+export type LikeProps = {
+  postId: number | undefined;
+};
+export type Message = {
+  created_at: string;
+  content: string;
+  sender_id: string;
+  message_type: string;
+  id: number;
+};
 export type Tables<
   PublicTableNameOrOptions extends
     | keyof (Database['public']['Tables'] & Database['public']['Views'])

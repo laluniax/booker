@@ -19,17 +19,9 @@ const AdminChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const auth = useAuth();
 
-  useEffect(() => {
-    getQnaTable();
-    if (currentQnaRoomId) {
-      messageTable(); // 선택된 방 ID가 변경될 때마다 메시지를 불러옴
-    }
-  }, [currentQnaRoomId]);
-
   const getQnaTable = async () => {
     const response = await supabase.from('qna').select('*');
     const result = response.data;
-
     //result값에서 중복된 ID값 제거 로직
     const uniqueSenderMap = new Map();
 
@@ -60,6 +52,7 @@ const AdminChat = () => {
       message_type: 'answer',
     });
     setAnswerMessage(''); // 메시지 전송 후 입력 필드 초기화
+    await messageTable(); // 메시지 목록 새로고침
   };
 
   const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -81,6 +74,14 @@ const AdminChat = () => {
   const PrevHandler = () => {
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    getQnaTable();
+    if (currentQnaRoomId) {
+      messageTable(); // 선택된 방 ID가 변경될 때마다 메시지를 불러옴
+    }
+  }, [currentQnaRoomId]);
+
   return (
     <St.Container>
       <St.ChatWrapper>
