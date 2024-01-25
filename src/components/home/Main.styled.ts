@@ -1,23 +1,28 @@
 import styled from 'styled-components';
-import BannerBookImg from '../../styles/assets/bookimages/SampleBookImage2.jpg';
-import BookRecommendImg from '../../styles/assets/mainpageimages/book_recomend_image.png';
-import BookStoreImg from '../../styles/assets/mainpageimages/bookstore_image.png';
-// import BannerSamplePaintingImg from '../../styles/assets/mainpageimages/famouspainting1.jpg';
+import bannerBookImage from '../../assets/mainimage/bannerbookimage.webp';
 // 북커톡
-import BookertalkImage from '../../styles/assets/mainpageimages/book.jpg';
-import BookertalkImage2 from '../../styles/assets/mainpageimages/book2.jpg';
-import BookertalkImage3 from '../../styles/assets/mainpageimages/book3.jpg';
-import BookertalkImage4 from '../../styles/assets/mainpageimages/book4.jpg';
+import bookerTalkImage1 from '../../assets/mainimage/bookertalkimage1.webp';
+import bookerTalkImage2 from '../../assets/mainimage/bookertalkimage2.webp';
+import bookerTalkImage3 from '../../assets/mainimage/bookertalkimage3.webp';
+import bookerTalkImage4 from '../../assets/mainimage/bookertalkimage4.webp';
 // 도서소개
-import BookIntroImage from '../../styles/assets/bookimages/bestsellertop1.jpg';
-import BookIntroImage4 from '../../styles/assets/bookimages/bookerpicktop1.jpg';
-import BookIntroImage2 from '../../styles/assets/bookimages/newbooktop1.jpg';
-import BookIntroImage3 from '../../styles/assets/bookimages/specialtop1.jpg';
+import bookIntroImage1 from '../../assets/mainimage/bookintrobest.webp';
+import bookIntroImage2 from '../../assets/mainimage/bookintronew.webp';
+import bookIntroImage3 from '../../assets/mainimage/bookintrospecial.webp';
+
+import bookIntroImage4 from '../../assets/mainimage/bookintrobookerpick.webp';
+
 // 중고거래
-import ProductImage from '../../styles/assets/bookimages/productimage.jpg';
-import ProductImage2 from '../../styles/assets/bookimages/productimage2.jpg';
-import ProductImage3 from '../../styles/assets/bookimages/productimage3.jpg';
-import ProductImage4 from '../../styles/assets/bookimages/productimage4.jpg';
+import marketImage1 from '../../assets/mainimage/marketimage1.webp';
+import marketImage2 from '../../assets/mainimage/marketimage2.webp';
+import marketImage3 from '../../assets/mainimage/marketimage3.webp';
+import marketImage4 from '../../assets/mainimage/marketimage4.webp';
+
+//독립서점
+import indBookStoreImage from '../../assets/mainimage/indbookstoreimage.webp';
+
+// 맞춤추천
+import surveyImage from '../../assets/mainimage/surveyimage.webp';
 
 export const Container = styled.div`
   min-height: 375rem;
@@ -78,7 +83,7 @@ export const BannerWrapper = styled.div`
 // 배너 왼쪽 파트
 export const BannerBookIntroBox = styled.div``;
 export const BannerBookImage = styled.div`
-  background: url(${BannerBookImg});
+  background: url(${bannerBookImage});
   background-size: contain;
   object-fit: cover;
 
@@ -149,7 +154,7 @@ export const BookerTalkWrapper = styled.div`
 export const BookerTalkCard = styled.div``;
 
 export const BookerTalkCardImage = styled.div`
-  background: url(${BookertalkImage}) no-repeat;
+  background: url(${bookerTalkImage1});
   background-size: contain;
   object-fit: cover;
   margin-top: 2rem;
@@ -186,7 +191,7 @@ export const CardContent = styled.div`
   margin-top: 0.5rem;
 `;
 export const BookerTalkCardImage2 = styled.div`
-  background: url(${BookertalkImage2}) no-repeat;
+  background: url(${bookerTalkImage2});
   background-size: contain;
   object-fit: cover;
   margin-top: 2rem;
@@ -213,7 +218,7 @@ export const CardTitle2 = styled.div`
 `;
 
 export const BookerTalkCardImage3 = styled.div`
-  background: url(${BookertalkImage3}) no-repeat;
+  background: url(${bookerTalkImage3});
   background-size: contain;
   object-fit: cover;
   margin-top: 2rem;
@@ -241,7 +246,7 @@ export const CardTitle3 = styled.div`
 `;
 
 export const BookerTalkCardImage4 = styled.div`
-  background: url(${BookertalkImage4}) no-repeat;
+  background: url(${bookerTalkImage4}) no-repeat;
   background-size: contain;
   object-fit: cover;
   margin-top: 2rem;
@@ -328,7 +333,7 @@ export const BookIntroCard = styled.div`
 `;
 
 export const BookImage = styled.div`
-  background: url(${BookIntroImage});
+  background: url(${bookIntroImage1});
   background-size: contain;
   object-fit: cover;
   margin-top: 1rem;
@@ -338,7 +343,7 @@ export const BookImage = styled.div`
 `;
 
 export const BookImage2 = styled.div`
-  background: url(${BookIntroImage2});
+  background: url(${bookIntroImage2});
   background-size: contain;
   object-fit: cover;
   margin-top: 1rem;
@@ -349,7 +354,7 @@ export const BookImage2 = styled.div`
 `;
 
 export const BookImage3 = styled.div`
-  background: url(${BookIntroImage3});
+  background: url(${bookIntroImage3});
   background-size: contain;
   object-fit: cover;
   margin-top: 1rem;
@@ -360,7 +365,7 @@ export const BookImage3 = styled.div`
 `;
 
 export const BookImage4 = styled.div`
-  background: url(${BookIntroImage4});
+  background: url(${bookIntroImage4});
   background-size: contain;
   object-fit: cover;
   margin-top: 1rem;
@@ -429,7 +434,7 @@ export const MarketProductCard = styled.div`
 `;
 
 export const MarketProductImage = styled.div`
-  background: url(${ProductImage});
+  background: url(${marketImage1});
   background-size: contain;
   object-fit: cover;
   margin-top: 1rem;
@@ -440,7 +445,7 @@ export const MarketProductImage = styled.div`
 `;
 
 export const MarketProductImage2 = styled.div`
-  background: url(${ProductImage2});
+  background: url(${marketImage2});
   background-size: contain;
   object-fit: cover;
   margin-top: 1rem;
@@ -451,7 +456,7 @@ export const MarketProductImage2 = styled.div`
 `;
 
 export const MarketProductImage3 = styled.div`
-  background: url(${ProductImage3});
+  background: url(${marketImage3});
   background-size: contain;
   object-fit: cover;
   margin-top: 1rem;
@@ -462,7 +467,7 @@ export const MarketProductImage3 = styled.div`
 `;
 
 export const MarketProductImage4 = styled.div`
-  background: url(${ProductImage4});
+  background: url(${marketImage4});
   background-size: contain;
   object-fit: cover;
   margin-top: 1rem;
@@ -501,11 +506,11 @@ export const ProductContent = styled.div`
 `;
 // 독립서점 / 책 추천 공통
 
-export const IndeBookAndRecommnedTitle = styled.div`
+export const IndBookAndRecommnedTitle = styled.div`
   font-size: 3rem;
   font-weight: bold;
 `;
-export const IndeBookAndRecommnedContent = styled.div`
+export const IndBookAndRecommnedContent = styled.div`
   font-size: 1.7rem;
   color: #939393;
   vertical-align: text-bottom;
@@ -518,18 +523,18 @@ export const IndeBookAndRecommnedContent = styled.div`
 //------------------------------
 
 // 독립서점
-export const IndeBookstoreWrapper = styled.div`
+export const IndBookStoreWrapper = styled.div`
   margin-top: 10rem;
 `;
 
-export const IndeBookstorebox = styled.div`
+export const IndBookStorebox = styled.div`
   display: flex;
   justify-content: center;
   gap: 4rem;
 `;
 
-export const IndeBookStoreImage = styled.div`
-  background: url(${BookStoreImg});
+export const IndBookStoreImage = styled.div`
+  background: url(${indBookStoreImage});
   background-size: contain;
   width: 70rem;
   height: 35rem;
@@ -551,7 +556,7 @@ export const BookRecommendBox = styled.div`
   gap: 4rem;
 `;
 export const BookRecommendImage = styled.div`
-  background: url(${BookRecommendImg});
+  background: url(${surveyImage});
   background-size: contain;
   width: 70rem;
   height: 35.8rem;

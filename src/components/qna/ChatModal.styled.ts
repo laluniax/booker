@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import prev from '../../assets/chat/prev.webp';
 import bookerChattingIcon from '../../assets/common/bookerchattingicon.webp';
+import prev from '../../assets/common/prev1.webp';
 
 export const Container = styled.div`
   position: relative;
@@ -122,6 +122,7 @@ export const TalkButton = styled.div`
   border-radius: 100%;
   width: 13rem;
   height: 13rem;
+  cursor: pointer;
 `;
 
 export const MessageWrapper = styled.div<MessageProps>`
