@@ -9,6 +9,7 @@ import {
 } from '../../api/supabase.api';
 import { FollowsTypes, Tables } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
+import Pagination from '../common/pagination/Pagination';
 import EditProfile from './EditProfile';
 import * as St from './Tab.styled';
 
@@ -23,6 +24,8 @@ const Tab = ({ userSession, userData }: Props) => {
   const [postsList, setPostsList] = useState<Tables<'posts'>[]>();
   const [productsList, setProductsList] = useState<Tables<'products'>[]>();
   const [followList, setFollowList] = useState<FollowsTypes[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [postsPerPage, setPostsPerPage] = useState<number>(10);
 
   // console.log('session', userSession, 'userdata', userData);
 
@@ -97,6 +100,7 @@ const Tab = ({ userSession, userData }: Props) => {
                   </St.Post>
                 );
               })}
+              <Pagination postsPerPage={postsPerPage} totalPosts={postsList?.length ?? 0} paginate={setCurrentPage} />
             </St.PostWraapper>
             <St.TabListTitle>중고거래</St.TabListTitle>
             <St.ProductWrapper>
@@ -116,6 +120,11 @@ const Tab = ({ userSession, userData }: Props) => {
                   </St.Product>
                 );
               })}
+              <Pagination
+                postsPerPage={postsPerPage}
+                totalPosts={productsList?.length ?? 0}
+                paginate={setCurrentPage}
+              />
             </St.ProductWrapper>
           </div>
         )}
