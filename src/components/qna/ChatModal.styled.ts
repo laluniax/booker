@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import prev from '../../assets/chat/prev.webp';
+import bookerChattingIcon from '../../assets/common/bookerchattingicon.webp';
+
 export const Container = styled.div`
   position: relative;
   width: 100%;
@@ -113,7 +116,9 @@ export const TalkButtonWrapper = styled.div`
 `;
 
 // Close 버튼
-export const TalkButton = styled.img`
+export const TalkButton = styled.div`
+  background: url(${bookerChattingIcon});
+  background-size: contain;
   border-radius: 100%;
   width: 13rem;
   height: 13rem;
@@ -124,12 +129,10 @@ export const MessageWrapper = styled.div<MessageProps>`
   justify-content: ${(props) => (props.isOutgoing ? 'flex-start' : 'flex-end')};
 `;
 
-
-
 export const MessageComponent = styled.div<MessageProps>`
   /* flex-direction: column; */
   display: flex;
-    justify-content: ${props => props.isOutgoing ? 'flex-end' : 'flex-start'};
+  justify-content: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
   padding: 10px;
   margin: 0.5rem;
   border-radius: 1rem;
@@ -303,4 +306,11 @@ export const SendButton = styled.button`
   &:hover {
     background-color: #262626;
   }
+`;
+
+export const PrevIcon = styled.div`
+  background: url(${prev});
+  background-size: contain;
+  width: 3rem;
+  height: 3rem;
 `;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import mapIndBookStoreImage from '../../assets/indbookstoreimage/mapindbookstoreimage.webp';
 
 export const Container = styled.div``;
 
@@ -40,4 +41,12 @@ export const DetailButton = styled.button`
   &:not(:hover) {
     transition: 0.5s;
   }
+`;
+
+export const MapIndBookStoreImage = styled.div`
+  background: url(${mapIndBookStoreImage});
+  background-size: contain;
+  width: 7rem;
+  height: 7rem;
+  cursor: pointer;
 `;

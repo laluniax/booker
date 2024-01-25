@@ -15,7 +15,7 @@ import {
 import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
-import * as St from './ChatStyle';
+import * as St from './ChatModal.styled';
 export type MessageType = {
   id: number;
   content: string;
@@ -34,7 +34,6 @@ export type ChatData = {
   id: string;
 };
 const Chat = () => {
-  // 문쨩
   const [isOpen, setIsOpen] = useRecoilState(globalModalSwitch);
   //모달창을 열고 닫는 state
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
@@ -52,9 +51,6 @@ const Chat = () => {
   const [productId, setProductId] = useRecoilState(productState);
   const chatRooms = useRecoilValue(chatRoomsState);
   const [loginUser, setLoginUser] = useState('');
-
-  // console.log('messages',messages)
-  // console.log('chatRooms',chatRooms[0].item_id)
 
   useEffect(() => {
     async function fetchLoggedInUser() {
@@ -225,7 +221,7 @@ const Chat = () => {
               {isAsk ? (
                 <St.LogoWrapper>
                   <St.PrevBtn onClick={prevHandler}>
-                    <img src="/images/chat/prev.png" alt="Prev" width={30} height={30} />
+                    <St.PrevIcon />
                   </St.PrevBtn>
                   <St.ChatHeader></St.ChatHeader>
                 </St.LogoWrapper>
@@ -273,8 +269,6 @@ const Chat = () => {
       )}
       <St.TalkButtonWrapper>
         <St.TalkButton
-          src="/images/customerchatting/bookerchattingicon.png"
-          alt="bookerchattingicon"
           onClick={() => {
             setIsOpen(!isOpen);
             setIsSwitch(!isSwitch);

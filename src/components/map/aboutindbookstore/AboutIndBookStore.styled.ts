@@ -1,6 +1,9 @@
 import styled from 'styled-components';
-import IndeBookStoreImage1 from '../../../styles/assets/indebookstoreimages/indebookstoreimage2.jpg';
-import IndeBookStoreImage2 from '../../../styles/assets/indebookstoreimages/indebookstoreimage3.jpg';
+import trendImage1 from '../../../assets/indbookstoreimage/indbookstore1.webp';
+import trendImage2 from '../../../assets/indbookstoreimage/indbookstore2.webp';
+import trendImage3 from '../../../assets/indbookstoreimage/indbookstore3.webp';
+import indBookStoreImage1 from '../../../assets/indbookstoreimage/indbookstoreimage1.webp';
+import indBookStoreImage2 from '../../../assets/indbookstoreimage/indbookstoreimage2.webp';
 
 export const Container = styled.div`
   background-color: #000;
@@ -48,19 +51,25 @@ export const ImageBox = styled.div`
   gap: 2rem;
 `;
 // 통계 이미지들
-export const TrendImage1 = styled.img`
+export const TrendImage1 = styled.div`
+  background: url(${trendImage1});
+  background-size: contain;
   width: 45rem;
   height: 30rem;
   border-radius: 2rem;
 `;
 
-export const TrendImage2 = styled.img`
+export const TrendImage2 = styled.div`
+  background: url(${trendImage2});
+  background-size: contain;
   width: 45rem;
   height: 30rem;
   border-radius: 2rem;
 `;
 
-export const TrendImage3 = styled.img`
+export const TrendImage3 = styled.div`
+  background: url(${trendImage3});
+  background-size: contain;
   width: 50rem;
   height: 45rem;
   margin-left: 5rem;
@@ -121,7 +130,7 @@ export const IndeBookStoreImageBox = styled.div`
 `;
 
 export const IndeBookStoreImages1 = styled.div`
-  background: url(${IndeBookStoreImage1});
+  background: url(${indBookStoreImage1});
   background-size: contain;
   width: 50rem;
   height: 30rem;
@@ -129,7 +138,7 @@ export const IndeBookStoreImages1 = styled.div`
 `;
 
 export const IndeBookStoreImages2 = styled.div`
-  background: url(${IndeBookStoreImage2});
+  background: url(${indBookStoreImage2});
   background-size: contain;
   width: 50rem;
   height: 30rem;
