@@ -30,13 +30,6 @@ const Tab = ({ userSession, userData }: Props) => {
   const [productsLikes, setProductsLikes] = useState<ProductsLikesTypes[]>([]);
   const [currentPostsPage, setCurrentPostsPage] = useState(1);
   const [currentProductsPage, setCurrentProductsPage] = useState(1);
-  // console.log(postsLikes);
-  // console.log(productsLikes);
-  // console.log(userSession);
-
-  const [postsPerPage, setPostsPerPage] = useState(3);
-
-  // console.log('session', userSession, 'userdata', userData);
 
   const params = useParams().id;
 
@@ -167,7 +160,7 @@ const Tab = ({ userSession, userData }: Props) => {
             <St.PostWraapper>
               {postsLikes?.slice((currentPostsPage - 1) * 5, currentPostsPage * 5)?.map((item, i) => {
                 return (
-                  <St.Post key={i} onClick={() => navigate(`/detail/${item.id}`)}>
+                  <St.Post key={i} onClick={() => navigate(`/detail/${item.post_id}`)}>
                     <St.PostTitle>{item.posts.title}</St.PostTitle>
                     <St.PostDate>{formatCreatedAt(item.posts.created_at as string)}</St.PostDate>
                   </St.Post>
@@ -181,7 +174,7 @@ const Tab = ({ userSession, userData }: Props) => {
                 <St.ProductWrapper>
                   {productsLikes?.slice((currentProductsPage - 1) * 5, currentProductsPage * 5)?.map((item, i) => {
                     return (
-                      <St.Product key={i} onClick={() => navigate(`/product/${item.id}`)}>
+                      <St.Product key={i} onClick={() => navigate(`/product/${item.post_id}`)}>
                         {item.products.product_img && (
                           <St.ProductImg
                             src={item.products.product_img[0] || `${process.env.PUBLIC_URL}/images/common/logo.png`}
