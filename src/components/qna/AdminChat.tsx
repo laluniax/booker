@@ -92,7 +92,6 @@ const AdminChat = () => {
                 <St.PrevBtn onClick={PrevHandler}>
                   <img src="images/chat/prev.png" alt="Prev" width={30} height={30} />
                 </St.PrevBtn>
-                <img src="/images/common/logo.png" alt="Logo" />
               </St.LogoWrapper>
             </St.ChatHeader>
             <St.MainMessage>
@@ -125,9 +124,7 @@ const AdminChat = () => {
           </>
         ) : (
           <>
-            <St.ChatHeader>
-              <img src="/images/common/logo.png" alt="Logo" />
-            </St.ChatHeader>
+            <St.ChatHeader></St.ChatHeader>
             <St.ChatBody>
               {qnaRoomIds.map((qnaRoomID) => (
                 <div key={qnaRoomID} onClick={() => handleSenderClick(qnaRoomID)}>

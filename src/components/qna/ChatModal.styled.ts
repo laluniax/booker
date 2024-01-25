@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import bookerChattingIcon from '../../assets/common/bookerchattingicon.webp';
+import prevIcon from '../../assets/common/prev1.webp';
+
 export const Container = styled.div`
   position: relative;
   width: 100%;
@@ -14,10 +17,8 @@ export const ChatWrapper = styled.div`
   box-shadow: rgba(100, 100, 111, 0.2) 0 0.7rem 2.9rem 0;
   border-radius: 2rem;
   padding: 0.8rem;
-
   background-color: white;
   overflow: scroll;
-
   z-index: 999;
 `;
 export const LogoWrapper = styled.div`
@@ -33,7 +34,6 @@ export const ChatHeader = styled.div`
   margin: 1.6rem 1.6rem 1.2rem;
   overflow: hidden;
 `;
-
 export const ChatBody = styled.div`
   display: flex;
   flex-direction: column;
@@ -51,7 +51,6 @@ export const ChatTopBox = styled.div`
 export const MainMessage = styled.p`
   font-size: 1.4rem;
 `;
-
 // 문의하기 버튼
 export const AskButtonWrapper = styled.div`
   display: flex;
@@ -59,31 +58,25 @@ export const AskButtonWrapper = styled.div`
 `;
 export const AskButton = styled.button`
   all: unset;
-  background-color: gray;
   margin-top: 2rem;
   width: 35rem;
   height: 4rem;
   font-weight: bold;
   text-align: center;
   border-radius: 2rem;
-  background-color: #000;
+  background-color: #14213d;
   color: #fca311;
   font-size: 1.5rem;
   font-weight: bold;
-
   &:hover {
     cursor: pointer;
-    background-color: #1f1f1f;
-    color: #fca311;
   }
 `;
-
 export const Contour = styled.div`
   border-bottom: 2px solid #000;
   margin-top: 2rem;
   border-bottom-style: dotted;
 `;
-
 // 채팅 리스트
 export const ChatListWrapper = styled.div`
   display: grid;
@@ -91,7 +84,6 @@ export const ChatListWrapper = styled.div`
   overflow: auto;
   margin-top: 5rem;
 `;
-
 export const ChatInputWrapper = styled.div`
   position: relative;
   display: flex;
@@ -100,12 +92,10 @@ export const ChatInputWrapper = styled.div`
   padding: 0 0.6rem 0 1.4rem;
   z-index: 999;
 `;
-
 export const Input = styled.input`
   margin-top: 2rem;
   width: 95%;
   position: relative;
-
   min-height: 5rem;
   padding: 0 0.6rem 0 1.4rem;
   border-radius: 1rem;
@@ -122,19 +112,10 @@ export const TalkButtonWrapper = styled.div`
   z-index: 1000;
 `;
 
-// Close 버튼
-export const TalkButton = styled.img`
-  border-radius: 100%;
-  width: 13rem;
-  height: 13rem;
-  cursor: pointer;
-`;
-
 export const MessageWrapper = styled.div<MessageProps>`
   display: flex;
   justify-content: ${(props) => (props.isOutgoing ? 'flex-start' : 'flex-end')};
 `;
-
 // export const MessageComponent = styled.div<MessageProps>`
 //   /* flex-direction: column; */
 //   padding: 10px;
@@ -142,23 +123,19 @@ export const MessageWrapper = styled.div<MessageProps>`
 //   border-radius: 1rem;
 //   font-size: 1.3rem;
 //   word-wrap: break-word;
-//   background-color: ${(props) => (props.isOutgoing ? '#7fd4f3' : '#000')}; // 예시 색상
+//   background-color: ${(props) => (props.isOutgoing ? '#7FD4F3' : '#000')}; // 예시 색상
 //   color: ${(props) => (props.isOutgoing ? '#000' : '#fff')};
 // `;
-
 // Props 타입 정의
 export type MessageProps = {
   isOutgoing: boolean;
 };
-
 //고객센터 채팅내역
-
 export const UserItemBox = styled.div`
   margin-top: 3rem;
   align-items: center;
   margin-left: 2rem;
 `;
-
 export const UserItem = styled.div`
   display: flex;
   align-items: center;
@@ -171,33 +148,28 @@ export const UserItem = styled.div`
   color: #000;
   border-radius: 0.4rem;
   cursor: pointer;
-
   &:hover {
     background-color: #e9e9e9;
   }
 `;
-
 export const UserEmail = styled.div`
   font-weight: bold;
   font-size: 1.3rem;
 `;
-
 export const UserLastMessage = styled.div`
   color: #000;
   font-size: 1.2rem;
   padding-left: 3rem;
 `;
-
 export const DMButton = styled.button`
   padding: 0.5rem 1rem;
   margin-left: 1rem;
   border: none;
   border-radius: 1rem;
-  background-color: #000;
+  background-color: #14213d;
   color: #fff;
   cursor: pointer;
   font-weight: bold;
-
   &:hover {
     background-color: #fca311;
     color: #000;
@@ -210,7 +182,6 @@ export const ChatModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
-
   bottom: 0;
   right: 0;
   width: 48rem;
@@ -224,25 +195,21 @@ export const ChatModalWrapper = styled.div`
   bottom: 6rem;
   right: 1rem;
 `;
-
 export const ChatModalTitle = styled.p`
   font-size: 1.5rem;
   margin-left: 0.4rem;
   color: #fff;
 `;
-
 export const ChatModalCloseButton = styled.button`
   all: unset;
   font-size: 2.6rem;
   margin-right: 0.4rem;
   color: #fff;
-
   &:hover {
     cursor: pointer;
     color: #fca311;
   }
 `;
-
 // 개인 채팅 모달 헤더
 export const ChatModalHeader = styled.div`
   padding: 1rem;
@@ -253,14 +220,12 @@ export const ChatModalHeader = styled.div`
   justify-content: space-between;
   height: 7rem;
 `;
-
 export const HeaderChattingModalTitle = styled.p`
   color: #fca311;
   font-weight: bold;
   font-size: 1.5rem;
   margin-left: 1rem;
 `;
-
 // 개인 채팅 모달 닫기 버튼
 export const CloseButton = styled.button`
   all: unset;
@@ -269,20 +234,17 @@ export const CloseButton = styled.button`
   font-size: 1.6rem;
   margin-right: 1rem;
   font-weight: bold;
-
   &:hover {
     cursor: pointer;
     color: #fca311;
   }
 `;
-
 // 구매확정 버튼
 export const HeaderPurchaseConfirmationButton = styled.button`
   all: unset;
   font-size: 1.5rem;
   color: #fff;
   font-weight: bold;
-
   &:hover {
     cursor: pointer;
     color: #fca311;
@@ -297,7 +259,6 @@ export const ChatModalBody = styled.div`
   background-color: #fff;
   height: calc(100vh - 200px); //채팅창의 높이를 화면에 맞게 조정
 `;
-
 export const MessageComponent = styled.div<MessageProps>`
   display: flex;
   justify-content: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
@@ -315,7 +276,6 @@ export const MessageComponent = styled.div<MessageProps>`
   font-weight: bold;
   text-align: ${(props) => (props.isOutgoing ? 'right' : 'left')};
 `;
-
 // 모달 푸터
 export const ChatModalFooter = styled.div`
   padding: 1rem;
@@ -325,7 +285,6 @@ export const ChatModalFooter = styled.div`
   align-items: center;
   height: 7rem;
 `;
-
 // 입력 필드 및 전송 버튼
 export const InputField = styled.input`
   all: unset;
@@ -337,12 +296,10 @@ export const InputField = styled.input`
   border-radius: 1rem;
   font-size: 1.5rem;
   border-bottom: 0.1rem solid #000;
-
   ::placeholder {
     font-size: 1.5rem;
   }
 `;
-
 export const SendButton = styled.button`
   padding: 1rem 1.5rem;
   background-color: #000;
@@ -353,8 +310,22 @@ export const SendButton = styled.button`
   cursor: pointer;
   font-size: 1.4rem;
   font-weight: bold;
-
   &:hover {
     background-color: #262626;
   }
+`;
+
+export const PrevIcon = styled.div`
+  background: url(${prevIcon});
+  background-size: contain;
+  width: 3rem;
+  height: 3rem;
+`;
+
+export const BookerChattingIcon = styled.div`
+  background: url(${bookerChattingIcon});
+  background-size: contain;
+  width: 13rem;
+  height: 13rem;
+  cursor: pointer;
 `;

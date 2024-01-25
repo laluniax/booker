@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import logoImage from '../../assets/common/logo.webp';
 
 export const Container = styled.div`
   height: 120vh;
@@ -104,17 +105,19 @@ export const Onsale = styled.div`
   left: 5.5rem;
 `;
 
-export const LogoImg = styled.div`
+export const LogoImage = styled.div`
+  background: url(${logoImage});
+  background-size: cover;
   width: 20rem;
   height: 26rem;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  & img {
-    width: 20rem;
-  }
+  /* margin: 0 auto; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* & img { */
+  /* width: 20rem; */
+  /* } */
 `;
 export const ProductImg = styled.div`
   width: 20rem;

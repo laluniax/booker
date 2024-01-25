@@ -33,10 +33,10 @@ const AboutIndBookStore = () => {
 
       <St.ImageWrapper>
         <St.ImageBox>
-          <St.TrendImage1 src="/images/indBookStore/indBookStore(2).png" />
-          <St.TrendImage2 src="/images/indBookStore/indBookStore(13).png" />
+          <St.TrendImage1 />
+          <St.TrendImage2 />
         </St.ImageBox>
-        <St.TrendImage3 src="./images/indBookStore/indBookStore(3).png" />
+        <St.TrendImage3 />
       </St.ImageWrapper>
 
       <St.CoutourBox>
