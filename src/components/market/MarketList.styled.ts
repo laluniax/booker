@@ -3,7 +3,7 @@ import logoImage from '../../assets/common/logo.webp';
 
 export const Container = styled.div`
   height: 120vh;
-  min-height: 120rem;
+  min-height: 130rem;
 `;
 
 export const Title = styled.div`
