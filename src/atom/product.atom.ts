@@ -34,13 +34,16 @@ export type ChatRoom = {
   chat_id: string;
   sendNickname?: string; // 추가됨
   lastMessage?: string;
-  others_id: string;
-  item_id: number;
-  user_id: string;
+  others_id:string;
+  item_id:number;
+  user_id:string;
+  hasNewMessage: boolean;
+  created_at:string;
 };
 
-export const showChatModal = atom({
-  key: 'showChatModal',
+
+export const isChatModalOpenState = atom({
+  key: 'isChatModalOpenState',
   default: false,
 });
 
@@ -48,6 +51,22 @@ export const globalModalSwitch = atom({
   key: 'globalModalSwitch',
   default: false,
 });
+
+export const newMessagesCountState = atom({
+  key:'newMessagesCountState',
+  default: 0
+})
+
+
+export const shouldCountMessagesState = atom({
+  key: 'shouldCountMessagesState',
+  default: true,
+});
+
+export const loginUserState = atom({
+  key:'loginUserState',
+  default:'',
+})
 
 // // ======================================
 // // 사용법
