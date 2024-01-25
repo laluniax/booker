@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Productlike, getLikeCountP, supabase } from '../../../api/supabase.api';
+import coloredheart from '../../../assets/common/coloredheart.webp';
+import heartbold from '../../../assets/common/heartbold.webp';
 import { useAuth } from '../../../contexts/auth.context';
 import { LikeProps } from '../../../types/types';
 import * as St from './like.styled';
@@ -46,10 +48,14 @@ const ProductsLike = ({ postId }: LikeProps) => {
 
   return (
     <St.Container>
-      <St.CountLike>{likes.length}</St.CountLike>
-      <button onClick={toggleLike}>
+      {/* <button onClick={toggleLike}>
         {likes.some((like) => like.user_id === currentUserId) ? '좋아요 해제' : '좋아요'}
-      </button>
+      </button> */}
+      <St.HeartButton onClick={toggleLike}>
+        {/* {likes.some((like) => like.user_id === currentUserId) ? '좋아요 해제' : '좋아요'} */}
+        {likes.some((like) => like.user_id === currentUserId) ? <img src={coloredheart} /> : <img src={heartbold} />}
+      </St.HeartButton>
+      <St.CountLike>{likes.length}</St.CountLike>
     </St.Container>
   );
 };
