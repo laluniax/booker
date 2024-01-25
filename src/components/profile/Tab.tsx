@@ -24,8 +24,10 @@ const Tab = ({ userSession, userData }: Props) => {
   const [postsList, setPostsList] = useState<Tables<'posts'>[]>();
   const [productsList, setProductsList] = useState<Tables<'products'>[]>();
   const [followList, setFollowList] = useState<FollowsTypes[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [postsPerPage, setPostsPerPage] = useState<number>(10);
+  const [currentPostsPage, setCurrentPostsPage] = useState<number>(1);
+  const [currentProductsPage, setCurrentProductsPage] = useState<number>(1);
+
+  const [postsPerPage, setPostsPerPage] = useState<number>(3);
 
   // console.log('session', userSession, 'userdata', userData);
 
@@ -34,13 +36,13 @@ const Tab = ({ userSession, userData }: Props) => {
   const filterPostByUserId = async () => {
     const posts = await filterPostsByUserIdHandler(userData?.id as string);
     const products = await filterProductsByUserIdHandler(userData?.id as string);
-    setPostsList(posts);
-    setProductsList(products);
+    setPostsList(posts.sort((a, b) => b.id - a.id));
+    setProductsList(products.sort((a, b) => b.id - a.id));
   };
   // 팔로우 목록 불러오기
   const getFollowList = async () => {
     const result = await getFollowListHandler(params as string);
-    setFollowList(result);
+    setFollowList(result.sort((a, b) => b.id - a.id));
   };
 
   useEffect(() => {
@@ -92,7 +94,7 @@ const Tab = ({ userSession, userData }: Props) => {
           <div>
             <St.TabListTitle>북커톡</St.TabListTitle>
             <St.PostWraapper>
-              {postsList?.map((item, i) => {
+              {postsList?.slice((currentPostsPage - 1) * 5, currentPostsPage * 5)?.map((item, i) => {
                 return (
                   <St.Post key={i} onClick={() => navigate(`/detail/${item.id}`)}>
                     <St.PostTitle>{item.title}</St.PostTitle>
@@ -100,11 +102,11 @@ const Tab = ({ userSession, userData }: Props) => {
                   </St.Post>
                 );
               })}
-              <Pagination postsPerPage={postsPerPage} totalPosts={postsList?.length ?? 0} paginate={setCurrentPage} />
+              <Pagination postsPerPage={5} totalPosts={postsList?.length ?? 0} paginate={setCurrentPostsPage} />
             </St.PostWraapper>
             <St.TabListTitle>중고거래</St.TabListTitle>
             <St.ProductWrapper>
-              {productsList?.map((item, i) => {
+              {productsList?.slice((currentProductsPage - 1) * 5, currentProductsPage * 5)?.map((item, i) => {
                 return (
                   <St.Product key={i} onClick={() => navigate(`/product/${item.id}`)}>
                     {item.product_img && (
@@ -120,11 +122,7 @@ const Tab = ({ userSession, userData }: Props) => {
                   </St.Product>
                 );
               })}
-              <Pagination
-                postsPerPage={postsPerPage}
-                totalPosts={productsList?.length ?? 0}
-                paginate={setCurrentPage}
-              />
+              <Pagination postsPerPage={5} totalPosts={productsList?.length ?? 0} paginate={setCurrentProductsPage} />
             </St.ProductWrapper>
           </div>
         )}

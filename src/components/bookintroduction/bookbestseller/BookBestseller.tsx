@@ -22,7 +22,6 @@ const BookBestseller = () => {
   const [ref, inView] = useInView();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
   const bookBestseller = async () => {
     if (isLoading) return;
     setIsLoading(true);
@@ -59,9 +58,9 @@ const BookBestseller = () => {
       </St.Header>
       <St.Body>
         {loading ? <Loading /> : null}
-        {bestSeller.map((book) => {
+        {bestSeller.map((book, i) => {
           return (
-            <St.BookCardWrapper key={book.bestRank} onClick={() => GotoDetailPage(book.isbn13)}>
+            <St.BookCardWrapper key={i} onClick={() => GotoDetailPage(book.isbn13)}>
               <br />
               <St.BookCardWrapper>
                 <St.BookImg>

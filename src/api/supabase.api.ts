@@ -85,6 +85,12 @@ export const signoutHandler = async () => {
   return error;
 };
 
+// 닉네임 중복 검사
+export const nicknameValidationHandler = async (nickname: string) => {
+  const { data, error } = await supabase.from('users').select('nickname').eq('nickname', nickname).maybeSingle();
+  return { data, error };
+};
+
 // 유저 세션 가져오기
 export const getUserSessionHandler = async () => {
   const { data, error } = await supabase.auth.getSession();

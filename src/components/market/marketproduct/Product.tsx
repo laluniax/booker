@@ -6,9 +6,12 @@ import { useCreateOrGetChat, useSendMessage } from '../../../api/chatApi';
 import {
   deleteProductHandler,
   deleteProductImgStorage,
+  followHandler,
+  followIdListHandler,
   getProductHandler,
   getUserSessionHandler,
   supabase,
+  unFollowHandler,
 } from '../../../api/supabase.api';
 import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/product.atom';
 
@@ -26,6 +29,8 @@ const Product = () => {
   const slideRef = useRef<HTMLUListElement>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [product, setProduct] = useState<ProductsTypes>();
+  const [followId, setFollowId] = useState('');
+  const [following, setFollowing] = useState(false); // 팔로잉:거짓 이 기본
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideLength, setSlideLength] = useState(0);
   const [inputValue, setInputValue] = useState('');
@@ -108,14 +113,16 @@ const Product = () => {
       ));
   };
 
-  const getUserSession = async () => {
-    const result = await getUserSessionHandler();
-    setSession(result.session);
-  };
   const getProduct = async () => {
     const result = await getProductHandler(params as string);
     setProduct(result[0]);
     setSlideLength(result[0].product_img.length);
+  };
+  const getUserSession = async () => {
+    const session = await getUserSessionHandler();
+    const newFollowId = product?.user_id + '-' + session.session?.user.id;
+    setSession(session.session);
+    setFollowId(newFollowId);
   };
 
   const onClickPrevBtn = useCallback(() => {
@@ -145,10 +152,43 @@ const Product = () => {
       : window.confirm('로그인 페이지로 이동하시겠습니까?') && navigate(`/login`);
   };
 
+  // 팔로우/언팔로우 판단하기
+  const followIdList = async () => {
+    const result = await followIdListHandler();
+    const filteredResult = result.filter((item) => {
+      return item.follow_id === followId;
+    });
+    if (filteredResult.length > 0) setFollowing(true);
+    else setFollowing(false);
+  };
+  // 팔로우하기
+  const onClickFollowBtn = async () => {
+    if (!session) {
+      if (window.confirm('로그인 페이지로 이동하시겠습니까?')) {
+        navigate(`/login`);
+        return;
+      } else return;
+    } else {
+      const result = await followHandler(followId, product?.user_id as string, session?.user.id as string);
+      followIdList();
+    }
+  };
+  // 언팔로우하기
+  const onClickUnfollowBtn = async () => {
+    const result = await unFollowHandler(followId);
+    console.log(result);
+    followIdList();
+  };
+
   useEffect(() => {
     getProduct();
-    getUserSession();
   }, []);
+  useEffect(() => {
+    getUserSession();
+  }, [product]);
+  useEffect(() => {
+    followIdList();
+  }, [followId]);
   useEffect(() => {
     if (slideRef.current) slideRef.current.style.marginLeft = `${-currentSlide * 30}rem`;
   }, [currentSlide]);
@@ -256,15 +296,29 @@ const Product = () => {
                 </St.ChatModalWrapper>
               )}
             </St.ProductBtn>
-            <St.ProductUser>
+            <St.ProductUser
+              onClick={() => {
+                navigate(`/profile/${product?.user_id}`);
+              }}>
               <img src={product?.users.user_img ?? undefined} />
               <div>{product?.users.nickname}</div>
-              <button
-                onClick={() => {
-                  navigate(`/profile/${product?.user_id}`);
-                }}>
-                프로필 방문
-              </button>
+              {following ? (
+                <St.FollowBtn
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onClickUnfollowBtn();
+                  }}>
+                  언팔로우
+                </St.FollowBtn>
+              ) : (
+                <St.FollowBtn
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onClickFollowBtn();
+                  }}>
+                  팔로우
+                </St.FollowBtn>
+              )}
             </St.ProductUser>
           </St.ProductLikesChatUser>
         </St.ProductInfo>

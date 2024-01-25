@@ -188,11 +188,19 @@ export const ProfileIntroTextEdit = styled(ProfileImgEdit)`
   display: flex;
   align-items: center;
 `;
-
-export const ProfileIntroTextArea = styled.textarea`
-  border: 0.1rem solid black;
-  resize: none;
+export const ProfileIntroTextWrapper = styled.div`
   width: 65rem;
+  & span {
+    /* float: right; */
+  }
+`;
+export const ProfileIntroTextArea = styled.textarea`
+  border: none;
+  border-bottom: 0.1rem solid black;
+  resize: none;
+  height: 4rem;
+  line-height: 1.2;
+  width: 93.5%;
 `;
 
 export const ProfileBtnDiv = styled.div`
@@ -206,7 +214,9 @@ export const ProfileBtn = styled.button`
   background-color: black;
   color: white;
   border: none;
-  padding: 1rem;
+  padding: 2rem;
   margin-top: 3rem;
+  font-size: 1.5rem;
+  font-weight: bold;
   cursor: pointer;
 `;
