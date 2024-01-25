@@ -12,10 +12,16 @@ export const Title = styled.div`
   border-bottom: 0.2rem solid black;
   width: 90rem;
   padding-bottom: 1rem;
+  text-align: center;
 
   & span {
     font-size: 4rem;
   }
+`;
+export const NickName = styled.span`
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #fca311;
 `;
 
 export const TitleImage = styled.img`

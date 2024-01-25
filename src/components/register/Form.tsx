@@ -179,64 +179,72 @@ const Form = () => {
 
   return (
     <St.Container>
-      <St.Title>회원가입</St.Title>
-      <St.Label>이메일</St.Label>
-      <St.Input
-        type="email"
-        ref={emailRef}
-        placeholder="이메일"
-        onBlur={() => validateEmail(emailRef.current?.value || '')}
-        onKeyDown={handleKeyPress}
-      />
-
-      {emailError &&
-        (emailError.startsWith('유효한') ? (
-          <St.SuccessText>{emailError}</St.SuccessText>
-        ) : (
-          <St.ErrorText>{emailError}</St.ErrorText>
-        ))}
-      <St.Button onClick={checkEmail}>중복확인</St.Button>
-      <St.Label>비밀번호</St.Label>
-      <St.Input
-        type="password"
-        ref={passwordRef}
-        placeholder="비밀번호"
-        onBlur={() => validatePassword(passwordRef.current?.value || '')}
-        onKeyDown={handleKeyPress}
-      />
-      {passwordError &&
-        (passwordError.startsWith('유효한') ? (
-          <St.SuccessText>{passwordError}</St.SuccessText>
-        ) : (
-          <St.ErrorText>{passwordError}</St.ErrorText>
-        ))}
-      <St.Label>비밀번호재확인</St.Label>
-      <St.Input
-        type="password"
-        ref={repasswordRef}
-        placeholder="비밀번호 재확인"
-        onBlur={validateRepassword}
-        onKeyDown={handleKeyPress}
-      />
-      {repasswordError &&
-        (repasswordError.startsWith('비밀번호가 일치') ? (
-          <St.SuccessText>{repasswordError}</St.SuccessText>
-        ) : (
-          <St.ErrorText>{repasswordError}</St.ErrorText>
-        ))}
-      <St.Label>닉네임</St.Label>
-      <St.Input type="text" ref={nicknameRef} placeholder="닉네임" />
-
-      {nicknameError &&
-        (nicknameError.startsWith('유효한') ? (
-          <St.SuccessText>{nicknameError}</St.SuccessText>
-        ) : (
-          <St.ErrorText>{nicknameError}</St.ErrorText>
-        ))}
-      <St.Button onClick={checkNickName}>중복확인</St.Button>
-      <hr />
-      <St.RegisterButton onClick={SignUpHandler}>가입하기</St.RegisterButton>
-      <St.SignInLink onClick={moveToSignInHandler}>이미 회원이신가요?</St.SignInLink>
+      <St.FormWrapper>
+        <St.FormBox>
+          <St.Title>회원가입</St.Title>
+          <St.Label1>이메일</St.Label1>
+          <St.Input
+            type="email"
+            ref={emailRef}
+            placeholder="이메일"
+            onBlur={() => validateEmail(emailRef.current?.value || '')}
+            onKeyDown={handleKeyPress}
+          />
+          <St.Button onClick={checkEmail}>중복확인</St.Button>
+          {emailError &&
+            (emailError.startsWith('유효한') ? (
+              <St.SuccessText>{emailError}</St.SuccessText>
+            ) : (
+              <St.ErrorText>{emailError}</St.ErrorText>
+            ))}
+          <St.Label>비밀번호</St.Label>
+          <St.Input
+            type="password"
+            ref={passwordRef}
+            placeholder="비밀번호"
+            onBlur={() => validatePassword(passwordRef.current?.value || '')}
+            onKeyDown={handleKeyPress}
+          />
+          {passwordError &&
+            (passwordError.startsWith('유효한') ? (
+              <St.SuccessText>{passwordError}</St.SuccessText>
+            ) : (
+              <St.ErrorText>{passwordError}</St.ErrorText>
+            ))}
+          <br />
+          <St.Label>비밀번호 재확인</St.Label>
+          <St.Input
+            type="password"
+            ref={repasswordRef}
+            placeholder="비밀번호 재확인"
+            onBlur={validateRepassword}
+            onKeyDown={handleKeyPress}
+          />
+          {repasswordError &&
+            (repasswordError.startsWith('비밀번호가 일치') ? (
+              <St.SuccessText>{repasswordError}</St.SuccessText>
+            ) : (
+              <St.ErrorText>{repasswordError}</St.ErrorText>
+            ))}
+          <br />
+          <br />
+          <St.Label1>닉네임</St.Label1>
+          <St.Input type="text" ref={nicknameRef} placeholder="닉네임" />
+          <St.Button onClick={checkNickName}>중복확인</St.Button>
+          {nicknameError &&
+            (nicknameError.startsWith('유효한') ? (
+              <St.SuccessText>{nicknameError}</St.SuccessText>
+            ) : (
+              <St.ErrorText>{nicknameError}</St.ErrorText>
+            ))}
+          <br />
+          <hr />
+          <St.RegisterButtonBox>
+            <St.RegisterButton onClick={SignUpHandler}>가입하기</St.RegisterButton>
+            <St.SignInLink onClick={moveToSignInHandler}>이미 회원이신가요?</St.SignInLink>
+          </St.RegisterButtonBox>
+        </St.FormBox>
+      </St.FormWrapper>
     </St.Container>
   );
 };

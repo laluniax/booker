@@ -1,21 +1,32 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../api/supabase.api';
+import { getUserSessionHandler } from '../../api/supabase.api';
 import * as St from './SurveyList.styled';
+
 const SurveyList = () => {
   const [nickname, setNickname] = useState('');
   const navigate = useNavigate();
 
-  const userData = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    const userNickname = user?.user_metadata.full_name;
-    setNickname(userNickname);
+  // const userData = async () => {
+  //   const {
+  //     data: { user },
+  //   } = await supabase.auth.getUser();
+  //   const userNickname = user?.user_metadata.full_name;
+  //   setNickname(userNickname);
+  // };
+
+  const getUserSession = async () => {
+    const result = await getUserSessionHandler();
+    setNickname(
+      result.session?.user.user_metadata.full_name ||
+        result.session?.user.user_metadata.preferred_name ||
+        result.session?.user.user_metadata.user_name ||
+        result.session?.user.user_metadata.name,
+    );
   };
 
   useEffect(() => {
-    userData();
+    getUserSession();
   }, []);
 
   return (
@@ -23,7 +34,7 @@ const SurveyList = () => {
       <St.BtnContainer>
         <St.TitleAndImageWrapper>
           <St.Title>
-            <span>{nickname}</span> 님이 좋아할만한 책을 추천해드릴게요!
+            <St.NickName>{nickname}</St.NickName> 님이 좋아할만한 책을 추천해드릴게요!
           </St.Title>
         </St.TitleAndImageWrapper>
         <St.ServeyContentWrapper>

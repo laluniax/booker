@@ -48,7 +48,12 @@ const MarketList = () => {
       <St.CategoryProductsWrapper>
         <St.CategoryWrapper>
           <St.CategoryBox>
-            <St.CategoryTitle>카테고리</St.CategoryTitle>
+            <St.CategoryTitle
+              onClick={() => {
+                navigate(`/market`);
+              }}>
+              카테고리
+            </St.CategoryTitle>
             <St.CategoryBtnBox>
               {categoryArr.map((item, i) => (
                 <St.CategoryBtn

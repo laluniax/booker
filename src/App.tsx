@@ -70,7 +70,7 @@ const App = () => {
         // Make sure flatChatRooms is of type ChatRoom[]
         setChatRooms(flatChatRooms as ChatRoom[]);
       } catch (error) {
-        console.error('채팅방 가져오기 오류:', error);
+        // console.error('채팅방 가져오기 오류:', error);
       }
     };
     fetchChatRooms();
