@@ -5,6 +5,7 @@ import IndeBookStoreImage2 from '../../../styles/assets/indebookstoreimages/inde
 export const Container = styled.div`
   background-color: #000;
   min-height: 310rem;
+  border-bottom: 2px solid #fff;
 `;
 
 // 구분선
