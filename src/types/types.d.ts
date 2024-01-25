@@ -691,6 +691,9 @@ export interface Database {
     };
   };
 }
+export type LikeProps = {
+  postId: number | undefined;
+};
 
 export type Tables<
   PublicTableNameOrOptions extends

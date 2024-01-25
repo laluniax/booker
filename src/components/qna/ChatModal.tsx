@@ -139,11 +139,6 @@ const Chat = () => {
       ));
   };
 
-  // console.log('inputValue',inputValue);
-  // console.log('i', LoginPersonal);
-  // console.log('chatId',chatId);
-  // console.log('productId',productId);
-  // console.log('u', otherLoginPersonal);
   const auth = useAuth();
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);

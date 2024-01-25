@@ -8,7 +8,7 @@ import { deletePostHandler, deletePostImgStorageHandler, filteredPostId } from '
 import { PostsTypes } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
 import Comment from '../bookertalk/comment/Comment';
-import Like from '../common/like/Like';
+import Like from '../common/like/PostsLike';
 import * as St from './Detail.styled';
 
 const Detail = () => {
