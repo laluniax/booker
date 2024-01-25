@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useSendMessage } from '../../api/chatApi';
 import { supabase } from '../../api/supabase.api';
 import {
   ChatId,
   chatRoomsState,
   globalModalSwitch,
+  isChatModalOpenState,
+  newMessagesCountState,
   otherPerson,
   person,
   productState,
@@ -16,6 +18,7 @@ import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
 import * as St from './ChatStyle';
+
 export type MessageType = {
   id: number;
   content: string;
@@ -23,7 +26,10 @@ export type MessageType = {
   chat_id: string;
   item_id: number;
   others_id: string;
+  users?: UserType; // 사용자 닉네임을 포함할 수 있는 옵셔널 프로퍼티
+  created_at: number;
 };
+
 export type UserType = {
   id: string;
   email: string;
@@ -33,6 +39,7 @@ export type UserType = {
 export type ChatData = {
   id: string;
 };
+
 const Chat = () => {
   // 문쨩
   const [isOpen, setIsOpen] = useRecoilState(globalModalSwitch);
@@ -50,14 +57,13 @@ const Chat = () => {
   const { mutate: sendDirectMessage } = useSendMessage();
 
   const [productId, setProductId] = useRecoilState(productState);
-  const chatRooms = useRecoilValue(chatRoomsState);
-  const [loginUser,setLoginUser] = useState('')
+  const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
+  const [loginUser, setLoginUser] = useState('');
+  const [newMessagesCount, setNewMessagesCount] = useRecoilState(newMessagesCountState);
+  const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(isChatModalOpenState);
 
-  // console.log('messages',messages)
-  // console.log('chatRooms',chatRooms[0].item_id)
-
+  //로그인 유저 가져오기
   useEffect(() => {
-
     async function fetchLoggedInUser() {
       try {
         const {
@@ -67,21 +73,17 @@ const Chat = () => {
         if (user?.id) {
           setLoginUser(user.id);
         } else {
-
           setLoginUser('');
-
-
         }
       } catch (error) {
         console.error('Error fetching logged in user:', error);
       }
     }
-  
-    fetchLoggedInUser(); // Call the function to execute it
-  
 
-  }, []); 
-  
+    fetchLoggedInUser();
+  }, []);
+
+  //입력값 가져오기
   const InputChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -100,7 +102,15 @@ const Chat = () => {
         // setOtherLoginPersonal(otherUserId);
         setProductId(item_id);
 
+        // clearNewMessageFlag(chat_id);
+
         setIsChatModalOpen(true);
+
+        setChatRooms((prevChatRooms) =>
+          prevChatRooms.map((chatRoom) =>
+            chatRoom.chat_id === chat_id ? { ...chatRoom, hasNewMessage: false } : chatRoom,
+          ),
+        );
       }
     }
   };
@@ -109,6 +119,7 @@ const Chat = () => {
   // 메시지 전송 핸들러
   const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && inputValue.trim()) {
+      event.preventDefault(); // 폼 제출 방지
       sendDirectMessage({
         content: inputValue,
         author_id: LoginPersonal,
@@ -123,7 +134,7 @@ const Chat = () => {
   //dm메시지 전송
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
- 
+
     sendDirectMessage({
       content: inputValue,
       author_id: LoginPersonal,
@@ -135,24 +146,24 @@ const Chat = () => {
     setInputValue('');
   };
 
+  //메시지 보여주는 것
   const renderMessages = () => {
     return messages
-      .filter((message: MessageType) => 
-        message.chat_id === chatId)
+      .filter((message: MessageType) => message.chat_id === chatId)
       .map((message: MessageType) => (
-        <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-          {message.content}
-        </St.MessageComponent>
+        <div key={message.id}>
+          {message.author_id !== LoginPersonal && (
+            <St.NicknameLabel>
+              {message.users?.nickname} 
+              {/* {message.created_at} */}
+            </St.NicknameLabel>
+          )}
+          <St.MessageComponent isOutgoing={message.author_id === LoginPersonal}>{message.content}</St.MessageComponent>
+        </div>
       ));
   };
 
   
-
-  // console.log('inputValue',inputValue);
-  // console.log('i', LoginPersonal);
-  // console.log('chatId',chatId);
-  // console.log('productId',productId);
-  // console.log('u', otherLoginPersonal);
   const auth = useAuth();
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
@@ -177,128 +188,144 @@ const Chat = () => {
   };
   if (!auth.session) return null;
 
-
   const prevHandler = () => {
     setIsAsk(false);
   };
 
-  // // 사용자 목록을 렌더링하는 함수
-  // const renderChatRoomsList = () => {
-  //   return chatRooms.map((chatRoom) => (
-  //     <St.UserItem key={chatRoom.chat_id}>
-  //       {/* <St.UserEmail>{chatRoom.receiverNickname}</St.UserEmail>  */}
-  //       <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
-  //       <St.DMButton onClick={() => DmClickhandler( chatRoom.item_id, chatRoom.chat_id)}> 
-  //         Open Chat
-  //       </St.DMButton>
-  //     </St.UserItem>
-  //   ));
-  // };
-  // console.log('LoginPersonal',loginUser)
-
+  console.log('chatRooms', chatRooms);
   const renderChatRoomsList = () => {
-  
+    console.log('renderChatRoomsList', chatRooms);
     return chatRooms
-      .filter(chatRoom => chatRoom.user_id ===loginUser)
-      .map(chatRoom => (
+      .filter((chatRoom) => chatRoom.user_id === loginUser)
+      .map((chatRoom) => (
         <St.UserItem key={chatRoom.chat_id}>
-          <St.UserEmail>{chatRoom.sendNickname}</St.UserEmail> 
+          <St.UserEmail>
+            {chatRoom.sendNickname}
+            {chatRoom.hasNewMessage ? (
+              <>
+                {console.log('chatRoom:', chatRoom.chat_id)}
+                <St.NotificationBadge>New!</St.NotificationBadge>
+              </>
+            ) : null}
+          </St.UserEmail>
+          
           <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
-          <St.DMButton onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id)}> 
-            Open Chat
-          </St.DMButton>
+          <St.DMButton onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id)}>Open Chat</St.DMButton>
+          <>{console.log('아직챗룸리스트')}</>
         </St.UserItem>
       ));
   };
 
+  const toggleChatModal = () => {
+    setChatBtnOpen((prevState) => !prevState);
+    setNewMessagesCount(0);
+  };
 
+  // console.log('ChatModalOpen',ChatBtnOpen)
+  // console.log('newMessagesCount',newMessagesCount)
+  //모달 여는 것 자체는 문제 없다.
   return (
     <>
+    <>{console.log('제일 상단 여기도 렌더링 되나?')}</>
       {auth.session.profile.isAdmin ? (
         isOpen && <AdminChat />
       ) : (
         <St.Container>
           {isChatModalOpen && (
-            <St.ChatModalWrapper>
-              {/* 채팅 모달 내용 */}
-              <St.ChatModalHeader>
-                <button onClick={() => setIsChatModalOpen(false)}>닫기</button>
-                <div>채팅</div>
-                <div>구매확정</div>
-              </St.ChatModalHeader>
-              <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
-              <St.ChatModalFooter>
-                <St.InputField
-                  value={inputValue}
-                  onChange={InputChanger}
-                  onKeyDown={KeyPresshandler}
-                  placeholder="메세지를 입력해주세요"
-                />
-                <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
-              </St.ChatModalFooter>
-            </St.ChatModalWrapper>
+            <>
+              {console.log('모달 중고거래창 렌더링됩니다.')} {/* 여기에 콘솔 로그를 추가했습니다 */}
+              <St.ChatModalWrapper>
+                {/* 채팅 모달 내용 */}
+                <St.ChatModalHeader>
+                  <button onClick={() => setIsChatModalOpen(false)}>닫기</button>
+                  <div>채팅</div>
+                  <div>구매확정</div>
+                </St.ChatModalHeader>
+                <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
+                <St.ChatModalFooter>
+                  <St.InputField
+                    value={inputValue}
+                    onChange={InputChanger}
+                    onKeyDown={KeyPresshandler}
+                    placeholder="메세지를 입력해주세요"
+                  />
+                  <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
+                </St.ChatModalFooter>
+              </St.ChatModalWrapper>
+            </>
           )}
           {/* 채팅 UI가 모달 UI 위에 올라가지 않도록 조건부 렌더링을 적용합니다. */}
           {isSwitch && !isChatModalOpen && (
-            <St.ChatWrapper>
-              {isAsk ? (
-                <St.LogoWrapper>
-                  <St.PrevBtn onClick={prevHandler}>
-                    <img src="/images/chat/prev.png" alt="Prev" width={30} height={30} />
-                  </St.PrevBtn>
+            <>
+              {console.log('모달 문의하기 렌더링됩니다.')} {/* 여기에 콘솔 로그를 추가했습니다 */}
+              <St.ChatWrapper>
+                {isAsk ? (
+                  <St.LogoWrapper>
+                    <St.PrevBtn onClick={prevHandler}>
+                      <img src="/images/chat/prev.png" alt="Prev" width={30} height={30} />
+                    </St.PrevBtn>
+                    <St.ChatHeader></St.ChatHeader>
+                  </St.LogoWrapper>
+                ) : (
                   <St.ChatHeader></St.ChatHeader>
-                </St.LogoWrapper>
-              ) : (
-                <St.ChatHeader></St.ChatHeader>
-              )}
-              <St.ChatTopBox>
-                <St.MainMessage>
-                  안녕하세요 !
-                  <br />
-                  책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝ <br />
-                  궁금한 점이 있으신가요?{' '}
-                  <St.AskButtonWrapper>
-                    <St.AskButton
-                      style={isAsk ? { display: 'none' } : { display: 'block' }}
-                      onClick={() => setIsAsk(true)}>
-                      문의하기
-                    </St.AskButton>
-                  </St.AskButtonWrapper>
-                  <St.Contour />
-                </St.MainMessage>
-              </St.ChatTopBox>
+                )}
+                <St.ChatTopBox>
+                  <St.MainMessage>
+                    안녕하세요 !
+                    <br />
+                    책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝ <br />
+                    궁금한 점이 있으신가요?{' '}
+                    <St.AskButtonWrapper>
+                      <St.AskButton
+                        style={isAsk ? { display: 'none' } : { display: 'block' }}
+                        onClick={() => setIsAsk(true)}>
+                        문의하기
+                      </St.AskButton>
+                    </St.AskButtonWrapper>
+                    <St.Contour />
+                  </St.MainMessage>
+                </St.ChatTopBox>
 
-              {isAsk ? (
-                <>
-                  <ChatLog />
-                  <St.ChatInputWrapper>
-                    <St.Input
-                      placeholder="메세지를 입력해주세요"
-                      value={askMessage}
-                      onChange={onChangeMessageHandler}
-                      onKeyDown={onKeyDownHandler}
-                    />
-                  </St.ChatInputWrapper>
-                </>
-              ) : (
-                <>
-                  {/* Chats 컴포넌트의 UI 추가 */}
-                  <div>{renderChatRoomsList()}</div>
-                </>
-              )}
-            </St.ChatWrapper>
+                {isAsk ? (
+                  <>
+                    <ChatLog />
+                    <St.ChatInputWrapper>
+                      <St.Input
+                        placeholder="메세지를 입력해주세요"
+                        value={askMessage}
+                        onChange={onChangeMessageHandler}
+                        onKeyDown={onKeyDownHandler}
+                      />
+                    </St.ChatInputWrapper>
+                  </>
+                ) : (
+                  <>
+                    {/* Chats 컴포넌트의 UI 추가 */}
+                    <div>{renderChatRoomsList()}</div>
+                  </>
+                )}
+              </St.ChatWrapper>
+            </>
           )}
         </St.Container>
       )}
+      {/* // Chat 컴포넌트 내부에서 채팅 아이콘과 카운터를 렌더링하는 부분 */}
+      {/* {console.log('모달 입구 렌더링됩니다.')} 여기에 콘솔 로그를 추가했습니다 */}
       <St.TalkButtonWrapper>
-        <St.TalkButton
-          src="/images/customerchatting/bookerchattingicon.png"
-          alt="bookerchattingicon"
-          onClick={() => {
-            setIsOpen(!isOpen);
-            setIsSwitch(!isSwitch);
-          }}
-        />
+        <div>
+          {/* 채팅 모달이 열리지 않았을 때만 새 메시지 수를 표시합니다. */}
+
+          {!ChatBtnOpen && newMessagesCount > 0 && <span>{newMessagesCount}</span>}
+          <St.TalkButton
+            src="/images/customerchatting/bookerchattingicon.png"
+            alt="bookerchattingicon"
+            onClick={() => {
+              setIsOpen(!isOpen);
+              setIsSwitch(!isSwitch);
+              toggleChatModal();
+            }}
+          />
+        </div>
       </St.TalkButtonWrapper>
     </>
   );

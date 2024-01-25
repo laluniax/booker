@@ -81,10 +81,10 @@ console.log()
 
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-    console.log(inputValue);
-    console.log("i",LoginPersonal);
-    console.log(chatId);
-    console.log(productId);
+    // console.log(inputValue);
+    // console.log("i",LoginPersonal);
+    // console.log(chatId);
+    // console.log(productId);
     // console.log("u",otherLoginPersonal);
     sendDirectMessage({
       content: inputValue,
@@ -98,17 +98,27 @@ console.log()
   };
 
 
+  // const renderMessages = () => {
+  //   return messages
+  //     .filter((message: MessageType) => 
+  //       message.chat_id === chatId)
+  //     .map((message: MessageType) => (
+  //       <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
+  //         {message.content}
+  //       </St.MessageComponent>
+  //     ));
+  // };
   const renderMessages = () => {
     return messages
-      .filter((message: MessageType) => 
-        message.chat_id === chatId)
+      .filter((message: MessageType) => message.chat_id === chatId)
       .map((message: MessageType) => (
-        <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-          {message.content}
-        </St.MessageComponent>
+        <div key={message.id}>
+          {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
+          <St.MessageComponent isOutgoing={message.author_id === LoginPersonal}>{message.content}</St.MessageComponent>
+        </div>
       ));
   };
-  
+  // console.log('messages',messages)
 
   const getUserSession = async () => {
     const result = await getUserSessionHandler();

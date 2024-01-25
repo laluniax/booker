@@ -50,9 +50,10 @@ const Form = () => {
     if (password === '') {
       setPasswordError('비밀번호를 입력해주세요.');
     } else if (!regex.test(password)) {
-      setPasswordError('비밀번호는 최소 8자 이상이며, 최소 하나의 문자와 하나의 숫자를 포함해야 합니다');
+      setPasswordError('비밀번호는 최소 8자 이상이며, 최소 하나의 문자와 하나의 숫자와 하나의 특수문자를 포함해야 합니다');
     } else {
       setPasswordError('유효한 비밀번호입니다'); // 성공 메시지
+      setIsPasswordValid(true);
     }
   };
 
@@ -74,6 +75,7 @@ const Form = () => {
       setRepasswordError('비밀번호가 다릅니다');
     } else {
       setRepasswordError('비밀번호가 일치합니다'); // 성공 메시지
+      setIsRepasswordValid(true);
     }
   };
 
@@ -151,9 +153,9 @@ const Form = () => {
       alert('모든 입력란을 올바르게 채워주세요.');
       return;
     }
-// console.log(emailRef.current?.value)
-// console.log( passwordRef.current?.value)
-// console.log(nicknameRef.current?.value )
+    // console.log(emailRef.current?.value)
+    // console.log( passwordRef.current?.value)
+    // console.log(nicknameRef.current?.value )
 
     try {
       const result = await signupHandler(

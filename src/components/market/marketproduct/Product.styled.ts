@@ -311,3 +311,14 @@ export const MessageComponent = styled.div<MessageProps>`
 //   background-color: ${props => props.isOutgoing ? '#DCF8C6' : '#FFFFFF'};
 //   color: ${props => props.isOutgoing ? '#000' : '#000'}; // Adjust text color as needed
 // `;
+
+// Styled-components 파일 내에 추가
+export const NicknameLabel = styled.div`
+  background-color: #f0f0f0; // 닉네임 라벨 배경색
+  color: #333; // 닉네임 라벨 텍스트 색상
+  padding: 2px 8px; // 닉네임 라벨 패딩
+  border-radius: 10px; // 닉네임 라벨 둥근 모서리
+  font-size: 0.75rem; // 닉네임 라벨 글꼴 크기
+  margin-bottom: 4px; // 닉네임 라벨과 메시지 컴포넌트 사이의 여백
+  align-self: flex-start; // 부모 요소의 시작점에 정렬
+`;
