@@ -140,14 +140,20 @@ export const UpdateBtn = styled.button`
   }
 `;
 
-export const ProductLikes = styled.button`
+export const ProductLikes = styled.div`
   background-color: #d0ebff;
   border: none;
   width: 18.5rem;
   height: 5rem;
   font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;
-
+export const ProductsLikesWrapper = styled(ProductLikes)`
+  cursor: default;
+`;
 export const ProductSoldOut = styled.div`
   font-size: 1.5rem;
   margin: 0 auto;
