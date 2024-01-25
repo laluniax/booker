@@ -14,12 +14,14 @@ import { ChatId, otherPerson, person, productState, sendMessages } from '../../.
 
 import { Session } from '@supabase/supabase-js';
 import { ProductsTypes } from '../../../types/types';
+import ProductsLike from '../../common/like/ProductsLike';
 import { MessageType } from '../../qna/ChatModal';
 import { categoryArr } from '../marketpost/Post';
 import * as St from './Product.styled';
 
 const Product = () => {
   const params = useParams().id;
+  const postId = params ? parseInt(params, 10) : undefined;
   const navigate = useNavigate();
   const slideRef = useRef<HTMLUListElement>(null);
   const [session, setSession] = useState<Session | null>(null);
@@ -42,7 +44,7 @@ const Product = () => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-console.log()
+    console.log();
     if (user?.id === otherUserId) {
       alert('자신에게 채팅을 보낼 수 없습니다 ');
       return;
@@ -73,18 +75,17 @@ console.log()
         item_id: productId,
         // others_id: otherLoginPersonal,
       });
-      setChatId(chatId)
+      setChatId(chatId);
       setInputValue('');
-  
     }
   };
 
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-    // console.log(inputValue);
-    // console.log("i",LoginPersonal);
-    // console.log(chatId);
-    // console.log(productId);
+    console.log(inputValue);
+    console.log('i', LoginPersonal);
+    console.log(chatId);
+    console.log(productId);
     // console.log("u",otherLoginPersonal);
     sendDirectMessage({
       content: inputValue,
@@ -93,32 +94,19 @@ console.log()
       item_id: productId,
       // others_id: otherLoginPersonal,
     });
-    setChatId(chatId)
+    setChatId(chatId);
     setInputValue('');
   };
 
-
-  // const renderMessages = () => {
-  //   return messages
-  //     .filter((message: MessageType) => 
-  //       message.chat_id === chatId)
-  //     .map((message: MessageType) => (
-  //       <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-  //         {message.content}
-  //       </St.MessageComponent>
-  //     ));
-  // };
   const renderMessages = () => {
     return messages
       .filter((message: MessageType) => message.chat_id === chatId)
       .map((message: MessageType) => (
-        <div key={message.id}>
-          {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
-          <St.MessageComponent isOutgoing={message.author_id === LoginPersonal}>{message.content}</St.MessageComponent>
-        </div>
+        <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
+          {message.content}
+        </St.MessageComponent>
       ));
   };
-  // console.log('messages',messages)
 
   const getUserSession = async () => {
     const result = await getUserSessionHandler();
@@ -149,12 +137,6 @@ console.log()
     } else {
       return false;
     }
-  };
-
-  const onClickLikesButton = () => {
-    if (!session && window.confirm('로그인 페이지로 이동하시겠습니까?')) navigate(`/login`);
-    alert('기능 구현 중');
-    return;
   };
 
   const onClickDMButton = () => {
@@ -231,7 +213,7 @@ console.log()
             <St.ProductBtn>
               {product?.onsale ? (
                 <>
-                  <St.ProductLikes onClick={onClickLikesButton}>좋아요</St.ProductLikes>
+                  <ProductsLike postId={postId} />
                   <St.ProductLikes onClick={onClickDMButton}>대화 시작하기</St.ProductLikes>
                 </>
               ) : (
