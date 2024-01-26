@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bestseller, BooksInfoTypes } from '../../types/types';
+import { getLatestProductListHandler } from '../../api/supabase.api';
+import defaultImg from '../../assets/profile/defaultprofileimage.webp';
+import { Bestseller, BooksInfoTypes, ProductsTypes } from '../../types/types';
 import Loading from '../survey/Loading';
 import * as St from './Main.styled';
 import SlideImages from './banner/SlideImages';
@@ -16,6 +18,7 @@ const Main = () => {
   const [loading2, setLoading2] = useState(false);
   const [loading3, setLoading3] = useState(false);
   const [loading4, setLoading4] = useState(false);
+  const [productsList, setProductsList] = useState<ProductsTypes[]>([]);
 
   const getBookIntroduction = async () => {
     // 베스트셀러
@@ -55,9 +58,14 @@ const Main = () => {
       console.log(error);
     }
   };
+  const getProductList = async () => {
+    const products = await getLatestProductListHandler();
+    setProductsList(products.sort((a, b) => b.id - a.id));
+  };
 
   useEffect(() => {
     getBookIntroduction();
+    getProductList();
   }, []);
   return (
     <>
@@ -215,7 +223,23 @@ const Main = () => {
           </St.Titlebox>
 
           <St.CardBox>
-            <St.MarketProductCard>
+            {productsList.map((item, i) => {
+              return (
+                <St.MarketProductCard
+                  key={i}
+                  onClick={() => {
+                    navigate(`/product/${item.id}`);
+                  }}>
+                  <St.MarketProductImage>
+                    <img src={(item.product_img && item.product_img[0]) || defaultImg} />
+                  </St.MarketProductImage>
+                  <St.ProductTitle>{item.title}</St.ProductTitle>
+                  <St.ProductPrice>₩ {item.price}</St.ProductPrice>
+                  {/* <St.ProductContent>{item.users.nickname}님</St.ProductContent> */}
+                </St.MarketProductCard>
+              );
+            })}
+            {/* <St.MarketProductCard>
               <St.MarketProductImage />
               <St.ProductTitle>푸바오 책 팝니다.</St.ProductTitle>
               <St.ProductPrice>₩ 12,000</St.ProductPrice>
@@ -241,7 +265,7 @@ const Main = () => {
               <St.ProductTitle>죽음이 물었다,어떻게 살거냐고 책 팝니다.</St.ProductTitle>
               <St.ProductPrice>₩ 19,000</St.ProductPrice>
               <St.ProductContent>OO님</St.ProductContent>
-            </St.MarketProductCard>
+            </St.MarketProductCard> */}
           </St.CardBox>
         </St.MarketWrapper>
 
