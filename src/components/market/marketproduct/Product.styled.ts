@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Prev from '../../../styles/assets/buttonimages/prev2.png';
 import { MessageProps } from '../../qna/ChatModal.styled';
 
+// import Prev from '../../styles/assets/buttonimages/prev2.png';
+
 export const Container = styled.div`
   position: relative;
   width: 90rem;

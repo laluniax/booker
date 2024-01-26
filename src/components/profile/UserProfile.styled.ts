@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 180vh;
+  min-height: 180rem;
 `;
 
 export const Title = styled.div`

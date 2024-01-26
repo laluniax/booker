@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import bookerChattingIcon from '../../assets/common/bookerchattingicon.webp';
 import prevIcon from '../../assets/common/prev1.webp';
-
 export const Container = styled.div`
   position: relative;
   width: 100%;
@@ -111,7 +110,6 @@ export const TalkButtonWrapper = styled.div`
   right: 1rem;
   z-index: 1000;
 `;
-
 export const MessageWrapper = styled.div<MessageProps>`
   display: flex;
   justify-content: ${(props) => (props.isOutgoing ? 'flex-start' : 'flex-end')};
@@ -176,7 +174,6 @@ export const DMButton = styled.button`
     font-weight: bold;
   }
 `;
-
 // 채팅 모달 래퍼
 export const ChatModalWrapper = styled.div`
   display: flex;
@@ -314,14 +311,12 @@ export const SendButton = styled.button`
     background-color: #262626;
   }
 `;
-
 export const PrevIcon = styled.div`
   background: url(${prevIcon});
   background-size: contain;
   width: 3rem;
   height: 3rem;
 `;
-
 export const BookerChattingIcon = styled.div`
   background: url(${bookerChattingIcon});
   background-size: contain;
