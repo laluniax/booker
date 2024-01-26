@@ -12,6 +12,7 @@ import {
   updateUserIntroTextHandler,
   uploadUserImgHandler,
 } from '../../api/supabase.api';
+import profileImage from '../../assets/profile/defaultprofileimage.webp';
 import { Tables } from '../../types/types';
 import * as St from './Tab.styled';
 
@@ -126,13 +127,7 @@ const EditProfile = () => {
       <St.ProfileImgEdit>
         <St.ProfileEditTitle>프로필 이미지</St.ProfileEditTitle>
         <St.ProfileImgUpload>
-          <St.ProfileImg
-            src={
-              tempImg ||
-              userSession?.user.user_metadata.avatar_url ||
-              `${process.env.PUBLIC_URL}/images/header/profileImg.png`
-            }
-          />
+          <St.ProfileImg src={tempImg || userSession?.user.user_metadata.avatar_url || profileImage} />
           <St.ProfileImgUploadFile>
             <St.ProfileLabel htmlFor="imgInput">이미지 선택하기</St.ProfileLabel>
             <St.ProfileImgInput id="imgInput" type="file" accept="image/*" ref={imgRef} onChange={updateUserTempImg} />

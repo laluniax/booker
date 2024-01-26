@@ -90,7 +90,7 @@ const AdminChat = () => {
             <St.ChatHeader>
               <St.LogoWrapper>
                 <St.PrevBtn onClick={PrevHandler}>
-                  <img src="images/chat/prev.png" alt="Prev" width={30} height={30} />
+                  <St.PrevIcon />
                 </St.PrevBtn>
               </St.LogoWrapper>
             </St.ChatHeader>
