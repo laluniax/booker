@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import prevIcon from '../../assets/common/prevbutton1.webp';
 
 export const Container = styled.section`
   height: 70%;
@@ -34,6 +35,13 @@ export const LogoWrapper = styled.div`
 `;
 export const PrevBtn = styled.div`
   cursor: pointer;
+`;
+
+export const PrevIcon = styled.div`
+  background: url(${prevIcon});
+  background-size: contain;
+  width: 3rem;
+  height: 3rem;
 `;
 
 export const ChatBody = styled.div`

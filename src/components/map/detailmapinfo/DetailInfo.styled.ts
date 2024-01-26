@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import BookStoreImage1 from '../../../styles/assets/indebookstoreimages/indebookstoreimage1.jpg';
+import detailIndBookStoreImage from '../../../assets/indbookstoreimage/detailindbookstoreimage.webp';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -41,7 +41,7 @@ export const DetainSpan = styled.span`
 `;
 
 export const BookStoreImage = styled.img`
-  background: url(${BookStoreImage1});
+  background: url(${detailIndBookStoreImage});
   background-size: contain;
   width: 50rem;
   height: 30rem;

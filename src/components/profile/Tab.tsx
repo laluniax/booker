@@ -9,6 +9,7 @@ import {
   getLikesProductsListHandler,
   unFollowHandler,
 } from '../../api/supabase.api';
+import logoImage from '../../assets/common/bookerchattingicon.webp';
 import { FollowsTypes, PostsLikesTypes, ProductsLikesTypes, Tables } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
 import Pagination from '../common/pagination/Pagination';
@@ -109,9 +110,7 @@ const Tab = ({ userSession, userData }: Props) => {
               {productsList?.slice((currentProductsPage - 1) * 5, currentProductsPage * 5)?.map((item, i) => {
                 return (
                   <St.Product key={i} onClick={() => navigate(`/product/${item.id}`)}>
-                    {item.product_img && (
-                      <St.ProductImg src={item.product_img[0] || `${process.env.PUBLIC_URL}/images/common/logo.png`} />
-                    )}
+                    {item.product_img && <St.ProductImg src={item.product_img[0] || logoImage} />}
                     <St.ProductTitlePrice>
                       <St.ProductTitle>{item.title}</St.ProductTitle>
                       <St.ProductPrice>{item.price} 원</St.ProductPrice>
@@ -175,11 +174,7 @@ const Tab = ({ userSession, userData }: Props) => {
                   {productsLikes?.slice((currentProductsPage - 1) * 5, currentProductsPage * 5)?.map((item, i) => {
                     return (
                       <St.Product key={i} onClick={() => navigate(`/product/${item.post_id}`)}>
-                        {item.products.product_img && (
-                          <St.ProductImg
-                            src={item.products.product_img[0] || `${process.env.PUBLIC_URL}/images/common/logo.png`}
-                          />
-                        )}
+                        {item.products.product_img && <St.ProductImg src={item.products.product_img[0] || logoImage} />}
                         <St.ProductTitlePrice>
                           <St.ProductTitle>{item.products.title}</St.ProductTitle>
                           <St.ProductPrice>{item.products.price} 원</St.ProductPrice>

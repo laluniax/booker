@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Logo from '../../styles/assets/buttonimages/logo.png';
+import logo from '../../assets/common/logo.webp';
 
 export const Container = styled.div`
   min-height: 60rem;
@@ -25,7 +25,7 @@ export const NickName = styled.span`
 `;
 
 export const TitleImage = styled.img`
-  background: url(${Logo});
+  background: url(${logo});
   background-size: cover;
   width: 25rem;
   height: 4.4rem;

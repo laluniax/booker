@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
-import leftIcon from '../../styles/assets/left_btn2.png';
-import rightIcon from '../../styles/assets/right_btn.png';
+import leftButtonIcon from '../../assets/common/buttonleft.webp';
+import rightButtonIcon from '../../assets/common/buttonright.webp';
 
 export const SlideshowContainer = styled.div`
   position: relative;
@@ -82,7 +82,7 @@ export const NextButton = styled.button`
 `;
 
 export const LeftIcon = styled.span`
-  background: url(${leftIcon}) no-repeat 50%;
+  background: url(${leftButtonIcon}) no-repeat 50%;
   text-indent: -9999px;
   position: absolute;
   top: 42%;
@@ -97,7 +97,7 @@ export const LeftIcon = styled.span`
 `;
 
 export const RightIcon = styled.span`
-  background: url(${rightIcon}) no-repeat 50%;
+  background: url(${rightButtonIcon}) no-repeat 50%;
   text-indent: -9999px;
   position: absolute;
   top: 42%;
