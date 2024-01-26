@@ -261,9 +261,7 @@ const SearchField = () => {
               return (
                 <St.Product key={i} onClick={() => navigate(`/product/${item.id}`)}>
                   {item.product_img && item.product_img.length === 0 ? (
-                    <St.LogoImg>
-                      <img src={`${process.env.PUBLIC_URL}/images/common/logo.png`} alt="logo" />
-                    </St.LogoImg>
+                    <St.LogoImg />
                   ) : (
                     <St.ProductImg>
                       <img src={(item.product_img && item.product_img[0]) ?? undefined} alt="검색결과상품이미지" />

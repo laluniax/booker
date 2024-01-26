@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import Prev from '../../../styles/assets/buttonimages/prev2.png';
+import logoImage from '../../../assets/common/logo.webp';
+import prev from '../../../assets/common/prevbutton2.webp';
+import deleteIcon from '../../../assets/market/deleteicon.webp';
+import editIcon from '../../../assets/market/editicon.webp';
 import { MessageProps } from '../../qna/ChatModal.styled';
 
 // import Prev from '../../styles/assets/buttonimages/prev2.png';
@@ -10,11 +13,12 @@ export const Container = styled.div`
   margin: 0 auto;
   height: 100vh;
 `;
+
 export const PrevButton = styled.div`
   position: absolute;
   left: -10rem;
   top: -1rem;
-  background: url(${Prev});
+  background: url(${prev});
   background-size: contain;
   width: 6rem;
   height: 6rem;
@@ -42,7 +46,9 @@ export const LogoWrapper = styled.div`
   width: 30rem;
   height: 40rem;
 `;
-export const Logo = styled.img`
+export const LogoImage = styled.div`
+  background: url(${logoImage});
+  background-size: contain;
   max-width: 25rem;
   max-height: 4.3766rem;
 `;
@@ -134,10 +140,6 @@ export const UpdateBtn = styled.button`
   height: 3rem;
   background-color: transparent;
   border: none;
-  /* margin-left: 1.5rem; */
-  & img {
-    width: 2rem;
-  }
 `;
 
 export const ProductLikes = styled.div`
@@ -318,14 +320,16 @@ export const MessageComponent = styled.div<MessageProps>`
   text-align: ${(props) => (props.isOutgoing ? 'right' : 'left')};
 `;
 
-// export const MessageComponent = styled.div<MessageProps>`
-//   display: flex;
-//   justify-content: ${props => props.isOutgoing ? 'flex-end' : 'flex-start'};
-//   padding: 10px;
-//   margin: 5px;
-//   border-radius: 10px;
-//   max-width: 100%; /* You can adjust this as per your UI requirement */
-//   word-wrap: break-word;
-//   background-color: ${props => props.isOutgoing ? '#DCF8C6' : '#FFFFFF'};
-//   color: ${props => props.isOutgoing ? '#000' : '#000'}; // Adjust text color as needed
-// `;
+export const EditIcon = styled.div`
+  background: url(${editIcon});
+  background-size: contain;
+  width: 2rem;
+  height: 2rem;
+`;
+
+export const DeleteIcon = styled.div`
+  background: url(${deleteIcon});
+  background-size: contain;
+  width: 2rem;
+  height: 2rem;
+`;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import logoImage from '../../assets/common/logo.webp';
 
 export const Container = styled.div``;
 type HeightProps = {
@@ -112,13 +113,12 @@ export const ProductImg = styled.div`
   }
 `;
 export const LogoImg = styled.div`
+  background: url(${logoImage});
+  background-size: contain;
   width: 14rem;
   height: 14rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  & img {
-    width: 14rem;
-  }
 `;
