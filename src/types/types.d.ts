@@ -139,6 +139,19 @@ export type Message = {
   id: number;
 };
 
+export type PostsListLikesTypes = {
+  content: string | null;
+  created_at: string;
+  genre_id: string | null;
+  id: number;
+  post_img: string[] | null;
+  tags: string[] | null;
+  title: string | null;
+  user_id: string | null;
+  post_likes: Tables<'post_likes'>;
+  users: Tables<'users'>;
+};
+
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export interface Database {

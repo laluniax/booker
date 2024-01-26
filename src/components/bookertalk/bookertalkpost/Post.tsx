@@ -160,7 +160,11 @@ const Post = () => {
     getUserSession();
     params && getPost();
   }, [params]);
-
+  useEffect(() => {
+    if (!userId) {
+      navigation('/');
+    }
+  }, [userId]);
   return (
     <St.Container>
       <St.FormWrapper>
