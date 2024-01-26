@@ -21,7 +21,6 @@ const Main = () => {
     // 베스트셀러
     try {
       setLoading1(true);
-
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller`);
       setBestSeller(response.data.item[0]);
       setLoading1(false);
@@ -31,7 +30,6 @@ const Main = () => {
     // 신간도서
     try {
       setLoading2(true);
-
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks`);
       setNewbook(response.data.item[0]);
       setLoading2(false);
@@ -41,7 +39,6 @@ const Main = () => {
     // 스페셜
     try {
       setLoading3(true);
-
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special`);
       setBookSpecial(response.data.item[0]);
       setLoading3(false);
@@ -51,7 +48,6 @@ const Main = () => {
     // 북커들의 선택
     try {
       setLoading4(true);
-
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/BlogBest`);
       setBookerPick(response.data.item[0]);
       setLoading4(false);

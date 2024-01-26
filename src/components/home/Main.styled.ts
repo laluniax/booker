@@ -331,7 +331,7 @@ export const BookIntroCard = styled.div`
 
 export const BookImage = styled.div`
   /* background: url(${bookIntroImage1}); */
-  background-size: contain;
+  /* background-size: contain; */
   object-fit: cover;
   margin-top: 1rem;
   margin-left: 1.3rem;
