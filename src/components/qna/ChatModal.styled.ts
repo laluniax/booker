@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import bookerChattingIcon from '../../assets/common/bookerchattingicon.webp';
-import prevIcon from '../../assets/common/prev1.webp';
+import prevIcon from '../../assets/common/prevbutton1.webp';
 
 export const Container = styled.div`
   position: relative;
