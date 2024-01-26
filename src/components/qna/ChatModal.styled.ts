@@ -48,7 +48,7 @@ export const ChatTopBox = styled.div`
   height: 6rem;
   margin-bottom: 2rem;
 `;
-export const MainMessage = styled.p`
+export const MainMessage = styled.div`
   font-size: 1.4rem;
 `;
 // 문의하기 버튼

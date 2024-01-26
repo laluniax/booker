@@ -110,6 +110,7 @@ export const PostProfileBox = styled.div`
 export const PostProfileImg = styled.img`
   width: 8rem;
   height: 8rem;
+  object-fit: cover;
   border-radius: 50%;
   position: absolute;
   top: -4rem;

@@ -112,7 +112,7 @@ const BookerTalkMain = () => {
 
           <St.ContentWrapper>
             <St.Title>
-              {params ? findKeyByValue(categoryUuid, params as string) : 'BOOKER TALK'}
+              {params ? findKeyByValue(categoryUuid, params as string) : '북커톡'}
               <St.PostButton onClick={onClickPostButton}>글쓰기</St.PostButton>
             </St.Title>
             <St.PostListWrapper>
