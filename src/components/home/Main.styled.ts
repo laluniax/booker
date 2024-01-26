@@ -344,39 +344,6 @@ export const BookImage = styled.div`
   }
 `;
 
-// export const BookImage2 = styled.div`
-//   background: url(${bookIntroImage2});
-//   background-size: contain;
-//   object-fit: cover;
-//   margin-top: 1rem;
-//   margin-left: 1.3rem;
-
-//   width: 23rem;
-//   height: 35rem;
-// `;
-
-// export const BookImage3 = styled.div`
-//   background: url(${bookIntroImage3});
-//   background-size: contain;
-//   object-fit: cover;
-//   margin-top: 1rem;
-//   margin-left: 1.3rem;
-
-//   width: 23rem;
-//   height: 35rem;
-// `;
-
-// export const BookImage4 = styled.div`
-//   background: url(${bookIntroImage4});
-//   background-size: contain;
-//   object-fit: cover;
-//   margin-top: 1rem;
-//   margin-left: 1.3rem;
-
-//   width: 23rem;
-//   height: 35rem;
-// `;
-
 export const BookIntroCardTitle = styled.div`
   margin-top: 1rem;
   margin-left: 1rem;

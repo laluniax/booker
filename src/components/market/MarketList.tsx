@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCategoryProductListHandler, getProductListHandler, getUserSessionHandler } from '../../api/supabase.api';
 import { ProductsTypes } from '../../types/types';
+import { formatCreatedAt } from '../../utils/date';
 import Pagination from '../common/pagination/Pagination';
 import * as St from './MarketList.styled';
 import { categoryArr } from './marketpost/Post';
@@ -54,6 +55,7 @@ const MarketList = () => {
               }}>
               카테고리
             </St.CategoryTitle>
+
             <St.CategoryBtnBox>
               {categoryArr.map((item, i) => (
                 <St.CategoryBtn
@@ -75,11 +77,13 @@ const MarketList = () => {
                   session
                     ? navigate('/marketpost')
                     : window.confirm('로그인 페이지로 이동하시겠습니까?') && navigate(`/login`);
+                  window.scrollTo(0, 0);
                 }
               }}>
               글쓰기
             </St.PostButton>
           </St.Title>
+
           <St.ProductsWrapper>
             {currentPosts.map((item, i) => {
               return (
@@ -88,6 +92,7 @@ const MarketList = () => {
                   className={item.onsale ? '' : 'soldout'}
                   onClick={() => {
                     navigate(`/product/${item.id}`);
+                    window.scrollTo(0, 0);
                   }}>
                   {item.product_img?.length === 0 ? (
                     <St.LogoImage />
@@ -100,7 +105,7 @@ const MarketList = () => {
                   <St.ProductTitle>{item.title}</St.ProductTitle>
                   <St.ProductInfo>
                     <St.ProductPrice>{item.price} 원</St.ProductPrice>
-                    <St.ProductLikes>♥️</St.ProductLikes>
+                    <St.ProductCreatedAt>{formatCreatedAt(item.created_at)}</St.ProductCreatedAt>
                   </St.ProductInfo>
                   {item.onsale ? null : <St.Onsale>판매 완료</St.Onsale>}
                 </St.ProductCard>

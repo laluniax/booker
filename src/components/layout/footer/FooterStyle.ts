@@ -28,7 +28,7 @@ export const FooterContentwrapper = styled.div`
 export const FooterContentBox = styled.div`
   margin-left: 2rem;
   margin-bottom: 1.3rem;
-  margin-top: 5rem;
+  margin-top: 5.9rem;
 `;
 
 export const FooterTitle = styled.div`
@@ -43,6 +43,7 @@ export const FooterContent = styled.div`
   margin-left: 2rem;
   margin-top: 1rem;
   letter-spacing: 1;
+  line-height: 1.3;
 `;
 
 export const LogoImage = styled.div`
