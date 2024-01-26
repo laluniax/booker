@@ -91,7 +91,7 @@ export const Title = styled.h1`
   font-weight: bold;
 `;
 
-export const Content = styled.h2`
+export const Content = styled.div`
   font-size: 2rem;
   margin-top: 2rem;
   letter-spacing: 1px;
@@ -107,7 +107,7 @@ export const AboutIndeTitle = styled.h1`
   font-weight: bold;
 `;
 
-export const SubTitle = styled.h1`
+export const SubTitle = styled.div`
   font-size: 3rem;
   color: #fca311;
   margin-top: 4rem;

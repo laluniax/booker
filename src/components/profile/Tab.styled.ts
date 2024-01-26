@@ -39,7 +39,7 @@ export const TabListTitle = styled.div`
 
 // 내가 쓴 글
 export const PostWraapper = styled.div`
-  height: 50rem;
+  height: 35rem;
 `;
 
 export const Post = styled.div`

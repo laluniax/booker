@@ -5,6 +5,8 @@ import deleteIcon from '../../../assets/market/deleteicon.webp';
 import editIcon from '../../../assets/market/editicon.webp';
 import { MessageProps } from '../../qna/ChatModal.styled';
 
+// import Prev from '../../styles/assets/buttonimages/prev2.png';
+
 export const Container = styled.div`
   position: relative;
   width: 90rem;
