@@ -37,6 +37,7 @@ export const BookRecommendBox = styled.div`
 `;
 
 export const CategoryTitle = styled.h1`
+  font-family: 'GmarketSansMedium';
   margin-top: 1rem;
   font-size: 3rem;
   font-weight: bold;
@@ -44,9 +45,11 @@ export const CategoryTitle = styled.h1`
 `;
 
 export const GenreButtonbox = styled.div`
+  font-family: 'GmarketSansMedium';
   display: flex;
   flex-direction: column;
   align-items: start;
+  line-height: 1.2;
   gap: 0.9rem;
   margin-top: 1rem;
 `;
@@ -79,6 +82,7 @@ export const ContentWrapper = styled.div`
 `;
 
 export const Title = styled.div`
+  font-family: 'GmarketSansMedium';
   padding-bottom: 0.5rem;
   border-bottom: 0.2rem solid black;
   font-size: 4rem;
@@ -102,7 +106,9 @@ export const PostListBox = styled.div`
   }
 `;
 export const PostTitle = styled.span`
+  font-family: 'GmarketSansMedium';
   margin-left: 0.2rem;
+  font-weight: bold;
 `;
 export const PostContent = styled.span``;
 
@@ -115,16 +121,16 @@ export const PostNickName = styled.span`
 
 export const PostButton = styled.div`
   all: unset;
+  font-family: 'GmarketSansMedium';
   float: right;
   padding: 0.9rem 1.2rem;
-  border: 0.2rem solid black;
+  border: 0.1rem solid #fca311;
   border-radius: 1rem;
   font-size: 1.5rem;
-  background-color: #000;
-  color: #fff;
-
+  background-color: #fca311;
+  color: #000;
   &:hover {
     cursor: pointer;
-    background-color: #404040;
+    background-color: #e89610;
   }
 `;
