@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bestseller, BooksInfoTypes } from '../../types/types';
+import { getLatestProductListHandler } from '../../api/supabase.api';
+import defaultImg from '../../assets/profile/defaultprofileimage.webp';
+import { Bestseller, BooksInfoTypes, ProductsTypes } from '../../types/types';
 import Loading from '../survey/Loading';
 import * as St from './Main.styled';
 import SlideImages from './banner/SlideImages';
@@ -16,12 +18,12 @@ const Main = () => {
   const [loading2, setLoading2] = useState(false);
   const [loading3, setLoading3] = useState(false);
   const [loading4, setLoading4] = useState(false);
+  const [productsList, setProductsList] = useState<ProductsTypes[]>([]);
 
   const getBookIntroduction = async () => {
     // 베스트셀러
     try {
       setLoading1(true);
-
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller`);
       setBestSeller(response.data.item[0]);
       setLoading1(false);
@@ -31,7 +33,6 @@ const Main = () => {
     // 신간도서
     try {
       setLoading2(true);
-
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks`);
       setNewbook(response.data.item[0]);
       setLoading2(false);
@@ -41,7 +42,6 @@ const Main = () => {
     // 스페셜
     try {
       setLoading3(true);
-
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special`);
       setBookSpecial(response.data.item[0]);
       setLoading3(false);
@@ -51,7 +51,6 @@ const Main = () => {
     // 북커들의 선택
     try {
       setLoading4(true);
-
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/BlogBest`);
       setBookerPick(response.data.item[0]);
       setLoading4(false);
@@ -59,9 +58,14 @@ const Main = () => {
       console.log(error);
     }
   };
+  const getProductList = async () => {
+    const products = await getLatestProductListHandler();
+    setProductsList(products.sort((a, b) => b.id - a.id));
+  };
 
   useEffect(() => {
     getBookIntroduction();
+    getProductList();
   }, []);
   return (
     <>
@@ -219,7 +223,23 @@ const Main = () => {
           </St.Titlebox>
 
           <St.CardBox>
-            <St.MarketProductCard>
+            {productsList.map((item, i) => {
+              return (
+                <St.MarketProductCard
+                  key={i}
+                  onClick={() => {
+                    navigate(`/product/${item.id}`);
+                  }}>
+                  <St.MarketProductImage>
+                    <img src={(item.product_img && item.product_img[0]) || defaultImg} />
+                  </St.MarketProductImage>
+                  <St.ProductTitle>{item.title}</St.ProductTitle>
+                  <St.ProductPrice>₩ {item.price}</St.ProductPrice>
+                  {/* <St.ProductContent>{item.users.nickname}님</St.ProductContent> */}
+                </St.MarketProductCard>
+              );
+            })}
+            {/* <St.MarketProductCard>
               <St.MarketProductImage />
               <St.ProductTitle>푸바오 책 팝니다.</St.ProductTitle>
               <St.ProductPrice>₩ 12,000</St.ProductPrice>
@@ -245,7 +265,7 @@ const Main = () => {
               <St.ProductTitle>죽음이 물었다,어떻게 살거냐고 책 팝니다.</St.ProductTitle>
               <St.ProductPrice>₩ 19,000</St.ProductPrice>
               <St.ProductContent>OO님</St.ProductContent>
-            </St.MarketProductCard>
+            </St.MarketProductCard> */}
           </St.CardBox>
         </St.MarketWrapper>
 
