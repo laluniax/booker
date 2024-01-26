@@ -55,13 +55,13 @@ const Router = () => {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Navigate replace to="/" />} />
-          {session && <Route path="/profile/:id" element={<Profile />} />}
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/search" element={<Search />} />
           {/* 북커톡 커뮤니티 */}
           <Route path="/bookertalk" element={<BookerTalk />} />
           <Route path="/bookertalk/:id" element={<BookerTalk />} />
-          {session && <Route path="/bookertalk/write" element={<BookerTalkPost />} />}
-          {session && <Route path="/bookertalk/write/:id" element={<BookerTalkPost />} />}
+          <Route path="/bookertalk/write" element={<BookerTalkPost />} />
+          <Route path="/bookertalk/write/:id" element={<BookerTalkPost />} />
           <Route path="/detail/:id" element={<BookerTalkDetail />} />
           <Route path="/indbookstores" element={<IndBookStores />} />
           {/* 도서 소개 페이지 */}
@@ -70,8 +70,8 @@ const Router = () => {
           <Route path="/market" element={<Market />} />
           <Route path="/marketproduct" element={<MarketProduct />} />
           <Route path="/market/:id" element={<Market />} />
-          {session && <Route path="/marketpost" element={<MarketPost />} />}
-          {session && <Route path="/marketpost/:id" element={<MarketPost />} />}
+          <Route path="/marketpost" element={<MarketPost />} />
+          <Route path="/marketpost/:id" element={<MarketPost />} />
           <Route path="/product/:id" element={<MarketProduct />} />
           {/* 설문조사 페이지 / 설문조사 질문 페이지 / 설문조사 결과 페이지 */}
           <Route path="/survey" element={<Survey />} />
