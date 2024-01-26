@@ -244,6 +244,17 @@ export const getProductHandler = async (id: string) => {
   return data;
 };
 
+// 상품 읽어오기 (메인에서 사용)
+export const getLatestProductListHandler = async () => {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*, users(*)')
+    .order('created_at', { ascending: false })
+    .limit(4);
+  if (error) throw error;
+  return data;
+};
+
 // 상품 삭제하기
 export const deleteProductHandler = async (productId: string) => {
   const { error } = await supabase.from('products').delete().eq('id', productId);

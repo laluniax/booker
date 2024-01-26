@@ -65,7 +65,29 @@ export const CardBox = styled.div`
   justify-content: center;
   gap: 2rem;
   margin-top: 2rem;
+  /* width: 50rem; */
+  /* ${({ theme }) => theme.mediaQuery.sm`
+   width : 80rem;
+`};
+  ${({ theme }) => theme.mediaQuery.lg`
+     width : 100rem;
+`}; */
 `;
+
+// 사용 예시 : export const ProfileWrapper = styled.div`
+//   box-sizing: border-box;
+//   margin: 3rem auto;
+//   padding: 3rem;
+//   border: 0.2rem solid #dcdcdc;
+//   height: 100%;
+//   width: 50rem;
+//   ${({ theme }) => theme.mediaQuery.sm`
+//     width : 80rem;
+// `}
+//   ${({ theme }) => theme.mediaQuery.lg`
+//     width : 100rem;
+// `}
+// `;
 
 // -------------------------------------------
 // 배너
@@ -442,14 +464,19 @@ export const MarketProductCard = styled.div`
 `;
 
 export const MarketProductImage = styled.div`
-  background: url(${marketImage1});
-  background-size: contain;
+  /* background: url(${marketImage1}); */
+  /* background-size: contain; */
   object-fit: cover;
   margin-top: 1rem;
   margin-left: 1.3rem;
 
   width: 23rem;
   height: 35rem;
+  & img {
+    width: 23rem;
+    height: 35rem;
+    object-fit: cover;
+  }
 `;
 
 export const MarketProductImage2 = styled.div`
