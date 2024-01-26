@@ -38,7 +38,7 @@ const App = () => {
               .eq('chat_id', chatRoom.id)
               .order('created_at', { ascending: false })
               .limit(1)
-              .single();
+              .maybeSingle();
 
             if (lastMessageError) throw lastMessageError;
 
