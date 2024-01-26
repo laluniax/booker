@@ -90,9 +90,7 @@ const MarketList = () => {
                     navigate(`/product/${item.id}`);
                   }}>
                   {item.product_img?.length === 0 ? (
-                    <St.LogoImg>
-                      <img src={`${process.env.PUBLIC_URL}/images/common/logo.png`} alt="logo" />
-                    </St.LogoImg>
+                    <St.LogoImage />
                   ) : (
                     <St.ProductImg>
                       <img src={(item.product_img && item.product_img[0]) ?? undefined} />

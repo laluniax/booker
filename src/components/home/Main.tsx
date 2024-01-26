@@ -163,18 +163,18 @@ const Main = () => {
         <St.Contour />
 
         {/* 독립서점*/}
-        <St.IndeBookstoreWrapper>
-          <St.IndeBookstorebox>
-            <St.IndeBookStoreImage />
+        <St.IndBookStoreWrapper>
+          <St.IndBookStorebox>
+            <St.IndBookStoreImage />
             <St.TitleAndContentBox>
-              <St.IndeBookAndRecommnedTitle>서울에서 가장 힙한 서점 </St.IndeBookAndRecommnedTitle>
-              <St.IndeBookAndRecommnedContent>
+              <St.IndBookAndRecommnedTitle>서울에서 가장 힙한 서점 </St.IndBookAndRecommnedTitle>
+              <St.IndBookAndRecommnedContent>
                 독립서점 인덱스에서는 출판사 편집자에게 주목하는 전시( 주목! 이 출판사 This Is Publisher)를 여는 한편
                 책을 매개로 한 토크, 워크 숍, 강좌 등의 프로그램을 진행하는 ‘인덱스 뉴스쿨’도 운영한다.
-              </St.IndeBookAndRecommnedContent>
+              </St.IndBookAndRecommnedContent>
             </St.TitleAndContentBox>
-          </St.IndeBookstorebox>
-        </St.IndeBookstoreWrapper>
+          </St.IndBookStorebox>
+        </St.IndBookStoreWrapper>
 
         {/* 맞춤추천 */}
 
@@ -182,11 +182,11 @@ const Main = () => {
           <St.BookRecommendBox>
             <St.BookRecommendImage />
             <St.TitleAndContentBox>
-              <St.IndeBookAndRecommnedTitle>나에게 맞는 책 추천받기</St.IndeBookAndRecommnedTitle>
-              <St.IndeBookAndRecommnedContent>
+              <St.IndBookAndRecommnedTitle>나에게 맞는 책 추천받기</St.IndBookAndRecommnedTitle>
+              <St.IndBookAndRecommnedContent>
                 노래 가사, 영화 대사의 한 줄이 가슴 속 깊이 와 닿을 때가 있습니다. 책을 읽다가도 오래도록 곱씹어
                 보게되는 문장이 있으실텐데요, 마음을 울림을 준 문장들을 공유해보면 어떨까요?
-              </St.IndeBookAndRecommnedContent>
+              </St.IndBookAndRecommnedContent>
             </St.TitleAndContentBox>
           </St.BookRecommendBox>
         </St.BookRecommendWrapper>
@@ -196,5 +196,3 @@ const Main = () => {
 };
 
 export default Main;
-{
-}

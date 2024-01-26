@@ -99,18 +99,11 @@ function KakaoMap() {
                         <div className="info">
                           <div className="title">
                             {position.name}
-                            <div className="close" onClick={() => markerClickHandler(position.id)} title="닫기">
-                              <img src="/images/close.png" width="20" height="20" alt="닫기" />
-                            </div>
+                            <div className="close" onClick={() => markerClickHandler(position.id)} title="닫기"></div>
                           </div>
                           <div className="body">
                             <div className="img">
-                              <img
-                                src="/images/indBookStore/independentBookStoreImage.jpg"
-                                width="73"
-                                height="70"
-                                alt="독립서점 이미지"
-                              />
+                              <St.MapIndBookStoreImage />
                             </div>
                             <St.DetailButton onClick={() => selectMarkerInfoHandler(position.id)}>
                               상세보기

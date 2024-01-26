@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import Prev from '../../styles/assets/buttonimages/prev2.png';
+import prev from '../../assets/common/prev2.webp';
 export const Container = styled.div`
   min-height: 100rem;
 `;
 
 export const PrevButton = styled.div`
-  background: url(${Prev});
+  background: url(${prev});
   background-size: contain;
   width: 6rem;
   height: 6rem;
