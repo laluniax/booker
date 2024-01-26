@@ -93,7 +93,7 @@ function KakaoMap() {
                     }, // 마커이미지의 크기입니다
                   }}
                   onClick={() => markerClickHandler(position.id)}>
-                  {selectedMarkerId === position.id && ( //내가 연것만 열려야함
+                  {selectedMarkerId === position.id && (
                     <CustomOverlayMap position={{ lat: position.latitude, lng: position.longitude }}>
                       <div className="wrap">
                         <div className="info">
