@@ -100,6 +100,7 @@ const Main = () => {
               <St.BookerTalkCardImage
                 onClick={() => {
                   navigate(`/bookertalk/a249535a-b19a-4fb4-bcd9-0788e780a2ac`);
+                  window.scrollTo(0, 0);
                 }}
               />
               <St.CardTitle>책 추천 받습니다.</St.CardTitle>
@@ -110,6 +111,7 @@ const Main = () => {
               <St.BookerTalkCardImage2
                 onClick={() => {
                   navigate(`/bookertalk/3c5d132b-1ca6-430d-a467-4315a2d86618`);
+                  window.scrollTo(0, 0);
                 }}
               />
               <St.CardTitle2>언어의 온도 추천합니다.</St.CardTitle2>
@@ -120,6 +122,7 @@ const Main = () => {
               <St.BookerTalkCardImage3
                 onClick={() => {
                   navigate(`/bookertalk/8114a2cd-d916-4f38-a735-83815ecb0b83`);
+                  window.scrollTo(0, 0);
                 }}
               />
               <St.CardTitle3>에세이 책 추천 5권 공유합니다.</St.CardTitle3>
@@ -130,6 +133,7 @@ const Main = () => {
               <St.BookerTalkCardImage4
                 onClick={() => {
                   navigate(`/bookertalk/15c0651c-47e5-45e7-91c6-f244443a9123`);
+                  window.scrollTo(0, 0);
                 }}
               />
               <St.CardTitle4>IT 관련 책 추천 받습니다.</St.CardTitle4>
@@ -245,7 +249,11 @@ const Main = () => {
 
         {/* 독립서점*/}
         <St.IndBookStoreWrapper>
-          <St.IndBookStorebox>
+          <St.IndBookStorebox
+            onClick={() => {
+              navigate('/indBookStores');
+              window.scrollTo(0, 0);
+            }}>
             <St.IndBookStoreImage />
             <St.TitleAndContentBox>
               <St.IndBookAndRecommnedTitle>서울에서 가장 힙한 서점 </St.IndBookAndRecommnedTitle>
@@ -260,7 +268,11 @@ const Main = () => {
         {/* 맞춤추천 */}
 
         <St.BookRecommendWrapper>
-          <St.BookRecommendBox>
+          <St.BookRecommendBox
+            onClick={() => {
+              navigate('/survey');
+              window.scrollTo(0, 0);
+            }}>
             <St.BookRecommendImage />
             <St.TitleAndContentBox>
               <St.IndBookAndRecommnedTitle>나에게 맞는 책 추천받기</St.IndBookAndRecommnedTitle>
