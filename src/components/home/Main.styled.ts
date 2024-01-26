@@ -15,13 +15,13 @@ import marketImage3 from '../../assets/mainimage/marketimage3.webp';
 import marketImage4 from '../../assets/mainimage/marketimage4.webp';
 
 //독립서점
-import indBookStoreImage from '../../assets/mainimage/indbookstoreimage.webp';
+import indBookStoreImage from '../../assets/indbookstoreimage/indbookstoreimage1.webp';
 
 // 맞춤추천
-import surveyImage from '../../assets/mainimage/surveyimage.webp';
+import surveyImage from '../../assets/mainimage/mainindebookstore.webp';
 
 export const Container = styled.div`
-  min-height: 375rem;
+  min-height: 380rem;
 `;
 
 // 공통으로 쓰는 것들
@@ -52,9 +52,10 @@ export const Title = styled.h2`
   font-size: 3.5rem;
   font-weight: bold;
   color: #14213d;
+  font-family: 'GmarketSansMedium';
 `;
 export const Detail = styled.div`
-  font-size: 1.7rem;
+  font-size: 1.9rem;
   margin-left: 0.3rem;
   margin-top: 1rem;
 `;
@@ -98,7 +99,7 @@ export const BannerBookIntro = styled.div`
 `;
 export const TodayBook = styled.div`
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   padding: 2rem;
 `;
 export const BannerBookTitle = styled.div`
@@ -136,7 +137,7 @@ export const BannerRecommendTitleBox = styled.div`
 
 export const BannerRecommendTitle = styled.div`
   color: #fff;
-  font-size: 2rem;
+  font-size: 2.1rem;
   font-weight: bold;
   margin-left: 2rem;
 `;
@@ -515,6 +516,7 @@ export const ProductContent = styled.div`
 
 export const IndBookAndRecommnedTitle = styled.div`
   font-size: 3rem;
+  font-family: 'GmarketSansMedium';
   font-weight: bold;
 `;
 export const IndBookAndRecommnedContent = styled.div`
@@ -522,7 +524,7 @@ export const IndBookAndRecommnedContent = styled.div`
   color: #939393;
   vertical-align: text-bottom;
   line-height: 2.2rem;
-  width: 32ch;
+  width: 40ch;
   word-wrap: break-word;
   letter-spacing: 0.1rem;
   margin-top: 3rem;
@@ -538,13 +540,23 @@ export const IndBookStorebox = styled.div`
   display: flex;
   justify-content: center;
   gap: 4rem;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 5px 0 5px -5px #333;
+    transition: 0.3s;
+  }
+
+  &:not(:hover) {
+    transition: 0.3s;
+  }
 `;
 
 export const IndBookStoreImage = styled.div`
   background: url(${indBookStoreImage});
   background-size: contain;
   width: 70rem;
-  height: 35rem;
+  height: 40rem;
 `;
 export const TitleAndContentBox = styled.div`
   width: 40rem;
@@ -561,10 +573,20 @@ export const BookRecommendBox = styled.div`
   display: flex;
   justify-content: center;
   gap: 4rem;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 5px 0 5px -5px #333;
+    transition: 0.3s;
+  }
+
+  &:not(:hover) {
+    transition: 0.3s;
+  }
 `;
 export const BookRecommendImage = styled.div`
   background: url(${surveyImage});
   background-size: contain;
   width: 70rem;
-  height: 35.8rem;
+  height: 40rem;
 `;
