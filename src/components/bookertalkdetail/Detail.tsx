@@ -120,11 +120,12 @@ const Detail = () => {
               </St.PostUserNickname>
               <St.PostDate>{formatCreatedAt(data?.created_at as string)}</St.PostDate>
             </St.PostImgNickNameDate>
-
-            <St.PostBtnWrapper>
-              <St.EditAndDeleteButton onClick={onClickUpdatePostButton}>수정</St.EditAndDeleteButton>
-              <St.EditAndDeleteButton onClick={onClickDeletePostButton}>삭제</St.EditAndDeleteButton>
-            </St.PostBtnWrapper>
+            {userSession?.user.id === data?.user_id ? (
+              <St.PostBtnWrapper>
+                <St.EditAndDeleteButton onClick={onClickUpdatePostButton}>수정</St.EditAndDeleteButton>
+                <St.EditAndDeleteButton onClick={onClickDeletePostButton}>삭제</St.EditAndDeleteButton>
+              </St.PostBtnWrapper>
+            ) : null}
           </St.PostUserInfo>
         </div>
         <St.PostWrapper>

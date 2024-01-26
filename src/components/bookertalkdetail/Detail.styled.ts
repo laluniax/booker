@@ -123,6 +123,7 @@ export const PostProfileIntroText = styled.div`
   font-size: 1.6rem;
   color: #828282;
   padding-top: 2rem;
+  text-align: center;
 `;
 
 export const FollowBtn = styled.button`
