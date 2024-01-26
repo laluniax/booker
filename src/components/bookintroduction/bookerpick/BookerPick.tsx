@@ -31,7 +31,7 @@ const BookerPick = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks?page=${page}`,
+        `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/BlogBest?page=${page}`,
       );
       setBookerPick((prev) => [...prev, ...response.data.item]);
       setPage((page) => page + 1);

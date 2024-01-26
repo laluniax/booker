@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bestseller, BooksInfoTypes } from '../../types/types';
+import Loading from '../survey/Loading';
 import * as St from './Main.styled';
 import SlideImages from './banner/SlideImages';
 
@@ -11,33 +12,49 @@ const Main = () => {
   const [newbook, setNewbook] = useState<BooksInfoTypes>();
   const [bookSpecial, setBookSpecial] = useState<BooksInfoTypes>();
   const [bookerPick, setBookerPick] = useState<BooksInfoTypes>();
+  const [loading1, setLoading1] = useState(false);
+  const [loading2, setLoading2] = useState(false);
+  const [loading3, setLoading3] = useState(false);
+  const [loading4, setLoading4] = useState(false);
 
   const getBookIntroduction = async () => {
     // 베스트셀러
     try {
+      setLoading1(true);
+
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller`);
       setBestSeller(response.data.item[0]);
+      setLoading1(false);
     } catch (error) {
       console.log(error);
     }
     // 신간도서
     try {
+      setLoading2(true);
+
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks`);
       setNewbook(response.data.item[0]);
+      setLoading2(false);
     } catch (error) {
       console.log(error);
     }
     // 스페셜
     try {
+      setLoading3(true);
+
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special`);
       setBookSpecial(response.data.item[0]);
+      setLoading3(false);
     } catch (error) {
       console.log(error);
     }
     // 북커들의 선택
     try {
-      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks`);
+      setLoading4(true);
+
+      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/BlogBest`);
       setBookerPick(response.data.item[0]);
+      setLoading4(false);
     } catch (error) {
       console.log(error);
     }
@@ -144,6 +161,7 @@ const Main = () => {
                 navigate(`/aboutbook/bestseller`);
               }}>
               <St.BookImage>
+                {loading1 ? <Loading /> : null}
                 <img src={bestSeller?.cover} />
               </St.BookImage>
               <St.BookIntroCardTitle>{bestSeller?.title}</St.BookIntroCardTitle>
@@ -155,6 +173,7 @@ const Main = () => {
                 navigate(`/aboutbook/newbook`);
               }}>
               <St.BookImage>
+                {loading2 ? <Loading /> : null}
                 <img src={newbook?.cover} />
               </St.BookImage>
               <St.BookIntroCardTitle>{newbook?.title}</St.BookIntroCardTitle>
@@ -166,6 +185,7 @@ const Main = () => {
                 navigate(`/aboutbook/bookspecial`);
               }}>
               <St.BookImage>
+                {loading3 ? <Loading /> : null}
                 <img src={bookSpecial?.cover} />
               </St.BookImage>
               <St.BookIntroCardTitle>{bookSpecial?.title}</St.BookIntroCardTitle>
@@ -176,7 +196,9 @@ const Main = () => {
               onClick={() => {
                 navigate(`/aboutbook/bookerpick`);
               }}>
+              {' '}
               <St.BookImage>
+                {loading4 ? <Loading /> : null}
                 <img src={bookerPick?.cover} />
               </St.BookImage>
               <St.BookIntroCardTitle>{bookerPick?.title}</St.BookIntroCardTitle>
