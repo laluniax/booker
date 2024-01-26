@@ -7,10 +7,6 @@ import bookerTalkImage3 from '../../assets/mainimage/bookertalkimage3.webp';
 import bookerTalkImage4 from '../../assets/mainimage/bookertalkimage4.webp';
 // 도서소개
 import bookIntroImage1 from '../../assets/mainimage/bookintrobest.webp';
-import bookIntroImage2 from '../../assets/mainimage/bookintronew.webp';
-import bookIntroImage3 from '../../assets/mainimage/bookintrospecial.webp';
-
-import bookIntroImage4 from '../../assets/mainimage/bookintrobookerpick.webp';
 
 // 중고거래
 import marketImage1 from '../../assets/mainimage/marketimage1.webp';
@@ -334,47 +330,52 @@ export const BookIntroCard = styled.div`
 `;
 
 export const BookImage = styled.div`
-  background: url(${bookIntroImage1});
+  /* background: url(${bookIntroImage1}); */
   background-size: contain;
   object-fit: cover;
   margin-top: 1rem;
   margin-left: 1.3rem;
   width: 23rem;
   height: 35rem;
+  & img {
+    object-fit: cover;
+    width: 23rem;
+    height: 35rem;
+  }
 `;
 
-export const BookImage2 = styled.div`
-  background: url(${bookIntroImage2});
-  background-size: contain;
-  object-fit: cover;
-  margin-top: 1rem;
-  margin-left: 1.3rem;
+// export const BookImage2 = styled.div`
+//   background: url(${bookIntroImage2});
+//   background-size: contain;
+//   object-fit: cover;
+//   margin-top: 1rem;
+//   margin-left: 1.3rem;
 
-  width: 23rem;
-  height: 35rem;
-`;
+//   width: 23rem;
+//   height: 35rem;
+// `;
 
-export const BookImage3 = styled.div`
-  background: url(${bookIntroImage3});
-  background-size: contain;
-  object-fit: cover;
-  margin-top: 1rem;
-  margin-left: 1.3rem;
+// export const BookImage3 = styled.div`
+//   background: url(${bookIntroImage3});
+//   background-size: contain;
+//   object-fit: cover;
+//   margin-top: 1rem;
+//   margin-left: 1.3rem;
 
-  width: 23rem;
-  height: 35rem;
-`;
+//   width: 23rem;
+//   height: 35rem;
+// `;
 
-export const BookImage4 = styled.div`
-  background: url(${bookIntroImage4});
-  background-size: contain;
-  object-fit: cover;
-  margin-top: 1rem;
-  margin-left: 1.3rem;
+// export const BookImage4 = styled.div`
+//   background: url(${bookIntroImage4});
+//   background-size: contain;
+//   object-fit: cover;
+//   margin-top: 1rem;
+//   margin-left: 1.3rem;
 
-  width: 23rem;
-  height: 35rem;
-`;
+//   width: 23rem;
+//   height: 35rem;
+// `;
 
 export const BookIntroCardTitle = styled.div`
   margin-top: 1rem;
@@ -385,12 +386,18 @@ export const BookIntroCardTitle = styled.div`
   width: 20ch;
   word-wrap: break-word;
   letter-spacing: 0.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const BookIntroCardContent = styled.div`
   font-size: 1.8rem;
   margin-top: 0.5rem;
   margin-left: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 // -------------------------------------------
@@ -533,6 +540,16 @@ export const IndBookStorebox = styled.div`
   display: flex;
   justify-content: center;
   gap: 4rem;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 5px 0 5px -5px #333;
+    transition: 0.3s;
+  }
+
+  &:not(:hover) {
+    transition: 0.3s;
+  }
 `;
 
 export const IndBookStoreImage = styled.div`
@@ -556,6 +573,16 @@ export const BookRecommendBox = styled.div`
   display: flex;
   justify-content: center;
   gap: 4rem;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 5px 0 5px -5px #333;
+    transition: 0.3s;
+  }
+
+  &:not(:hover) {
+    transition: 0.3s;
+  }
 `;
 export const BookRecommendImage = styled.div`
   background: url(${surveyImage});

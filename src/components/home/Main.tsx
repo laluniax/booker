@@ -1,8 +1,51 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Bestseller, BooksInfoTypes } from '../../types/types';
 import * as St from './Main.styled';
 import SlideImages from './banner/SlideImages';
+
 const Main = () => {
   const navigate = useNavigate();
+  const [bestSeller, setBestSeller] = useState<Bestseller>();
+  const [newbook, setNewbook] = useState<BooksInfoTypes>();
+  const [bookSpecial, setBookSpecial] = useState<BooksInfoTypes>();
+  const [bookerPick, setBookerPick] = useState<BooksInfoTypes>();
+
+  const getBookIntroduction = async () => {
+    // 베스트셀러
+    try {
+      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller`);
+      setBestSeller(response.data.item[0]);
+    } catch (error) {
+      console.log(error);
+    }
+    // 신간도서
+    try {
+      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks`);
+      setNewbook(response.data.item[0]);
+    } catch (error) {
+      console.log(error);
+    }
+    // 스페셜
+    try {
+      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special`);
+      setBookSpecial(response.data.item[0]);
+    } catch (error) {
+      console.log(error);
+    }
+    // 북커들의 선택
+    try {
+      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks`);
+      setBookerPick(response.data.item[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getBookIntroduction();
+  }, []);
   return (
     <>
       <St.Container>
@@ -44,6 +87,7 @@ const Main = () => {
               <St.BookerTalkCardImage
                 onClick={() => {
                   navigate(`/bookertalk/a249535a-b19a-4fb4-bcd9-0788e780a2ac`);
+                  window.scrollTo(0, 0);
                 }}
               />
               <St.CardTitle>책 추천 받습니다.</St.CardTitle>
@@ -54,6 +98,7 @@ const Main = () => {
               <St.BookerTalkCardImage2
                 onClick={() => {
                   navigate(`/bookertalk/3c5d132b-1ca6-430d-a467-4315a2d86618`);
+                  window.scrollTo(0, 0);
                 }}
               />
               <St.CardTitle2>언어의 온도 추천합니다.</St.CardTitle2>
@@ -64,6 +109,7 @@ const Main = () => {
               <St.BookerTalkCardImage3
                 onClick={() => {
                   navigate(`/bookertalk/8114a2cd-d916-4f38-a735-83815ecb0b83`);
+                  window.scrollTo(0, 0);
                 }}
               />
               <St.CardTitle3>에세이 책 추천 5권 공유합니다.</St.CardTitle3>
@@ -74,6 +120,7 @@ const Main = () => {
               <St.BookerTalkCardImage4
                 onClick={() => {
                   navigate(`/bookertalk/15c0651c-47e5-45e7-91c6-f244443a9123`);
+                  window.scrollTo(0, 0);
                 }}
               />
               <St.CardTitle4>IT 관련 책 추천 받습니다.</St.CardTitle4>
@@ -96,28 +143,48 @@ const Main = () => {
           </St.CategoryBox>
 
           <St.CardBox>
-            <St.BookIntroCard>
-              <St.BookImage />
-              <St.BookIntroCardTitle>나는 메트로폴리탄 미술관의 경비원입니다.</St.BookIntroCardTitle>
-              <St.BookIntroCardContent>패트릭 브링리 </St.BookIntroCardContent>
+            <St.BookIntroCard
+              onClick={() => {
+                navigate(`/aboutbook/bestseller`);
+              }}>
+              <St.BookImage>
+                <img src={bestSeller?.cover} />
+              </St.BookImage>
+              <St.BookIntroCardTitle>{bestSeller?.title}</St.BookIntroCardTitle>
+              <St.BookIntroCardContent>{bestSeller?.author}</St.BookIntroCardContent>
             </St.BookIntroCard>
 
-            <St.BookIntroCard>
-              <St.BookImage2 />
-              <St.BookIntroCardTitle>새로쓴 로스쿨 형법</St.BookIntroCardTitle>
-              <St.BookIntroCardContent>이재상</St.BookIntroCardContent>
+            <St.BookIntroCard
+              onClick={() => {
+                navigate(`/aboutbook/newbook`);
+              }}>
+              <St.BookImage>
+                <img src={newbook?.cover} />
+              </St.BookImage>
+              <St.BookIntroCardTitle>{newbook?.title}</St.BookIntroCardTitle>
+              <St.BookIntroCardContent>{newbook?.author}</St.BookIntroCardContent>
             </St.BookIntroCard>
 
-            <St.BookIntroCard>
-              <St.BookImage3 />
-              <St.BookIntroCardTitle>달빛조각사</St.BookIntroCardTitle>
-              <St.BookIntroCardContent>남희성</St.BookIntroCardContent>
+            <St.BookIntroCard
+              onClick={() => {
+                navigate(`/aboutbook/bookspecial`);
+              }}>
+              <St.BookImage>
+                <img src={bookSpecial?.cover} />
+              </St.BookImage>
+              <St.BookIntroCardTitle>{bookSpecial?.title}</St.BookIntroCardTitle>
+              <St.BookIntroCardContent>{bookSpecial?.author}</St.BookIntroCardContent>
             </St.BookIntroCard>
 
-            <St.BookIntroCard>
-              <St.BookImage4 />
-              <St.BookIntroCardTitle>로스쿨 형법사례 답안작성 입문</St.BookIntroCardTitle>
-              <St.BookIntroCardContent>이재상</St.BookIntroCardContent>
+            <St.BookIntroCard
+              onClick={() => {
+                navigate(`/aboutbook/bookerpick`);
+              }}>
+              <St.BookImage>
+                <img src={bookerPick?.cover} />
+              </St.BookImage>
+              <St.BookIntroCardTitle>{bookerPick?.title}</St.BookIntroCardTitle>
+              <St.BookIntroCardContent>{bookerPick?.author}</St.BookIntroCardContent>
             </St.BookIntroCard>
           </St.CardBox>
         </St.BookIntroWrapper>
@@ -164,7 +231,11 @@ const Main = () => {
 
         {/* 독립서점*/}
         <St.IndBookStoreWrapper>
-          <St.IndBookStorebox>
+          <St.IndBookStorebox
+            onClick={() => {
+              navigate('/indBookStores');
+              window.scrollTo(0, 0);
+            }}>
             <St.IndBookStoreImage />
             <St.TitleAndContentBox>
               <St.IndBookAndRecommnedTitle>서울에서 가장 힙한 서점 </St.IndBookAndRecommnedTitle>
@@ -179,7 +250,11 @@ const Main = () => {
         {/* 맞춤추천 */}
 
         <St.BookRecommendWrapper>
-          <St.BookRecommendBox>
+          <St.BookRecommendBox
+            onClick={() => {
+              navigate('/survey');
+              window.scrollTo(0, 0);
+            }}>
             <St.BookRecommendImage />
             <St.TitleAndContentBox>
               <St.IndBookAndRecommnedTitle>나에게 맞는 책 추천받기</St.IndBookAndRecommnedTitle>
