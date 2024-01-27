@@ -103,7 +103,7 @@ const Comment = ({ setCommentsCount }: PropsTypes) => {
                       {isEditing ? (
                         <>
                           {item.id === commentId ? (
-                            <>
+                            <St.CommentButtonBox>
                               <St.CommentButton
                                 onClick={() => {
                                   updateComment();
@@ -116,7 +116,7 @@ const Comment = ({ setCommentsCount }: PropsTypes) => {
                                 }}>
                                 삭제
                               </St.CommentButton>
-                            </>
+                            </St.CommentButtonBox>
                           ) : null}
                         </>
                       ) : (
