@@ -27,7 +27,6 @@ export const HeaderLogo = styled.div`
   margin-left: 9rem;
   width: 24rem;
   height: 5rem;
-
   cursor: pointer;
 `;
 
@@ -43,7 +42,6 @@ export const Container = styled.div`
 
   ${({ theme }) => theme.mediaQuery.sm`
    width : 140rem;
-   
 `};
 `;
 
