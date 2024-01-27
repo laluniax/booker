@@ -14,6 +14,8 @@ import {
   getUserSessionHandler,
   unFollowHandler,
 } from '../../api/supabase.api';
+import deleteicon from '../../assets/market/deleteicon.webp';
+import editicon from '../../assets/market/editicon.webp';
 import { PostsTypes } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
 import Comment from '../bookertalk/comment/Comment';
@@ -110,11 +112,9 @@ const Detail = () => {
           <St.Title>{data?.title}</St.Title>
           <St.PostUserInfo>
             <St.PostImgNickNameDate>
-              <St.PostUserImg
-                src={data?.users.user_img ?? undefined}
-                onClick={() => navigation(`/profile/${data?.user_id}`)}
-              />
-
+              <St.PostUserImg onClick={() => navigation(`/profile/${data?.user_id}`)}>
+                <img src={data?.users.user_img ?? undefined} />
+              </St.PostUserImg>
               <St.PostUserNickname onClick={() => navigation(`/profile/${data?.user_id}`)}>
                 {data?.users.nickname} |
               </St.PostUserNickname>
@@ -122,8 +122,14 @@ const Detail = () => {
             </St.PostImgNickNameDate>
             {userSession?.user.id === data?.user_id ? (
               <St.PostBtnWrapper>
-                <St.EditAndDeleteButton onClick={onClickUpdatePostButton}>수정</St.EditAndDeleteButton>
-                <St.EditAndDeleteButton onClick={onClickDeletePostButton}>삭제</St.EditAndDeleteButton>
+                <St.EditAndDeleteButton onClick={onClickUpdatePostButton}>
+                  <img src={editicon} />
+                </St.EditAndDeleteButton>
+
+                <St.EditAndDeleteButton onClick={onClickDeletePostButton}>
+                  {' '}
+                  <img src={deleteicon} />
+                </St.EditAndDeleteButton>
               </St.PostBtnWrapper>
             ) : null}
           </St.PostUserInfo>
@@ -145,22 +151,28 @@ const Detail = () => {
         <St.PostProfileImg src={data?.users.user_img ?? undefined} />
         <St.PostProfileNickname>{data?.users.nickname}</St.PostProfileNickname>
         <St.PostProfileIntroText>{data?.users.intro_text}</St.PostProfileIntroText>
-        {following ? (
-          <St.FollowBtn
-            onClick={(e) => {
-              e.stopPropagation();
-              onClickUnfollowBtn();
-            }}>
-            언팔로우
-          </St.FollowBtn>
+        {userSession?.user.id === data?.user_id ? (
+          <St.FollowBtn>내 프로필</St.FollowBtn>
         ) : (
-          <St.FollowBtn
-            onClick={(e) => {
-              e.stopPropagation();
-              onClickFollowBtn();
-            }}>
-            팔로우
-          </St.FollowBtn>
+          <>
+            {following ? (
+              <St.FollowBtn
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClickUnfollowBtn();
+                }}>
+                언팔로우
+              </St.FollowBtn>
+            ) : (
+              <St.FollowBtn
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClickFollowBtn();
+                }}>
+                팔로우
+              </St.FollowBtn>
+            )}
+          </>
         )}
       </St.PostProfileBox>
       <br />

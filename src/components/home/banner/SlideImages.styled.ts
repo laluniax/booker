@@ -11,10 +11,10 @@ export const SlideshowContainer = styled.div`
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
   grid-column: 1;
 
-  ${({ theme }) => theme.mediaQuery.sm`
+  /* ${({ theme }) => theme.mediaQuery.sm`
     width: 74rem;
     height: 42rem;
-  `};
+  `}; */
 `;
 
 export const fadeInOut = keyframes`
