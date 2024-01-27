@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 100vh;
+  min-height: 100rem;
   margin-bottom: 10rem;
 `;
 export const FormWrapper = styled.div`
@@ -10,10 +10,11 @@ export const FormWrapper = styled.div`
 
 export const Form = styled.form`
   width: 100%;
-  height: 37rem;
+  min-height: 37rem;
 `;
 
 export const TitleInputBox = styled.div`
+  font-family: 'GmarketSansMedium';
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,7 +26,7 @@ export const TitleInputBox = styled.div`
 export const TitleInput = styled.input`
   all: unset;
   font-size: 30px;
-  border-bottom: 5px solid #000;
+  border-bottom: 4px solid #000;
   padding-bottom: 1rem;
   width: 70%;
   text-align: left;
@@ -34,11 +35,12 @@ export const TitleInput = styled.input`
 export const TagWrapper = styled.div`
   display: flex;
   width: 100%;
-  height: 5rem;
+  min-height: 5rem;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  font-size: 20px;
+  font-size: 1.8rem;
+  margin-top: 1rem;
   white-space: pre-line;
   flex-wrap: wrap;
 `;
@@ -50,7 +52,7 @@ export const Tagbox = styled.div`
   gap: 1rem;
   -webkit-box-align: center;
   align-items: center;
-  height: 2rem;
+  min-height: 2rem;
   margin-right: 0.75rem;
   transition: all 0.125s ease-in 0s;
   margin-bottom: 0.75rem;
@@ -58,14 +60,17 @@ export const Tagbox = styled.div`
 `;
 
 export const tagItem = styled.div`
+  font-family: 'GmarketSansMedium';
   display: inline-flex;
   -webkit-box-align: center;
   align-items: center;
   border: 1px solid black;
-  padding: 5px;
+  padding: 1rem;
   border-radius: 1rem;
-  background-color: #000;
-  color: white;
+  background-color: #14213d;
+  color: #fff;
+  max-width: 100%;
+  box-sizing: border-box;
   cursor: pointer;
 `;
 
@@ -76,19 +81,30 @@ export const TagContent = styled.span`
 export const DeleteTagButton = styled.button`
   all: unset;
   text-align: center;
-  padding: 4px;
-  font-size: 15px;
+  padding: 0.4rem;
+  font-size: 1.6rem;
   margin-left: 0.4rem;
+  margin-bottom: 0.2rem;
   padding-bottom: 1px;
+  color: #fca311;
+  font-weight: bold;
 
   &:hover {
     cursor: pointer;
-    color: violet;
+    padding: 0.5rem;
+    transition: 0.2s;
+    color: red;
+    font-weight: bold;
+  }
+
+  &:not(:hover) {
+    transition: 0.2s;
   }
 `;
 
 // 태그 인풋
 export const TagInputBox = styled.div`
+  font-family: 'GmarketSansMedium';
   display: flex;
   justify-content: left;
   text-align: left;
@@ -117,11 +133,13 @@ export const CategoryAndGenreBox = styled.div`
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 `;
 
 export const CategorySelect = styled.select`
+  font-family: 'GmarketSansMedium';
+
   font-size: 15px;
   width: 23rem;
   height: 4rem;
@@ -129,9 +147,12 @@ export const CategorySelect = styled.select`
   text-align: center;
 `;
 
-export const CategoryOption = styled.option``;
+export const CategoryOption = styled.option`
+  font-family: 'GmarketSansMedium';
+`;
 
 export const GenreSelect = styled.select`
+  font-family: 'GmarketSansMedium';
   font-size: 15px;
   width: 23rem;
   height: 4rem;
@@ -160,6 +181,7 @@ export const ContentInput = styled.textarea`
 `;
 
 export const SubmitButtonBox = styled.div`
+  font-family: 'GmarketSansMedium';
   display: flex;
   justify-content: right;
   height: 6rem;
@@ -170,17 +192,17 @@ export const SubmitButtonBox = styled.div`
 export const SubmitButton = styled.button`
   all: unset;
   font-size: 2rem;
-  background-color: #000;
+  background-color: #14213d;
   padding: 1rem;
   width: 15rem;
   height: 2.5rem;
   text-align: center;
   margin-right: 1rem;
   border-radius: 1rem;
-  color: #fff;
+  color: #fca311;
 
   &:hover {
     cursor: pointer;
-    background-color: gray;
+    background-color: #1f3563;
   }
 `;
