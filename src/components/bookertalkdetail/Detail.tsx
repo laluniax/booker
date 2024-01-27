@@ -147,6 +147,7 @@ const Detail = () => {
       <St.PostProfileBox
         onClick={() => {
           navigation(`/profile/${data?.user_id}`);
+          window.scrollTo(0, 0);
         }}>
         <St.PostProfileImg src={data?.users.user_img ?? undefined} />
         <St.PostProfileNickname>{data?.users.nickname}</St.PostProfileNickname>
