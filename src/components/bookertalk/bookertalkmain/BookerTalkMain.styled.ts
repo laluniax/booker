@@ -85,10 +85,9 @@ export const GenreButtonbox = styled.div`
 export const GenreButton = styled.button`
   all: unset;
   color: black;
-  width: 10.5rem;
   height: 2.5rem;
+
   &.active {
-    width: 10.5rem;
     height: 2.5rem;
     color: #015e80;
     font-weight: bold;
