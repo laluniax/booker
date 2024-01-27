@@ -26,7 +26,7 @@ const Header = () => {
           onClick={() => {
             navigate('/');
           }}>
-          <img src={logo} />
+          <St.Logo src={logo} />
           {/* <St.HeaderLogo /> */}
         </St.ImageWrapper>
         <St.HeaderUl>

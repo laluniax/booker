@@ -51,7 +51,6 @@ export const LogoImage = styled.div`
   background-size: contain;
   width: 22.6rem;
   height: 4.6rem;
-  cursor: pointer;
 `;
 export const Copyrightcontent = styled.div`
   color: rgba(79, 79, 79);

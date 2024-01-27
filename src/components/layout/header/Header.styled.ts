@@ -67,6 +67,12 @@ export const ImageWrapper = styled.div`
   `};
 `;
 
+export const Logo = styled.img`
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 // export const HeaderLogo = styled.div`
 //   background: url(${logo});
 //   background-size: contain;
