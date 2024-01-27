@@ -47,6 +47,7 @@ export const Wrapper = styled.div`
   height: 11rem;
   `};
 `;
+
 export const SearchWrapper = styled.div`
   position: absolute;
   top: 3.5rem;
@@ -217,6 +218,7 @@ export const ProfileIconImage = styled.div`
   width: 4.5rem;
   height: 4.5rem;
   cursor: pointer;
+
   ${({ theme }) => theme.mediaQuery.sm`
   `};
   ${({ theme }) => theme.mediaQuery.lg`
