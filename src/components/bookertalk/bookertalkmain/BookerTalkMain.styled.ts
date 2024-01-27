@@ -244,7 +244,7 @@ export const PostNicknameDate = styled.div`
 `;
 
 export const PostNickName = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   display: flex;
   justify-content: end;
   margin-bottom: 0.5rem;
@@ -267,6 +267,6 @@ export const PostNickName = styled.div`
 // export const PostContent = styled.span``;
 
 export const PostDate = styled.span`
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   float: right;
 `;

@@ -94,6 +94,8 @@ export const TagsWrapper = styled.div`
   align-items: center;
   width: 90rem;
   margin: 0 auto;
+  border-bottom: 0.2rem solid #e5e5e5;
+  padding-bottom: 2rem;
 `;
 export const PostTags = styled.p`
   font-size: 2rem;
