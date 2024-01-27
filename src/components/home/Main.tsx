@@ -1,15 +1,21 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getLatestProductListHandler } from '../../api/supabase.api';
+import { getLatestProductListHandler, getPostsLikesListHandler } from '../../api/supabase.api';
 import defaultImg from '../../assets/profile/defaultprofileimage.webp';
-import { Bestseller, BooksInfoTypes, ProductsTypes } from '../../types/types';
+import { Bestseller, BooksInfoTypes, PostsListLikesTypes, ProductsTypes } from '../../types/types';
 import Loading from '../survey/Loading';
 import * as St from './Main.styled';
 import SlideImages from './banner/SlideImages';
 
+import bookerTalkImage1 from '../../assets/mainimage/bookertalkimage1.webp';
+import bookerTalkImage2 from '../../assets/mainimage/bookertalkimage2.webp';
+import bookerTalkImage3 from '../../assets/mainimage/bookertalkimage3.webp';
+import bookerTalkImage4 from '../../assets/mainimage/bookertalkimage4.webp';
+
 const Main = () => {
   const navigate = useNavigate();
+  const [postsList, setPostsList] = useState<PostsListLikesTypes[]>([]);
   const [bestSeller, setBestSeller] = useState<Bestseller>();
   const [newbook, setNewbook] = useState<BooksInfoTypes>();
   const [bookSpecial, setBookSpecial] = useState<BooksInfoTypes>();
@@ -19,6 +25,13 @@ const Main = () => {
   const [loading3, setLoading3] = useState(false);
   const [loading4, setLoading4] = useState(false);
   const [productsList, setProductsList] = useState<ProductsTypes[]>([]);
+
+  const bookerTalkImages = [bookerTalkImage1, bookerTalkImage2, bookerTalkImage3, bookerTalkImage4];
+
+  const getPostsList = async () => {
+    const posts = await getPostsLikesListHandler();
+    setPostsList(posts.sort((a, b) => b.post_likes.length - a.post_likes.length).slice(0, 4));
+  };
 
   const getBookIntroduction = async () => {
     // 베스트셀러
@@ -64,9 +77,11 @@ const Main = () => {
   };
 
   useEffect(() => {
+    getPostsList();
     getBookIntroduction();
     getProductList();
   }, []);
+
   return (
     <>
       <St.Container>
@@ -104,49 +119,21 @@ const Main = () => {
           </St.Titlebox>
 
           <St.CardBox>
-            <St.BookerTalkCard>
-              <St.BookerTalkCardImage
-                onClick={() => {
-                  navigate(`/bookertalk/a249535a-b19a-4fb4-bcd9-0788e780a2ac`);
-                  window.scrollTo(0, 0);
-                }}
-              />
-              <St.CardTitle>책 추천 받습니다.</St.CardTitle>
-              <St.CardContent>져져젼님</St.CardContent>
-            </St.BookerTalkCard>
-
-            <St.BookerTalkCard>
-              <St.BookerTalkCardImage2
-                onClick={() => {
-                  navigate(`/bookertalk/3c5d132b-1ca6-430d-a467-4315a2d86618`);
-                  window.scrollTo(0, 0);
-                }}
-              />
-              <St.CardTitle2>언어의 온도 추천합니다.</St.CardTitle2>
-              <St.CardContent>강낭콩님</St.CardContent>
-            </St.BookerTalkCard>
-
-            <St.BookerTalkCard>
-              <St.BookerTalkCardImage3
-                onClick={() => {
-                  navigate(`/bookertalk/8114a2cd-d916-4f38-a735-83815ecb0b83`);
-                  window.scrollTo(0, 0);
-                }}
-              />
-              <St.CardTitle3>에세이 책 추천 5권 공유합니다.</St.CardTitle3>
-              <St.CardContent>Respect님</St.CardContent>
-            </St.BookerTalkCard>
-
-            <St.BookerTalkCard>
-              <St.BookerTalkCardImage4
-                onClick={() => {
-                  navigate(`/bookertalk/15c0651c-47e5-45e7-91c6-f244443a9123`);
-                  window.scrollTo(0, 0);
-                }}
-              />
-              <St.CardTitle4>IT 관련 책 추천 받습니다.</St.CardTitle4>
-              <St.CardContent>규갓님</St.CardContent>
-            </St.BookerTalkCard>
+            {postsList.map((item, i) => {
+              return (
+                <St.BookerTalkCard key={i}>
+                  <St.BookerTalkCardImage
+                    backgroundimage={bookerTalkImages[i % bookerTalkImages.length]}
+                    onClick={() => {
+                      navigate(`/detail/${item.id}`);
+                      window.scrollTo(0, 0);
+                    }}
+                  />
+                  <St.CardTitle>{item.title}</St.CardTitle>
+                  <St.CardContent>{item.users.nickname}</St.CardContent>
+                </St.BookerTalkCard>
+              );
+            })}
           </St.CardBox>
         </St.BookerTalkWrapper>
 
@@ -168,8 +155,9 @@ const Main = () => {
               onClick={() => {
                 navigate(`/aboutbook/bestseller`);
               }}>
+              {' '}
+              {loading1 ? <Loading /> : null}
               <St.BookImage>
-                {loading1 ? <Loading /> : null}
                 <img src={bestSeller?.cover} />
               </St.BookImage>
               <St.BookIntroCardTitle>{bestSeller?.title}</St.BookIntroCardTitle>
@@ -180,8 +168,9 @@ const Main = () => {
               onClick={() => {
                 navigate(`/aboutbook/newbook`);
               }}>
+              {' '}
+              {loading2 ? <Loading /> : null}
               <St.BookImage>
-                {loading2 ? <Loading /> : null}
                 <img src={newbook?.cover} />
               </St.BookImage>
               <St.BookIntroCardTitle>{newbook?.title}</St.BookIntroCardTitle>
@@ -192,8 +181,9 @@ const Main = () => {
               onClick={() => {
                 navigate(`/aboutbook/bookspecial`);
               }}>
+              {' '}
+              {loading3 ? <Loading /> : null}
               <St.BookImage>
-                {loading3 ? <Loading /> : null}
                 <img src={bookSpecial?.cover} />
               </St.BookImage>
               <St.BookIntroCardTitle>{bookSpecial?.title}</St.BookIntroCardTitle>
@@ -205,8 +195,8 @@ const Main = () => {
                 navigate(`/aboutbook/bookerpick`);
               }}>
               {' '}
+              {loading4 ? <Loading /> : null}
               <St.BookImage>
-                {loading4 ? <Loading /> : null}
                 <img src={bookerPick?.cover} />
               </St.BookImage>
               <St.BookIntroCardTitle>{bookerPick?.title}</St.BookIntroCardTitle>
@@ -235,37 +225,10 @@ const Main = () => {
                   </St.MarketProductImage>
                   <St.ProductTitle>{item.title}</St.ProductTitle>
                   <St.ProductPrice>₩ {item.price}</St.ProductPrice>
-                  {/* <St.ProductContent>{item.users.nickname}님</St.ProductContent> */}
+                  <St.ProductContent>{item.users.nickname}님</St.ProductContent>
                 </St.MarketProductCard>
               );
             })}
-            {/* <St.MarketProductCard>
-              <St.MarketProductImage />
-              <St.ProductTitle>푸바오 책 팝니다.</St.ProductTitle>
-              <St.ProductPrice>₩ 12,000</St.ProductPrice>
-              <St.ProductContent>OO님</St.ProductContent>
-            </St.MarketProductCard>
-
-            <St.MarketProductCard>
-              <St.MarketProductImage2 />
-              <St.ProductTitle>쇼펜하우어 소품집 판매</St.ProductTitle>
-              <St.ProductPrice> ₩ 20,000</St.ProductPrice>
-              <St.ProductContent>OO님</St.ProductContent>
-            </St.MarketProductCard>
-
-            <St.MarketProductCard>
-              <St.MarketProductImage3 />
-              <St.ProductTitle>집중력 높여주는 책 판매</St.ProductTitle>
-              <St.ProductPrice>₩ 13,000</St.ProductPrice>
-              <St.ProductContent>OO님</St.ProductContent>
-            </St.MarketProductCard>
-
-            <St.MarketProductCard>
-              <St.MarketProductImage4 />
-              <St.ProductTitle>죽음이 물었다,어떻게 살거냐고 책 팝니다.</St.ProductTitle>
-              <St.ProductPrice>₩ 19,000</St.ProductPrice>
-              <St.ProductContent>OO님</St.ProductContent>
-            </St.MarketProductCard> */}
           </St.CardBox>
         </St.MarketWrapper>
 

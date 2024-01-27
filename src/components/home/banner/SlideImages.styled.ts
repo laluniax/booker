@@ -9,18 +9,12 @@ export const SlideshowContainer = styled.div`
   overflow: hidden;
   margin-left: 2rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
-  grid-column: 1; // 슬라이드쇼를 첫 번째 열에 배치합니다
+  grid-column: 1;
 
-  @media (max-width: 768px) {
-    width: 65rem;
-    height: 40rem;
-  }
-
-  @media (min-width: 300px) {
-  }
-
-  @media (min-width: 1024px) {
-  }
+  /* ${({ theme }) => theme.mediaQuery.sm`
+    width: 74rem;
+    height: 42rem;
+  `}; */
 `;
 
 export const fadeInOut = keyframes`
@@ -59,11 +53,6 @@ export const SlideshowImage = styled.img`
   opacity: 0;
   transform: scale(1.1) translateX(-1rem) rotate(-5deg);
   transition: all 0.5s ease-in-out;
-
-  @media (max-width: 768px) {
-    width: 65rem;
-    height: 40rem;
-  }
 
   &.active {
     z-index: 1;

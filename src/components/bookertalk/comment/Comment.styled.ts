@@ -27,6 +27,7 @@ export const CommentUser = styled.div`
 `;
 
 export const CommentNicknameCreatedAt = styled.div`
+  padding-left: 1rem;
   width: 35rem;
 `;
 export const CommentNickname = styled.div``;
@@ -115,7 +116,7 @@ export const SubCommentEditSubmitBtnBox = styled.div`
 export const SubCommentEditSubmitButton = styled.button`
   all: unset;
   border-radius: 1rem;
-  width: 3.3rem;
+  width: 4rem;
   height: 3rem;
   text-align: center;
   color: #000;
@@ -171,7 +172,8 @@ export const SubCommentNickname = styled.div``;
 export const SubCommentDate = styled.div``;
 
 export const SubCommentContent = styled.div`
-  font-size: 2rem;
+  padding: 0.5rem 0 0 2.8rem;
+  font-size: 1.7rem;
 `;
 
 export const SubCommentButton = styled.button`

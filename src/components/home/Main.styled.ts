@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 import bannerBookImage from '../../assets/mainimage/bannerbookimage.webp';
 // 북커톡
-import bookerTalkImage1 from '../../assets/mainimage/bookertalkimage1.webp';
-import bookerTalkImage2 from '../../assets/mainimage/bookertalkimage2.webp';
-import bookerTalkImage3 from '../../assets/mainimage/bookertalkimage3.webp';
-import bookerTalkImage4 from '../../assets/mainimage/bookertalkimage4.webp';
 // 도서소개
 import bookIntroImage1 from '../../assets/mainimage/bookintrobest.webp';
 
@@ -65,38 +61,22 @@ export const CardBox = styled.div`
   justify-content: center;
   gap: 2rem;
   margin-top: 2rem;
-  /* width: 50rem; */
-  /* ${({ theme }) => theme.mediaQuery.sm`
-   width : 80rem;
-`};
-  ${({ theme }) => theme.mediaQuery.lg`
-     width : 100rem;
-`}; */
 `;
-
-// 사용 예시 : export const ProfileWrapper = styled.div`
-//   box-sizing: border-box;
-//   margin: 3rem auto;
-//   padding: 3rem;
-//   border: 0.2rem solid #dcdcdc;
-//   height: 100%;
-//   width: 50rem;
-//   ${({ theme }) => theme.mediaQuery.sm`
-//     width : 80rem;
-// `}
-//   ${({ theme }) => theme.mediaQuery.lg`
-//     width : 100rem;
-// `}
-// `;
 
 // -------------------------------------------
 // 배너
 export const BannerWrapper = styled.div`
   display: flex;
-  width: 100%;
+  max-width: 100%;
   height: 60rem;
   justify-content: center;
   margin-top: 8rem;
+  ${({ theme }) => theme.mediaQuery.sm`
+    width: 100%;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    width: 100%;
+  `};
 `;
 
 // 배너 왼쪽 파트
@@ -106,13 +86,19 @@ export const BannerBookImage = styled.div`
   background-size: contain;
   object-fit: cover;
 
-  width: 30rem;
+  max-width: 30rem;
   height: 44rem;
 
-  @media (max-width: 768px) {
+  /* @media (max-width: 768px) {
     width: 20rem;
     height: 30rem;
-  }
+  } */
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    width: 30rem;
+    height: 44rem;
+  `};
 `;
 export const BannerBookIntro = styled.div`
   background-color: #14213d;
@@ -131,7 +117,10 @@ export const BannerBookTitle = styled.div`
 `;
 
 // 배너 오른쪽 파트
-export const BannerRecommendBox = styled.div``;
+export const BannerRecommendBox = styled.div`
+  /* width: 87rem;
+  height: 60rem; */
+`;
 // export const BannerRecommendImage = styled.div`
 //   background: url(${BannerSamplePaintingImg});
 //   background-size: contain;
@@ -172,8 +161,12 @@ export const BookerTalkWrapper = styled.div`
 
 export const BookerTalkCard = styled.div``;
 
-export const BookerTalkCardImage = styled.div`
-  background: url(${bookerTalkImage1});
+type BookerTalkCardImageProps = {
+  backgroundimage: string;
+};
+
+export const BookerTalkCardImage = styled.div<BookerTalkCardImageProps>`
+  background: url(${(props) => props.backgroundimage});
   background-size: contain;
   object-fit: cover;
   margin-top: 2rem;
@@ -208,87 +201,6 @@ export const CardTitle = styled.div`
 export const CardContent = styled.div`
   font-size: 1.8rem;
   margin-top: 0.5rem;
-`;
-export const BookerTalkCardImage2 = styled.div`
-  background: url(${bookerTalkImage2});
-  background-size: contain;
-  object-fit: cover;
-  margin-top: 2rem;
-  border-radius: 20%;
-
-  width: 25rem;
-  height: 25rem;
-
-  &:hover {
-    cursor: pointer;
-    width: 30rem;
-    height: 30rem;
-    transition: 0.4s;
-  }
-
-  &:not(:hover) {
-    transition: 0.3s;
-  }
-`;
-export const CardTitle2 = styled.div`
-  margin-top: 1rem;
-  font-size: 2rem;
-  font-weight: bold;
-`;
-
-export const BookerTalkCardImage3 = styled.div`
-  background: url(${bookerTalkImage3});
-  background-size: contain;
-  object-fit: cover;
-  margin-top: 2rem;
-  border-radius: 20%;
-  object-fit: cover;
-
-  width: 25rem;
-  height: 25rem;
-
-  &:hover {
-    cursor: pointer;
-    width: 30rem;
-    height: 30rem;
-    transition: 0.4s;
-  }
-
-  &:not(:hover) {
-    transition: 0.3s;
-  }
-`;
-export const CardTitle3 = styled.div`
-  margin-top: 1rem;
-  font-size: 2rem;
-  font-weight: bold;
-`;
-
-export const BookerTalkCardImage4 = styled.div`
-  background: url(${bookerTalkImage4}) no-repeat;
-  background-size: contain;
-  object-fit: cover;
-  margin-top: 2rem;
-  border-radius: 20%;
-
-  width: 25rem;
-  height: 25rem;
-
-  &:hover {
-    cursor: pointer;
-    width: 30rem;
-    height: 30rem;
-    transition: 0.4s;
-  }
-
-  &:not(:hover) {
-    transition: 0.3s;
-  }
-`;
-export const CardTitle4 = styled.div`
-  margin-top: 1rem;
-  font-size: 2rem;
-  font-weight: bold;
 `;
 
 // -------------------------------------------

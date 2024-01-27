@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   grid-template-columns: 35rem 1fr;
   gap: 5rem;
-  min-height: 80rem;
+  min-height: 90rem;
   margin-top: 8rem;
 `;
 
@@ -22,7 +22,7 @@ export const CategoryBox = styled.div`
   align-items: center;
   justify-content: center;
   width: 23rem;
-  height: 65rem;
+  height: 72rem;
   /* background: #ebebeb; */
   /* color: #fff; */
   border: 1px solid #000;
@@ -35,21 +35,31 @@ export const CategoryBox = styled.div`
 export const BookRecommendBox = styled.div`
   margin-bottom: 1rem;
 `;
-
-export const CategoryTitle = styled.h1`
+export const CategoryTopTitle = styled.h1`
   font-family: 'GmarketSansMedium';
-  margin-top: 1rem;
+  margin-bottom: 1rem;
   font-size: 3rem;
   font-weight: bold;
   color: #003c52;
+  cursor: pointer;
+`;
+export const CategoryTitle = styled.h1`
+  font-family: 'GmarketSansMedium';
+  margin-top: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #003c52;
+  cursor: default;
 `;
 
 export const GenreButtonbox = styled.div`
   font-family: 'GmarketSansMedium';
+  width: 10.5rem;
+  height: 23rem;
   display: flex;
   flex-direction: column;
   align-items: start;
-  line-height: 1.2;
+  line-height: 1.3;
   gap: 0.9rem;
   margin-top: 1rem;
 `;
@@ -57,7 +67,11 @@ export const GenreButtonbox = styled.div`
 export const GenreButton = styled.button`
   all: unset;
   color: black;
+  width: 10.5rem;
+  height: 2.5rem;
   &.active {
+    width: 10.5rem;
+    height: 2.5rem;
     color: #015e80;
     font-weight: bold;
     font-size: 2rem;
@@ -92,7 +106,7 @@ export const Title = styled.div`
 
 export const PostListBox = styled.div`
   display: flex;
-  height: 4rem;
+  height: 4.8rem;
   font-size: 1.8rem;
   align-items: center;
   border-bottom: 1px solid #000;

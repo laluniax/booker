@@ -309,6 +309,12 @@ export const filteredPostId = async (params: string) => {
   if (error) throw error;
   return data;
 };
+// posts likes 순위에 따라 가져오는 메인에서 쓰는 함수
+export const getPostsLikesListHandler = async () => {
+  const { data, error } = await supabase.from('posts').select('*, post_likes(*), users(*)');
+  if (error) throw error;
+  return data;
+};
 
 // Create
 // image를 스토리지 버켓(post_img)에 업로드하는 함수 (bookertalkPost)
