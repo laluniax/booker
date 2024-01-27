@@ -34,8 +34,17 @@ export const HeaderLogo = styled.div`
 export const Container = styled.div`
   background-color: #14213d;
   color: #fff;
+  width: 100%;
   height: 11rem;
   font-size: 1.5rem;
+  min-width: 32rem;
+  overflow-x: hidden;
+  margin: 0 auto;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+   width : 140rem;
+   
+`};
 `;
 
 export const Wrapper = styled.div`

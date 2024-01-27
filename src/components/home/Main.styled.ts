@@ -22,6 +22,11 @@ import surveyImage from '../../assets/mainimage/mainindebookstore.webp';
 
 export const Container = styled.div`
   min-height: 380rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+   width : 70rem;
+   margin : 0 auto;
+`};
 `;
 
 // 공통으로 쓰는 것들
@@ -30,6 +35,13 @@ export const Contour = styled.div`
   border-bottom: 3px solid #000;
   width: 100%;
   margin-top: 7rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  border: 1px solid #000;
+   width : 100rem;
+   margin-top: -3rem;
+   margin-left:-20rem;
+`};
 `;
 
 // 더보기 버튼
@@ -53,43 +65,38 @@ export const Title = styled.h2`
   font-weight: bold;
   color: #14213d;
   font-family: 'GmarketSansMedium';
+
+  ${({ theme }) => theme.mediaQuery.sm`
+   width : 100rem;
+   font-size: 3rem;
+   margin-top : -5rem;
+   margin-left:-20rem;
+`};
 `;
 export const Detail = styled.div`
   font-size: 1.9rem;
   margin-left: 0.3rem;
   margin-top: 1rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+   margin-top : 1rem;
+   margin-left:-20rem;
+`};
 `;
 //카드
 export const CardBox = styled.div`
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin-top: 2rem;
-  /* width: 50rem; */
-  /* ${({ theme }) => theme.mediaQuery.sm`
-   width : 80rem;
+  margin: 2rem auto;
+  width: 50rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+   width : 110rem;
+   margin : 0 auto;
 `};
-  ${({ theme }) => theme.mediaQuery.lg`
-     width : 100rem;
-`}; */
 `;
 
-// 사용 예시 : export const ProfileWrapper = styled.div`
-//   box-sizing: border-box;
-//   margin: 3rem auto;
-//   padding: 3rem;
-//   border: 0.2rem solid #dcdcdc;
-//   height: 100%;
-//   width: 50rem;
-//   ${({ theme }) => theme.mediaQuery.sm`
-//     width : 80rem;
-// `}
-//   ${({ theme }) => theme.mediaQuery.lg`
-//     width : 100rem;
-// `}
-// `;
-
-// -------------------------------------------
 // 배너
 export const BannerWrapper = styled.div`
   display: flex;
@@ -97,50 +104,61 @@ export const BannerWrapper = styled.div`
   height: 60rem;
   justify-content: center;
   margin-top: 8rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+   width : 60rem;
+ `};
 `;
 
 // 배너 왼쪽 파트
 export const BannerBookIntroBox = styled.div``;
+
 export const BannerBookImage = styled.div`
   background: url(${bannerBookImage});
   background-size: contain;
   object-fit: cover;
-
   width: 30rem;
   height: 44rem;
 
-  @media (max-width: 768px) {
-    width: 20rem;
-    height: 30rem;
-  }
+  ${({ theme }) => theme.mediaQuery.sm`
+   width : 24rem;
+   height : 35rem;
+ `};
 `;
+
 export const BannerBookIntro = styled.div`
   background-color: #14213d;
   margin-top: 1rem;
   height: 15rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+   width : 24rem;
+   height : 15rem;
+ `};
 `;
+
 export const TodayBook = styled.div`
   color: #fff;
   font-size: 1.7rem;
   padding: 2rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+   font-size: 2.1rem;
+ `};
 `;
 export const BannerBookTitle = styled.div`
   color: #fff;
   font-size: 3rem;
   padding: 2rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+   font-size: 4.1rem;
+   margin-top:-1rem;
+ `};
 `;
 
 // 배너 오른쪽 파트
 export const BannerRecommendBox = styled.div``;
-// export const BannerRecommendImage = styled.div`
-//   background: url(${BannerSamplePaintingImg});
-//   background-size: contain;
-//   object-fit: cover;
-//   margin-left: 2rem;
-
-//   width: 85rem;
-//   height: 51rem;
-// `;
 export const BannerRecommendTitleBox = styled.div`
   display: flex;
   justify-content: left;
@@ -155,6 +173,11 @@ export const BannerRecommendTitleBox = styled.div`
     cursor: pointer;
     box-shadow: 0 0 5px #333;
   }
+
+  ${({ theme }) => theme.mediaQuery.sm`
+   width: 74rem;
+   height:8.5rem;
+ `};
 `;
 
 export const BannerRecommendTitle = styled.div`
@@ -192,6 +215,12 @@ export const BookerTalkCardImage = styled.div`
   &:not(:hover) {
     transition: 0.3s;
   }
+
+  ${({ theme }) => theme.mediaQuery.sm`
+   width: 13rem;
+   height:13rem;
+   margin-left:-22rem;
+ `};
 `;
 export const CardTitle = styled.div`
   margin-top: 1rem;

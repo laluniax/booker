@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import mapIndBookStoreImage from '../../assets/indbookstoreimage/mapindbookstoreimage.webp';
 
-// 미디어 쿼리 유틸리티를 import
-
 export const Container = styled.div``;
 
 export const MapContainer = styled.div`
