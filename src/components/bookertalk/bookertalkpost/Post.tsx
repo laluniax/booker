@@ -160,7 +160,6 @@ const Post = () => {
     getUserSession();
     params && getPost();
   }, [params]);
-
   return (
     <St.Container>
       <St.FormWrapper>
