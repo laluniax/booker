@@ -3,6 +3,21 @@ import styled from 'styled-components';
 import profileIcon from '../../../assets/header/profileicon.webp';
 import searchIcon from '../../../assets/header/searchicon.webp';
 
+// export const HeaderLogo = styled.div`
+//   background: url(${logo});
+//   background-size: contain;
+//   /* margin-left: 9rem; */
+//   max-width: 24rem;
+//   height: 5rem;
+//   object-fit: fit;
+
+//   cursor: pointer;
+// `;
+
+// export const NavbarWrapper = styled.div`
+//   align-items: center;
+// `;
+
 export const Container = styled.div`
   background-color: #14213d;
   color: #fff;
@@ -41,14 +56,18 @@ export const SearchWrapper = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
+  position: relative;
+  z-index: 10;
   max-width: 12rem;
   height: 2.5rem;
   margin: 1rem auto;
   margin-bottom: 2rem;
+  cursor: pointer;
   & img {
     max-width: 12rem;
     height: 2.5rem;
     object-fit: fit;
+    cursor: pointer;
   }
   ${({ theme }) => theme.mediaQuery.sm`
       max-width: 24rem;
@@ -66,27 +85,6 @@ export const ImageWrapper = styled.div`
 
   `};
 `;
-
-export const Logo = styled.img`
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-// export const HeaderLogo = styled.div`
-//   background: url(${logo});
-//   background-size: contain;
-//   /* margin-left: 9rem; */
-//   max-width: 24rem;
-//   height: 5rem;
-//   object-fit: fit;
-
-//   cursor: pointer;
-// `;
-
-// export const NavbarWrapper = styled.div`
-//   align-items: center;
-// `;
 
 export const HeaderUl = styled.ul`
   margin-top: 0.3rem;
