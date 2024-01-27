@@ -155,8 +155,9 @@ const Main = () => {
               onClick={() => {
                 navigate(`/aboutbook/bestseller`);
               }}>
+              {' '}
+              {loading1 ? <Loading /> : null}
               <St.BookImage>
-                {loading1 ? <Loading /> : null}
                 <img src={bestSeller?.cover} />
               </St.BookImage>
               <St.BookIntroCardTitle>{bestSeller?.title}</St.BookIntroCardTitle>
@@ -167,8 +168,9 @@ const Main = () => {
               onClick={() => {
                 navigate(`/aboutbook/newbook`);
               }}>
+              {' '}
+              {loading2 ? <Loading /> : null}
               <St.BookImage>
-                {loading2 ? <Loading /> : null}
                 <img src={newbook?.cover} />
               </St.BookImage>
               <St.BookIntroCardTitle>{newbook?.title}</St.BookIntroCardTitle>
@@ -179,8 +181,9 @@ const Main = () => {
               onClick={() => {
                 navigate(`/aboutbook/bookspecial`);
               }}>
+              {' '}
+              {loading3 ? <Loading /> : null}
               <St.BookImage>
-                {loading3 ? <Loading /> : null}
                 <img src={bookSpecial?.cover} />
               </St.BookImage>
               <St.BookIntroCardTitle>{bookSpecial?.title}</St.BookIntroCardTitle>
@@ -192,8 +195,8 @@ const Main = () => {
                 navigate(`/aboutbook/bookerpick`);
               }}>
               {' '}
+              {loading4 ? <Loading /> : null}
               <St.BookImage>
-                {loading4 ? <Loading /> : null}
                 <img src={bookerPick?.cover} />
               </St.BookImage>
               <St.BookIntroCardTitle>{bookerPick?.title}</St.BookIntroCardTitle>
