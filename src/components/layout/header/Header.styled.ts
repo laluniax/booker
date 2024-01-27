@@ -1,75 +1,104 @@
 import styled from 'styled-components';
-import logo from '../../../assets/common/logo.webp';
+// import logo from '../../../assets/common/logo.webp';
 import profileIcon from '../../../assets/header/profileicon.webp';
 import searchIcon from '../../../assets/header/searchicon.webp';
-
-export const SearchIconImage = styled.div`
-  background: url(${searchIcon});
-  background-size: contain;
-  margin-right: 3rem;
-  width: 5rem;
-  height: 5rem;
-  cursor: pointer;
-`;
-
-export const ProfileIconImage = styled.div`
-  background: url(${profileIcon});
-  background-size: contain;
-  margin-left: -1rem;
-  width: 5rem;
-  height: 5rem;
-  cursor: pointer;
-`;
-
-export const HeaderLogo = styled.div`
-  background: url(${logo});
-  background-size: contain;
-  margin-left: 9rem;
-  width: 24rem;
-  height: 5rem;
-
-  cursor: pointer;
-`;
 
 export const Container = styled.div`
   background-color: #14213d;
   color: #fff;
   width: 100%;
-  height: 11rem;
+  /* height: 11rem; */
   font-size: 1.5rem;
-  min-width: 32rem;
-  overflow-x: hidden;
-  margin: 0 auto;
-
-  ${({ theme }) => theme.mediaQuery.sm`
-   width : 140rem;
-   
-`};
+  /* min-width: 32rem; */
+  /* overflow-x: hidden; */
+  /* margin: 0 auto; */
 `;
 
 export const Wrapper = styled.div`
+  background-color: #14213d;
   position: relative;
-  width: 140rem;
-  height: 11rem;
+  /* width: 140rem; */
+  max-width: 120rem;
+  height: 23rem;
   padding: 2rem;
   margin: 0 auto;
-  display: flex;
   gap: 5rem;
   align-items: center;
+  ${({ theme }) => theme.mediaQuery.sm`
+    height: 15rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  display: flex;
+  height: 11rem;
+  `};
+`;
+export const SearchWrapper = styled.div`
+  position: absolute;
+  top: 3.5rem;
+  ${({ theme }) => theme.mediaQuery.sm`
+    display: none;
+  `};
 `;
 
 export const ImageWrapper = styled.div`
-  width: 30rem;
-  height: 5rem;
+  max-width: 12rem;
+  height: 2.5rem;
+  margin: 1rem auto;
+  margin-bottom: 2rem;
+  & img {
+    max-width: 12rem;
+    height: 2.5rem;
+    object-fit: fit;
+  }
+  ${({ theme }) => theme.mediaQuery.sm`
+      max-width: 24rem;
+    height: 5rem;
+    margin: 2rem auto;
+    & img {
+      max-width: 24rem;
+      height: 5rem;
+      object-fit: fit;
+    }
+    }
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    margin: 2rem auto;
+
+  `};
 `;
 
-export const NavbarWrapper = styled.div`
-  align-items: center;
-`;
+// export const HeaderLogo = styled.div`
+//   background: url(${logo});
+//   background-size: contain;
+//   /* margin-left: 9rem; */
+//   max-width: 24rem;
+//   height: 5rem;
+//   object-fit: fit;
+
+//   cursor: pointer;
+// `;
+
+// export const NavbarWrapper = styled.div`
+//   align-items: center;
+// `;
 
 export const HeaderUl = styled.ul`
-  display: flex;
+  margin-top: 0.3rem;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.8rem;
+  max-width: 73rem;
+  height: 5rem;
   gap: 3rem;
+  letter-spacing: 0.1rem;
+  line-height: 1.5;
+  ${({ theme }) => theme.mediaQuery.sm`
+    display: flex;
+  justify-content: center;
+  height: 2rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  `};
 `;
 
 export const HeaderLi = styled.li`
@@ -83,7 +112,32 @@ export const HeaderLi = styled.li`
     }
   }
 `;
+export const HeaderSearchMypage = styled.div`
+  position: absolute;
+  top: 2rem;
+  left: 5%;
+  display: flex;
+  width: 90%;
+  gap: 80%;
+  ${({ theme }) => theme.mediaQuery.sm`
+  width: 100%;
+  top: 5rem;
 
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  position: static;
+  // position: relative;
+  gap: 20%;
+  width: 20%;
+  padding-left: 10rem;
+
+
+  //   display: flex;
+  //   gap: 3rem;
+  // top: 3.5rem;
+  // left: 95%;
+  `};
+`;
 export const HeaderBtn = styled.button`
   width: 4rem;
   height: 4rem;
@@ -112,22 +166,17 @@ export const LoginBtn = styled.div`
   }
 `;
 
-export const HeaderLiBox = styled.div`
-  margin-top: 0.3rem;
-  display: flex;
-  font-size: 1.8rem;
-  justify-content: center;
-  width: 73rem;
-  height: 2rem;
-  gap: 3rem;
-  letter-spacing: 0.1rem;
-`;
-
 // 검색
 export const SearchBox = styled.form`
   position: absolute; // 절대 위치 설정
-  right: 17%;
-  top: 38%; // 상위 요소의 아래쪽에 위치
+  left: 5rem;
+  top: 0;
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  left: 90rem;
+    top: 4.5rem; 
+  `};
 `;
 export const SearchBar = styled.input`
   all: unset;
@@ -135,6 +184,41 @@ export const SearchBar = styled.input`
   padding: 0.5rem;
   border-bottom: 0.1rem solid #fff;
   width: 15rem;
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  `};
+`;
+
+export const SearchIconImage = styled.div`
+  background: url(${searchIcon});
+  background-size: contain;
+  margin-right: 3rem;
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+  ${({ theme }) => theme.mediaQuery.sm`
+
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    width: 5rem;
+    height: 5rem;
+  `};
+`;
+
+export const ProfileIconImage = styled.div`
+  background: url(${profileIcon});
+  background-size: contain;
+  margin-left: -1rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  cursor: pointer;
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    width: 5.5rem;
+    height: 5.5rem;
+  `};
 `;
 
 export const HeaderUserImage = styled.img`

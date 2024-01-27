@@ -15,7 +15,7 @@ const BookerTalkMain = () => {
   const [data, setData] = useState<PostsTypes[]>();
   const [session, setSession] = useState<Session | null>();
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [postsPerPage, setPostsPerPage] = useState<number>(10);
+  const postsPerPage = 10;
 
   // 장르 버튼을 눌렀을 때 색을 변경하기 위한 상태 입니다.
   const [selectedGenre, setSelectedGenre] = useState<null | string>(null);
@@ -98,6 +98,12 @@ const BookerTalkMain = () => {
         <St.CategoryAndPostListBox>
           <St.CategoryWrapper>
             <St.CategoryBox>
+              <St.CategoryTopTitle
+                onClick={() => {
+                  navigation(`/bookertalk`);
+                }}>
+                카테고리
+              </St.CategoryTopTitle>
               <St.BookRecommendBox>
                 <St.CategoryTitle>도서추천</St.CategoryTitle>
 

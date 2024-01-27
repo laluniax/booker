@@ -39,12 +39,22 @@ export const PostImgNickNameDate = styled.div`
   align-items: center;
   font-size: 1.6rem;
 `;
-export const PostUserImg = styled.img`
-  width: 3ren;
+export const PostUserImg = styled.div`
+  width: 3rem;
   height: 3rem;
+  object-fit: cover;
+  cursor: pointer;
+  & img {
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 50%;
+  }
 `;
 
-export const PostUserNickname = styled.div``;
+export const PostUserNickname = styled.div`
+  cursor: pointer;
+`;
 
 export const PostDate = styled.p``;
 
@@ -54,7 +64,9 @@ export const EditAndDeleteButton = styled.button`
   all: unset;
   font-size: 1.6rem;
   margin-left: 2rem;
-
+  & img {
+    width: 2.5rem;
+  }
   &:hover {
     cursor: pointer;
     color: #69b4cf;
@@ -81,10 +93,11 @@ export const TagsWrapper = styled.div`
 `;
 export const PostTags = styled.p`
   font-size: 2rem;
+  margin-top: 2rem;
 `;
 
 export const LikesWrapper = styled.div`
-  padding: 5rem 15rem;
+  padding: 4rem 15rem 0 15rem;
 `;
 
 export const TitleAndTagsBox = styled.div`

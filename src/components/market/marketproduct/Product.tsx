@@ -306,22 +306,28 @@ const Product = () => {
               }}>
               <img src={product?.users.user_img ?? undefined} />
               <div>{product?.users.nickname}</div>
-              {following ? (
-                <St.FollowBtn
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onClickUnfollowBtn();
-                  }}>
-                  언팔로우
-                </St.FollowBtn>
+              {session?.user.id === product?.user_id ? (
+                <St.FollowBtn>내 프로필</St.FollowBtn>
               ) : (
-                <St.FollowBtn
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onClickFollowBtn();
-                  }}>
-                  팔로우
-                </St.FollowBtn>
+                <>
+                  {following ? (
+                    <St.FollowBtn
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onClickUnfollowBtn();
+                      }}>
+                      언팔로우
+                    </St.FollowBtn>
+                  ) : (
+                    <St.FollowBtn
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onClickFollowBtn();
+                      }}>
+                      팔로우
+                    </St.FollowBtn>
+                  )}
+                </>
               )}
             </St.ProductUser>
           </St.ProductLikesChatUser>
