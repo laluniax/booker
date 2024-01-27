@@ -93,57 +93,64 @@ const BookerTalkMain = () => {
   const currentPosts = data?.slice(indexOfFirst, indexOfLast);
 
   return (
-    <>
-      <St.Container>
-        <St.CategoryAndPostListBox>
-          <St.CategoryWrapper>
-            <St.CategoryBox>
-              <St.CategoryTopTitle
-                onClick={() => {
-                  navigation(`/bookertalk`);
-                }}>
-                카테고리
-              </St.CategoryTopTitle>
-              <St.BookRecommendBox>
-                <St.CategoryTitle>도서추천</St.CategoryTitle>
+    <St.Container>
+      <St.CategoryWrapper>
+        <St.CategoryBox>
+          <St.CategoryTopTitle
+            onClick={() => {
+              navigation(`/bookertalk`);
+            }}>
+            카테고리
+          </St.CategoryTopTitle>
+          <St.BookRecommendBox>
+            <St.CategoryTitle>도서추천</St.CategoryTitle>
 
-                <St.GenreButtonbox>{recommendButtonHandler()}</St.GenreButtonbox>
-              </St.BookRecommendBox>
-              <St.FreeTalkBox>
-                <St.CategoryTitle>자유수다</St.CategoryTitle>
-                <St.GenreButtonbox>{freeTalkButtonHandler()}</St.GenreButtonbox>
-              </St.FreeTalkBox>
-            </St.CategoryBox>
-          </St.CategoryWrapper>
+            <St.GenreButtonbox>{recommendButtonHandler()}</St.GenreButtonbox>
+          </St.BookRecommendBox>
+          <St.FreeTalkBox>
+            <St.CategoryTitle>자유수다</St.CategoryTitle>
+            <St.GenreButtonbox>{freeTalkButtonHandler()}</St.GenreButtonbox>
+          </St.FreeTalkBox>
+        </St.CategoryBox>
+      </St.CategoryWrapper>
 
-          <St.ContentWrapper>
-            <St.Title>
-              {params ? findKeyByValue(categoryUuid, params as string) : '북커톡'}
-              <St.PostButton onClick={onClickPostButton}>글쓰기</St.PostButton>
-            </St.Title>
-            <St.PostListWrapper>
-              {currentPosts?.map((item, i) => {
-                return (
-                  <St.PostListBox
-                    key={i}
-                    onClick={() => {
-                      navigation(`/detail/${item.id}`);
-                    }}>
-                    <St.PostTitle>{item.title}</St.PostTitle>
-                    <St.PostNickName>
-                      {item.users.nickname} | {formatCreatedAt(item.created_at)}
-                    </St.PostNickName>
-                  </St.PostListBox>
-                );
+      <St.ContentWrapper>
+        <St.Title>
+          {params ? findKeyByValue(categoryUuid, params as string) : '북커톡'}
+          <St.PostButton onClick={onClickPostButton}>글쓰기</St.PostButton>
+        </St.Title>
+        <St.MobilePostCateWrapper>
+          <St.MobileCategoryWrapper>
+            <select onChange={(e) => navigation(`/bookertalk/${categoryUuid[e.target.value]}`)}>
+              {Object.keys(categoryUuid).map((item, i) => {
+                return <option key={i}>{item}</option>;
               })}
-              <St.PaginationWrapper>
-                <Pagination postsPerPage={postsPerPage} totalPosts={data?.length ?? 0} paginate={setCurrentPage} />
-              </St.PaginationWrapper>
-            </St.PostListWrapper>
-          </St.ContentWrapper>
-        </St.CategoryAndPostListBox>
-      </St.Container>
-    </>
+            </select>
+          </St.MobileCategoryWrapper>
+          <St.MobilePostButton onClick={onClickPostButton}>글쓰기</St.MobilePostButton>
+        </St.MobilePostCateWrapper>
+        <St.PostListWrapper>
+          {currentPosts?.map((item, i) => {
+            return (
+              <St.PostListBox
+                key={i}
+                onClick={() => {
+                  navigation(`/detail/${item.id}`);
+                }}>
+                <St.PostTitle>{item.title}</St.PostTitle>
+                <St.PostNicknameDate>
+                  <St.PostNickName>{item.users.nickname}</St.PostNickName>
+                  <St.PostDate>{formatCreatedAt(item.created_at)}</St.PostDate>
+                </St.PostNicknameDate>
+              </St.PostListBox>
+            );
+          })}
+          <St.PaginationWrapper>
+            <Pagination postsPerPage={postsPerPage} totalPosts={data?.length ?? 0} paginate={setCurrentPage} />
+          </St.PaginationWrapper>
+        </St.PostListWrapper>
+      </St.ContentWrapper>
+    </St.Container>
   );
 };
 

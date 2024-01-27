@@ -45,9 +45,11 @@ export const CommentCreatedAt = styled.div`
 
 export const CommentContent = styled.div`
   font-size: 1.7rem;
-  height: 5rem;
+  height: auto;
   padding: 1rem;
   margin-top: 1rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
 
   & input {
     font-family: 'GmarketSansMedium';
@@ -172,7 +174,7 @@ export const SubCommentBox = styled.div``;
 
 export const SubComment = styled.div`
   display: flex;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 `;
 
 export const SubCommentProfileBox = styled.div``;
@@ -206,8 +208,12 @@ export const SubCommentDate = styled.div`
 
 export const SubCommentContent = styled.div`
   font-family: 'GmarketSansMedium';
+  width: 56rem;
   padding: 0.5rem 0 0 2.8rem;
   font-size: 1.7rem;
+  height: auto;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 `;
 
 export const SubCommentButton = styled.button`
