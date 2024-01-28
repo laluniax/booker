@@ -85,9 +85,10 @@ export const GenreButtonbox = styled.div`
 export const GenreButton = styled.button`
   all: unset;
   color: black;
+  width: 10.5rem;
   height: 2.5rem;
-
   &.active {
+    width: 10.5rem;
     height: 2.5rem;
     color: #015e80;
     font-weight: bold;
@@ -96,6 +97,12 @@ export const GenreButton = styled.button`
   }
   &:hover {
     cursor: pointer;
+    transition: 0.2s;
+  }
+
+  &:not(:hover) {
+    cursor: pointer;
+    transition: 0.2s;
   }
 `;
 export const FreeTalkBox = styled.div`
@@ -161,9 +168,17 @@ export const MobilePostButton = styled.button`
   font-size: 1.2rem;
   background-color: #fca311;
   color: #000;
+  font-weight: bold;
   &:hover {
     cursor: pointer;
-    background-color: #e89610;
+    background-color: #14213d;
+    color: #fca311;
+    transition: 0.3s;
+  }
+
+  &:not(:hover) {
+    cursor: pointer;
+    transition: 0.3s;
   }
   ${({ theme }) => theme.mediaQuery.sm`
 display: none;
@@ -186,7 +201,14 @@ export const PostButton = styled.div`
   color: #000;
   &:hover {
     cursor: pointer;
-    background-color: #e89610;
+    background-color: #14213D;
+    color: #fca311; 
+    transition: 0.3s;
+  }
+
+  &:not(:hover) {
+    cursor: pointer;
+    transition: 0.3s;
   }
   `};
   ${({ theme }) => theme.mediaQuery.lg`
@@ -218,7 +240,13 @@ export const PostListBox = styled.div`
     cursor: pointer;
     background-color: #dbdbdb;
     border-radius: 1rem;
+    transition: 0.2s;
   }
+
+  &:not(:hover) {
+    transition: 0.2s;
+  }
+
   /* ${({ theme }) => theme.mediaQuery.sm`
   font-size: 1.8rem;
   `};
@@ -244,7 +272,7 @@ export const PostNicknameDate = styled.div`
 `;
 
 export const PostNickName = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   display: flex;
   justify-content: end;
   margin-bottom: 0.5rem;
@@ -258,7 +286,8 @@ export const PostNickName = styled.div`
     border-right: 0.1rem solid black;
   margin-bottom: 0rem;
 
-  `};
+  `}
+
   ${({ theme }) => theme.mediaQuery.lg`
 
   `};
@@ -267,6 +296,12 @@ export const PostNickName = styled.div`
 // export const PostContent = styled.span``;
 
 export const PostDate = styled.span`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+
   float: right;
+
+  ${({ theme }) => theme.mediaQuery.sm`  
+    font-size: 1.5rem;
+
+  `};
 `;
