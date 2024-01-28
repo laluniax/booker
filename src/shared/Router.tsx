@@ -22,6 +22,9 @@ import BestSellerGenre from '../components/survey/surveyResult/BestSellerGenre';
 import BestSellerNew from '../components/survey/surveyResult/BestSellerNew';
 import BestSellerValue from '../components/survey/surveyResult/BestSellerValue';
 
+import { Session } from '@supabase/supabase-js';
+import { useEffect, useState } from 'react';
+import { getUserSessionHandler } from '../api/supabase.api';
 import AboutBooks from '../pages/AboutBooks';
 import BookerTalk from '../pages/BookerTalk';
 import BookerTalkDetail from '../pages/BookerTalkDetail';
@@ -38,16 +41,22 @@ import Search from '../pages/Search';
 import Survey from '../pages/Survey';
 
 const Router = () => {
+  const [session, setSession] = useState<Session | null>();
+  const getUserSession = async () => {
+    const result = await getUserSessionHandler();
+    setSession(result.session);
+  };
+  useEffect(() => {
+    getUserSession();
+  }, []);
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-
           <Route path="*" element={<Navigate replace to="/" />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/search" element={<Search />} />
-
           {/* 북커톡 커뮤니티 */}
           <Route path="/bookertalk" element={<BookerTalk />} />
           <Route path="/bookertalk/:id" element={<BookerTalk />} />
@@ -78,8 +87,6 @@ const Router = () => {
           <Route path="/bestsellernew/:genre" element={<BestSellerNew />} />
           <Route path="/bestsellervalue/:genre" element={<BestSellerValue />} />
           <Route path="/market/:id" element={<Market />} />
-          <Route path="/marketpost" element={<MarketPost />} />
-          <Route path="/product/:id" element={<MarketProduct />} />
           {/* Qna 페이지 */}
           <Route path="/chat" element={<AdminChat />} />
           {/* 도서소개 페이지  */}

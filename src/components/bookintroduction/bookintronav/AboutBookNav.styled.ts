@@ -14,8 +14,10 @@ export const Container = styled.div`
 `;
 
 export const CatrgoryBox = styled.div`
+  font-family: 'GmarketSansMedium';
   display: flex;
   width: 17rem;
+
   height: 20rem;
   justify-content: center;
   align-items: center;
@@ -34,8 +36,10 @@ export const Category = styled.div`
 export const CategoryList = styled.button`
   all: unset;
   font-size: 2rem;
+
   &.active {
     color: #015e80;
+    font-size: 2.2rem;
     border-bottom: 0.1rem solid black;
   }
   &:hover {

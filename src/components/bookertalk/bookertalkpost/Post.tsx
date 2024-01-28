@@ -160,7 +160,6 @@ const Post = () => {
     getUserSession();
     params && getPost();
   }, [params]);
-
   return (
     <St.Container>
       <St.FormWrapper>
@@ -230,20 +229,21 @@ const Post = () => {
               </St.GenreSelect>
             )}
           </St.CategoryAndGenreBox>
-
-          <Editor
-            initialValue="내용을 입력해주세요 !"
-            previewStyle="vertical"
-            height="600px"
-            initialEditType="wysiwyg"
-            useCommandShortcut={false}
-            // plugins={[colorSyntax]}
-            language="ko-KR"
-            ref={toastRef}
-            hooks={{
-              addImageBlobHook: onUploadImage,
-            }}
-          />
+          <St.EditorBox>
+            <Editor
+              initialValue=""
+              previewStyle="vertical"
+              height="600px"
+              initialEditType="wysiwyg"
+              useCommandShortcut={false}
+              // plugins={[colorSyntax]}
+              language="ko-KR"
+              ref={toastRef}
+              hooks={{
+                addImageBlobHook: onUploadImage,
+              }}
+            />
+          </St.EditorBox>
           <St.SubmitButtonBox>
             <St.SubmitButton type="submit">게시하기</St.SubmitButton>
           </St.SubmitButtonBox>

@@ -1,4 +1,6 @@
 import { Outlet } from 'react-router-dom';
+import ChatModal from '../../components/qna/ChatModal';
+import ScrollToTopButton from '../scrolltotopbutton/ScrollToTopButton';
 import * as St from './LayoutStyle';
 import Footer from './footer/Footer';
 import Header from './header/Header';
@@ -9,6 +11,8 @@ const Layout = () => {
       <Header />
       <St.Container>
         <Outlet />
+        <ScrollToTopButton />
+        <ChatModal />
       </St.Container>
       <Footer />
     </>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import logoImage from '../../assets/common/logo.webp';
 
 export const Container = styled.div``;
 type HeightProps = {
@@ -88,12 +89,17 @@ export const ProductList = styled.div`
 
 export const Product = styled.div`
   border: 0.1rem solid #bcbcbc;
+  width: 16rem;
   padding: 1rem;
   margin: 1rem;
   line-height: 2;
   cursor: pointer;
+
   & :nth-child(2) {
     font-size: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
@@ -107,13 +113,12 @@ export const ProductImg = styled.div`
   }
 `;
 export const LogoImg = styled.div`
+  background: url(${logoImage});
+  background-size: contain;
   width: 14rem;
   height: 14rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  & img {
-    width: 14rem;
-  }
 `;

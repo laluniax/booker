@@ -8,6 +8,7 @@ import {
   getUserSessionHandler,
   unFollowHandler,
 } from '../../api/supabase.api';
+import profileImage from '../../assets/profile/defaultprofileimage.webp';
 import { Tables } from '../../types/types';
 import Tab from './Tab';
 import * as St from './UserProfile.styled';
@@ -71,7 +72,7 @@ const UserProfile = () => {
     <St.Container>
       <St.Title>프로필</St.Title>
       <St.ProfileWrapper>
-        <St.ProfileImg src={userData?.user_img || `${process.env.PUBLIC_URL}/images/header/profileImg.png`} />
+        <St.ProfileImg src={userData?.user_img || profileImage} />
         {userSession?.user.id === params ? (
           // 마이 프로필
           <St.ProfileInfo>
@@ -79,7 +80,7 @@ const UserProfile = () => {
               <St.ProfileNickname>
                 안녕하세요! {nickname || userSession?.user.user_metadata.preferred_username}님
               </St.ProfileNickname>
-              <St.ProfileEmail>{userData?.email}</St.ProfileEmail>
+              {/* <St.ProfileEmail>{userData?.email}</St.ProfileEmail> */}
               <St.ProfileIntroText>{userData?.intro_text}</St.ProfileIntroText>
             </St.ProfileNicknameEmail>
           </St.ProfileInfo>
@@ -87,7 +88,7 @@ const UserProfile = () => {
           // 타겟 유저 프로필
           <St.ProfileInfo>
             <St.ProfileNickname>{nickname}</St.ProfileNickname>
-            <St.ProfileEmail>{userData?.email}</St.ProfileEmail>
+            {/* <St.ProfileEmail>{userData?.email}</St.ProfileEmail> */}
             <St.ProfileIntroText>{userData?.intro_text}</St.ProfileIntroText>
             {following ? (
               <St.ProfileBtn onClick={onClickUnfollowBtn}>언팔로우</St.ProfileBtn>

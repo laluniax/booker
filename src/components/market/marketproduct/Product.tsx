@@ -205,7 +205,7 @@ const Product = () => {
         {product?.product_img?.length === 0 ? (
           <>
             <St.LogoWrapper>
-              <St.Logo src={`${process.env.PUBLIC_URL}/images/common/logo.png`} alt="Logo" />
+              <St.LogoImage />
             </St.LogoWrapper>
           </>
         ) : (
@@ -246,10 +246,10 @@ const Product = () => {
             {session?.user.id === product?.user_id ? (
               <St.ProductBtn>
                 <St.UpdateBtn onClick={() => navigate(`/marketpost/${product?.id}`)}>
-                  <img src={`${process.env.PUBLIC_URL}/images/market/edit.png`} />
+                  <St.EditIcon />
                 </St.UpdateBtn>
                 <St.UpdateBtn onClick={onClickDeleteButton}>
-                  <img src={`${process.env.PUBLIC_URL}/images/market/delete.png`} />
+                  <St.DeleteIcon />
                 </St.UpdateBtn>
               </St.ProductBtn>
             ) : null}
@@ -295,22 +295,28 @@ const Product = () => {
               }}>
               <img src={product?.users.user_img ?? undefined} />
               <div>{product?.users.nickname}</div>
-              {following ? (
-                <St.FollowBtn
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onClickUnfollowBtn();
-                  }}>
-                  언팔로우
-                </St.FollowBtn>
+              {session?.user.id === product?.user_id ? (
+                <St.FollowBtn>내 프로필</St.FollowBtn>
               ) : (
-                <St.FollowBtn
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onClickFollowBtn();
-                  }}>
-                  팔로우
-                </St.FollowBtn>
+                <>
+                  {following ? (
+                    <St.FollowBtn
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onClickUnfollowBtn();
+                      }}>
+                      언팔로우
+                    </St.FollowBtn>
+                  ) : (
+                    <St.FollowBtn
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onClickFollowBtn();
+                      }}>
+                      팔로우
+                    </St.FollowBtn>
+                  )}
+                </>
               )}
             </St.ProductUser>
           </St.ProductLikesChatUser>

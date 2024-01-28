@@ -1,8 +1,87 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getLatestProductListHandler, getPostsLikesListHandler } from '../../api/supabase.api';
+import defaultImg from '../../assets/profile/defaultprofileimage.webp';
+import { Bestseller, BooksInfoTypes, PostsListLikesTypes, ProductsTypes } from '../../types/types';
+import Loading from '../survey/Loading';
 import * as St from './Main.styled';
 import SlideImages from './banner/SlideImages';
+
+import bookerTalkImage1 from '../../assets/mainimage/bookertalkimage1.webp';
+import bookerTalkImage2 from '../../assets/mainimage/bookertalkimage2.webp';
+import bookerTalkImage3 from '../../assets/mainimage/bookertalkimage3.webp';
+import bookerTalkImage4 from '../../assets/mainimage/bookertalkimage4.webp';
+
 const Main = () => {
   const navigate = useNavigate();
+  const [postsList, setPostsList] = useState<PostsListLikesTypes[]>([]);
+  const [bestSeller, setBestSeller] = useState<Bestseller>();
+  const [newbook, setNewbook] = useState<BooksInfoTypes>();
+  const [bookSpecial, setBookSpecial] = useState<BooksInfoTypes>();
+  const [bookerPick, setBookerPick] = useState<BooksInfoTypes>();
+  const [loading1, setLoading1] = useState(false);
+  const [loading2, setLoading2] = useState(false);
+  const [loading3, setLoading3] = useState(false);
+  const [loading4, setLoading4] = useState(false);
+  const [productsList, setProductsList] = useState<ProductsTypes[]>([]);
+
+  const bookerTalkImages = [bookerTalkImage1, bookerTalkImage2, bookerTalkImage3, bookerTalkImage4];
+
+  const getPostsList = async () => {
+    const posts = await getPostsLikesListHandler();
+    setPostsList(posts.sort((a, b) => b.post_likes.length - a.post_likes.length).slice(0, 4));
+  };
+
+  const getBookIntroduction = async () => {
+    // 베스트셀러
+    try {
+      setLoading1(true);
+      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller`);
+      setBestSeller(response.data.item[0]);
+      setLoading1(false);
+    } catch (error) {
+      console.log(error);
+    }
+    // 신간도서
+    try {
+      setLoading2(true);
+      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks`);
+      setNewbook(response.data.item[0]);
+      setLoading2(false);
+    } catch (error) {
+      console.log(error);
+    }
+    // 스페셜
+    try {
+      setLoading3(true);
+      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special`);
+      setBookSpecial(response.data.item[0]);
+      setLoading3(false);
+    } catch (error) {
+      console.log(error);
+    }
+    // 북커들의 선택
+    try {
+      setLoading4(true);
+      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/BlogBest`);
+      setBookerPick(response.data.item[0]);
+      setLoading4(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getProductList = async () => {
+    const products = await getLatestProductListHandler();
+    setProductsList(products.sort((a, b) => b.id - a.id));
+  };
+
+  useEffect(() => {
+    getPostsList();
+    getBookIntroduction();
+    getProductList();
+  }, []);
+
   return (
     <>
       <St.Container>
@@ -40,45 +119,21 @@ const Main = () => {
           </St.Titlebox>
 
           <St.CardBox>
-            <St.BookerTalkCard>
-              <St.BookerTalkCardImage
-                onClick={() => {
-                  navigate(`/bookertalk/a249535a-b19a-4fb4-bcd9-0788e780a2ac`);
-                }}
-              />
-              <St.CardTitle>책 추천 받습니다.</St.CardTitle>
-              <St.CardContent>져져젼님</St.CardContent>
-            </St.BookerTalkCard>
-
-            <St.BookerTalkCard>
-              <St.BookerTalkCardImage2
-                onClick={() => {
-                  navigate(`/bookertalk/3c5d132b-1ca6-430d-a467-4315a2d86618`);
-                }}
-              />
-              <St.CardTitle2>언어의 온도 추천합니다.</St.CardTitle2>
-              <St.CardContent>강낭콩님</St.CardContent>
-            </St.BookerTalkCard>
-
-            <St.BookerTalkCard>
-              <St.BookerTalkCardImage3
-                onClick={() => {
-                  navigate(`/bookertalk/8114a2cd-d916-4f38-a735-83815ecb0b83`);
-                }}
-              />
-              <St.CardTitle3>에세이 책 추천 5권 공유합니다.</St.CardTitle3>
-              <St.CardContent>Respect님</St.CardContent>
-            </St.BookerTalkCard>
-
-            <St.BookerTalkCard>
-              <St.BookerTalkCardImage4
-                onClick={() => {
-                  navigate(`/bookertalk/15c0651c-47e5-45e7-91c6-f244443a9123`);
-                }}
-              />
-              <St.CardTitle4>IT 관련 책 추천 받습니다.</St.CardTitle4>
-              <St.CardContent>규갓님</St.CardContent>
-            </St.BookerTalkCard>
+            {postsList.map((item, i) => {
+              return (
+                <St.BookerTalkCard key={i}>
+                  <St.BookerTalkCardImage
+                    backgroundimage={bookerTalkImages[i % bookerTalkImages.length]}
+                    onClick={() => {
+                      navigate(`/detail/${item.id}`);
+                      window.scrollTo(0, 0);
+                    }}
+                  />
+                  <St.CardTitle>{item.title}</St.CardTitle>
+                  <St.CardContent>{item.users.nickname}</St.CardContent>
+                </St.BookerTalkCard>
+              );
+            })}
           </St.CardBox>
         </St.BookerTalkWrapper>
 
@@ -96,28 +151,56 @@ const Main = () => {
           </St.CategoryBox>
 
           <St.CardBox>
-            <St.BookIntroCard>
-              <St.BookImage />
-              <St.BookIntroCardTitle>나는 메트로폴리탄 미술관의 경비원입니다.</St.BookIntroCardTitle>
-              <St.BookIntroCardContent>패트릭 브링리 </St.BookIntroCardContent>
+            <St.BookIntroCard
+              onClick={() => {
+                navigate(`/aboutbook/bestseller`);
+              }}>
+              {' '}
+              {loading1 ? <Loading /> : null}
+              <St.BookImage>
+                <img src={bestSeller?.cover} />
+              </St.BookImage>
+              <St.BookIntroCardTitle>{bestSeller?.title}</St.BookIntroCardTitle>
+              <St.BookIntroCardContent>{bestSeller?.author}</St.BookIntroCardContent>
             </St.BookIntroCard>
 
-            <St.BookIntroCard>
-              <St.BookImage2 />
-              <St.BookIntroCardTitle>새로쓴 로스쿨 형법</St.BookIntroCardTitle>
-              <St.BookIntroCardContent>이재상</St.BookIntroCardContent>
+            <St.BookIntroCard
+              onClick={() => {
+                navigate(`/aboutbook/newbook`);
+              }}>
+              {' '}
+              {loading2 ? <Loading /> : null}
+              <St.BookImage>
+                <img src={newbook?.cover} />
+              </St.BookImage>
+              <St.BookIntroCardTitle>{newbook?.title}</St.BookIntroCardTitle>
+              <St.BookIntroCardContent>{newbook?.author}</St.BookIntroCardContent>
             </St.BookIntroCard>
 
-            <St.BookIntroCard>
-              <St.BookImage3 />
-              <St.BookIntroCardTitle>달빛조각사</St.BookIntroCardTitle>
-              <St.BookIntroCardContent>남희성</St.BookIntroCardContent>
+            <St.BookIntroCard
+              onClick={() => {
+                navigate(`/aboutbook/bookspecial`);
+              }}>
+              {' '}
+              {loading3 ? <Loading /> : null}
+              <St.BookImage>
+                <img src={bookSpecial?.cover} />
+              </St.BookImage>
+              <St.BookIntroCardTitle>{bookSpecial?.title}</St.BookIntroCardTitle>
+              <St.BookIntroCardContent>{bookSpecial?.author}</St.BookIntroCardContent>
             </St.BookIntroCard>
 
-            <St.BookIntroCard>
-              <St.BookImage4 />
-              <St.BookIntroCardTitle>로스쿨 형법사례 답안작성 입문</St.BookIntroCardTitle>
-              <St.BookIntroCardContent>이재상</St.BookIntroCardContent>
+            <St.BookIntroCard
+              onClick={() => {
+                navigate(`/aboutbook/bookerpick`);
+              }}>
+              {' '}
+              {loading4 ? <Loading /> : null}
+              <St.BookImage>
+                <img src={bookerPick?.cover} />
+              </St.BookImage>
+              <St.BookIntroCardTitle>{bookerPick?.title}</St.BookIntroCardTitle>
+              <St.BookIntroCardContent>{bookerPick?.author}</St.BookIntroCardContent>
             </St.BookIntroCard>
           </St.CardBox>
         </St.BookIntroWrapper>
@@ -130,33 +213,22 @@ const Main = () => {
           </St.Titlebox>
 
           <St.CardBox>
-            <St.MarketProductCard>
-              <St.MarketProductImage />
-              <St.ProductTitle>푸바오 책 팝니다.</St.ProductTitle>
-              <St.ProductPrice>₩ 12,000</St.ProductPrice>
-              <St.ProductContent>OO님</St.ProductContent>
-            </St.MarketProductCard>
-
-            <St.MarketProductCard>
-              <St.MarketProductImage2 />
-              <St.ProductTitle>쇼펜하우어 소품집 판매</St.ProductTitle>
-              <St.ProductPrice> ₩ 20,000</St.ProductPrice>
-              <St.ProductContent>OO님</St.ProductContent>
-            </St.MarketProductCard>
-
-            <St.MarketProductCard>
-              <St.MarketProductImage3 />
-              <St.ProductTitle>집중력 높여주는 책 판매</St.ProductTitle>
-              <St.ProductPrice>₩ 13,000</St.ProductPrice>
-              <St.ProductContent>OO님</St.ProductContent>
-            </St.MarketProductCard>
-
-            <St.MarketProductCard>
-              <St.MarketProductImage4 />
-              <St.ProductTitle>죽음이 물었다,어떻게 살거냐고 책 팝니다.</St.ProductTitle>
-              <St.ProductPrice>₩ 19,000</St.ProductPrice>
-              <St.ProductContent>OO님</St.ProductContent>
-            </St.MarketProductCard>
+            {productsList.map((item, i) => {
+              return (
+                <St.MarketProductCard
+                  key={i}
+                  onClick={() => {
+                    navigate(`/product/${item.id}`);
+                  }}>
+                  <St.MarketProductImage>
+                    <img src={(item.product_img && item.product_img[0]) || defaultImg} />
+                  </St.MarketProductImage>
+                  <St.ProductTitle>{item.title}</St.ProductTitle>
+                  <St.ProductPrice>₩ {item.price}</St.ProductPrice>
+                  <St.ProductContent>{item.users.nickname}님</St.ProductContent>
+                </St.MarketProductCard>
+              );
+            })}
           </St.CardBox>
         </St.MarketWrapper>
 
@@ -164,7 +236,11 @@ const Main = () => {
 
         {/* 독립서점*/}
         <St.IndBookStoreWrapper>
-          <St.IndBookStorebox>
+          <St.IndBookStorebox
+            onClick={() => {
+              navigate('/indBookStores');
+              window.scrollTo(0, 0);
+            }}>
             <St.IndBookStoreImage />
             <St.TitleAndContentBox>
               <St.IndBookAndRecommnedTitle>서울에서 가장 힙한 서점 </St.IndBookAndRecommnedTitle>
@@ -179,7 +255,11 @@ const Main = () => {
         {/* 맞춤추천 */}
 
         <St.BookRecommendWrapper>
-          <St.BookRecommendBox>
+          <St.BookRecommendBox
+            onClick={() => {
+              navigate('/survey');
+              window.scrollTo(0, 0);
+            }}>
             <St.BookRecommendImage />
             <St.TitleAndContentBox>
               <St.IndBookAndRecommnedTitle>나에게 맞는 책 추천받기</St.IndBookAndRecommnedTitle>

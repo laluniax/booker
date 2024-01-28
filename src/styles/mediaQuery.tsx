@@ -9,7 +9,7 @@ const breakPoints = {
 
 let init: { [key: string]: (param: Styles<object>) => CSSProp } = {};
 
-const mediaQuery = Object.entries(breakPoints).reduce((acc, [key, value]) => {
+export const mediaQuery = Object.entries(breakPoints).reduce((acc, [key, value]) => {
   acc[key] = (...arg) => css`
     @media (min-width: ${value}px) {
       ${css(...arg)}

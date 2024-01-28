@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { ThemeProvider } from 'styled-components';
 import { supabase } from './api/supabase.api';
 import {
   ChatId,
@@ -14,7 +15,7 @@ import {
 import { AuthContextProvider } from './contexts/auth.context';
 import Router from './shared/Router';
 import GlobalStyle from './styles/globalStyle';
-
+import theme from './styles/theme';
 type Message = {
   author_id: string;
   chat_id: string;
@@ -40,6 +41,7 @@ export type UnreadCount = {
   chat_id: string;
   unread_count: number;
 };
+
 
 const queryClient = new QueryClient();
 
@@ -280,8 +282,10 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        <GlobalStyle />
-        <Router />
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <Router />
+        </ThemeProvider>
       </AuthContextProvider>
     </QueryClientProvider>
   );
