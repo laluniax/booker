@@ -30,23 +30,44 @@ export const chatRoomsState = atom<ChatRoom[]>({
   default: [], // 초기값은 빈 배열
 });
 
+type ProductImage = string | null;
+
 export type ChatRoom = {
+  author_id:string;
   chat_id: string;
-  sendNickname?: string; // 추가됨
-  lastMessage?: string;
-  others_id: string;
-  item_id: number;
   user_id: string;
+  item_id: number;
+  lastMessage: string;
+  sendNickname: string;
+  product_img: string;
+  unread_count: number;
+  created_at: string;
+  user_img:string;
 };
 
-export const showChatModal = atom({
-  key: 'showChatModal',
+export const isChatModalOpenState = atom({
+  key: 'isChatModalOpenState',
   default: false,
 });
 
 export const globalModalSwitch = atom({
   key: 'globalModalSwitch',
   default: false,
+});
+
+export const newMessagesCountState = atom({
+  key: 'newMessagesCountState',
+  default: 0,
+});
+
+export const shouldCountMessagesState = atom({
+  key: 'shouldCountMessagesState',
+  default: true,
+});
+
+export const loginUserState = atom({
+  key: 'loginUserState',
+  default: '',
 });
 
 // // ======================================

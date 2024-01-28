@@ -1,458 +1,474 @@
 import React from 'react'
 
-const wat = () => {
+function wat() {
   return (
     <div>wat</div>
   )
 }
 
 export default wat
-// //   // 사용자 목록을 렌더링하는 함수
-// //   const renderUserList = () => {
-// //     // 메시지를 보낸 유저의 ID 목록을 생성합니다.
-// //     const sentMessagesUserIds = new Set(messages.map((message) => message.author_id));
-  
-// //     // 각 유저별로 가장 최근 메시지를 찾습니다.
-// //     const lastMessagesByUser = messages.reduce((acc: LastMessagesByUser, message) => {
-// //       const existing = acc[message.author_id];
-// //       // existing.created_at과 message.created_at 비교하기 전에 적절한 날짜 형식으로 변환합니다.
-// //       const existingDate = existing ? new Date(existing.created_at) : new Date(0);
-// //       const messageDate = new Date(message.created_at);
-// //       if (!existing || existingDate < messageDate) {
-// //         acc[message.author_id] = message;
-// //       }
-// //       return acc;
-// //     }, {});
-  
-// //     // 메시지를 보낸 유저의 목록을 렌더링합니다.
-// //     return Array.from(sentMessagesUserIds).map((userId) => {
-// //       const user = users.find((u) => u.id === userId);
-// //       const lastMessage = lastMessagesByUser[userId];
-// //       return (
-// //         <St.UserItem key={userId}>
-// //           <St.UserEmail>{user?.nickname}</St.UserEmail>
-// //           <St.UserLastMessage>{lastMessage?.content || '메시지가 없습니다.'}</St.UserLastMessage>
-// //           <St.DMButton onClick={() => DmClickhandler(userId)}>DM</St.DMButton>
-// //         </St.UserItem>
-// //       );
-// //     });
-// //   };
 
-// export type MessageType ={
-//     id: number;
-//     author_id: string;
-//     content: string;
-//     chat_id: string;
-//     created_at: string; // 이 부분은 메시지 객체의 실제 속성에 맞게 조정해야 합니다.
-//   }
-//   export type UserType = {
-//     id: string;
-//     email: string;
-//     lastMessage?: string; // lastMessage 속성 추가 (옵셔널로 처리)
-//     nickname: string;
+// useEffect(() => {
+//   const fetchChatRooms = async () => {
+//     try {
+//       // 채팅방 ID 가져오기
+//       const { data: chatRoomsData, error: chatRoomsError } = await supabase.from('chats').select('*');
+
+//       if (chatRoomsError) throw chatRoomsError;
+
+//       // 각 채팅방에 대해 사용자의 닉네임과 마지막 메시지를 가져오기
+//       const updatedChatRooms = await Promise.all(
+//         chatRoomsData.map(async (chatRoom) => {
+//           const { data: chatUser, error: chatUserError } = await supabase
+//             .from('chats_users')
+//             .select('user_id,item_id,created_at')
+//             .eq('chat_id', chatRoom.id);
+
+
+//           if (chatUserError) throw chatUserError;
+
+//           //챗방 마지막 메시지
+//           const { data: lastMessageData, error: lastMessageError } = await supabase
+//             .from('messages')
+//             .select(`content, users(nickname), author_id`)
+//             .eq('chat_id', chatRoom.id)
+//             .order('created_at', { ascending: false })
+//             .limit(1)
+//             .maybeSingle();
+
+
+//           if (lastMessageError) throw lastMessageError;
+
+//           let sendNickname = '알 수 없음';
+//           if (lastMessageData && lastMessageData.author_id) {
+//             const { data: userData, error: userError } = await supabase
+//               .from('users')
+//               .select('nickname')
+//               .eq('id', lastMessageData.author_id)
+//               .single();
+
+       
+//             // Handle userError if any...
+//             if (userData) {
+//               sendNickname = userData.nickname; // Assign the fetched nickname
+//             }
+//           }
+
+//           return chatUser.map((chatUser) => ({
+//             chat_id: chatRoom.id,
+//             user_id: chatUser.user_id || '알 수 없음',
+//             item_id: chatUser.item_id || '알 수 없음',
+//             lastMessage: lastMessageData ? lastMessageData.content : '메시지가 없습니다.',
+//             sendNickname: sendNickname,
+//             // hasNewMessage: false, // Initialize the hasNewMessage property
+//             // unread_count: unreadCount, 
+//             created_at: chatUser.created_at,
+//           }));
+//         }),
+//       );
+//       // Flatten the array of arrays
+//       const flatChatRooms = updatedChatRooms.flat();
+
+
+//       // Make sure flatChatRooms is of type ChatRoom[]
+//       setChatRooms(flatChatRooms as ChatRoom[]);
+//     } catch (error) {
+//       console.error('채팅방 가져오기 오류:', error);
+//     }
 //   };
-  
-//   export type ChatData = {
-//     id: string;
+
+//   fetchChatRooms();
+
+//   //챗방 메시지 가져오기
+//   const fetchMessages = async () => {
+//     if (chatId) {
+//       // Fetch all messages for the chatId
+//       let { data: messagesData, error: messagesError } = await supabase
+//         .from('messages')
+//         .select('*,users(id,nickname)')
+//         .eq('chat_id', chatId);
+
+//       if (messagesError) {
+//         console.error('메시지를 가져오는 중 오류가 발생했습니다:', messagesError);
+//         return;
+//       }
+
+//       if (!messagesData) {
+//         setMessages([]);
+//         return;
+//       }
+
+//       setMessages(messagesData);
+//     }
 //   };
+
+//   fetchMessages();
+
+//   // 기존에 있던 chatRoom 값에 구독한 payload 업데이트
+//   const handleNewMessage = (payload: MessagePayload) => {
+//     setChatRooms((prevChatRooms) =>
+//       prevChatRooms.map((chatRoom) => {
+//         if (chatRoom.chat_id === payload.new.chat_id) {
+//     const unreadCount = unreadCounts.find((uc) => uc.chat_id === chatRoom.chat_id)?.unread_count || 0;
+//           // 새 메시지가 도착한 채팅방에 대한 처리
+//           return {
+//             ...chatRoom,
+//             lastMessage: payload.new.content, // 마지막 메시지를 새 메시지로 업데이트
+//              unread_count: unreadCount, // 새 메시지 표시 업데이트
+//           };
+//         } else {
+//           // 다른 채팅방에 대한 처리는 그대로 유지
+//           return chatRoom;
+//         }
+//       }),
+//     );
+//   };
+
+//   const handleNewMessageCount = (payload: MessagePayload) => {
+//     // 채팅 모달이 열려 있지 않을 때만 새 메시지 수를 증가
+//     if (!ChatBtnOpen) {
+//       // fetchChatRooms();
+//       setNewMessagesCount((prevCount) => prevCount + 1);
+//     }
+//   };
+
+// //읽지않음 카운팅
+//   async function updateUnreadCount() {
+//     const { data, error } = await supabase
+//       .rpc('count_unread_messages', { user_id: LoginPersonal });
   
-//   // lastMessagesByUser 객체를 위한 타입 정의
-//   export type LastMessagesByUser ={
-//     [key: string]: MessageType;
+//       console.log('카운팅함수데이터', data)
+//     if (error) {
+//       console.log('읽지 않은 수 업데이트 오류:', error);
+//     } else {
+//       setUnreadCounts(data)
+//     }
 //   }
+  
+//   // //채링리스트에 표시 
+//   // const updateChatRoomsUnreadCount = (unreadCounts: UnreadCount[]) => {
+//   //   setChatRooms((prevChatRooms) =>
+//   //     prevChatRooms.map((chatRoom) => {
+//   //       const unreadCount = unreadCounts.find((uc) => uc.chat_id === chatRoom.chat_id)?.unread_count || 0;
+//   //       return { ...chatRoom, unread_count: unreadCount };
+//   //     }),
+//   //   );
+//   // };
+  
 
-// //   useEffect(() => {
-// //     // Supabase에서 메시지를 로드하는 함수
-// //     const fetchMessages = async () => {
-// //       const { data: loadedMessages, error } = await supabase
-// //         .from('messages')
-// //         .select('*')
-// //         .order('created_at', { ascending: false });
+  
 
-// //       if (error) {
-// //         console.error('메시지 로딩 실패:', error);
-// //       } else {
-// //         setMessages(loadedMessages || []);
-// //       }
-// //     };
+//   //새 메시지 생성시 감지할 채널 구독
+//   const changes = supabase
+//     .channel('schema-db-changes')
+//     .on(
+//       'postgres_changes',
+//       {
+//         event: 'INSERT',
+//         schema: 'public',
+//         table: 'messages',
+//       },
+//       async (payload) => {
+//         console.log('payload',payload)
+//         fetchMessages();
+//         handleNewMessageCount(payload as MessagePayload);
+//         updateUnreadCount()
+//         // 새 메시지 카운트를 증가시킬지 결정하는 함수 호출
+//         handleNewMessage(payload as MessagePayload);
+//         //이거 열면 안됨
+//         // fetchChatRooms();
+//       },
+//     )
+//     .subscribe();
 
-// //     fetchMessages();
+//   // 채팅방 변경사항을 감지할 채널 구독
+//   const chatChannel = supabase
+//     .channel('chat-channel')
+//     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {
+//       fetchChatRooms();
+//     })
+//     .subscribe();
 
-// //     const changes = supabase
-// //       .channel('schema-db-changes')
-// //       .on(
-// //         'postgres_changes',
-// //         {
-// //           event: 'INSERT',
-// //           schema: 'public',
-// //           table: 'messages',
-// //         },
-// //         (payload) => {
-// //           console.log('apptime', payload);
+//   return () => {
+//     changes.unsubscribe();
+//     chatChannel?.unsubscribe();
+//   };
+// }, [chatId, ChatBtnOpen]);
 
-// //           // payload.new의 타입을 MessageType으로 캐스팅합니다.
-// //           const newMessage = payload.new as MessageType;
+// useEffect(() => {}, []);
 
-// //           // 새로운 MessageType 객체를 이전 메시지 배열에 추가합니다.
-// //           setMessages((prevMessages) => [...prevMessages, newMessage]);
-// //         },
-// //       )
-// //       .subscribe();
 
-// //     return () => {
-// //       changes.unsubscribe();
-// //     };
-// //   }, []);
+// const renderChatRoomsList = () => {
+//   return chatRooms
+//     .filter((chatRoom) => chatRoom.user_id === LoginPersonal)
+//     .map((chatRoom) => (
+//       <St.UserItem key={chatRoom.chat_id}>
+//         <St.UserEmail>
+          
+//           {chatRoom.sendNickname}
+//           {chatRoom.unread_count > 0 && (
+//             <>
+//               {console.log('chatRoom:', chatRoom.chat_id)}
+//               <St.NotificationBadge>{chatRoom.unread_count}</St.NotificationBadge>
+//             </>
+//           )}
+//         </St.UserEmail>
+//         <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
+//         <St.DMButton onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id)}>Open Chat</St.DMButton>
+//       </St.UserItem>
+//     ));
+// };
 
-// // ==================================================================================import { useEffect, useState } from 'react';
-// import { useEffect, useState } from 'react';
-// import { useRecoilState } from 'recoil';
-// import { useSendMessage } from '../../api/chatApi';
-// import { supabase } from '../../api/supabase.api';
-// import Logo from '../../assets/Logo.png';
-// import Prev from '../../assets/prev.png';
-// import { ChatId, otherPerson, person, productState, sendMessages } from '../../atom/product.atom';
-// import { useAuth } from '../../contexts/auth.context';
-// import AdminChat from './AdminChat';
-// import ChatLog from './ChatLog';
-// import * as St from './ChatStyle';
+// ==========================================================
 
-// export type MessageType = {
-//   id: number;
-//   content: string;
+// type Message = {
 //   author_id: string;
 //   chat_id: string;
+//   content: string;
+//   created_at: string;
+//   id: number;
 //   item_id: number;
-//   others_id: string;
+//   others_id: string | null;
 // };
-// export type UserType = {
+
+// // Define a type for the payload
+// type MessagePayload = {
+//   commit_timestamp: string;
+//   errors: null | any; // Replace 'any' with a more specific type if possible
+//   eventType: string;
+//   new: Message;
+//   old?: any; // Replace 'any' with a more specific type if possible
+//   schema: string;
+//   table: string;
+// };
+
+// type UnreadCount = {
+//   chat_id: string;
+//   unread_count: number;
+// };
+
+// type UserDetail = {
 //   id: string;
-//   email: string;
-//   lastMessage?: string; // lastMessage 속성 추가 (옵셔널로 처리)
 //   nickname: string;
+//   user_img: string;
 // };
 
-// export type ChatData = {
-//   id: string;
+// type LastMessageData = {
+//   author_id: string;
+//   content: string;
+//   is_read: boolean;
+//   created_at: string;
 // };
 
-// const Chat = () => {
-//   //모달창을 열고 닫는 state
-//   const [isSwitch, setIsSwitch] = useState<boolean>(false);
-//   const [isAsk, setIsAsk] = useState<boolean>(false);
-//   //메세지 저장 state
-//   const [askMessage, setAskMessage] = useState<string>('');
+// type ProductImage = string | null;
 
-//   const [users, setUsers] = useState<UserType[]>([]);
-//   const [inputValue, setInputValue] = useState('');
-//   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
-//   //흐름  첫랜더링시 useEffect 실행 : 로그인 아이디+모든 사용자/메시지 => DmClickhandler (상대방정보가져옴)
-//   //=> 이메일 챗방만들기함수 넘겨줌 => createOrGetChatWithUser 이메일 기반 데이터 조회 및 비교 해서 기존 챗방 있는지 확인
-//   //=> 있으면 setChatId(chat방id값임) || 없으면 새로생성 => KeyPresshandler함수에 값을 입력하면 상대방에게 메시지가는 구조
-//   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
-//   const [otherLoginPersonal, setOtherLoginPersonal] = useRecoilState(otherPerson);
-//   const [messages, setMessages] = useRecoilState(sendMessages);
+// type ChatRoomDetail = {
+//   chat_id: string;
+//   user_id: string;
+//   item_id: number;
+//   lastMessage: string;
+//   sendNickname: string;
+//   productImages: ProductImage[];
+//   unread_count: number;
+//   created_at: string;
+// };
+
+// const queryClient = new QueryClient();
+
+// const App = () => {
 //   const [chatId, setChatId] = useRecoilState(ChatId);
-//   const { mutate: sendDirectMessage } = useSendMessage();
-//   // const { mutate: createOrGetChat } = useCreateOrGetChat();
-//   const [productId, setProductId] = useRecoilState(productState);
-// console.log('fetchmessage',messages)
-//   //
-//   const InputChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     setInputValue(event.target.value);
-//   };
-
-//   // DM 클릭 핸들러
-//   const DmClickhandler = async (otherUserId: string) => {
-//     const {
-//       data: { user },
-//     } = await supabase.auth.getUser();
-
-//     if (user && user.email) {
-//       // const userId = user.id;
-
-//       if (user) {
-//         await checkChatWithUser(user.id, otherUserId);
-//         setIsChatModalOpen(true);
-//         // setOtherLoginPersonal(otherUserId);
-//       }
-//     }
-//   };
-
-//   //모달 창 뜨고 메시지 보내는 핸들러들
-//   // 메시지 전송 핸들러
-//   const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-//     if (event.key === 'Enter' && inputValue.trim()) {
-//       sendDirectMessage({
-//         content: inputValue,
-//         author_id: LoginPersonal,
-//         chat_id: chatId,
-//         item_id: productId,
-//         others_id: otherLoginPersonal,
-//       });
-//       setInputValue('');
-//     }
-//   };
-
-//   //dm메시지 전송
-//   const sendDmMessage = async () => {
-//     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-
-//     sendDirectMessage({
-//       content: inputValue,
-//       author_id: LoginPersonal,
-//       chat_id: chatId,
-//       item_id: productId,
-//       others_id: otherLoginPersonal,
-//     });
-
-//     setInputValue('');
-//   };
-
-//   const renderMessages = () => {
-//     return messages
-//       .filter((message: MessageType) => 
-//         (message.author_id === LoginPersonal || message.author_id === otherLoginPersonal) &&
-//         message.chat_id === chatId &&
-//         message.item_id === productId
-//       )
-//       .map((message: MessageType) => (
-//         <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-//           {message.content}
-//         </St.MessageComponent>
-//       ));
-//   };
-  
+//   const [messages, setMessages] = useRecoilState(sendMessages);
+//   const [newMessagesCount, setNewMessagesCount] = useRecoilState(newMessagesCountState);
+//   const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
+//   const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(isChatModalOpenState);
+//   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
+//   const [unreadCounts, setUnreadCounts] = useState<UnreadCount[]>([]);
 
 //   useEffect(() => {
-//     // 로그인한 사용자 정보 가져오기
-//     supabase.auth.getUser().then(({ data }) => {
-//       if (data.user) {
-//         setLoginPersonal(data.user.id);
-//       }
-//     });
+//     //챗방
+//     const fetchChatRooms = async () => {
+//       try {
+//         // Fetch chat room IDs
+//         const { data: chatRoomsData, error: chatRoomsError } = await supabase.from('chats').select('*');
 
-//     // 모든 사용자 가져오기
-//     const fetchUsers = async () => {
-//       let { data, error } = await supabase.from('users').select('*');
-//       if (error) {
-//         console.error('Error fetching users:', error);
-//       } else {
-//         setUsers(data as UserType[]);
+//         if (chatRoomsError) throw chatRoomsError;
+
+//         // For each chat room, fetch the users, messages, and product details
+//         const chatDetailsPromises = chatRoomsData.map(async (chatRoom) => {
+//           // Fetch users and items in the chat room
+//           const { data: chatUsersData, error: chatUsersError } = await supabase
+//             .from('chats_users')
+//             .select('user_id, item_id')
+//             .eq('chat_id', chatRoom.id);
+
+//           // console.log('chatUsersData', chatUsersData);
+//           if (chatUsersError) throw chatUsersError;
+
+//           // Prepare arrays to hold the details
+//           let usersDetails: UserDetail[] = []; // Define the type for the array
+//           let lastMessageData: LastMessageData | {} = {}; // Define a union type that can be an empty object or LastMessageData
+//           let productImages: ProductImage[] = []; // Define the type for the array
+
+//           if (chatUsersData.length > 0) {
+//             // Fetch user details for each user_id
+//             usersDetails = await Promise.all(
+//               chatUsersData.map(async (chatUser) => {
+//                 const { data: userData, error: userError } = await supabase
+//                   .from('users')
+//                   .select('id, nickname, user_img') // Include 'id' in the selection
+//                   .eq('id', chatUser.user_id);
+
+            
+//                 if (userError) throw userError;
+//                 return userData[0]; // Assuming there is always one user returned per ID
+//               }),
+//             );
+//     console.log('usersDetails', usersDetails);
+//             // Fetch the last message details for the chat room
+//             const { data: messagesData, error: messagesError } = await supabase
+//               .from('messages')
+//               .select('author_id, content, is_read')
+//               .eq('chat_id', chatRoom.id)
+//               .order('created_at', { ascending: false })
+//               .limit(1); // Get the most recent message
+
+//             // console.log('messagesData', messagesData);
+//             if (messagesError) throw messagesError;
+
+//             lastMessageData = messagesData.length > 0 ? messagesData[0] : {};
+
+//             // Fetch the product image for each item_id found in chatUsersData
+//             productImages = await Promise.all(
+//               chatUsersData.map(async (user) => {
+//                 const { data: productData, error: productError } = await supabase
+//                   .from('products')
+//                   .select('product_img')
+//                   .eq('id', user.item_id);
+//                 // console.log('productData', productData);
+//                 if (productError) throw productError;
+//                 return productData.length > 0 ? productData[0].product_img : null;
+//               }),
+//             );
+//           }
+//           const lastMessage = lastMessageData as LastMessageData;
+//           // Construct the chat room detail object
+//           const chatRoomDetail: ChatRoomDetail = {
+//             chat_id: chatRoom.id,
+//             user_id: usersDetails.length > 0 ? usersDetails[0].id : '알 수 없음',
+//             item_id: chatUsersData.length > 0 ? chatUsersData[0].item_id : '알 수 없음',
+//             lastMessage: lastMessage.content || '메시지가 없습니다.',
+//             sendNickname: usersDetails.length > 0 ? usersDetails[0].nickname : '알 수 없음',
+//             productImages: productImages,
+//             unread_count: lastMessage.content ? (lastMessage.is_read ? 0 : 1) : 0,
+//             created_at: chatRoom.created_at,
+//           };
+//           return chatRoomDetail;
+//         });
+
+//         // Wait for all the chat details promises to resolve
+//         const chatDetails = await Promise.all(chatDetailsPromises);
+
+//         // Update the chat rooms state
+//         setChatRooms(chatDetails as ChatRoomDetail[]);
+//       } catch (error) {
+//         console.error('Error fetching chat room details:', error);
 //       }
 //     };
-//     // 선택된 사용자의 메시지 가져오기
+//     console.log('chatRooms',chatRooms)
+
+//     fetchChatRooms();
+
+//     //챗방 메시지 가져오기
 //     const fetchMessages = async () => {
 //       if (chatId) {
-//         let { data, error } = await supabase.from('messages').select('*').eq('chat_id', chatId);
+//         // Fetch all messages for the chatId
+//         let { data: messagesData, error: messagesError } = await supabase
+//           .from('messages')
+//           .select('*,users(id,nickname,user_img)')
+//           .eq('chat_id', chatId);
 
-//         if (error) {
-//           console.error('Error fetching messages:', error);
-//         } else {
-//           setMessages(data ?? []);
+//         // console.log('messagesData', messagesData);
+//         if (messagesError) {
+//           console.error('메시지를 가져오는 중 오류가 발생했습니다:', messagesError);
+//           return;
 //         }
+
+//         if (!messagesData) {
+//           setMessages([]);
+//           return;
+//         }
+
+//         setMessages(messagesData);
 //       }
 //     };
 
-//     fetchUsers();
 //     fetchMessages();
 
-//     // 메시지 변경사항을 감지할 채널 구독
-//     const messagesSubscription = supabase
-//       .channel('custom-all-channel')
-//       .on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, async (payload: any) => {
-//         console.log('Changes received!', payload);
-//         fetchMessages(); // 데이터베이스에 변화가 있을 때 메시지 다시 가져오기
+//     // 기존에 있던 chatRoom 값에 구독한 payload 업데이트
 
-//         setChatId(payload.new.chat_id); //메시지 창 열기
+//     const handleNewMessageCount = (payload: MessagePayload) => {
+//       // 채팅 모달이 열려 있지 않을 때만 새 메시지 수를 증가
+//       if (!ChatBtnOpen) {
+//         // fetchChatRooms();
+//         setNewMessagesCount((prevCount) => prevCount + 1);
+//       }
+//     };
+
+//     //읽지않음 카운팅
+//     async function updateUnreadCount() {
+//       const { data, error } = await supabase.rpc('count_unread_messages', { user_id: LoginPersonal });
+
+//       // console.log('카운팅함수데이터', data);
+//       if (error) {
+//         console.log('읽지 않은 수 업데이트 오류:', error);
+//       } else {
+//         setUnreadCounts(data);
+//       }
+//     }
+
+//     // //채링리스트에 표시
+//     // const updateChatRoomsUnreadCount = (unreadCounts: UnreadCount[]) => {
+//     //   setChatRooms((prevChatRooms) =>
+//     //     prevChatRooms.map((chatRoom) => {
+//     //       const unreadCount = unreadCounts.find((uc) => uc.chat_id === chatRoom.chat_id)?.unread_count || 0;
+//     //       return { ...chatRoom, unread_count: unreadCount };
+//     //     }),
+//     //   );
+//     // };
+
+//     //새 메시지 생성시 감지할 채널 구독
+//     const changes = supabase
+//       .channel('schema-db-changes')
+//       .on(
+//         'postgres_changes',
+//         {
+//           event: 'INSERT',
+//           schema: 'public',
+//           table: 'messages',
+//         },
+//         async (payload) => {
+//           console.log('payload', payload);
+//           fetchMessages();
+//           handleNewMessageCount(payload as MessagePayload);
+//           updateUnreadCount();
+//           // 새 메시지 카운트를 증가시킬지 결정하는 함수 호출
+//           // handleNewMessage(payload as MessagePayload);
+//           //이거 열면 안됨
+//           // fetchChatRooms();
+//         },
+//       )
+//       .subscribe();
+
+//     // 채팅방 변경사항을 감지할 채널 구독
+//     const chatChannel = supabase
+//       .channel('chat-channel')
+//       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {
+//         // fetchChatRooms();
 //       })
 //       .subscribe();
 
-//     // // 채팅방 변경사항을 감지할 채널 구독
-//     // const chatChannel = supabase
-//     //   .channel('chat-channel')
-//     //   .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {
-//     //     console.log('New chat!', payload);
-//     //     // 새 채팅방이 생성되었을 때 필요한 동작을 수행합니다.
-//     //   })
-//     //   .subscribe();
-
-//     // 구독 해지
 //     return () => {
-//       messagesSubscription?.unsubscribe();
-//       // chatChannel?.unsubscribe();
+//       changes.unsubscribe();
+//       chatChannel?.unsubscribe();
 //     };
-//   }, [chatId]);
-
-//   const auth = useAuth();
-
-//   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     setAskMessage(e.target.value);
-//   };
-
-//   //메세지보내는 함수
-//   const sendMessage = async () => {
-//     if (!auth.session) return;
-//     if (!askMessage.trim()) return; // 메시지가 비어있지 않은지 확인
-//     console.log('sendMessage 실행');
-//     await supabase.from('qna').insert({
-//       room_id: auth.session.user.id,
-//       sender_id: auth.session.user.id,
-//       content: askMessage,
-//       message_type: 'question',
-//     });
-
-//     setAskMessage(''); // 메시지 전송 후 입력 필드 초기화
-//   };
-
-//   const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-//     if (e.key === 'Enter') {
-//       e.preventDefault(); // 폼 제출 방지
-//       sendMessage();
-//     }
-//   };
-
-//   if (!auth.session) return null;
-
-//   async function checkChatWithUser(userId: string, otherUserId: string) {
-//     // userId에 해당하는 챗방의 chat_id와 item_id를 가져옴
-//     //.eq('others_id', userId);  .eq('user_id', otherUserId); 거꾸로 되어있네?
-//     //왜냐? 모달은 a->b 한테 신청 상점은 b->a 한테 신청인데. 상점에서 신청을 해야 되는거라 주체가 달라
-//     // otherUserId에 해당하는 챗방의 chat_id와 item_id를 가져옴
-//     const { data: existingChatUser } = await supabase
-//       .from('chats_users')
-//       .select('chat_id, item_id,others_id')
-//       .eq('user_id', userId);
-
-//     const { data: existingChatOther } = await supabase
-//       .from('chats_users')
-//       .select('chat_id, item_id,user_id')
-//       .eq('others_id', otherUserId);
-
-//     if (existingChatUser && existingChatOther) {
-//       let commonChatId = null;
-//       let commonChatItemId = null;
-
-//       // Check for a common chat_id and item_id
-//       for (let chatUser of existingChatUser) {
-//         for (let chatOther of existingChatOther) {
-//           if (chatUser.chat_id === chatOther.chat_id && chatUser.item_id === chatOther.item_id) {
-//             commonChatId = chatUser.chat_id;
-//             commonChatItemId = chatUser.item_id;
-//             break;
-//           }
-//         }
-//         if (commonChatId) break;
-//       }
-
-//       if (commonChatId) {
-//         setChatId(commonChatId);
-//         setProductId(commonChatItemId);
-//         setLoginPersonal(userId);
-//         setOtherLoginPersonal(otherUserId);
-//       }
-//     }
-//   }
-
-//   // 사용자 목록을 렌더링하는 함수
-//   const renderUserList = () => {
-//     return users
-//       .filter((user) => user.id !== LoginPersonal)
-//       .map((user) => (
-//         <St.UserItem key={user.id}>
-//           <St.UserEmail>{user.nickname}</St.UserEmail>
-//           <St.UserLastMessage>{user.lastMessage || '메시지가 없습니다.'}</St.UserLastMessage>
-//           <St.DMButton onClick={() => DmClickhandler(user.id)}>DM</St.DMButton>
-//         </St.UserItem>
-//       ));
-//   };
-
-//   const prevHandler = () => {
-//     setIsAsk(false);
-//   };
-
-//   return (
-//     <>
-//       {auth.session.profile.isAdmin ? (
-//         isSwitch && <AdminChat />
-//       ) : (
-//         <St.Container>
-//           {isChatModalOpen && (
-//             <St.ChatModalWrapper>
-//               {/* 채팅 모달 내용 */}
-//               <St.ChatModalHeader>
-//                 <button onClick={() => setIsChatModalOpen(false)}>닫기</button>
-//                 <div>채팅</div>
-//                 <div>구매확정</div>
-//               </St.ChatModalHeader>
-//               <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
-//               <St.ChatModalFooter>
-//                 <St.InputField
-//                   value={inputValue}
-//                   onChange={InputChanger}
-//                   onKeyDown={KeyPresshandler}
-//                   placeholder="메시지를 입력해주세요"
-//                 />
-//                 <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
-//               </St.ChatModalFooter>
-//             </St.ChatModalWrapper>
-//           )}
-//           {/* 채팅 UI가 모달 UI 위에 올라가지 않도록 조건부 렌더링을 적용합니다. */}
-//           {isSwitch && !isChatModalOpen && (
-//             <St.ChatWrapper>
-//               {isAsk ? (
-//                 <St.LogoWrapper>
-//                   <St.PrevBtn onClick={prevHandler}>
-//                     <img src={Prev} alt="Prev" width={30} height={30} />
-//                   </St.PrevBtn>
-//                   <St.ChatHeader>
-//                     <img src={Logo} alt="Logo" />
-//                   </St.ChatHeader>
-//                 </St.LogoWrapper>
-//               ) : (
-//                 <St.ChatHeader>
-//                   <img src={Logo} alt="Logo" />
-//                 </St.ChatHeader>
-//               )}
-//               <St.ChatBody>
-//                 <St.MainMessage>
-//                   안녕하세요 🙌 <br />
-//                   새로운 지식으로 시작되는 어쩌구저쩌구, 북커입니다📚
-//                   <br />​ 무엇을 도와드릴까요?
-//                 </St.MainMessage>
-//               </St.ChatBody>
-//               <St.AskWrapper>
-//                 <St.AskButton style={isAsk ? { display: 'none' } : { display: 'block' }} onClick={() => setIsAsk(true)}>
-//                   문의하기 💨
-//                 </St.AskButton>
-//               </St.AskWrapper>
-//               {isAsk ? (
-//                 <>
-//                   <ChatLog />
-//                   <St.ChatInputWrapper>
-//                     <St.Input
-//                       placeholder="메시지를 입력해주세요"
-//                       value={askMessage}
-//                       onChange={onChangeMessageHandler}
-//                       onKeyDown={onKeyDownHandler}
-//                     />
-//                   </St.ChatInputWrapper>
-//                 </>
-//               ) : (
-//                 <>
-//                   {/* Chats 컴포넌트의 UI 추가 */}
-//                   <div>{renderUserList()}</div>
-//                 </>
-//               )}
-//             </St.ChatWrapper>
-//           )}
-//         </St.Container>
-//       )}
-//       <St.TalkButtonWrapper>
-//         <St.TalkButton onClick={() => setIsSwitch(!isSwitch)}>{isSwitch ? 'close' : 'open'}</St.TalkButton>
-//       </St.TalkButtonWrapper>
-//     </>
-//   );
-// };
-
-// export default Chat;
+//   }, [chatId, ChatBtnOpen]);

@@ -34,7 +34,7 @@ const Product = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideLength, setSlideLength] = useState(0);
   const [inputValue, setInputValue] = useState('');
-  // const [productId, setProductId] = useRecoilState(productState);
+  
   const [productId, setProductId] = useRecoilState(productState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
@@ -87,11 +87,7 @@ const Product = () => {
 
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-    console.log(inputValue);
-    console.log('i', LoginPersonal);
-    console.log(chatId);
-    console.log(productId);
-    // console.log("u",otherLoginPersonal);
+   
     sendDirectMessage({
       content: inputValue,
       author_id: LoginPersonal,
@@ -103,13 +99,20 @@ const Product = () => {
     setInputValue('');
   };
 
-  const renderMessages = () => {
+   //채팅창 메시지 보여주는 것
+   const renderMessages = () => {
     return messages
+    
       .filter((message: MessageType) => message.chat_id === chatId)
+      .sort((a: MessageType, b: MessageType) => a.id - b.id) // 오름차순 정렬
       .map((message: MessageType) => (
-        <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-          {message.content}
-        </St.MessageComponent>
+        <>
+          {console.log('messages',messages)}
+          {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
+          <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
+            {message.content}
+          </St.MessageComponent>
+        </>
       ));
   };
 
@@ -282,21 +285,7 @@ const Product = () => {
                     />
                     <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
                   </St.ChatModalFooter>
-                  {/* 채팅 모달 내용 */}
-                  {/* <St.ChatModalHeader>
-                 <div>채팅</div>
-                  <button onClick={() => setIsChatModalOpen(false)}>닫기</button>
-                </St.ChatModalHeader>
-                <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
-                <St.ChatModalFooter>
-                  <St.InputField
-                    value={inputValue}
-                    onChange={InputChanger}
-                    onKeyDown={KeyPresshandler}
-                    placeholder="메시지를 입력해주세요"
-                  />
-                  <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
-                </St.ChatModalFooter> */}
+
                 </St.ChatModalWrapper>
               )}
             </St.ProductBtn>

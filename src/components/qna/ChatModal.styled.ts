@@ -114,17 +114,7 @@ export const MessageWrapper = styled.div<MessageProps>`
   display: flex;
   justify-content: ${(props) => (props.isOutgoing ? 'flex-start' : 'flex-end')};
 `;
-// export const MessageComponent = styled.div<MessageProps>`
-//   /* flex-direction: column; */
-//   padding: 10px;
-//   margin: 0.5rem;
-//   border-radius: 1rem;
-//   font-size: 1.3rem;
-//   word-wrap: break-word;
-//   background-color: ${(props) => (props.isOutgoing ? '#7FD4F3' : '#000')}; // 예시 색상
-//   color: ${(props) => (props.isOutgoing ? '#000' : '#fff')};
-// `;
-// Props 타입 정의
+
 export type MessageProps = {
   isOutgoing: boolean;
 };
@@ -323,4 +313,79 @@ export const BookerChattingIcon = styled.div`
   width: 13rem;
   height: 13rem;
   cursor: pointer;
+`;
+
+// export const NotificationBadge = styled.span`
+//   display: inline-block;
+//   background-color: red;
+//   color: white;
+//   padding: 0.2em 0.6em;
+//   font-size: 0.75em;
+//   border-radius: 9999px; // Gives a pill shape
+//   font-weight: bold;
+//   margin-left: 10px;
+//   vertical-align: super;
+// `;
+
+export const NicknameLabel = styled.div`
+  background-color: #f0f0f0; // 닉네임 라벨 배경색
+  color: #333; // 닉네임 라벨 텍스트 색상
+  padding: 2px 8px; // 닉네임 라벨 패딩
+  border-radius: 10px; // 닉네임 라벨 둥근 모서리
+  font-size: 0.75rem; // 닉네임 라벨 글꼴 크기
+  margin-bottom: 4px; // 닉네임 라벨과 메시지 컴포넌트 사이의 여백
+  align-self: flex-start; // 부모 요소의 시작점에 정렬
+`;
+
+// export const UserItem = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding: 1rem;
+//   border: 1px solid #ccc;
+//   border-radius: 8px;
+//   margin-bottom: 1rem;
+//   // 기타 필요한 스타일 ...
+// `;
+
+export const UserImage = styled.img`
+  width: 40px; // 유저 이미지 크기 조절
+  height: 40px;
+  border-radius: 50%; // 원형으로 만들기
+  object-fit: cover; // 이미지 비율 유지
+  margin-right: 10px;
+`;
+
+export const UserInfo = styled.div`
+  flex: 1;
+  margin-right: 10px; // 오른쪽에 있는 물품 이미지와의 간격
+`;
+
+export const UserNickname = styled.div`
+  font-weight: bold;
+  // 기타 필요한 스타일 ...
+`;
+
+// export const UserLastMessage = styled.div`
+//   color: #666;
+//   font-size: 0.8rem;
+//   // 기타 필요한 스타일 ...
+// `;
+
+export const ProductImage = styled.img`
+  width: 60px; // 물품 이미지 크기 조절
+  height: 60px;
+  border-radius: 8px; // 적당한 둥근 모서리
+  object-fit: cover;
+`;
+
+export const NotificationBadge = styled.span`
+  background-color: red;
+  color: white;
+  padding: 0.2em 0.6em;
+  font-size: 0.75em;
+  border-radius: 9999px; // 원형 모양
+  margin-left: 10px;
+  vertical-align: super;
+  // 기타 필요한 스타일 ...
 `;

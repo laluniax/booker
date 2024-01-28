@@ -184,7 +184,7 @@ const Form = () => {
             type="email"
             ref={emailRef}
             placeholder="이메일"
-            onBlur={() => validateEmail(emailRef.current?.value || '')}
+            onChange ={() => validateEmail(emailRef.current?.value || '')}
             onKeyDown={handleKeyPress}
           />
           <St.Button onClick={checkEmail}>중복확인</St.Button>
@@ -199,7 +199,7 @@ const Form = () => {
             type="password"
             ref={passwordRef}
             placeholder="비밀번호"
-            onBlur={() => validatePassword(passwordRef.current?.value || '')}
+            onChange ={() => validatePassword(passwordRef.current?.value || '')}
             onKeyDown={handleKeyPress}
           />
           {passwordError &&
@@ -214,7 +214,7 @@ const Form = () => {
             type="password"
             ref={repasswordRef}
             placeholder="비밀번호 재확인"
-            onBlur={validateRepassword}
+            onChange ={validateRepassword}
             onKeyDown={handleKeyPress}
           />
           {repasswordError &&

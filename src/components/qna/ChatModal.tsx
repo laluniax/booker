@@ -1,21 +1,25 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useSendMessage } from '../../api/chatApi';
 import { supabase } from '../../api/supabase.api';
 import {
   ChatId,
   chatRoomsState,
   globalModalSwitch,
+  isChatModalOpenState,
+  newMessagesCountState,
   otherPerson,
   person,
   productState,
   sendMessages,
 } from '../../atom/product.atom';
 
+import { UnreadCount } from '../../App';
 import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
 import * as St from './ChatModal.styled';
+
 export type MessageType = {
   id: number;
   content: string;
@@ -23,7 +27,10 @@ export type MessageType = {
   chat_id: string;
   item_id: number;
   others_id: string;
+  users?: UserType; // 사용자 닉네임을 포함할 수 있는 옵셔널 프로퍼티
+  created_at: number;
 };
+
 export type UserType = {
   id: string;
   email: string;
@@ -33,6 +40,7 @@ export type UserType = {
 export type ChatData = {
   id: string;
 };
+
 const Chat = () => {
   const [isOpen, setIsOpen] = useRecoilState(globalModalSwitch);
   //모달창을 열고 닫는 state
@@ -49,9 +57,13 @@ const Chat = () => {
   const { mutate: sendDirectMessage } = useSendMessage();
 
   const [productId, setProductId] = useRecoilState(productState);
-  const chatRooms = useRecoilValue(chatRoomsState);
-  const [loginUser, setLoginUser] = useState('');
+  const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
+  const [newMessagesCount, setNewMessagesCount] = useRecoilState(newMessagesCountState);
+  const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(isChatModalOpenState);
+  const [totalUnreadCount, setTotalUnreadCount] = useState<number>(0);
+  const [unreadCounts, setUnreadCounts] = useState<UnreadCount[]>([]);
 
+  //로그인 유저 가져오기
   useEffect(() => {
     async function fetchLoggedInUser() {
       try {
@@ -60,37 +72,55 @@ const Chat = () => {
         } = await supabase.auth.getUser();
 
         if (user?.id) {
-          setLoginUser(user.id);
+          setLoginPersonal(user.id);
         } else {
-          setLoginUser('');
+          setLoginPersonal('');
         }
       } catch (error) {
         console.error('Error fetching logged in user:', error);
       }
     }
 
-    fetchLoggedInUser(); // Call the function to execute it
-  }, []);
+    fetchLoggedInUser();
 
+    const total = calculateTotalUnread(unreadCounts);
+
+
+    setTotalUnreadCount(total);
+  }, [unreadCounts]);
+  // console.log('totaltotal',unreadCounts)
+  //입력값 가져오기
   const InputChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
+  // 읽지 않은 메시지의 총합을 계산하는 함수
+  const calculateTotalUnread = (unreadCounts: UnreadCount[]) => {
+    return unreadCounts.reduce((acc, count) => acc + count.unread_count, 0);
+  };
+
   // DM 클릭 핸들러
-  const DmClickhandler = async (item_id: number, chat_id: string) => {
+  const DmClickhandler = async (item_id: number, chat_id: string, author_id: string) => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    // console.log('item_id',item_id)
-    // console.log('chat_id',chat_id)
+    // console.log('dm',chat_id)
+    // console.log('dm',author_id)
     if (user && user.email) {
       if (user) {
+        markChatAsRead(chat_id, user.id);
         setChatId(chat_id);
         setLoginPersonal(user.id);
         // setOtherLoginPersonal(otherUserId);
         setProductId(item_id);
 
         setIsChatModalOpen(true);
+
+        setChatRooms((prevChatRooms) =>
+          prevChatRooms.map((chatRoom) =>
+            chatRoom.chat_id === chat_id ? { ...chatRoom, hasNewMessage: false } : chatRoom,
+          ),
+        );
       }
     }
   };
@@ -99,6 +129,7 @@ const Chat = () => {
   // 메시지 전송 핸들러
   const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && inputValue.trim()) {
+      event.preventDefault(); // 폼 제출 방지
       sendDirectMessage({
         content: inputValue,
         author_id: LoginPersonal,
@@ -125,13 +156,34 @@ const Chat = () => {
     setInputValue('');
   };
 
+  //읽음처리
+  async function markChatAsRead(chatId: string, userId: string) {
+    const p_chat_id = chatId;
+    const p_user_id = userId;
+    const { data, error } = await supabase.rpc('mark_messages_as_read', { p_chat_id, p_user_id });
+    console.log('카운팅초기화', data);
+    console.log('문제없음', error);
+    if (error) {
+      console.error('Error marking messages as read:', error);
+    }
+  }
+
+
+
+  //채팅창 메시지 보여주는 것
   const renderMessages = () => {
     return messages
+    
       .filter((message: MessageType) => message.chat_id === chatId)
+      .sort((a: MessageType, b: MessageType) => a.id - b.id) // 오름차순 정렬
       .map((message: MessageType) => (
-        <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-          {message.content}
-        </St.MessageComponent>
+        <>
+          {/* {console.log('messages',messages)} */}
+          {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
+          <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
+            {message.content}
+          </St.MessageComponent>
+        </>
       ));
   };
 
@@ -163,30 +215,75 @@ const Chat = () => {
     setIsAsk(false);
   };
 
-  // // 사용자 목록을 렌더링하는 함수
   // const renderChatRoomsList = () => {
-  //   return chatRooms.map((chatRoom) => (
-  //     <St.UserItem key={chatRoom.chat_id}>
-  //       {/* <St.UserEmail>{chatRoom.receiverNickname}</St.UserEmail>  */}
-  //       <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
-  //       <St.DMButton onClick={() => DmClickhandler( chatRoom.item_id, chatRoom.chat_id)}>
-  //         Open Chat
-  //       </St.DMButton>
-  //     </St.UserItem>
-  //   ));
+
+  //   return chatRooms
+  //     .filter((chatRoom) => chatRoom.user_id === LoginPersonal)
+  //     .map((chatRoom) => (
+  //       <St.UserItem key={chatRoom.chat_id}>
+  //         <St.UserEmail>
+  //           {chatRoom.sendNickname}
+  //           {chatRoom.hasNewMessage ? (
+  //             <>
+  //               {console.log('chatRoom:', chatRoom.chat_id)}
+  //               <St.NotificationBadge>New!</St.NotificationBadge>
+  //             </>
+  //           ) : null}
+  //         </St.UserEmail>
+
+  //         <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
+  //         <St.DMButton onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id)}>Open Chat</St.DMButton>
+  //       </St.UserItem>
+  //     ));
   // };
-  // console.log('LoginPersonal',loginUser)
+
+  // console.log('chatroom_unread',chatRooms) 쓰던거
+  // const renderChatRoomsList = () => {
+  //   return chatRooms
+  //     .filter((chatRoom) => chatRoom.user_id === LoginPersonal)
+  //     .map((chatRoom) => (
+  //       <St.UserItem key={chatRoom.chat_id}>
+  //         <St.UserEmail>
+
+  //           {chatRoom.sendNickname}
+  //           {chatRoom.unread_count > 0 && (
+  //             <>
+  //               {console.log('chatRoom:', chatRoom.unread_count)}
+  //               <St.NotificationBadge>{chatRoom.unread_count}</St.NotificationBadge>
+  //             </>
+  //           )}
+  //         </St.UserEmail>
+  //         <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
+  //         <St.DMButton onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id, chatRoom.author_id)}>Open Chat</St.DMButton>
+  //       </St.UserItem>
+  //     ));
+  // };
 
   const renderChatRoomsList = () => {
     return chatRooms
-      .filter((chatRoom) => chatRoom.user_id === loginUser)
+      .filter((chatRoom) => chatRoom.user_id === LoginPersonal)
       .map((chatRoom) => (
-        <St.UserItem key={chatRoom.chat_id}>
-          <St.UserEmail>{chatRoom.sendNickname}</St.UserEmail>
-          <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
-          <St.DMButton onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id)}>Open Chat</St.DMButton>
+        <St.UserItem
+          key={chatRoom.chat_id}
+          onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id, chatRoom.author_id)} // 클릭 이벤트 추가
+        >
+          <St.UserImage src={chatRoom.user_img || '기본 이미지 경로'} alt="user image" />
+          <St.UserInfo>
+            <St.UserNickname>
+              <>{console.log('chatRoom.unread_count',chatRoom.unread_count)}</>
+              {chatRoom.sendNickname}
+              {chatRoom.unread_count > 0 && <St.NotificationBadge>{chatRoom.unread_count}</St.NotificationBadge>}
+            </St.UserNickname>
+            <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
+          </St.UserInfo>
+          <St.ProductImage src={chatRoom.product_img || '기본 물품 이미지 경로'} alt="product image" />
         </St.UserItem>
       ));
+  };
+
+  const toggleChatModal = () => {
+    setChatBtnOpen((prevState) => !prevState);
+    setNewMessagesCount(0);
   };
 
   return (
@@ -274,8 +371,15 @@ const Chat = () => {
           onClick={() => {
             setIsOpen(!isOpen);
             setIsSwitch(!isSwitch);
+            toggleChatModal();
           }}
         />
+        {!ChatBtnOpen && newMessagesCount > 0 && (
+          <St.NotificationBadge>
+            {totalUnreadCount}
+            {newMessagesCount}
+          </St.NotificationBadge>
+        )}
       </St.TalkButtonWrapper>
     </>
   );
