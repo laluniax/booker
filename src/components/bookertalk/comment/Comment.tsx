@@ -67,8 +67,8 @@ const Comment = ({ setCommentsCount }: PropsTypes) => {
       {session ? (
         <St.CommentForm>
           <St.FormUserData>
-            <St.UserImg src={metaData?.user_img} />
-            <div>{metaData?.full_name}</div>
+            <St.UserImg src={metaData?.user_img || metaData?.avatar_url} />
+            <div>{metaData?.full_name || metaData?.preferred_username || metaData?.user_name || metaData?.name}</div>
           </St.FormUserData>
           <St.CommentTextArea
             value={content}
@@ -92,12 +92,14 @@ const Comment = ({ setCommentsCount }: PropsTypes) => {
             return (
               <St.Comment key={i}>
                 <St.CommentUser>
-                  <St.UserImg src={item.users.user_img ?? undefined} />
-                  <St.CommentNicknameCreatedAt>
-                    <St.CommentNickname>{item.users.nickname}</St.CommentNickname>
-                    <St.CommentCreatedAt>{formatCreatedAt(item.created_at)}</St.CommentCreatedAt>
-                  </St.CommentNicknameCreatedAt>
-
+                  {' '}
+                  <St.UserImgNicknameCreatedAt>
+                    <St.UserImg src={item.users.user_img ?? undefined} />
+                    <St.CommentNicknameCreatedAt>
+                      <St.CommentNickname>{item.users.nickname}</St.CommentNickname>
+                      <St.CommentCreatedAt>{formatCreatedAt(item.created_at)}</St.CommentCreatedAt>
+                    </St.CommentNicknameCreatedAt>
+                  </St.UserImgNicknameCreatedAt>
                   {session === item.user_id ? (
                     <St.CommentBtnDiv>
                       {isEditing ? (
