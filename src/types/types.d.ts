@@ -139,6 +139,23 @@ export type Message = {
   id: number;
 };
 
+export interface UserLocationState {
+  lat: number;
+  lng: number;
+}
+
+type Marker = {
+  position: {
+    lat: number; // 숫자 타입으로 수정
+    lng: number; // 숫자 타입으로 수정
+  };
+  content: string;
+};
+// 위치 정보 타입 정의
+export interface Location {
+  latitude: number | null;
+  longitude: number | null;
+}
 export type PostsListLikesTypes = {
   content: string | null;
   created_at: string;
