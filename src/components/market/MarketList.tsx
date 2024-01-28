@@ -98,15 +98,18 @@ const MarketList = () => {
                     <St.LogoImage />
                   ) : (
                     <St.ProductImg>
-                      <img src={(item.product_img && item.product_img[0]) ?? undefined} />
+                      <img src={(item.product_img && item.product_img[0]) ?? undefined}></img>
                     </St.ProductImg>
                   )}
+                  <St.CardTitleAndContentBox>
+                    <St.EmptyHeartImg />
+                    <St.ProductTitle>{item.title}</St.ProductTitle>
+                    <St.ProductInfo>
+                      <St.ProductPrice>{item.price} 원</St.ProductPrice>
+                      <St.ProductCreatedAt>{formatCreatedAt(item.created_at)}</St.ProductCreatedAt>
+                    </St.ProductInfo>
+                  </St.CardTitleAndContentBox>
 
-                  <St.ProductTitle>{item.title}</St.ProductTitle>
-                  <St.ProductInfo>
-                    <St.ProductPrice>{item.price} 원</St.ProductPrice>
-                    <St.ProductCreatedAt>{formatCreatedAt(item.created_at)}</St.ProductCreatedAt>
-                  </St.ProductInfo>
                   {item.onsale ? null : <St.Onsale>판매 완료</St.Onsale>}
                 </St.ProductCard>
               );
