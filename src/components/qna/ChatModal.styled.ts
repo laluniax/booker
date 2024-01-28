@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import bookerChattingIcon from '../../assets/common/bookerchattingicon.webp';
-import prevIcon from '../../assets/common/prev1.webp';
+import prevIcon from '../../assets/common/prevbutton1.webp';
+
 export const Container = styled.div`
   position: relative;
   width: 100%;
@@ -47,7 +48,7 @@ export const ChatTopBox = styled.div`
   height: 6rem;
   margin-bottom: 2rem;
 `;
-export const MainMessage = styled.p`
+export const MainMessage = styled.div`
   font-size: 1.4rem;
 `;
 // 문의하기 버튼

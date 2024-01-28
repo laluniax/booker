@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getPostsHandler, getProductListHandler } from '../../api/supabase.api';
 import { Bestseller, BooksInfoTypes, PostsTypes, ProductsTypes } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
+import Loading from '../survey/Loading';
 import * as St from './SearchField.styled';
 
 const SearchField = () => {
@@ -17,6 +18,10 @@ const SearchField = () => {
   const [newBook, setNewBook] = useState<BooksInfoTypes[]>([]);
   const [bookSpecial, setBookSpecial] = useState<BooksInfoTypes[]>([]);
   const [bookerPick, setBookerPick] = useState<BooksInfoTypes[]>([]);
+  const [loading1, setLoading1] = useState(false);
+  const [loading2, setLoading2] = useState(false);
+  const [loading3, setLoading3] = useState(false);
+  const [loading4, setLoading4] = useState(false);
 
   const getPost = async () => {
     try {
@@ -36,6 +41,7 @@ const SearchField = () => {
 
   const getBook = async () => {
     try {
+      setLoading1(true);
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller`);
       const filteredBestSellers = response.data.item.filter((item: Bestseller) => {
         return (
@@ -46,11 +52,14 @@ const SearchField = () => {
         );
       });
       setBestSellerList(filteredBestSellers);
+      setLoading1(false);
     } catch (error) {
       console.log(error);
     }
     try {
-      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks`);
+      setLoading2(true);
+
+      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/BlogBest`);
       const filteredBookerPick = response.data.item.filter((item: BooksInfoTypes) => {
         return (
           item.title.toLowerCase().includes(keyword?.toLowerCase() as string) ||
@@ -59,10 +68,13 @@ const SearchField = () => {
         );
       });
       setBookerPick(filteredBookerPick);
+      setLoading2(false);
     } catch (error) {
       console.log(error);
     }
     try {
+      setLoading3(true);
+
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special`);
       const filteredBookSpecial = response.data.item.filter((item: BooksInfoTypes) => {
         return (
@@ -72,10 +84,13 @@ const SearchField = () => {
         );
       });
       setBookSpecial(filteredBookSpecial);
+      setLoading3(false);
     } catch (error) {
       console.log(error);
     }
     try {
+      setLoading4(true);
+
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks`);
       const filteredNewBooks = response.data.item.filter((item: BooksInfoTypes) => {
         return (
@@ -85,6 +100,7 @@ const SearchField = () => {
         );
       });
       setNewBook(filteredNewBooks);
+      setLoading4(false);
     } catch (error) {
       console.log(error);
     }
@@ -135,9 +151,11 @@ const SearchField = () => {
       </St.SearchWrapper>
       <St.SearchBookWrapper>
         <St.SearchTitle>도서 소개</St.SearchTitle>
+
         {bestSellerList.length > 0 ? (
           <>
             <St.BookListCategory>베스트 셀러</St.BookListCategory>
+            {loading1 ? <Loading /> : null}
             <St.BookList>
               {bestSellerList.map((item, i) => {
                 return (
@@ -162,6 +180,7 @@ const SearchField = () => {
         {newBook.length > 0 ? (
           <>
             <St.BookListCategory>신간도서</St.BookListCategory>
+            {loading2 ? <Loading /> : null}
             <St.BookList>
               {newBook.map((item, i) => {
                 return (
@@ -186,6 +205,7 @@ const SearchField = () => {
         {bookSpecial.length > 0 ? (
           <>
             <St.BookListCategory>스페셜</St.BookListCategory>
+            {loading3 ? <Loading /> : null}
             <St.BookList>
               {bookSpecial.map((item, i) => {
                 return (
@@ -210,6 +230,7 @@ const SearchField = () => {
         {bookerPick.length > 0 ? (
           <>
             <St.BookListCategory>북커픽</St.BookListCategory>
+            {loading4 ? <Loading /> : null}
             <St.BookList>
               {bookerPick.map((item, i) => {
                 return (
@@ -240,9 +261,7 @@ const SearchField = () => {
               return (
                 <St.Product key={i} onClick={() => navigate(`/product/${item.id}`)}>
                   {item.product_img && item.product_img.length === 0 ? (
-                    <St.LogoImg>
-                      <img src={`${process.env.PUBLIC_URL}/images/common/logo.png`} alt="logo" />
-                    </St.LogoImg>
+                    <St.LogoImg />
                   ) : (
                     <St.ProductImg>
                       <img src={(item.product_img && item.product_img[0]) ?? undefined} alt="검색결과상품이미지" />

@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import { ThemeProvider } from 'styled-components';
 import { supabase } from './api/supabase.api';
 import { ChatId, ChatRoom, chatRoomsState, sendMessages } from './atom/product.atom';
 import { AuthContextProvider } from './contexts/auth.context';
 import Router from './shared/Router';
 import GlobalStyle from './styles/globalStyle';
+import theme from './styles/theme';
 
 const queryClient = new QueryClient();
 
@@ -38,7 +40,7 @@ const App = () => {
               .eq('chat_id', chatRoom.id)
               .order('created_at', { ascending: false })
               .limit(1)
-              .single();
+              .maybeSingle();
 
             if (lastMessageError) throw lastMessageError;
 
@@ -122,8 +124,10 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        <GlobalStyle />
-        <Router />
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <Router />
+        </ThemeProvider>
       </AuthContextProvider>
     </QueryClientProvider>
   );

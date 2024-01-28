@@ -1,26 +1,25 @@
 import styled, { keyframes } from 'styled-components';
-import leftIcon from '../../../styles/assets/left_btn2.png';
-import rightIcon from '../../../styles/assets/right_btn.png';
+import leftButtonIcon from '../../../assets/common/buttonleft.webp';
+import rightButtonIcon from '../../../assets/common/buttonright.webp';
 
 export const SlideshowContainer = styled.div`
   position: relative;
-  width: 85rem;
+  max-width: 100%;
   height: 51rem;
   overflow: hidden;
   margin-left: 2rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
-  grid-column: 1; // 슬라이드쇼를 첫 번째 열에 배치합니다
+  grid-column: 1;
 
-  @media (max-width: 768px) {
-    width: 65rem;
-    height: 40rem;
-  }
+  ${({ theme }) => theme.mediaQuery.sm`
+    width:46rem;
+    height:26rem;
+  `};
 
-  @media (min-width: 300px) {
-  }
-
-  @media (min-width: 1024px) {
-  }
+  ${({ theme }) => theme.mediaQuery.lg`
+    width:85rem;
+    height:51rem;
+  `};
 `;
 
 export const fadeInOut = keyframes`
@@ -46,10 +45,10 @@ export const slideInLeft = keyframes`
 `;
 
 export const SlideshowImage = styled.img`
-  width: 100%;
-  height: 80vh;
+  /* width: 100%; */
+  /* height: 80vh; */
   background-size: contain;
-  width: 85rem;
+  max-width: 100%;
   height: 51rem;
   object-fit: cover;
   object-position: 50% 40%;
@@ -60,17 +59,22 @@ export const SlideshowImage = styled.img`
   transform: scale(1.1) translateX(-1rem) rotate(-5deg);
   transition: all 0.5s ease-in-out;
 
-  @media (max-width: 768px) {
-    width: 65rem;
-    height: 40rem;
-  }
-
   &.active {
     z-index: 1;
     opacity: 1;
     transform: scale(1) translateX(0) rotate(0);
     animation: ${fadeInOut} 0.7s ease-in-out;
   }
+
+  ${({ theme }) => theme.mediaQuery.sm`
+    width: 46rem;
+    height:26rem;
+  `};
+
+  ${({ theme }) => theme.mediaQuery.lg`
+    width: 85rem;
+    height: 51rem;
+  `};
 `;
 
 export const PrevButton = styled.button`
@@ -107,7 +111,7 @@ export const NextButton = styled.button`
 `;
 
 export const LeftIcon = styled.span`
-  background: url(${leftIcon}) no-repeat 50%;
+  background: url(${leftButtonIcon}) no-repeat 50%;
   text-indent: -9999px;
   position: absolute;
   top: 42%;
@@ -122,7 +126,7 @@ export const LeftIcon = styled.span`
 `;
 
 export const RightIcon = styled.span`
-  background: url(${rightIcon}) no-repeat 50%;
+  background: url(${rightButtonIcon}) no-repeat 50%;
   text-indent: -9999px;
   position: absolute;
   top: 42%;

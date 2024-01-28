@@ -160,7 +160,6 @@ const Post = () => {
     getUserSession();
     params && getPost();
   }, [params]);
-
   return (
     <St.Container>
       <St.FormWrapper>
@@ -232,7 +231,7 @@ const Post = () => {
           </St.CategoryAndGenreBox>
 
           <Editor
-            initialValue="내용을 입력해주세요 !"
+            initialValue=""
             previewStyle="vertical"
             height="600px"
             initialEditType="wysiwyg"

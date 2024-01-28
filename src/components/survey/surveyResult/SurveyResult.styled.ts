@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import PrevBtn from '../../../styles/assets/buttonimages/prev2.png';
+import prevButton from '../../../assets/common/prevbutton2.webp';
 
 export const Container = styled.div`
   width: 90rem;
   margin: 0 auto;
 `;
 export const BackToListBtn = styled.div`
-  background: url(${PrevBtn});
+  background: url(${prevButton});
   background-size: contain;
   width: 5rem;
   height: 5rem;
