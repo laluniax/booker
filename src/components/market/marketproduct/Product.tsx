@@ -17,6 +17,7 @@ import { ChatId, otherPerson, person, productState, sendMessages } from '../../.
 
 import { Session } from '@supabase/supabase-js';
 import { ProductsTypes } from '../../../types/types';
+import { formatCreatedAt } from '../../../utils/date';
 import ProductsLike from '../../common/like/ProductsLike';
 import { MessageType } from '../../qna/ChatModal';
 import { categoryArr } from '../marketpost/Post';
@@ -180,6 +181,8 @@ const Product = () => {
     followIdList();
   };
 
+  const [likes, setLikes] = useState<any[]>([]);
+
   useEffect(() => {
     getProduct();
   }, []);
@@ -207,35 +210,52 @@ const Product = () => {
           </>
         ) : (
           <St.SliderWrapper>
-            <St.SliderUl ref={slideRef}>
+            <St.SliderUl
+              ref={slideRef}
+              style={{ transform: `translateX(-${currentSlide * 20}rem)` }}
+              slideCount={product?.product_img?.length ?? 0}>
               {product?.product_img?.map((img, i) => (
                 <St.SliderLi key={i}>
-                  <img src={img} />
+                  <img src={img} alt={`Product image ${i + 1}`} />
                 </St.SliderLi>
               ))}
             </St.SliderUl>
             {currentSlide !== 0 && (
               <St.SliderBtn onClick={onClickPrevBtn} className="prev">
-                〈
+                <St.SliderPrevBtn />
               </St.SliderBtn>
             )}
             {currentSlide !== slideLength - 1 && (
               <St.SliderBtn onClick={onClickNextBtn} className="next">
-                〉
+                <St.SliderNextBtn />
               </St.SliderBtn>
             )}
           </St.SliderWrapper>
         )}
         <St.ProductInfo>
-          <St.ProductTitle>{product?.title}</St.ProductTitle>
+          <St.ProductTitleAndDate>
+            <St.ProductTitle>{product?.title}</St.ProductTitle>
+            <St.ProductDate>
+              | {product?.created_at ? formatCreatedAt(product.created_at) : '날짜 정보 없음'}
+            </St.ProductDate>
+          </St.ProductTitleAndDate>
+
           <St.ProductCategory>
             <span>카테고리 | </span>
             {product?.category}
+            <St.ProductGrade>
+              <span>제품 상태 | </span>
+              {product?.product_grade}
+            </St.ProductGrade>
           </St.ProductCategory>
-          <St.ProductGrade>
-            <span>상품 상태 | </span>
-            {product?.product_grade}
-          </St.ProductGrade>
+          <St.ProductCategory>
+            <span>거래 혜택 | </span>첫 결제 시 안전거래 수수료 1,000원 할인
+            <St.ProductGrade>
+              <span>무이자 | </span>
+              1개월 이상 무이자 할부
+            </St.ProductGrade>
+          </St.ProductCategory>
+          {/* formatCreatedAt */}
           <St.PriceBtnWrapper>
             <St.ProductPrice>
               {product?.price} <span>원</span>
@@ -258,7 +278,7 @@ const Product = () => {
                   <St.ProductsLikesWrapper>
                     <ProductsLike postId={postId} />
                   </St.ProductsLikesWrapper>
-                  <St.ProductLikes onClick={onClickDMButton}>대화 시작하기</St.ProductLikes>
+                  <St.StartChat onClick={onClickDMButton}>대화 시작하기</St.StartChat>
                 </>
               ) : (
                 <St.ProductSoldOut>판매 완료된 상품입니다.</St.ProductSoldOut>
