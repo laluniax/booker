@@ -351,6 +351,14 @@ export const BookerTalkCardImage = styled.div<BookerTalkCardImageProps>`
   ${({ theme }) => theme.mediaQuery.lg`
   width: 25rem;
   height: 25rem;
+  
+  &:hover {
+    cursor: pointer;
+    width: 30rem;
+    height: 30rem;
+    transition: 0.4s;
+  }
+
   `};
 `;
 export const CardTitle = styled.div`

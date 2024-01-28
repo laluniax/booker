@@ -15,6 +15,7 @@ const AboutBookNav = () => {
   useEffect(() => {
     setSelectedCategory(location.pathname);
   }, [location]);
+
   return (
     <St.Container>
       <St.CatrgoryBox>

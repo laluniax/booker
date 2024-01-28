@@ -21,6 +21,12 @@ const BestSellerCheap = () => {
       const result = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller');
       setBestsellers(result.data.item);
       setLoading(false);
+
+      // 로딩 실패했을 때
+      if (loading === false) {
+        alert('데이터를 불러오는데 문제가 발생했어요 😭 다음에 다시 시도해주세요 !  ');
+        navigate('/survey');
+      }
     } catch (error) {
       console.log('Error fetching data:', error);
     }

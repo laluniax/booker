@@ -31,6 +31,7 @@ export const Container = styled.div`
 `;
 export const Header = styled.header``;
 export const CategoryTitle = styled.div`
+  font-family: 'GmarketSansMedium';
   border-bottom: 2px solid #000;
   padding-bottom: 1rem;
   font-size: 2rem;
@@ -112,9 +113,11 @@ export const BookImg = styled.div`
 `;
 
 export const BookIntro = styled.div`
+  font-family: 'GmarketSansMedium';
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  gap: 1rem;
 `;
 export const Title = styled.h4`
   width: 12.7rem;
@@ -173,4 +176,5 @@ export const Plot = styled.span`
 
 export const BookWrapper = styled.div`
   display: flex;
+  background-color: gray;
 `;

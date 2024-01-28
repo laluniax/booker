@@ -4,7 +4,9 @@ import prevButton from '../../../assets/common/prevbutton2.webp';
 export const Container = styled.div`
   width: 90rem;
   margin: 0 auto;
+  min-height: 90rem;
 `;
+
 export const BackToListBtn = styled.div`
   background: url(${prevButton});
   background-size: contain;
@@ -16,7 +18,10 @@ export const BackToListBtn = styled.div`
   }
 `;
 
-export const ResultWrapper = styled.div``;
+export const ResultWrapper = styled.div`
+  font-family: 'GmarketSansMedium';
+`;
+
 export const Result = styled.div`
   margin: 5rem 0;
 `;

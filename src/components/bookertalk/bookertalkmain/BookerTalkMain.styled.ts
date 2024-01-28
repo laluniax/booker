@@ -85,10 +85,9 @@ export const GenreButtonbox = styled.div`
 export const GenreButton = styled.button`
   all: unset;
   color: black;
-  width: 10.5rem;
   height: 2.5rem;
+
   &.active {
-    width: 10.5rem;
     height: 2.5rem;
     color: #015e80;
     font-weight: bold;
@@ -245,7 +244,7 @@ export const PostNicknameDate = styled.div`
 `;
 
 export const PostNickName = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   display: flex;
   justify-content: end;
   margin-bottom: 0.5rem;
@@ -268,6 +267,6 @@ export const PostNickName = styled.div`
 // export const PostContent = styled.span``;
 
 export const PostDate = styled.span`
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   float: right;
 `;

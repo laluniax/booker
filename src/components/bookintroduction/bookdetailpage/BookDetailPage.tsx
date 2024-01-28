@@ -45,10 +45,26 @@ const BookDetailPage = () => {
         onClick={() => {
           navigate(`/aboutbooks`);
         }}></St.PrevButton>
+      <St.TitleAndAuthorBox>
+        <St.BookTitle>{detailData.title}</St.BookTitle>
+        <St.Bookauthor>저자 | {detailData.author}</St.Bookauthor>
+      </St.TitleAndAuthorBox>
+
       <St.BookWrapper>
         <St.InfoHeader>
           <St.BookImage>
-            <img src={detailData.cover} width={590} height={700} alt={detailData.title} />
+            <img src={detailData.cover} width={400} height={600} alt={detailData.title} />
+            <St.BookIntro>
+              <St.BookDetailBox>
+                <St.Publisher>출판사 | {detailData.publisher}</St.Publisher>
+                <St.PubData>출판일 | {detailData.pubDate}</St.PubData>
+                <St.Description>{detailData.description}</St.Description>
+                <St.EmphasisDescription>주제 분류</St.EmphasisDescription>
+                <St.DescriptionLi> {detailData.categoryName}</St.DescriptionLi>
+                <St.EmphasisDescription>기본 정보</St.EmphasisDescription>
+                <St.DescriptionLi>ISBN : {detailData.isbn13}</St.DescriptionLi>
+              </St.BookDetailBox>
+            </St.BookIntro>
           </St.BookImage>
           <St.BookIntro>
             <St.BookDetailBox>

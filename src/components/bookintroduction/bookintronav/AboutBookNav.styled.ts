@@ -27,8 +27,11 @@ export const Container = styled.div`
 `;
 
 export const CatrgoryBox = styled.div`
+  font-family: 'GmarketSansMedium';
   display: flex;
-  width: 30rem;
+  width: 17rem;
+
+  height: 20rem;
   justify-content: center;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -67,6 +70,7 @@ export const CategoryList = styled.button`
   margin: 0.2rem 0.3rem;
   &.active {
     color: #015e80;
+    font-size: 2.2rem;
     border-bottom: 0.1rem solid black;
   }
   &:hover {
