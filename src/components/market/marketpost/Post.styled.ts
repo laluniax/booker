@@ -77,6 +77,7 @@ export const PostImgLabel = styled.label`
   color: #000;
   padding: 1rem;
   border-radius: 2rem;
+  margin-top: 1rem;
 
   &:hover {
     cursor: pointer;

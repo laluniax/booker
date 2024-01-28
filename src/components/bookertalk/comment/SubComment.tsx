@@ -79,9 +79,9 @@ const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
               .sort((a, b) => a.id - b.id)
               .map((item, i) => {
                 return (
-                  <St.SubComment key={i}>
+                  <St.SubCommentList key={i}>
                     <St.SubCommentNextText> ┗ </St.SubCommentNextText>
-                    <div>
+                    <St.SubComment>
                       <St.SubCommentUserAndBtn>
                         <St.SubCommentUser>
                           <St.SubCommentImg src={item.users.user_img ?? undefined} />
@@ -144,8 +144,8 @@ const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
                           item.content
                         )}
                       </St.SubCommentContent>
-                    </div>
-                  </St.SubComment>
+                    </St.SubComment>
+                  </St.SubCommentList>
                 );
               })}
           </St.SubCommentBox>

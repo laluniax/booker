@@ -11,9 +11,17 @@ export const CountLike = styled.div`
   margin-bottom: 0.3rem;
   margin-left: 0.2rem;
   & span {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     color: #bcbcbc;
   }
+  ${({ theme }) => theme.mediaQuery.sm`
+    font-size: 2.4rem;
+    & span {
+      font-size: 1.6rem;
+    }
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  `};
 `;
 export const HeartButton = styled.button`
   background-color: transparent;

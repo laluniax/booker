@@ -200,6 +200,7 @@ export const ProductTitle = styled.div`
   margin-top: 0.6rem;
   font-size: 2rem;
   font-weight: bold;
+  width: 11ch;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

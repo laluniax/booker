@@ -91,6 +91,7 @@ export const SliderBtn = styled.button`
   height: 3rem;
   top: 50%;
   font-size: 2rem;
+
   &.prev {
     left: 1rem;
   }
@@ -234,9 +235,8 @@ export const ProductSoldOut = styled.div`
 export const ProductLikesChatUser = styled.div``;
 
 export const ProductUser = styled.div`
-  /* width: 20rem; */
   font-family: 'GmarketSansMedium';
-  height: 6rem;
+  height: 6.1rem;
   background-color: #14213d;
   color: #fff;
   padding: 0 2rem;
@@ -244,6 +244,7 @@ export const ProductUser = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 0.7rem;
   font-size: 1.8rem;
   cursor: pointer;
   & img {
