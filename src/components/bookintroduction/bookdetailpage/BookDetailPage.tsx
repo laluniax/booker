@@ -49,16 +49,16 @@ const BookDetailPage = () => {
         <St.InfoHeader>
           <St.BookImage>
             <img src={detailData.cover} width={590} height={700} alt={detailData.title} />
-            <St.BookIntro>
-              <St.BookDetailBox>
-                <St.BookTitle>{detailData.title}</St.BookTitle>
-                <St.Bookauthor>저자 | {detailData.author}</St.Bookauthor>
-                <St.Publisher>출판사 | {detailData.publisher}</St.Publisher>
-                <St.PubData>출판일 | {detailData.pubDate}</St.PubData>
-                <St.Description>{detailData.description}</St.Description>
-              </St.BookDetailBox>
-            </St.BookIntro>
           </St.BookImage>
+          <St.BookIntro>
+            <St.BookDetailBox>
+              <St.BookTitle>{detailData.title}</St.BookTitle>
+              <St.Bookauthor>저자 | {detailData.author}</St.Bookauthor>
+              <St.Publisher>출판사 | {detailData.publisher}</St.Publisher>
+              <St.PubData>출판일 | {detailData.pubDate}</St.PubData>
+              <St.Description>{detailData.description}</St.Description>
+            </St.BookDetailBox>
+          </St.BookIntro>
         </St.InfoHeader>
       </St.BookWrapper>
     </St.Container>

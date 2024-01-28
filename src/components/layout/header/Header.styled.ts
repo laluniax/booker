@@ -117,6 +117,7 @@ export const HeaderLi = styled.li`
     }
   }
 `;
+
 export const HeaderSearchMypage = styled.div`
   position: absolute;
   top: 2rem;
