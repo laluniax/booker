@@ -3,16 +3,16 @@ import prev from '../../../assets/common/prevbutton2.webp';
 
 export const Container = styled.div`
   width: 30rem;
-  height: 100rem;
+  height: 120rem;
   margin: 0 auto;
   ${({ theme }) => theme.mediaQuery.sm`
   width: 70rem;
-  height: 70rem;
+  height: 100rem;
   margin-top: 5rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
   width: 120rem;
-  height: 80rem;
+  height: 100rem;
   `};
 `;
 
@@ -59,10 +59,14 @@ export const BookTitle = styled.h2`
 export const InfoHeader = styled.div`
   display: flex;
   flex-direction: column;
+  width: 30rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
+  width: 70rem;
   flex-direction: row;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
+  width: 120rem;
   `};
 `;
 
@@ -90,16 +94,22 @@ export const BookImage = styled.div`
 
 export const BookIntro = styled.div`
   /* font-size: 1.5rem; */
-  display: flex;
-  align-items: center;
+  /* display: flex; */
+  /* align-items: center; */
   gap: 4rem;
   padding: 2rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
   margin-left: 1rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  `};
 `;
 
 export const BookDetailBox = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 1rem;
 `;
 
@@ -115,11 +125,11 @@ export const Bookauthor = styled.div`
 `;
 
 export const Publisher = styled.div`
-  margin-top: 1rem;
   font-size: 1.4rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-font-size: 2rem;
+  margin-top: 1rem;
+  font-size: 2rem;
 `};
   ${({ theme }) => theme.mediaQuery.lg`
 `};
@@ -127,9 +137,16 @@ font-size: 2rem;
 
 export const EmphasisDescription = styled.span`
   font-family: 'GmarketSansMedium';
-  font-size: 2.3rem;
+  font-size: 1.5rem;
   margin-top: 1.3rem;
   font-weight: bold;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  font-size: 2.3rem;
+  margin-top: 1.3rem;
+`};
+  ${({ theme }) => theme.mediaQuery.lg`
+`};
 `;
 
 export const Description = styled.div`
@@ -144,12 +161,24 @@ font-size: 2rem;
 `};
 `;
 
+export const DescriptionLi = styled.li`
+  font-size: 1.5rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+    font-size: 2rem;
+    margin-top: 1rem;
+`};
+  ${({ theme }) => theme.mediaQuery.lg`
+`};
+`;
+
 export const PubData = styled.div`
-  margin-top: 1rem;
   font-size: 1.4rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
 font-size: 2rem;
+margin-top: 1rem;
+
 `};
   ${({ theme }) => theme.mediaQuery.lg`
 `};

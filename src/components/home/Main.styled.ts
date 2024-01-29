@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import bannerBookImage from '../../assets/mainimage/bannerbookimage.webp';
 // 북커톡
 // 도서소개
-import bookIntroImage1 from '../../assets/mainimage/bookintrobest.webp';
 
 // 중고거래
 
@@ -13,7 +12,7 @@ import indBookStoreImage from '../../assets/indbookstoreimage/indbookstoreimage1
 import surveyImage from '../../assets/mainimage/mainindebookstore.webp';
 
 export const Container = styled.div`
-  min-height: 380rem;
+  min-height: 350rem;
   max-width: 35rem;
   margin: 0 auto;
 
@@ -97,23 +96,78 @@ export const Detail = styled.div`
 `;
 
 //카드
-export const CardBox = styled.div`
+export const BookerTalkCardBox = styled.div`
   display: grid;
+  justify-content: center;
+  align-items: center;
   grid-template-columns: repeat(2, 1fr);
   width: 30rem;
-  height: 50rem;
-  margin: 0 auto;
+  height: 40rem;
+  margin: 1rem auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
   display: flex;
   justify-content: center;
   width: 65rem;
+  height: 22rem;
   gap:5rem;
   margin:0 auto;
   margin-top: 1rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
   width:120rem;
+  height: 32rem;
+  gap:2rem;
+  margin-top: 2rem;
+  `};
+`;
+
+export const BookIntroCardBox = styled.div`
+  display: grid;
+  justify-content: center;
+  /* align-items: center; */
+  grid-template-columns: repeat(2, 1fr);
+  width: 30rem;
+  height: 52rem;
+  margin: 1rem auto;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  display: flex;
+  justify-content: center;
+  width: 65rem;
+  height: 32rem;
+  gap:5rem;
+  margin:0 auto;
+  margin-top: 1rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  width:120rem;
+  height: 55rem;
+  gap:2rem;
+  margin-top: 2rem;
+  `};
+`;
+
+export const MarketCardBox = styled.div`
+  display: grid;
+  /* justify-content: center; */
+  /* align-items: center; */
+  grid-template-columns: repeat(2, 1fr);
+  width: 30rem;
+  height: 37rem;
+  margin: 1rem auto;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  display: flex;
+  justify-content: center;
+  width: 70rem;
+  height: 35rem;
+  gap:1rem;
+  margin:1rem auto;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  width:120rem;
+  height: 45rem;
   gap:2rem;
   margin-top: 2rem;
   `};
@@ -323,13 +377,13 @@ export const BookerTalkCardImage = styled.div<BookerTalkCardImageProps>`
   margin-top: 2rem;
   border-radius: 20%;
 
-  width: 14rem;
-  height: 14rem;
+  width: 13rem;
+  height: 13rem;
 
   &:hover {
     cursor: pointer;
-    width: 30rem;
-    height: 30rem;
+    width: 14.5rem;
+    height: 14.5rem;
     transition: 0.4s;
   }
 
@@ -393,11 +447,12 @@ export const CardContent = styled.div`
 // -------------------------------------------
 // 도서소개
 export const BookIntroWrapper = styled.div`
-  margin: 8rem auto;
+  margin: 4rem auto;
   width: 30rem;
+  height: 58rem;
   ${({ theme }) => theme.mediaQuery.sm`
   margin-top : 1rem;
-  height: 40rem;
+  height: 30rem;
   width: 70rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
@@ -408,22 +463,27 @@ export const BookIntroWrapper = styled.div`
 `;
 
 export const CategoryBox = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin-top: 3rem;
-  margin-left: 1rem;
-  grid-row-gap: 20rem;
-  z-index: 0;
+  /* display: grid; */
+  /* grid-template-columns: repeat(2, 1fr); */
+  /* margin-left: 1rem; */
+  /* grid-row-gap: 20rem; */
+  /* z-index: 0; */
+  margin-top: 1rem;
+  width: 15rem;
+  height: 1.5rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap:3rem;
-  margin:3rem auto;
+  margin-top:1rem;
+  width: 14rem;
+  height: 4rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-  gap: 4rem;
+  width: 25rem;
+  height: 5rem;
+  margin-left:2rem;
   `};
 `;
 
@@ -433,16 +493,18 @@ export const BookIntroCategory = styled.div`
   padding-bottom: 0.4rem;
   letter-spacing: 0.2rem;
   width: 13rem;
+  height: 2rem;
   padding-left: 0.3rem;
-  margin: 0 auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
   font-size : 1.5rem;
-  width: 13rem;
+  width: 14rem;
+  height: 2.5rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
     font-size: 2.6rem;
-    width: 20rem;
+    width: 25rem;
+    height: 4rem;
   `};
 `;
 
@@ -478,46 +540,42 @@ export const BookIntroCard = styled.div`
 
   ${({ theme }) => theme.mediaQuery.sm`
   width: 14.5rem;
+  // height: 25rem;
   margin:0 auto;
   display: flex;
   flex-direction:column;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
   width: 30rem;
-  height: 47rem;
-  margin-left: 3rem;
+  height: 58rem;
+  margin-left: 2rem;
   `};
 `;
 
 export const BookImage = styled.div`
-  /* background: url(${bookIntroImage1}); */
-  /* background-size: contain; */
   object-fit: cover;
-  width: 14rem;
-  height: 21rem;
-  margin-left: 1rem;
+  margin: 1rem auto;
 
   & img {
-    object-fit: cover;
-    width: 14rem;
-    height: 21rem;
+    width: 13rem;
+    height: 17rem;
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 23rem;
-    height: 35rem;
+  
   & img {
+    // object-fit: cover;
     width: 14.5rem;
-    height: 26rem;
+    height: 20rem;
     margin:-1rem auto;
   }
 `};
   ${({ theme }) => theme.mediaQuery.lg`
   margin-left: 1.3rem;
-  margin-top: 1rem;
+  margin-top: 3rem;
   & img {
-  width: 23rem;
-  height: 35rem;
+  width: 26rem;
+  height: 40rem;
   }
 `};
 `;
@@ -525,7 +583,9 @@ export const BookImage = styled.div`
 export const BookIntroCardTitle = styled.div`
   font-weight: bold;
   padding-bottom: 0.2rem;
-  width: 20ch;
+  width: 14rem;
+  height: 2rem;
+  margin-top: 1rem;
   word-wrap: break-word;
   letter-spacing: 0.1rem;
   white-space: nowrap;
@@ -533,13 +593,17 @@ export const BookIntroCardTitle = styled.div`
   text-overflow: ellipsis;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  margin-top: -8rem;
+  // margin-top: -8rem;
   font-size: 1.5rem;
+  width: 17rem;
+  height: 2rem;
 `};
   ${({ theme }) => theme.mediaQuery.lg`
   margin-top: 1rem;
   margin-left: 1rem;
   font-size: 2rem;
+  width: 26rem;
+  height: 3rem;
 `};
 `;
 
@@ -562,13 +626,13 @@ export const BookIntroCardContent = styled.div`
 // 중고거래
 
 export const MarketWrapper = styled.div`
-  height: 65rem;
+  height: 45rem;
   margin: 0 auto;
   width: 30rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
   margin:0 auto;
-  margin-top:8rem;
+  margin-top:12rem;
   margin-bottom: 1rem;
   width:70rem;
   height:48rem;
@@ -577,7 +641,7 @@ export const MarketWrapper = styled.div`
   margin-top: 4rem;
   margin-bottom: -4rem;
   width:120rem;
-  height:65rem;
+  height:60rem;
   `};
 `;
 export const MarketProductCard = styled.div`
@@ -587,8 +651,7 @@ export const MarketProductCard = styled.div`
   overflow: hidden;
   cursor: pointer;
   transition: background-color 0.5s ease-in-out;
-  width: 14rem;
-  height: 30rem;
+
   &::after {
     content: '';
     position: absolute;
@@ -612,22 +675,22 @@ export const MarketProductCard = styled.div`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-  width: 14.5rem;
-  margin:0 auto;
-  height:35rem;
+  // width: 15rem;
+  // height:30rem;
+  // margin:0 auto;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-  width: 30rem;
-  height: 47rem;
-  margin-left: 3rem;
+  // width: 30rem;
+  // height: 47rem;
+  // margin-left: 3rem;
   `};
 `;
 
 export const MarketProductImage = styled.div`
   object-fit: cover;
   margin-top: 1rem;
-  width: 15rem;
-  height: 18rem;
+  /* width: 15rem;
+  height: 18rem; */
   & img {
     width: 14rem;
     height: 18rem;
@@ -635,19 +698,19 @@ export const MarketProductImage = styled.div`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-  width:17rem;
-  height:26rem;
+  // width:17rem;
+  // height:26rem;
   margin:1rem auto;
   & img {
     width: 17rem;
-    height: 26rem;
+    height: 22rem;
   }
 `};
   ${({ theme }) => theme.mediaQuery.lg`
   margin-left: 1.3rem;
   margin-top: 1rem;
   & img {
-  width: 23rem;
+  width: 28rem;
   height: 35rem;
   }`};
 `;
@@ -690,6 +753,8 @@ export const ProductContent = styled.div`
   font-size: 1.8rem;
   margin-top: 0.5rem;
   margin-left: 1rem;
+  width: 30rem;
+  height: 3rem;
   `};
 `;
 // 독립서점 / 책 추천 공통
