@@ -2,7 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
-import Loading from '../../survey/Loading';
+
+import Loading from '../../common/loading/Loading';
 import * as St from '../BookIntroduction.styled';
 
 interface NewBooks {
