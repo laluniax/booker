@@ -122,12 +122,11 @@ export const HeaderSearchMypage = styled.div`
   top: 2rem;
   left: 5%;
   display: flex;
+  justify-content: space-between;
   width: 90%;
-  gap: 80%;
   ${({ theme }) => theme.mediaQuery.sm`
-  width: 100%;
+  width: 90%;
   top: 5rem;
-
   `};
   ${({ theme }) => theme.mediaQuery.lg`
   position: static;

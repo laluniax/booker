@@ -29,7 +29,7 @@ const SurveyList = () => {
             {nickname ? (
               <>
                 <St.NickName>{nickname}</St.NickName>
-                <span>님이</span>
+                <span>님이 </span>
               </>
             ) : null}
             좋아할만한 책을 추천해드릴게요!

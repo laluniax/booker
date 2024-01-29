@@ -25,34 +25,38 @@ const SurveyResult = () => {
 
   const fetchData = async () => {
     try {
-      setLoading(true);
-      const resultBestseller = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller');
-      setBestsellers(resultBestseller.data.item);
-      setLoading(false);
-    } catch (error) {
-      console.log('Error fetching data:', error);
-    }
-    try {
-      setLoading(true);
-      const resultNew = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks');
-      setNewbooks(resultNew.data.item);
-      setLoading(false);
-    } catch (error) {
-      console.log('Error fetching data:', error);
-    }
-    try {
-      setLoading(true);
-      const resultSpecial = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special');
-      setSpecial(resultSpecial.data.item);
-      setLoading(false);
-    } catch (error) {
-      console.log('Error fetching data:', error);
-    }
-    try {
-      setLoading(true);
-      const resultBlogbest = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/BlogBest');
-      setBookerpick(resultBlogbest.data.item);
-      setLoading(false);
+      switch (question) {
+        case 'domfor':
+        case 'genre':
+        case 'new':
+        case 'price':
+        case 'pricenovel':
+          setLoading(true);
+          const resultBestseller = await axios.get(
+            'https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller',
+          );
+          setBestsellers(resultBestseller.data.item);
+          setLoading(false);
+          break;
+        case 'newbooks':
+          setLoading(true);
+          const resultNew = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks');
+          setNewbooks(resultNew.data.item);
+          setLoading(false);
+          break;
+        case 'special':
+          setLoading(true);
+          const resultSpecial = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special');
+          setSpecial(resultSpecial.data.item);
+          setLoading(false);
+          break;
+        case 'bookertalk':
+          setLoading(true);
+          const resultBlogbest = await axios.get('https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/BlogBest');
+          setBookerpick(resultBlogbest.data.item);
+          setLoading(false);
+          break;
+      }
     } catch (error) {
       console.log('Error fetching data:', error);
     }
@@ -90,17 +94,17 @@ const SurveyResult = () => {
           const filteredNew = bestsellers.filter((book) => book.categoryName.includes(genre));
           setFilteredBooks(filteredNew);
           break;
-        case 'value':
-          const filteredValue = bestsellers.filter((book) => {
-            if (genre === '성공과행복') {
-              return book.title.includes('성공');
-            } else if (genre === '지혜') {
-              return book.title.includes('지혜');
-            }
-            return false;
-          });
-          setFilteredBooks(filteredValue);
-          break;
+        // case 'value':
+        //   const filteredValue = bestsellers.filter((book) => {
+        //     if (genre === '성공과행복') {
+        //       return book.title.includes('성공');
+        //     } else if (genre === '지혜') {
+        //       return book.title.includes('지혜');
+        //     }
+        //     return false;
+        //   });
+        //   setFilteredBooks(filteredValue);
+        //   break;
         case 'price':
           const filteredPrice = bestsellers.filter((book) => book.categoryName.includes(genre));
           setFilteredBooks(filteredPrice);
@@ -131,30 +135,39 @@ const SurveyResult = () => {
   return (
     <St.Container>
       <St.BackToListBtn onClick={() => surveyList()}></St.BackToListBtn>
-      {loading ? <Loading /> : null}
-      <St.ResultWrapper>
-        {filteredBooks.map((item, idx) => (
-          <St.Result key={idx}>
-            {item.bestRank ? (
-              <St.ResultRank>
-                베스트 셀러 <span>{item.bestRank}</span> 위
-              </St.ResultRank>
-            ) : null}
-            <St.ResultImgAndInfo>
-              <St.ResultImg>
-                <img src={item.cover} alt="book img" />
-              </St.ResultImg>
-              <St.ResultInfo>
-                <St.ResultTitle>{item.title}</St.ResultTitle>
-                <St.ResultAuthor>저자 | {item.author}</St.ResultAuthor>{' '}
-                <St.ResultPublisher>출판사 | {item.publisher}</St.ResultPublisher>
-                <St.ResultPubdate>출판일 | {item.pubDate}</St.ResultPubdate>
-                <St.ResultDescription>{item.description}</St.ResultDescription>
-              </St.ResultInfo>
-            </St.ResultImgAndInfo>
-          </St.Result>
-        ))}
-      </St.ResultWrapper>
+      {loading ? (
+        <Loading />
+      ) : (
+        <St.ResultWrapper>
+          {filteredBooks.length > 0 ? (
+            filteredBooks.map((item, idx) => (
+              <St.Result key={idx}>
+                {item.bestRank ? (
+                  <St.ResultRank>
+                    베스트 셀러 <span>{item.bestRank}</span> 위
+                  </St.ResultRank>
+                ) : null}
+                <St.ResultImgAndInfo>
+                  <St.ResultImg>
+                    <img src={item.cover} alt="book img" />
+                  </St.ResultImg>
+                  <St.ResultInfo>
+                    <St.ResultTitle>{item.title}</St.ResultTitle>
+                    <St.ResultAuthor>저자 | {item.author}</St.ResultAuthor>{' '}
+                    <St.ResultPublisher>출판사 | {item.publisher}</St.ResultPublisher>
+                    <St.ResultPubdate>출판일 | {item.pubDate}</St.ResultPubdate>
+                    <St.ResultDescription>{item.description}</St.ResultDescription>
+                  </St.ResultInfo>
+                </St.ResultImgAndInfo>
+              </St.Result>
+            ))
+          ) : (
+            <St.NoResultWrapper>
+              <St.ResultTitle>아쉽게도 맞춤추천 결과가 없습니다😭</St.ResultTitle>
+            </St.NoResultWrapper>
+          )}
+        </St.ResultWrapper>
+      )}
     </St.Container>
   );
 };

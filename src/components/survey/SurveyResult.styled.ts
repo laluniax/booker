@@ -61,3 +61,10 @@ export const ResultPubdate = styled.div``;
 export const ResultDescription = styled.div`
   line-height: 2;
 `;
+
+export const NoResultWrapper = styled.div`
+  height: 50rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
