@@ -144,7 +144,7 @@ const SurveyResult = () => {
               <St.Result key={idx}>
                 {item.bestRank ? (
                   <St.ResultRank>
-                    베스트 셀러 <span>{item.bestRank}</span> 위
+                    베스트셀러 <p>{item.bestRank}</p>위
                   </St.ResultRank>
                 ) : null}
                 <St.ResultImgAndInfo>

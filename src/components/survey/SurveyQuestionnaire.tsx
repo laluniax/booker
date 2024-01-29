@@ -38,9 +38,8 @@ const SurveyQuestionnaire = () => {
   return (
     <>
       {targetQuestion.answers.length >= 4 ? (
-        <St.LongContainer>
+        <St.LongContainer className="genre">
           <St.Question>{targetQuestion.question as keyof typeof targetQuestion}</St.Question>
-
           <St.LongAnswer>
             {targetQuestion.answers.map((item, i) => {
               return (
