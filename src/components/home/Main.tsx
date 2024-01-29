@@ -118,7 +118,7 @@ const Main = () => {
             <St.Detail>북커들의 이야기</St.Detail>
           </St.Titlebox>
 
-          <St.CardBox>
+          <St.BookerTalkCardBox>
             {postsList.map((item, i) => {
               return (
                 <St.BookerTalkCard key={i}>
@@ -134,7 +134,7 @@ const Main = () => {
                 </St.BookerTalkCard>
               );
             })}
-          </St.CardBox>
+          </St.BookerTalkCardBox>
         </St.BookerTalkWrapper>
 
         {/* 도서소개  */}
@@ -143,19 +143,21 @@ const Main = () => {
             <St.Title>도서소개</St.Title>
             <St.Detail>꾸준히 사랑받는 작품들</St.Detail>
           </St.Titlebox>
-          <St.CategoryBox>
-            <St.BookIntroCategory>베스트셀러</St.BookIntroCategory>
-            <St.BookIntroCategory>신간도서</St.BookIntroCategory>
-            <St.BookIntroCategory>스페셜</St.BookIntroCategory>
-            <St.BookIntroCategory>북커들의 선택 </St.BookIntroCategory>
-          </St.CategoryBox>
 
-          <St.CardBox>
+          <St.BookIntroCardBox>
+            {/* <St.CategoryBox>
+              <St.BookIntroCategory>베스트셀러</St.BookIntroCategory>
+              <St.BookIntroCategory>신간도서</St.BookIntroCategory>
+              <St.BookIntroCategory>스페셜</St.BookIntroCategory>
+              <St.BookIntroCategory>북커들의 선택 </St.BookIntroCategory>
+            </St.CategoryBox> */}
             <St.BookIntroCard
               onClick={() => {
                 navigate(`/aboutbook/bestseller`);
               }}>
-              {' '}
+              <St.CategoryBox>
+                <St.BookIntroCategory>베스트셀러</St.BookIntroCategory>
+              </St.CategoryBox>{' '}
               {loading1 ? <Loading /> : null}
               <St.BookImage>
                 <img src={bestSeller?.cover} />
@@ -168,7 +170,9 @@ const Main = () => {
               onClick={() => {
                 navigate(`/aboutbook/newbook`);
               }}>
-              {' '}
+              <St.CategoryBox>
+                <St.BookIntroCategory>신간도서</St.BookIntroCategory>
+              </St.CategoryBox>{' '}
               {loading2 ? <Loading /> : null}
               <St.BookImage>
                 <img src={newbook?.cover} />
@@ -181,7 +185,9 @@ const Main = () => {
               onClick={() => {
                 navigate(`/aboutbook/bookspecial`);
               }}>
-              {' '}
+              <St.CategoryBox>
+                <St.BookIntroCategory>스페셜</St.BookIntroCategory>
+              </St.CategoryBox>{' '}
               {loading3 ? <Loading /> : null}
               <St.BookImage>
                 <img src={bookSpecial?.cover} />
@@ -194,7 +200,9 @@ const Main = () => {
               onClick={() => {
                 navigate(`/aboutbook/bookerpick`);
               }}>
-              {' '}
+              <St.CategoryBox>
+                <St.BookIntroCategory>북커들의 선택</St.BookIntroCategory>
+              </St.CategoryBox>{' '}
               {loading4 ? <Loading /> : null}
               <St.BookImage>
                 <img src={bookerPick?.cover} />
@@ -202,7 +210,7 @@ const Main = () => {
               <St.BookIntroCardTitle>{bookerPick?.title}</St.BookIntroCardTitle>
               <St.BookIntroCardContent>{bookerPick?.author}</St.BookIntroCardContent>
             </St.BookIntroCard>
-          </St.CardBox>
+          </St.BookIntroCardBox>
         </St.BookIntroWrapper>
 
         {/* 중고거래 */}
@@ -212,7 +220,7 @@ const Main = () => {
             <St.Detail>신규 입고 상품을 모았습니다.</St.Detail>
           </St.Titlebox>
 
-          <St.CardBox>
+          <St.MarketCardBox>
             {productsList.map((item, i) => {
               return (
                 <St.MarketProductCard
@@ -229,7 +237,7 @@ const Main = () => {
                 </St.MarketProductCard>
               );
             })}
-          </St.CardBox>
+          </St.MarketCardBox>
         </St.MarketWrapper>
 
         <St.Contour />
