@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import prevButton from '../../assets/common/prevbutton2.webp';
 
 export const Container = styled.div`
+  position: relative;
   /* width: 90rem; */
   max-width: 38rem;
   margin: 0 auto;
@@ -17,12 +18,17 @@ export const Container = styled.div`
 export const BackToListBtn = styled.div`
   background: url(${prevButton});
   background-size: contain;
+  position: absolute;
+  top: -4.5rem;
   width: 5rem;
   height: 5rem;
 
   &:hover {
     cursor: pointer;
   }
+  ${({ theme }) => theme.mediaQuery.sm`
+  position: static;
+  `};
 `;
 
 export const ResultWrapper = styled.div`
