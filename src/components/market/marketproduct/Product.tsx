@@ -100,8 +100,6 @@ const Product = () => {
   };
 
 
-
-
   
    //채팅창 메시지 보여주는 것
    const renderMessages = () => {

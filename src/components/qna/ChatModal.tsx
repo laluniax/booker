@@ -201,26 +201,9 @@ const Chat = () => {
     }
   }
 
-  // // 채팅 헤더를 렌더링하는 함수입니다
-  // const renderChatHeader = () => {
-  //   return (
-  //     <St.ChatModalHeader>
-  //       <St.CloseButton onClick={() => setIsChatModalOpen(false)}>←</St.CloseButton>
-  //       <St.UserInfo>
-  //         <St.UserImage src={otherUserDetails.user_img} alt={`${otherUserDetails.nickname}의 이미지`} />
-  //         <St.UserNickname>{otherUserDetails.nickname}</St.UserNickname>
-  //       </St.UserInfo>
-  //       <St.ProductInfo>
-      
-  //         <St.ProductImage src={productDetails.image} alt={`${productDetails.title}`} />
-  //         <div>
-  //           <St.ProductTitle>{productDetails.title}</St.ProductTitle>
-  //           <St.ProductPrice>{productDetails.price}</St.ProductPrice>
-  //         </div>
-  //       </St.ProductInfo>
-  //     </St.ChatModalHeader>
-  //   );
-  // };
+
+
+    // // 채팅 헤더를 렌더링하는 함수입니다
   const renderChatHeader = () => {
     return (
       <St.ChatModalHeader>
@@ -240,22 +223,10 @@ const Chat = () => {
     );
   };
 
-  //채팅창 메시지 보여주는 것
-  // const renderMessages = () => {
-  //   return( messages
-  //     .filter((message: MessageType) => message.chat_id === chatId)
-  //     .sort((a: MessageType, b: MessageType) => a.id - b.id) // 오름차순 정렬
-  //     .map((message: MessageType) => (
-  //       <>
-  //         {/* {console.log('messages',messages)} */}
-  //         {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
-  //         <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-  //           {message.content}
-  //         </St.MessageComponent>
-  //       </>
-  //     )));
-  // };
 
+
+
+  
   const renderMessages = () => {
     return (
       <>

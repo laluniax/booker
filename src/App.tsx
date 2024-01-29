@@ -120,20 +120,8 @@ const App = () => {
                 }
               }
 
-              // // lastMessageData가 있는 경우에만 unread_count 설정
-              // const { data, error } = await supabase.rpc('count_unread_messages', {
-              //   user_id: lastMessageData.author_id, //, author_id != user_id
-              // });
-              // // console.log('messagaes',data)
-              // // console.log('unreaddata', data);
-              // if (error) {
-              //   console.error('읽지 않은 수 업데이트 오류:', error);
-              // } else {
-              //   setUnreadCounts(data);
-              // }
-              // // console.log('data',data)
             }
-            // console.log('lastMessageData가',unreadCounts)
+
             return chatUser.map((chatUser) => ({
               author_id: author_id,
               chat_id: chatRoom.id,
@@ -334,7 +322,7 @@ const App = () => {
     };
   }, [chatId, updateMesaage]);
 
-  useEffect(() => {}, []);
+
 
   return (
     <QueryClientProvider client={queryClient}>
