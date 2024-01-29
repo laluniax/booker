@@ -116,6 +116,7 @@ export const HeaderLi = styled.li`
     }
   }
 `;
+
 export const HeaderSearchMypage = styled.div`
   position: absolute;
   top: 2rem;
@@ -184,6 +185,7 @@ export const SearchBox = styled.form`
 `;
 export const SearchBar = styled.input`
   all: unset;
+  font-family: 'GmarketSansMedium';
   font-size: 1.6rem;
   padding: 0.5rem;
   border-bottom: 0.1rem solid #fff;

@@ -75,7 +75,7 @@ const SurveyList = () => {
               </St.SurveyButton>
             </St.IconAndButtonBox>
           </St.SurveyContentBox>
-          <St.SurveyContentBox>
+          {/* <St.SurveyContentBox>
             <St.IconAndButtonBox>
               <St.Righticon />
               <St.SurveyButton
@@ -92,7 +92,7 @@ const SurveyList = () => {
                 추구하는 가치에 걸맞는 책 추천받기
               </St.SurveyButton>
             </St.IconAndButtonBox>
-          </St.SurveyContentBox>
+          </St.SurveyContentBox> */}
           <St.SurveyContentBox>
             <St.IconAndButtonBox>
               <St.Righticon />

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getLikeCount, like, supabase } from '../../../api/supabase.api';
-import coloredheart from '../../../assets/common/coloredheart.webp';
-import heartbold from '../../../assets/common/heartbold.webp';
+import coloredheart from '../../../assets/common/heavy_black_heart.webp';
+import heartbold from '../../../assets/common/icon_heart.webp';
 import { useAuth } from '../../../contexts/auth.context';
 import { LikeProps } from '../../../types/types';
 import * as St from './like.styled';
