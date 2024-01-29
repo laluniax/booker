@@ -4,21 +4,23 @@ import rightButtonIcon from '../../../assets/common/buttonright.webp';
 
 export const SlideshowContainer = styled.div`
   position: relative;
-  max-width: 100%;
-  height: 51rem;
+  width: 35rem;
+  height: 20rem;
   overflow: hidden;
-  margin-left: 2rem;
+  margin: 0 auto;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
   grid-column: 1;
 
   ${({ theme }) => theme.mediaQuery.sm`
     width:46rem;
     height:26rem;
+    margin-left: 2rem;
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
     width:85rem;
     height:51rem;
+    margin-left: 2rem;
   `};
 `;
 
@@ -45,11 +47,10 @@ export const slideInLeft = keyframes`
 `;
 
 export const SlideshowImage = styled.img`
-  /* width: 100%; */
-  /* height: 80vh; */
   background-size: contain;
-  max-width: 100%;
-  height: 51rem;
+  width: 35rem;
+  height: 20rem;
+  margin: 0 auto;
   object-fit: cover;
   object-position: 50% 40%;
   position: absolute;
