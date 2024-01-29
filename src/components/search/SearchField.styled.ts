@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import logoImage from '../../assets/common/logo.webp';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  font-family: 'GmarketSansMedium';
+`;
 type HeightProps = {
   height: number;
 };
@@ -10,6 +12,7 @@ export const SearchWrapper = styled.div<HeightProps>`
   width: 80rem;
   margin: 2rem auto;
   overflow: hidden;
+  height: auto;
   white-space: nowrap;
 `;
 
@@ -29,6 +32,7 @@ export const SearchTitle = styled.div`
 
 export const PostList = styled.div`
   display: flex;
+  height: auto;
   justify-content: space-between;
   font-size: 1.5rem;
   border-bottom: 0.1rem solid #bcbcbc;
@@ -85,12 +89,14 @@ export const BookListCategory = styled.div`
 
 export const ProductList = styled.div`
   display: flex;
+  width: 100%;
+  flex-wrap: wrap;
 `;
 
 export const Product = styled.div`
   border: 0.1rem solid #bcbcbc;
-  width: 16rem;
   padding: 1rem;
+  width: 16rem;
   margin: 1rem;
   line-height: 2;
   cursor: pointer;
@@ -121,4 +127,8 @@ export const LogoImg = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+export const PaginationWrapper = styled.div`
+  margin-top: 3rem;
 `;
