@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
 import { MessageType } from '../components/qna/ChatModal';
+import { UnreadCount } from '../App';
 
 // import { selector } from 'recoil';
 
@@ -40,7 +41,7 @@ export type ChatRoom = {
   lastMessage: string;
   sendNickname: string;
   product_img: string;
-  unread_count: number;
+  unread_count: UnreadCount;
   created_at: string;
   user_img:string;
 };
@@ -68,6 +69,11 @@ export const shouldCountMessagesState = atom({
 export const loginUserState = atom({
   key: 'loginUserState',
   default: '',
+});
+
+export const UnreadCounts = atom<UnreadCount[] >({
+  key: 'UnreadCounts',
+  default: [],
 });
 
 // // ======================================

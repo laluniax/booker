@@ -199,15 +199,15 @@ export const ChatModalCloseButton = styled.button`
   }
 `;
 // 개인 채팅 모달 헤더
-export const ChatModalHeader = styled.div`
-  padding: 1rem;
-  background-color: #000;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 7rem;
-`;
+// export const ChatModalHeader = styled.div`
+//   padding: 1rem;
+//   background-color: #000;
+//   border-bottom: 1px solid #ddd;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   height: 7rem;
+// `;
 export const HeaderChattingModalTitle = styled.p`
   color: #fca311;
   font-weight: bold;
@@ -316,17 +316,6 @@ export const BookerChattingIcon = styled.div`
   cursor: pointer;
 `;
 
-// export const NotificationBadge = styled.span`
-//   display: inline-block;
-//   background-color: red;
-//   color: white;
-//   padding: 0.2em 0.6em;
-//   font-size: 0.75em;
-//   border-radius: 9999px; // Gives a pill shape
-//   font-weight: bold;
-//   margin-left: 10px;
-//   vertical-align: super;
-// `;
 
 export const NicknameLabel = styled.div`
   background-color: #f0f0f0; // 닉네임 라벨 배경색
@@ -338,16 +327,6 @@ export const NicknameLabel = styled.div`
   align-self: flex-start; // 부모 요소의 시작점에 정렬
 `;
 
-// export const UserItem = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   padding: 1rem;
-//   border: 1px solid #ccc;
-//   border-radius: 8px;
-//   margin-bottom: 1rem;
-//   // 기타 필요한 스타일 ...
-// `;
 
 export const UserImage = styled.img`
   width: 40px; // 유저 이미지 크기 조절
@@ -367,12 +346,6 @@ export const UserNickname = styled.div`
   // 기타 필요한 스타일 ...
 `;
 
-// export const UserLastMessage = styled.div`
-//   color: #666;
-//   font-size: 0.8rem;
-//   // 기타 필요한 스타일 ...
-// `;
-
 export const ProductImage = styled.img`
   width: 60px; // 물품 이미지 크기 조절
   height: 60px;
@@ -389,4 +362,79 @@ export const NotificationBadge = styled.span`
   margin-left: 10px;
   vertical-align: super;
   // 기타 필요한 스타일 ...
+`;
+
+
+// 제품 상세 정보에 대한 스타일드 컴포넌트를 정의합니다
+export const ProductInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const ProductTitle = styled.span`
+  // 제품 제목을 위한 스타일 추가
+`;
+
+export const ProductPrice = styled.span`
+  // 제품 가격을 위한 스타일 추가
+`;
+
+export const MessagesContainer = styled.div`
+  /* 스타일 속성들 */
+`;
+
+// export const ChatModalHeader = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   background-color: #FFF; // Assuming white background
+//   border-bottom: 1px solid #ddd; // Border to separate header from chat messages
+// `;
+
+export const UserSection = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #000; // Black background for user section
+`;
+
+// export const UserInfo = styled.div`
+//   flex-grow: 1;
+//   color: white; // White text for user info
+//   display: flex;
+//   align-items: center;
+// `;
+
+export const ProductSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #FFF; // White background for product section
+`;
+
+export const ProductDetail = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+export const ChatModalHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: #FFF; // 백그라운드 색상 지정
+`;
+
+export const UserInfoSection = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #000; // 사용자 정보 섹션의 백그라운드 색상
+`;
+
+export const ProductInfoSection = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #ddd; // 상품 정보 섹션과 분리선
 `;

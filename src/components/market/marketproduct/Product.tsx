@@ -99,21 +99,31 @@ const Product = () => {
     setInputValue('');
   };
 
+
+
+
+  
    //채팅창 메시지 보여주는 것
    const renderMessages = () => {
-    return messages
-    
-      .filter((message: MessageType) => message.chat_id === chatId)
-      .sort((a: MessageType, b: MessageType) => a.id - b.id) // 오름차순 정렬
-      .map((message: MessageType) => (
+    return (
+      <>
+        {/* {renderChatHeader()} */}
+      
+          {messages
+            .filter((message: MessageType) => message.chat_id === chatId)
+            .sort((a: MessageType, b: MessageType) => a.id - b.id) // 오름차순 정렬
+               .map((message: MessageType) => (
         <>
-          {console.log('messages',messages)}
-          {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
-          <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-            {message.content}
-          </St.MessageComponent>
-        </>
-      ));
+        {/* {console.log('messages',messages)} */}
+        {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
+        <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
+          {message.content}
+        </St.MessageComponent>
+      </>
+            ))}
+       
+      </>
+    );
   };
 
   const getProduct = async () => {
