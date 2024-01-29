@@ -130,6 +130,7 @@ export type mapMarkerDataTypes = {
 
 export type LikeProps = {
   postId: number | undefined;
+  count: boolean;
 };
 export type Message = {
   created_at: string;

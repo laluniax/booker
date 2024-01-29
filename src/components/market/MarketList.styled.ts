@@ -194,7 +194,10 @@ export const EmptyHeartImg = styled.div`
   right: 0;
   top: 1.2rem;
 `;
-
+export const TitleLikes = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 export const ProductTitle = styled.div`
   font-family: 'GmarketSansMedium';
   margin-top: 0.6rem;
