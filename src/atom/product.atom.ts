@@ -44,6 +44,7 @@ export type ChatRoom = {
   unread_count: UnreadCount;
   created_at: string;
   user_img:string;
+
 };
 
 export const isChatModalOpenState = atom({

@@ -52,12 +52,12 @@ const App = () => {
   const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
   const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(isChatModalOpenState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
-  const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts)
+  const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);
   const [updateMesaage, setUpdateMesaage] = useState<MessagePayload>();
   //챗룸 리스트
   useEffect(() => {
     const fetchChatRooms = async () => {
-      // console.log('123');
+
       try {
         // 채팅방 ID 가져오기
         const { data: chatRoomsData, error: chatRoomsError } = await supabase.from('chats').select('*');
@@ -77,7 +77,7 @@ const App = () => {
             //챗방 마지막 메시지
             const { data: lastMessageData, error: lastMessageError } = await supabase
               .from('messages')
-              .select(`content, users(nickname), author_id,item_id`)
+              .select(`content, users(nickname), author_id,item_id,created_at`)
               .eq('chat_id', chatRoom.id)
               .order('created_at', { ascending: false })
               .limit(1)
@@ -98,7 +98,7 @@ const App = () => {
                   .eq('id', lastMessageData.author_id)
                   .single();
 
-                // console.log('userData',userData)
+                
                 if (userError) throw userError;
                 if (userData) {
                   sendNickname = userData.nickname;
@@ -119,7 +119,6 @@ const App = () => {
                   product_img = productData.product_img;
                 }
               }
-
             }
 
             return chatUser.map((chatUser) => ({
@@ -130,9 +129,7 @@ const App = () => {
               lastMessage: lastMessageData ? lastMessageData.content : '메시지가 없습니다.',
               sendNickname: sendNickname,
               user_img: user_img,
-   
-
-              created_at: chatUser.created_at,
+              created_at: lastMessageData ? lastMessageData.created_at : '메시지가 없습니다.',
               product_img: product_img,
             }));
           }),
@@ -162,7 +159,6 @@ const App = () => {
           console.log('payload', payload);
           setUpdateMesaage(payload as MessagePayload);
           fetchChatRooms();
-    
         },
       )
       .subscribe();
@@ -192,7 +188,7 @@ const App = () => {
           .select('*,users(*)')
           .eq('chat_id', chatId);
 
-        // console.log('messagesData', messagesData);
+
         if (messagesError) {
           console.error('메시지를 가져오는 중 오류가 발생했습니다:', messagesError);
           return;
@@ -233,19 +229,17 @@ const App = () => {
 
   //메시지 카운팅
   useEffect(() => {
-
- //메시지 생길때마다, 덧씌워주기
+    //메시지 생길때마다, 덧씌워주기
     const handleNewMessage = (payload: MessagePayload) => {
       setChatRooms((prevChatRooms) =>
         prevChatRooms.map((chatRoom) => {
           if (chatRoom.chat_id === payload.new.chat_id) {
             // 예시: unread_count 업데이트
-      
 
             return {
               ...chatRoom,
               lastMessage: payload.new.content,
-    
+              created_at: payload.new.created_at,
             };
           } else {
             return chatRoom;
@@ -254,12 +248,10 @@ const App = () => {
       );
     };
 
-    
-
     const handleNewMessageCount = (payload: MessagePayload) => {
       // 채팅 모달이 열려 있지 않을 때만 새 메시지 수를 증가
       if (!ChatBtnOpen) {
-        // fetchChatRooms();
+
         setNewMessagesCount((prevCount) => prevCount + 1);
       }
     };
@@ -275,7 +267,7 @@ const App = () => {
       }
       const user_id = user?.id;
       const { data, error } = await supabase.rpc('count_unread_messages', { user_id });
-      // console.log('unreaddata', data);
+
 
       if (error) {
         console.log('읽지 않은 수 업데이트 오류:', error);
@@ -298,9 +290,9 @@ const App = () => {
         },
         async (payload) => {
           console.log('payload', payload);
-          // fetchMessages();
+
           handleNewMessageCount(payload as MessagePayload);
-          // updateUnreadCount();
+
           // 새 메시지 카운트를 증가시킬지 결정하는 함수 호출
           handleNewMessage(payload as MessagePayload);
           setUpdateMesaage(payload as MessagePayload);
@@ -321,8 +313,6 @@ const App = () => {
       chatChannel?.unsubscribe();
     };
   }, [chatId, updateMesaage]);
-
-
 
   return (
     <QueryClientProvider client={queryClient}>

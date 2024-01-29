@@ -22,6 +22,10 @@ import ProductsLike from '../../common/like/ProductsLike';
 import { MessageType } from '../../qna/ChatModal';
 import { categoryArr } from '../marketpost/Post';
 import * as St from './Product.styled';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
+
+
 
 const Product = () => {
   const params = useParams().id;
@@ -50,7 +54,7 @@ const Product = () => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    console.log();
+
     if (user?.id === otherUserId) {
       alert('자신에게 채팅을 보낼 수 없습니다 ');
       return;
@@ -101,29 +105,46 @@ const Product = () => {
   };
 
 
-  
-   //채팅창 메시지 보여주는 것
-   const renderMessages = () => {
+
+
+  const renderMessages = () => {
+    dayjs.locale('ko'); // 한국어 로케일을 기본값으로 설정
+    let lastDate: dayjs.Dayjs | null = null;
+
     return (
       <>
         {/* {renderChatHeader()} */}
       
-          {messages
-            .filter((message: MessageType) => message.chat_id === chatId)
-            .sort((a: MessageType, b: MessageType) => a.id - b.id) // 오름차순 정렬
-               .map((message: MessageType) => (
-        <>
-        {/* {console.log('messages',messages)} */}
-        {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
-        <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-          {message.content}
-        </St.MessageComponent>
-      </>
-            ))}
+        {messages
+          .filter((message: MessageType) => message.chat_id === chatId)
+          .sort((a: MessageType, b: MessageType) => a.id - b.id) // 오름차순 정렬
+          .map((message: MessageType) => {
+            const currentDate = dayjs(message.created_at);
+            const formattedTime = currentDate.format('hh:mm A'); // Format time with AM/PM
+            const formattedDate = currentDate.format('YYYY-MM-DD dddd'); // Format date with day of the week
+            let dateLabel = null;
+  
+            // Check if the date has changed
+            if (lastDate === null || !currentDate.isSame(lastDate, 'day')) {
+              dateLabel = <St.DateLabel>{formattedDate}</St.DateLabel>; // Use DateLabel
+              lastDate = currentDate;
        
+            }
+            
+            return (
+              <>
+                {dateLabel} {/* Display the date label if the date has changed */}
+                {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
+                <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
+                  {message.content} {formattedTime}
+                </St.MessageComponent>
+              </>
+            );
+          })}
       </>
     );
   };
+  
 
   const getProduct = async () => {
     const result = await getProductHandler(params as string);

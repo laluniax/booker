@@ -437,89 +437,16 @@ export const NicknameLabel = styled.div`
   margin-bottom: 4px; // 닉네임 라벨과 메시지 컴포넌트 사이의 여백
   align-self: flex-start; // 부모 요소의 시작점에 정렬`
 
-
-//   export const ProductSection = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-//   padding: 10px;
-//   background-color: #FFF; // White background for product section
-// `;
-
-// export const ProductDetail = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: flex-start;
-// `;
-
-// // export const ChatModalHeader = styled.div`
-// //   display: flex;
-// //   flex-direction: column;
-// //   background-color: #FFF; // 백그라운드 색상 지정
-// // `;
-
-// export const UserInfoSection = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   padding: 10px;
-//   background-color: #000; // 사용자 정보 섹션의 백그라운드 색상
-// `;
-
-// export const ProductInfoSection = styled.div`
-//   display: flex;
-//   align-items: center;
-//   padding: 10px;
-//   border-top: 1px solid #ddd; // 상품 정보 섹션과 분리선
-// `;
-
-
-
-// export const UserImage = styled.img`
-//   width: 40px; // 유저 이미지 크기 조절
-//   height: 40px;
-//   border-radius: 50%; // 원형으로 만들기
-//   object-fit: cover; // 이미지 비율 유지
-//   margin-right: 10px;
-// `;
-
-// export const UserInfo = styled.div`
-//   flex: 1;
-//   margin-right: 10px; // 오른쪽에 있는 물품 이미지와의 간격
-// `;
-
-// export const UserNickname = styled.div`
-//   font-weight: bold;
-//   // 기타 필요한 스타일 ...
-// `;
-
-// export const ProductImage = styled.img`
-//   width: 60px; // 물품 이미지 크기 조절
-//   height: 60px;
-//   border-radius: 8px; // 적당한 둥근 모서리
-//   object-fit: cover;
-// `;
-
-// export const NotificationBadge = styled.span`
-//   background-color: red;
-//   color: white;
-//   padding: 0.2em 0.6em;
-//   font-size: 0.75em;
-//   border-radius: 9999px; // 원형 모양
-//   margin-left: 10px;
-//   vertical-align: super;
-//   // 기타 필요한 스타일 ...
-// `;
-
-// // 개인 채팅 모달 닫기 버튼
-// export const CloseButton = styled.button`
-//   all: unset;
-//   color: white;
-//   margin-left: 2.3rem;
-//   font-size: 1.6rem;
-//   margin-right: 1rem;
-//   font-weight: bold;
-//   &:hover {
-//     cursor: pointer;
-//     color: #fca311;
-//   }
-// `;
+export const DateLabel = styled.div`
+  background-color: #f0f0f0; // 배경색
+  color: #333; // 텍스트 색상
+  padding: 8px 16px; // 패딩
+  margin: 10px 0; // 위 아래 마진
+  border-radius: 4px; // 테두리 둥글게
+  font-size: 0.9em; // 폰트 크기
+  text-align: center; // 텍스트 중앙 정렬
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // 그림자 효과
+  width: fit-content; // 콘텐츠에 맞는 너비
+  margin-left: auto; // 왼쪽 자동 마진
+  margin-right: auto; // 오른쪽 자동 마진
+`;
