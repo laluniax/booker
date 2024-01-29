@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import prevButton from '../../../assets/common/prevbutton2.webp';
+import prevButton from '../../assets/common/prevbutton2.webp';
 
 export const Container = styled.div`
   width: 90rem;
@@ -60,4 +60,11 @@ export const ResultPubdate = styled.div``;
 
 export const ResultDescription = styled.div`
   line-height: 2;
+`;
+
+export const NoResultWrapper = styled.div`
+  height: 50rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
