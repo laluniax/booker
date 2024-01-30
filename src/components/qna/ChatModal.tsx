@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useSendMessage } from '../../api/chatApi';
 import { supabase } from '../../api/supabase.api';
@@ -83,6 +83,58 @@ const Chat = () => {
   const [otherUserDetails, setOtherUserDetails] = useState<otherUserDetails>();
 
   const [productDetails, setProductDetails] = useState<productDetails>();
+
+  const [isAtBottom, setIsAtBottom] = useState(true);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatBodyRef = useRef<HTMLDivElement>(null);
+
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    const current = chatBodyRef.current;
+    if (current) {
+      const isAtBottom = current.scrollHeight - current.scrollTop === current.clientHeight;
+      setIsAtBottom(isAtBottom);
+    }
+  };
+
+  // 최하단으로 스크롤하는 함수
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
+    }
+  };
+
+  // 채팅 모달이 열리거나 메시지 목록이 변경될 때 스크롤
+  useEffect(() => {
+    if (isChatModalOpen && isAtBottom) {
+      // 비동기적으로 스크롤 함수 실행하여 모든 DOM 업데이트 후 스크롤되도록 함
+      setTimeout(scrollToBottom, 0);
+    }
+  }, [messages, isChatModalOpen, isAtBottom]);
+
+  // 채팅 컨테이너에 스크롤 이벤트 리스너 추가
+  useEffect(() => {
+    const chatBody = chatBodyRef.current;
+    if (chatBody) {
+      chatBody.addEventListener('scroll', handleScroll);
+      return () => {
+        chatBody.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
+
+  // 채팅 몸체에 스크롤 이벤트 리스너를 추가
+  useEffect(() => {
+    const chatBody = chatBodyRef.current;
+    if (chatBody) {
+      chatBody.addEventListener('scroll', handleScroll);
+
+      // 컴포넌트 언마운트 시 이벤트 리스너 제거
+      return () => {
+        chatBody.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
 
   //로그인 유저 가져오기
   useEffect(() => {
@@ -212,7 +264,9 @@ const Chat = () => {
       console.error('Error marking messages as read:', error);
     }
   }
+
   const navigate = useNavigate();
+
   // // 채팅 헤더를 렌더링하는 함수입니다
   const renderChatHeader = () => {
     // useNavigate 훅으로부터 navigate 함수를 얻음
@@ -383,16 +437,19 @@ const Chat = () => {
         <St.Container>
           {isChatModalOpen && (
             <St.ChatModalWrapper>
-              {renderChatHeader()}
-              {/* 채팅 모달 내용 */}
-              {/* <St.ChatModalHeader>
+              <St.ChatModalHeader> {renderChatHeader()} </St.ChatModalHeader>
+              <St.ChatModalBody ref={chatBodyRef}>
+                {/* 채팅 모달 내용 */}
+                {/* <St.ChatModalHeader>
                 <St.CloseButton onClick={() => setIsChatModalOpen(false)}>←</St.CloseButton>
                 <St.HeaderChattingModalTitle>채팅</St.HeaderChattingModalTitle>
                 <div>
                   <St.HeaderPurchaseConfirmationButton>구매확정</St.HeaderPurchaseConfirmationButton>
                 </div>
               </St.ChatModalHeader> */}
-              <St.ChatModalBody>{renderMessages()}</St.ChatModalBody>
+                {renderMessages()}
+                <div ref={messagesEndRef} />
+              </St.ChatModalBody>
               <St.ChatModalFooter>
                 <St.InputField
                   value={inputValue}

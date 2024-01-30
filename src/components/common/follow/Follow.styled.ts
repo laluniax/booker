@@ -1,12 +1,27 @@
 import styled from 'styled-components';
 
 export const ProfileBtn = styled.button`
-  background-color: black;
-  color: white;
-  border: none;
-  padding: 1rem;
+  font-family: 'GmarketSansMedium';
+  width: 24rem;
+  height: 6rem;
+  background-color: #fca311;
+  color: #000;
+  border-radius: 1rem;
+  font-weight: bold;
   margin-top: 3rem;
   cursor: pointer;
+  font-size: 2rem;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1);
+    transition: 0.1s;
+  }
+
+  &:active {
+    transform: scale(0.9);
+    transition: 0.1s;
+  }
 `;
 
 export const ProductFollowBtn = styled.button`

@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 import prev from '../../assets/common/prevbutton2.webp';
 export const Container = styled.div`
-  height: 100rem;
+  height: 120rem;
   ${({ theme }) => theme.mediaQuery.sm`
   margin-left: 4rem;
-
-
   `};
   ${({ theme }) => theme.mediaQuery.lg`
 
@@ -191,8 +189,8 @@ export const TitleAndTagsBox = styled.div`
 
 export const PostProfileBox = styled.div`
   position: relative;
-  max-width: 25rem;
-  height: 15rem;
+  max-width: 30rem;
+  height: 20rem;
   margin: 0 auto;
   margin-top: 8rem;
   margin-bottom: 6rem;
@@ -206,13 +204,13 @@ export const PostProfileBox = styled.div`
   cursor: pointer;
   border-radius: 2rem;
   ${({ theme }) => theme.mediaQuery.sm`
-  max-width: 35rem;
-  height: 20rem;
+  max-width: 40rem;
+  height: 23rem;
   padding-top: 6rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
   max-width: 55rem;
-  height: 23rem;
+  height: 25rem;
   `};
 `;
 
@@ -247,13 +245,16 @@ export const PostProfileIntroText = styled.div`
   color: #828282;
   padding-top: 1rem;
   text-align: center;
+  max-width: 20rem;
   ${({ theme }) => theme.mediaQuery.sm`
   padding-top: 1.5rem;
   font-size: 1.4rem;
+  max-width: 30rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
   padding-top: 2rem;
   font-size: 1.6rem;
+   max-width: 50rem;
   `};
 `;
 
@@ -267,6 +268,7 @@ export const FollowBtn = styled.button`
   border-radius: 1.4rem;
   padding: 1rem 2rem;
   margin-top: 1rem;
+
   &:hover {
     color: #fca311;
   }
