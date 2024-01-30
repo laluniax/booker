@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import prevIcon from '../../assets/common/prevbutton1.webp';
+import prevIcon from '../../../../assets/common/prevbutton1.webp';
 
 export const Container = styled.section`
   height: 70%;

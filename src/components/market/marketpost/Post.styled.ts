@@ -34,6 +34,7 @@ export const TotalItemWrapper = styled.div`
     margin-top: 7rem;
   `};
 `;
+
 export const Title = styled.div`
   font-family: 'GmarketSansMedium';
   text-align: center;
@@ -380,6 +381,7 @@ export const InfoWrapper = styled.div`
   margin-top:-2rem;
   `};
 `;
+
 export const PostTextArea = styled.textarea`
   font-family: 'GmarketSansMedium';
   resize: none;

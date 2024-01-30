@@ -17,9 +17,9 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { ProductsTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
+import { MessageType } from '../../chat/ChatModal';
 import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
-import { MessageType } from '../../qna/ChatModal';
 import { categoryArr } from '../marketpost/Post';
 import * as St from './Product.styled';
 

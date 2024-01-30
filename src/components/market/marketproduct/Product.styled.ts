@@ -5,7 +5,7 @@ import SliderPrevIcon from '../../../assets/common/slider_left.webp';
 import SliderNextIcon from '../../../assets/common/slider_right.webp';
 import deleteIcon from '../../../assets/market/deleteicon.webp';
 import editIcon from '../../../assets/market/editicon.webp';
-import { MessageProps } from '../../qna/ChatModal.styled';
+import { MessageProps } from '../../chat/ChatModal.styled';
 // import Prev from '../../styles/assets/buttonimages/prev2.png';
 
 export const Container = styled.div`
@@ -435,7 +435,8 @@ export const NicknameLabel = styled.div`
   border-radius: 10px; // 닉네임 라벨 둥근 모서리
   font-size: 0.75rem; // 닉네임 라벨 글꼴 크기
   margin-bottom: 4px; // 닉네임 라벨과 메시지 컴포넌트 사이의 여백
-  align-self: flex-start; // 부모 요소의 시작점에 정렬`
+  align-self: flex-start; // 부모 요소의 시작점에 정렬
+`;
 
 export const DateLabel = styled.div`
   background-color: #f0f0f0; // 배경색
