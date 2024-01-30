@@ -2,18 +2,15 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getLatestProductListHandler, getPostsLikesListHandler } from '../../api/supabase.api';
-import defaultImg from '../../assets/profile/defaultprofileimage.webp';
-import { Bestseller, BooksInfoTypes, PostsListLikesTypes, ProductsTypes } from '../../types/types';
-
-import * as St from './Main.styled';
-import SlideImages from './banner/SlideImages';
-
 import bookerTalkImage1 from '../../assets/mainimage/bookertalkimage1.webp';
 import bookerTalkImage2 from '../../assets/mainimage/bookertalkimage2.webp';
 import bookerTalkImage3 from '../../assets/mainimage/bookertalkimage3.webp';
 import bookerTalkImage4 from '../../assets/mainimage/bookertalkimage4.webp';
+import defaultImg from '../../assets/profile/defaultprofileimage.webp';
+import { Bestseller, BooksInfoTypes, PostsListLikesTypes, ProductsTypes } from '../../types/types';
 import Loading from '../common/loading/Loading';
-
+import * as St from './Main.styled';
+import SlideImages from './banner/SlideImages';
 const Main = () => {
   const navigate = useNavigate();
   const [postsList, setPostsList] = useState<PostsListLikesTypes[]>([]);
@@ -26,14 +23,11 @@ const Main = () => {
   const [loading3, setLoading3] = useState(false);
   const [loading4, setLoading4] = useState(false);
   const [productsList, setProductsList] = useState<ProductsTypes[]>([]);
-
   const bookerTalkImages = [bookerTalkImage1, bookerTalkImage2, bookerTalkImage3, bookerTalkImage4];
-
   const getPostsList = async () => {
     const posts = await getPostsLikesListHandler();
     setPostsList(posts.sort((a, b) => b.post_likes.length - a.post_likes.length).slice(0, 4));
   };
-
   const getBookIntroduction = async () => {
     // 베스트셀러
     try {
@@ -76,13 +70,11 @@ const Main = () => {
     const products = await getLatestProductListHandler();
     setProductsList(products.sort((a, b) => b.id - a.id));
   };
-
   useEffect(() => {
     getPostsList();
     getBookIntroduction();
     getProductList();
   }, []);
-
   return (
     <>
       <St.Container>
@@ -95,7 +87,6 @@ const Main = () => {
               <St.BannerBookTitle>해방의 밤</St.BannerBookTitle>
             </St.BannerBookIntro>
           </St.BannerBookIntroBox>
-
           <St.BannerRecommendBox>
             <SlideImages />
             {/* <St.BannerRecommendImage /> */}
@@ -109,16 +100,13 @@ const Main = () => {
             </St.BannerRecommendTitleBox>
           </St.BannerRecommendBox>
         </St.BannerWrapper>
-
         <St.Contour />
-
         {/* 북커톡  */}
         <St.BookerTalkWrapper>
           <St.Titlebox>
             <St.Title>북커톡</St.Title>
             <St.Detail>북커들의 이야기</St.Detail>
           </St.Titlebox>
-
           <St.BookerTalkCardBox>
             {postsList.map((item, i) => {
               return (
@@ -137,14 +125,12 @@ const Main = () => {
             })}
           </St.BookerTalkCardBox>
         </St.BookerTalkWrapper>
-
         {/* 도서소개  */}
         <St.BookIntroWrapper>
           <St.Titlebox>
             <St.Title>도서소개</St.Title>
             <St.Detail>꾸준히 사랑받는 작품들</St.Detail>
           </St.Titlebox>
-
           <St.BookIntroCardBox>
             {/* <St.CategoryBox>
               <St.BookIntroCategory>베스트셀러</St.BookIntroCategory>
@@ -166,7 +152,6 @@ const Main = () => {
               <St.BookIntroCardTitle>{bestSeller?.title}</St.BookIntroCardTitle>
               <St.BookIntroCardContent>{bestSeller?.author}</St.BookIntroCardContent>
             </St.BookIntroCard>
-
             <St.BookIntroCard
               onClick={() => {
                 navigate(`/aboutbook/newbook`);
@@ -181,7 +166,6 @@ const Main = () => {
               <St.BookIntroCardTitle>{newbook?.title}</St.BookIntroCardTitle>
               <St.BookIntroCardContent>{newbook?.author}</St.BookIntroCardContent>
             </St.BookIntroCard>
-
             <St.BookIntroCard
               onClick={() => {
                 navigate(`/aboutbook/bookspecial`);
@@ -196,7 +180,6 @@ const Main = () => {
               <St.BookIntroCardTitle>{bookSpecial?.title}</St.BookIntroCardTitle>
               <St.BookIntroCardContent>{bookSpecial?.author}</St.BookIntroCardContent>
             </St.BookIntroCard>
-
             <St.BookIntroCard
               onClick={() => {
                 navigate(`/aboutbook/bookerpick`);
@@ -213,14 +196,12 @@ const Main = () => {
             </St.BookIntroCard>
           </St.BookIntroCardBox>
         </St.BookIntroWrapper>
-
         {/* 중고거래 */}
         <St.MarketWrapper>
           <St.Titlebox>
             <St.Title>중고거래</St.Title>
             <St.Detail>신규 입고 상품을 모았습니다.</St.Detail>
           </St.Titlebox>
-
           <St.MarketCardBox>
             {productsList.map((item, i) => {
               return (
@@ -240,9 +221,7 @@ const Main = () => {
             })}
           </St.MarketCardBox>
         </St.MarketWrapper>
-
         <St.Contour />
-
         {/* 독립서점*/}
         <St.IndBookStoreWrapper>
           <St.IndBookStorebox
@@ -260,9 +239,7 @@ const Main = () => {
             </St.TitleAndContentBox>
           </St.IndBookStorebox>
         </St.IndBookStoreWrapper>
-
         {/* 맞춤추천 */}
-
         <St.BookRecommendWrapper>
           <St.BookRecommendBox
             onClick={() => {
@@ -283,5 +260,4 @@ const Main = () => {
     </>
   );
 };
-
 export default Main;
