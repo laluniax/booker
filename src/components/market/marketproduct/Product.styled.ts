@@ -450,3 +450,36 @@ export const DateLabel = styled.div`
   margin-left: auto; // 왼쪽 자동 마진
   margin-right: auto; // 오른쪽 자동 마진
 `;
+
+// 구매확정 버튼
+export const HeaderPurchaseConfirmationButton = styled.button`
+  all: unset;
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+    color: #fca311;
+  }
+`;
+
+export const HeaderChattingModalTitle = styled.p`
+  color: #fca311;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-left: 1rem;
+`;
+
+// 개인 채팅 모달 닫기 버튼
+export const CloseButton = styled.button`
+  all: unset;
+  color: white;
+  margin-left: 2.3rem;
+  font-size: 1.6rem;
+  margin-right: 1rem;
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+    color: #fca311;
+  }
+`;
