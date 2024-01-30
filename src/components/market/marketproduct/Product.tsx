@@ -47,14 +47,14 @@ const Product = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
 
-  // // 스크롤 이벤트 핸들러
-  // const handleScroll = () => {
-  //   const current = chatBodyRef.current;
-  //   if (current) {
-  //     const isAtBottom = current.scrollHeight - current.scrollTop === current.clientHeight;
-  //     setIsAtBottom(isAtBottom);
-  //   }
-  // };
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    const current = chatBodyRef.current;
+    if (current) {
+      const isAtBottom = current.scrollHeight - current.scrollTop === current.clientHeight;
+      setIsAtBottom(isAtBottom);
+    }
+  };
 
   // 최하단으로 스크롤하는 함수
   const scrollToBottom = () => {
@@ -71,29 +71,29 @@ const Product = () => {
     }
   }, [messages, isChatModalOpen, isAtBottom]);
 
-  // // 채팅 컨테이너에 스크롤 이벤트 리스너 추가
-  // useEffect(() => {
-  //   const chatBody = chatBodyRef.current;
-  //   if (chatBody) {
-  //     chatBody.addEventListener('scroll', handleScroll);
-  //     return () => {
-  //       chatBody.removeEventListener('scroll', handleScroll);
-  //     };
-  //   }
-  // }, []);
+  // 채팅 컨테이너에 스크롤 이벤트 리스너 추가
+  useEffect(() => {
+    const chatBody = chatBodyRef.current;
+    if (chatBody) {
+      chatBody.addEventListener('scroll', handleScroll);
+      return () => {
+        chatBody.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
 
-  // // 채팅 몸체에 스크롤 이벤트 리스너를 추가
-  // useEffect(() => {
-  //   const chatBody = chatBodyRef.current;
-  //   if (chatBody) {
-  //     chatBody.addEventListener('scroll', handleScroll);
+  // 채팅 몸체에 스크롤 이벤트 리스너를 추가
+  useEffect(() => {
+    const chatBody = chatBodyRef.current;
+    if (chatBody) {
+      chatBody.addEventListener('scroll', handleScroll);
 
-  //     // 컴포넌트 언마운트 시 이벤트 리스너 제거
-  //     return () => {
-  //       chatBody.removeEventListener('scroll', handleScroll);
-  //     };
-  //   }
-  // }, []);
+      // 컴포넌트 언마운트 시 이벤트 리스너 제거
+      return () => {
+        chatBody.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
 
   // DM 클릭 핸들러
   const DmClickhandler = async (otherUserId: string, productId: number) => {
