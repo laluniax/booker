@@ -141,7 +141,7 @@ export const BookIntroCardBox = styled.div`
   margin-top: 1rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-  width:120rem;
+  width:110rem;
   height: 55rem;
   gap:2rem;
   margin-top: 2rem;
@@ -367,11 +367,12 @@ export const BookerTalkWrapper = styled.div`
 export const BookerTalkCard = styled.div``;
 
 type BookerTalkCardImageProps = {
-  backgroundimage: string;
+  $backgroundimage: string;
 };
 
 export const BookerTalkCardImage = styled.div<BookerTalkCardImageProps>`
-  background: url(${(props) => props.backgroundimage});
+  // 알려지지 않은 prop이 DOM요소로 전달되어 오류 발생
+  background: url(${(props) => props.$backgroundimage}); // prop을 스타일에서만 사용하고 DOM요소로 전달하지 않음
   background-size: contain;
   object-fit: cover;
   margin-top: 2rem;
@@ -765,7 +766,7 @@ export const IndBookAndRecommnedTitle = styled.div`
   font-weight: bold;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  width:60rem;
+  width:40rem;
   height:5rem;
   margin:2rem auto:
   font-size: 2rem;
@@ -803,7 +804,7 @@ export const IndBookStoreWrapper = styled.div`
   `};
   ${({ theme }) => theme.mediaQuery.lg`
     margin-top: 10rem;
-    width: 120rem;
+    width: 110rem;
   `};
 `;
 
@@ -873,7 +874,7 @@ export const BookRecommendWrapper = styled.div`
   `};
   ${({ theme }) => theme.mediaQuery.lg`
     margin-top: 10rem;
-    width:120rem;
+    width:110rem;
   `};
 `;
 export const BookRecommendBox = styled.div`

@@ -4,7 +4,9 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getPostsHandler, getProductListHandler } from '../../api/supabase.api';
 import { Bestseller, BooksInfoTypes, PostsTypes, ProductsTypes } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
-import Loading from '../survey/Loading';
+
+import Loading from '../common/loading/Loading';
+import Pagination from '../common/pagination/Pagination';
 import * as St from './SearchField.styled';
 
 const SearchField = () => {
@@ -22,6 +24,8 @@ const SearchField = () => {
   const [loading2, setLoading2] = useState(false);
   const [loading3, setLoading3] = useState(false);
   const [loading4, setLoading4] = useState(false);
+  const [currentPostsPage, setCurrentPostsPage] = useState(1);
+  const [currentProductsPage, setCurrentProductsPage] = useState(1);
 
   const getPost = async () => {
     try {
@@ -133,7 +137,7 @@ const SearchField = () => {
         <St.SearchTitle>북커톡</St.SearchTitle>
         {bookertalkList.length > 0 ? (
           <>
-            {bookertalkList.map((item, i) => {
+            {bookertalkList.slice((currentPostsPage - 1) * 5, currentPostsPage * 5).map((item, i) => {
               return (
                 <St.PostList key={i} onClick={() => navigate(`/detail/${item.id}`)}>
                   <St.Post width={13}>{item.title}</St.Post>
@@ -148,6 +152,8 @@ const SearchField = () => {
         ) : (
           <>검색 결과가 없습니다.</>
         )}
+        {/* 한 페이지에 보여줄 페이지 갯수 조정하기 → posstsPerPage의 숫자를 바꿔보세요! */}
+        <Pagination postsPerPage={5} totalPosts={bookertalkList?.length ?? 0} paginate={setCurrentPostsPage} />
       </St.SearchWrapper>
       <St.SearchBookWrapper>
         <St.SearchTitle>도서 소개</St.SearchTitle>

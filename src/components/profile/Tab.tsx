@@ -51,6 +51,10 @@ const Tab = ({ userSession, userData }: Props) => {
   };
 
   useEffect(() => {
+    setActive('1');
+  }, [params]);
+
+  useEffect(() => {
     userData && filterPostByUserId();
     userSession && getFollowList();
   }, [userSession, userData]);
@@ -133,6 +137,7 @@ const Tab = ({ userSession, userData }: Props) => {
                   key={i}
                   onClick={() => {
                     navigate(`/profile/${item.follow_to}`);
+                    window.scrollTo(0, 0);
                   }}>
                   <St.FollowImg src={item.users.user_img ?? undefined} />
                   <St.FollowNickname>{item.users.nickname}</St.FollowNickname>

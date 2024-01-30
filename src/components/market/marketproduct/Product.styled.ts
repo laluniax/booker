@@ -427,3 +427,26 @@ export const DeleteIcon = styled.div`
   width: 2rem;
   height: 2rem;
 `;
+
+export const NicknameLabel = styled.div`
+  background-color: #f0f0f0; // 닉네임 라벨 배경색
+  color: #333; // 닉네임 라벨 텍스트 색상
+  padding: 2px 8px; // 닉네임 라벨 패딩
+  border-radius: 10px; // 닉네임 라벨 둥근 모서리
+  font-size: 0.75rem; // 닉네임 라벨 글꼴 크기
+  margin-bottom: 4px; // 닉네임 라벨과 메시지 컴포넌트 사이의 여백
+  align-self: flex-start; // 부모 요소의 시작점에 정렬`
+
+export const DateLabel = styled.div`
+  background-color: #f0f0f0; // 배경색
+  color: #333; // 텍스트 색상
+  padding: 8px 16px; // 패딩
+  margin: 10px 0; // 위 아래 마진
+  border-radius: 4px; // 테두리 둥글게
+  font-size: 0.9em; // 폰트 크기
+  text-align: center; // 텍스트 중앙 정렬
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // 그림자 효과
+  width: fit-content; // 콘텐츠에 맞는 너비
+  margin-left: auto; // 왼쪽 자동 마진
+  margin-right: auto; // 오른쪽 자동 마진
+`;

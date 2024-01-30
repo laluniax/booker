@@ -7,14 +7,6 @@ const SurveyList = () => {
   const [nickname, setNickname] = useState('');
   const navigate = useNavigate();
 
-  // const userData = async () => {
-  //   const {
-  //     data: { user },
-  //   } = await supabase.auth.getUser();
-  //   const userNickname = user?.user_metadata.full_name;
-  //   setNickname(userNickname);
-  // };
-
   const getUserSession = async () => {
     const result = await getUserSessionHandler();
     setNickname(
@@ -31,78 +23,100 @@ const SurveyList = () => {
 
   return (
     <St.Container>
-      <St.BtnContainer>
-        <St.TitleAndImageWrapper>
-          <St.Title>
-            <St.NickName>{nickname}</St.NickName> 님이 좋아할만한 책을 추천해드릴게요!
-          </St.Title>
-        </St.TitleAndImageWrapper>
+      <St.TitleWrapper>
+        <St.Title>
+          {nickname ? (
+            <>
+              <St.NickName>{nickname}</St.NickName>
+              <span>님이 </span>
+            </>
+          ) : null}
+          좋아할만한 책을 추천해드릴게요!
+        </St.Title>
+      </St.TitleWrapper>
 
-        <St.ServeyContentWrapper>
-          <St.SurveyContentBox>
-            <St.IconAndButtonBox>
-              <St.Righticon />
-              <St.SurveyButton
-                onClick={() => {
-                  navigate('/BestSellerDomForSurvey');
-                  window.scrollTo(0, 0);
-                }}>
-                요즘 핫한 국내도서 vs 외국도서 추천받기
-              </St.SurveyButton>
-            </St.IconAndButtonBox>
-          </St.SurveyContentBox>
+      <St.SurveyContentWrapper>
+        <St.SurveyContentBox>
+          {/* <St.IconAndButtonBox> */}
+          <St.Righticon />
+          <St.SurveyButton
+            onClick={() => {
+              navigate('/survey/domfor');
+              window.scrollTo(0, 0);
+            }}>
+            요즘 핫한 국내도서{' '}
+            <St.BreakPoint>
+              <br />
+            </St.BreakPoint>{' '}
+            vs 외국도서 추천받기
+          </St.SurveyButton>
+          {/* </St.IconAndButtonBox> */}
+        </St.SurveyContentBox>
 
-          <St.SurveyContentBox>
-            <St.IconAndButtonBox>
-              <St.Righticon />
-              <St.SurveyButton
-                onClick={() => {
-                  navigate('/BestSellerGenreSurvey');
-                  window.scrollTo(0, 0);
-                }}>
-                요즘 인기있는 책을 장르별로 추천받기
-              </St.SurveyButton>
-            </St.IconAndButtonBox>
-          </St.SurveyContentBox>
+        <St.SurveyContentBox>
+          {/* <St.IconAndButtonBox> */}
+          <St.Righticon />
+          <St.SurveyButton
+            onClick={() => {
+              navigate('/survey/genre');
+              window.scrollTo(0, 0);
+            }}>
+            요즘 인기있는 책을
+            <St.BreakPoint>
+              <br />
+            </St.BreakPoint>
+            장르별로 추천받기
+          </St.SurveyButton>
+          {/* </St.IconAndButtonBox> */}
+        </St.SurveyContentBox>
 
-          <St.SurveyContentBox>
+        <St.SurveyContentBox>
+          {/* <St.IconAndButtonBox> */}
+          <St.Righticon />
+          <St.SurveyButton
+            onClick={() => {
+              navigate('/survey/new');
+              window.scrollTo(0, 0);
+            }}>
+            따끈따끈한 신작을
+            <St.BreakPoint>
+              <br />
+            </St.BreakPoint>
+            장르별로 추천받기
+          </St.SurveyButton>
+          {/* </St.IconAndButtonBox> */}
+        </St.SurveyContentBox>
+        {/* <St.SurveyContentBox>
             <St.IconAndButtonBox>
               <St.Righticon />
               <St.SurveyButton
                 onClick={() => {
-                  navigate('/BestSellerNewSurvey');
+                  navigate('/survey/value');
                   window.scrollTo(0, 0);
                 }}>
-                따끈따끈한 신작을 장르별로 추천받기
-              </St.SurveyButton>
-            </St.IconAndButtonBox>
-          </St.SurveyContentBox>
-          {/* <St.SurveyContentBox>
-            <St.IconAndButtonBox>
-              <St.Righticon />
-              <St.SurveyButton
-                onClick={() => {
-                  navigate('/BestSellerValueSurvey');
-                  window.scrollTo(0, 0);
-                }}>
-                {nickname}님이 추구하는 가치에 걸맞는 책 추천받기
+                {nickname ? (
+                  <>
+                    {nickname}
+                    <span>님이</span>
+                  </>
+                ) : null}
+                추구하는 가치에 걸맞는 책 추천받기
               </St.SurveyButton>
             </St.IconAndButtonBox>
           </St.SurveyContentBox> */}
-          <St.SurveyContentBox>
-            <St.IconAndButtonBox>
-              <St.Righticon />
-              <St.SurveyButton
-                onClick={() => {
-                  navigate('/BestSellerCheapSurvey');
-                  window.scrollTo(0, 0);
-                }}>
-                텅장러를 위한 책 추천받기
-              </St.SurveyButton>
-            </St.IconAndButtonBox>
-          </St.SurveyContentBox>
-        </St.ServeyContentWrapper>
-      </St.BtnContainer>
+        <St.SurveyContentBox>
+          {/* <St.IconAndButtonBox> */}
+          <St.Righticon />
+          <St.SurveyButton
+            onClick={() => {
+              navigate('/survey/price');
+              window.scrollTo(0, 0);
+            }}>
+            텅장러를 위한 책 추천받기
+          </St.SurveyButton>
+          {/* </St.IconAndButtonBox> */}
+        </St.SurveyContentBox>
+      </St.SurveyContentWrapper>
     </St.Container>
   );
 };

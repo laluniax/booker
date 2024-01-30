@@ -2,7 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
-import Loading from '../../survey/Loading';
+
+import Loading from '../../common/loading/Loading';
 import * as St from '../BookIntroduction.styled';
 
 interface Special {
@@ -17,23 +18,30 @@ interface Special {
 
 const BookSpecial = () => {
   const [special, setSpecial] = useState<Special[]>([]);
-  const [ref, inView] = useInView();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
-  const [loading, setLoading] = useState(false);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [hasMoreData, setHasMoreData] = useState<boolean>(true);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [ref, inView] = useInView({
+    threshold: 0.5, // 스크롤이 요소의 50%에 도달했을 때 inView가 true가 됩니다.
+  });
+  const ITEMS_PER_PAGE = 10;
 
-  const getSpecial = async () => {
-    if (isLoading) return;
+  const getSpecial = async (pageNum: number) => {
     setIsLoading(true);
 
     try {
-      setLoading(true);
-      const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special?page=${page}`);
-      setSpecial((prev) => [...prev, ...response.data.item]);
-      setPage((page) => page + 1);
-      setLoading(false);
+      const response = await axios.get(
+        `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special?page=${pageNum}&limit=${ITEMS_PER_PAGE}`,
+      );
+      if (response.data.item.length < ITEMS_PER_PAGE) {
+        setHasMoreData(false);
+      }
+      setSpecial((prev) => [
+        ...prev,
+        ...response.data.item.slice((pageNum - 1) * ITEMS_PER_PAGE, pageNum * ITEMS_PER_PAGE),
+      ]);
     } catch (error) {
       console.error(error);
     } finally {
@@ -42,10 +50,14 @@ const BookSpecial = () => {
   };
 
   useEffect(() => {
-    if (inView) {
-      getSpecial();
+    getSpecial(page); // 현재 페이지 데이터 로딩
+  }, [page]);
+
+  useEffect(() => {
+    if (inView && hasMoreData && !isLoading) {
+      setPage((prevPage) => prevPage + 1); // 다음 페이지 로드
     }
-  }, [inView]);
+  }, [inView, hasMoreData, isLoading]);
 
   const GotoDetailPage = (isbn13: string) => {
     navigate(`/aboutBook/${isbn13}`);

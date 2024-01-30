@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import prev from '../../assets/common/prevbutton2.webp';
 export const Container = styled.div`
-  min-height: 100rem;
+  height: 100rem;
   ${({ theme }) => theme.mediaQuery.sm`
   margin-left: 4rem;
 
