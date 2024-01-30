@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { supabase } from '../../api/supabase.api';
-import { useAuth } from '../../contexts/auth.context';
-import * as St from './ChatLog.styled';
+import { supabase } from '../../../../api/supabase.api';
+import { useAuth } from '../../../../contexts/auth.context';
+import * as St from './UserChatRoom.styled';
 
 interface Message {
   created_at: string;

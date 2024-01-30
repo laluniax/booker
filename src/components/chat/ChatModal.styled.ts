@@ -6,6 +6,7 @@ export const Container = styled.div`
   position: relative;
 
   ${({ theme }) => theme.mediaQuery.sm`
+  
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -14,13 +15,14 @@ export const Container = styled.div`
   `};
 `;
 export const ChatWrapper = styled.div`
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   position: fixed;
-  z-index: 1000;
+  /* z-index: 1000; */
   box-shadow: rgba(100, 100, 111, 0.2) 0 0.7rem 2.9rem 0;
   background-color: white;
   overflow: scroll;
   z-index: 999;
+  margin: 0 auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
     `}
@@ -34,10 +36,7 @@ export const ChatWrapper = styled.div`
   padding: 0.8rem;
   `};
 `;
-export const LogoWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
+export const LogoWrapper = styled.div``;
 
 export const PrevBtn = styled.div`
   cursor: pointer;
@@ -52,7 +51,7 @@ export const ChatHeader = styled.div`
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 0.8rem;
-  margin: 1.6rem 1.6rem 1.2rem;
+  // margin: 1.6rem 1.6rem 1.2rem;
   `};
 `;
 
@@ -72,36 +71,44 @@ export const ChatBody = styled.div`
 
 export const ChatTopBox = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  height: 6rem;
-  margin-bottom: 2rem;
+  height: 10rem;
+  width: 40rem;
   `};
 `;
 
 export const MainMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${({ theme }) => theme.mediaQuery.sm`
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.4rem;
+  width:40rem;
+  height:2rem;
+  text-align:center;
+  margin-top:1rem;
   `};
 `;
 
 // 문의하기 버튼
 export const AskButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
+  /* display: flex; */
+  /* justify-content: center; */
 `;
 
 export const AskButton = styled.button`
   all: unset;
-
   font-weight: bold;
   text-align: center;
   border-radius: 2rem;
@@ -122,29 +129,83 @@ export const AskButton = styled.button`
     font-size: 1.5rem;
   `};
 `;
+
 export const Contour = styled.div`
-  border-bottom-style: dotted;
+  border-bottom: 3px solid #000;
+  width: 35rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    `}
-
+  width : 30rem;
+  border-bottom: 2px solid #000;
+  margin : -2rem auto;
+  `};
   ${({ theme }) => theme.mediaQuery.lg`
-      border-bottom: 2px solid #000;
-      margin-top: 2rem;
+    margin-top : 1rem;
+    width : 40rem;
+    height: 3rem;
+  `};
+`;
+
+//중고거래 문구
+export const ChatContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 3.5rem auto;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    width: 40rem;
+    height: 3rem;
+  `};
+`;
+
+export const ChatContentTitle = styled.div`
+  text-align: center;
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    font-weight: bold;
+    font-size: 1.6rem;
+    width: 40rem;
+    height: 2rem;
+  `};
+`;
+
+export const ChatContent = styled.div`
+  text-align: center;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    font-size: 1.4rem;
+    width: 40rem;
+    height: 1.5rem;
+    margin: 1rem auto;
   `};
 `;
 
 // 채팅 리스트
 export const ChatListWrapper = styled.div`
-  display: grid;
-  justify-content: center;
+  /* display: grid; */
+  /* justify-content: center; */
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-   margin-top: 5rem;
+   margin-top: 3rem;
+   font-size: 1.3rem;
+   width:40rem;
+   height:55rem;
   `};
 `;
 
@@ -184,7 +245,6 @@ export const Input = styled.input`
 `;
 export const TalkButtonWrapper = styled.div`
   position: fixed;
-
   z-index: 1000;
 
   ${({ theme }) => theme.mediaQuery.sm`
@@ -207,14 +267,10 @@ export type MessageProps = {
 
 //고객센터 채팅내역
 export const UserItemBox = styled.div`
-  align-items: center;
-
   ${({ theme }) => theme.mediaQuery.sm`
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  margin-left: 2rem;
-  margin-top: 3rem;
   `};
 `;
 
@@ -224,7 +280,7 @@ export const UserItem = styled.div`
   justify-content: space-between;
   border: 0.1rem solid #000;
   color: #000;
-  border-radius: 0.4rem;
+  /* border-radius: 1.5rem; */
   cursor: pointer;
   &:hover {
     background-color: #e9e9e9;
@@ -237,9 +293,9 @@ export const UserItem = styled.div`
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  width: 40rem;
+  width: 38rem;
   height: 5rem;
-  padding: 1rem;
+  // padding: 1rem;
   margin-bottom: 1rem;
   `};
 `;
@@ -266,7 +322,8 @@ export const UserLastMessage = styled.div`
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.2rem;
-  padding-left: 3rem;
+  margin-top:0.5rem;
+  // padding-left: 3rem;
   `};
 `;
 
@@ -518,6 +575,7 @@ export const BookerChattingIcon = styled.div`
   width: 9rem;
   height: 9rem;
   cursor: pointer;
+  background-color: red;
 
   ${({ theme }) => theme.mediaQuery.sm`
     width: 10rem;
@@ -527,6 +585,7 @@ export const BookerChattingIcon = styled.div`
   ${({ theme }) => theme.mediaQuery.lg`
     width: 13rem;
     height: 13rem;
+    
   `};
 `;
 
@@ -553,45 +612,76 @@ export const UserImage = styled.img`
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  margin-right: 10px;
-  width: 40px; // 유저 이미지 크기 조절
-  height: 40px;
+  margin-right: 1rem;
+  width: 4rem; // 유저 이미지 크기 조절
+  height: 4rem;
   `};
 `;
 
 export const UserInfo = styled.div`
-  flex: 1;
+  /* flex: 1; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  margin-right: 10px; // 오른쪽에 있는 물품 이미지와의 간격
+  width: 25rem;
+  margin-left: 0.5rem; // 오른쪽에 있는 물품 이미지와의 간격
   `};
+`;
+
+export const NicknameMessageTimeWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+`}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  width: 25rem;
+  `};
+`;
+
+export const MessageTime = styled.div`
+  margin-right: 1rem;
+  font-size: 1.1rem;
 `;
 
 export const UserNickname = styled.div`
   font-weight: bold;
-  // 기타 필요한 스타일 ...
 `;
 
 export const ProductImage = styled.img`
-  object-fit: cover;
+  /* object-fit: cover; */
 
   ${({ theme }) => theme.mediaQuery.sm`
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  width: 60px; // 물품 이미지 크기 조절
-  height: 60px;
-  border-radius: 8px; // 적당한 둥근 모서리
+  width: 5rem; // 물품 이미지 크기 조절
+  height: 5rem;
+  margin-left:0.5rem;
+  // border-radius: 8px; // 적당한 둥근 모서리
   `};
 `;
+export const AlarmUserWrapper = styled.div`
+  position: relative;
+  margin: 0 auto;
+`;
 
-export const NotificationBadge = styled.span`
+export const AlarmDetail = styled.span`
   background-color: red;
   color: white;
   vertical-align: super;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
   // 기타 필요한 스타일 ...
 
   ${({ theme }) => theme.mediaQuery.sm`
@@ -599,9 +689,40 @@ export const NotificationBadge = styled.span`
 
   ${({ theme }) => theme.mediaQuery.lg`
   border-radius: 9999px; // 원형 모양
-  margin-left: 10px;
+  margin-left: -1.5rem;
+  margin-top: -0.5rem;
   padding: 0.2em 0.6em;
-  font-size: 0.75em;
+  font-size: 1rem;
+  width:1.7rem;
+  height:1.7rem;
+  left:1rem;
+  top:0.3rem;
+  `};
+`;
+
+export const NotificationBadge = styled.span`
+  background-color: red;
+  color: white;
+  vertical-align: super;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  // 기타 필요한 스타일 ...
+
+  ${({ theme }) => theme.mediaQuery.sm`
+`}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  border-radius: 5rem;
+  margin-left: -1rem;
+  margin-top: -0.5rem;
+  padding: 0.2em 0.6em;
+  font-size: 1.5rem;
+  width:3rem;
+  height:3rem;
+  left:1.5rem;
+  bottom:11rem;
   `};
 `;
 
