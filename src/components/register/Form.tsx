@@ -28,7 +28,7 @@ const Form = () => {
   // 이메일 유효성 검사 함수
   const validateEmail = (email: string): boolean => {
     if (email.trim() === '') {
-      setEmailError('이메일을 입력해주세요');
+      setEmailError('');
       return false;
     }
 
@@ -48,7 +48,7 @@ const Form = () => {
     const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}:<>?])[A-Za-z\d!@#$%^&*()_+{}:<>?]{8,}$/;
 
     if (password === '') {
-      setPasswordError('비밀번호를 입력해주세요.');
+      setPasswordError('');
     } else if (!regex.test(password)) {
       setPasswordError(
         '비밀번호는 최소 8자 이상이며, 최소 하나의 문자와 하나의 숫자, 하나의 특수문자를 포함해야 합니다',
@@ -72,7 +72,7 @@ const Form = () => {
     const repassword = repasswordRef.current?.value || '';
 
     if (repassword === '') {
-      setRepasswordError('비밀번호를 다시 입력해주세요.');
+      setRepasswordError('');
     } else if (password !== repassword) {
       setRepasswordError('비밀번호가 다릅니다');
     } else {
