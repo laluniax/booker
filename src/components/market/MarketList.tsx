@@ -70,8 +70,8 @@ const MarketList = () => {
           </St.CategoryBox>
         </St.CategoryWrapper>{' '}
         <St.ContentsWrapper>
-          <St.Title>
-            {category ? category : '중고거래'}
+          <St.TitlePostButtonWrapper>
+            <St.Title>{category ? category : '중고거래'}</St.Title>
             <St.PostButton
               onClick={() => {
                 {
@@ -83,7 +83,8 @@ const MarketList = () => {
               }}>
               글쓰기
             </St.PostButton>
-          </St.Title>
+          </St.TitlePostButtonWrapper>
+          <St.Contour />
 
           <St.ProductsWrapper>
             {currentPosts.map((item, i) => {
@@ -99,7 +100,7 @@ const MarketList = () => {
                     <St.LogoImage />
                   ) : (
                     <St.ProductImg>
-                      <img src={(item.product_img && item.product_img[0]) ?? undefined}></img>
+                      <img src={(item.product_img && item.product_img[0]) ?? undefined} />
                     </St.ProductImg>
                   )}
                   <St.CardTitleAndContentBox>
