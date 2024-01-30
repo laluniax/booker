@@ -124,7 +124,7 @@ const Main = () => {
               return (
                 <St.BookerTalkCard key={i}>
                   <St.BookerTalkCardImage
-                    backgroundimage={bookerTalkImages[i % bookerTalkImages.length]}
+                    $backgroundimage={bookerTalkImages[i % bookerTalkImages.length]}
                     onClick={() => {
                       navigate(`/detail/${item.id}`);
                       window.scrollTo(0, 0);

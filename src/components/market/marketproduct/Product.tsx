@@ -6,26 +6,22 @@ import { useCreateOrGetChat, useSendMessage } from '../../../api/chatApi';
 import {
   deleteProductHandler,
   deleteProductImgStorage,
-  followHandler,
-  followIdListHandler,
   getProductHandler,
   getUserSessionHandler,
   supabase,
-  unFollowHandler,
 } from '../../../api/supabase.api';
 import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/product.atom';
 
 import { Session } from '@supabase/supabase-js';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { ProductsTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
+import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
 import { MessageType } from '../../qna/ChatModal';
 import { categoryArr } from '../marketpost/Post';
 import * as St from './Product.styled';
-import dayjs from 'dayjs';
-import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
-
-
 
 const Product = () => {
   const params = useParams().id;
@@ -34,12 +30,10 @@ const Product = () => {
   const slideRef = useRef<HTMLUListElement>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [product, setProduct] = useState<ProductsTypes>();
-  const [followId, setFollowId] = useState('');
-  const [following, setFollowing] = useState(false); // 팔로잉:거짓 이 기본
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideLength, setSlideLength] = useState(0);
   const [inputValue, setInputValue] = useState('');
-  
+
   const [productId, setProductId] = useRecoilState(productState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
@@ -78,21 +72,23 @@ const Product = () => {
   // 메시지 전송 핸들러
   const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && inputValue.trim()) {
-      sendDirectMessage({
-        content: inputValue,
-        author_id: LoginPersonal,
-        chat_id: chatId,
-        item_id: productId,
-        // others_id: otherLoginPersonal,
-      });
-      setChatId(chatId);
-      setInputValue('');
+      if (event.nativeEvent.isComposing === false) {
+        sendDirectMessage({
+          content: inputValue,
+          author_id: LoginPersonal,
+          chat_id: chatId,
+          item_id: productId,
+          // others_id: otherLoginPersonal,
+        });
+        setChatId(chatId);
+        setInputValue('');
+      }
     }
   };
 
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-   
+
     sendDirectMessage({
       content: inputValue,
       author_id: LoginPersonal,
@@ -104,9 +100,6 @@ const Product = () => {
     setInputValue('');
   };
 
-
-
-
   const renderMessages = () => {
     dayjs.locale('ko'); // 한국어 로케일을 기본값으로 설정
     let lastDate: dayjs.Dayjs | null = null;
@@ -114,7 +107,7 @@ const Product = () => {
     return (
       <>
         {/* {renderChatHeader()} */}
-      
+
         {messages
           .filter((message: MessageType) => message.chat_id === chatId)
           .sort((a: MessageType, b: MessageType) => a.id - b.id) // 오름차순 정렬
@@ -123,14 +116,13 @@ const Product = () => {
             const formattedTime = currentDate.format('hh:mm A'); // Format time with AM/PM
             const formattedDate = currentDate.format('YYYY-MM-DD dddd'); // Format date with day of the week
             let dateLabel = null;
-  
+
             // Check if the date has changed
             if (lastDate === null || !currentDate.isSame(lastDate, 'day')) {
               dateLabel = <St.DateLabel>{formattedDate}</St.DateLabel>; // Use DateLabel
               lastDate = currentDate;
-       
             }
-            
+
             return (
               <>
                 {dateLabel} {/* Display the date label if the date has changed */}
@@ -144,7 +136,6 @@ const Product = () => {
       </>
     );
   };
-  
 
   const getProduct = async () => {
     const result = await getProductHandler(params as string);
@@ -155,7 +146,6 @@ const Product = () => {
     const session = await getUserSessionHandler();
     const newFollowId = product?.user_id + '-' + session.session?.user.id;
     setSession(session.session);
-    setFollowId(newFollowId);
   };
 
   const onClickPrevBtn = useCallback(() => {
@@ -185,34 +175,6 @@ const Product = () => {
       : window.confirm('로그인 페이지로 이동하시겠습니까?') && navigate(`/login`);
   };
 
-  // 팔로우/언팔로우 판단하기
-  const followIdList = async () => {
-    const result = await followIdListHandler();
-    const filteredResult = result.filter((item) => {
-      return item.follow_id === followId;
-    });
-    if (filteredResult.length > 0) setFollowing(true);
-    else setFollowing(false);
-  };
-  // 팔로우하기
-  const onClickFollowBtn = async () => {
-    if (!session) {
-      if (window.confirm('로그인 페이지로 이동하시겠습니까?')) {
-        navigate(`/login`);
-        return;
-      } else return;
-    } else {
-      const result = await followHandler(followId, product?.user_id as string, session?.user.id as string);
-      followIdList();
-    }
-  };
-  // 언팔로우하기
-  const onClickUnfollowBtn = async () => {
-    const result = await unFollowHandler(followId);
-    console.log(result);
-    followIdList();
-  };
-
   const [likes, setLikes] = useState<any[]>([]);
 
   useEffect(() => {
@@ -221,9 +183,7 @@ const Product = () => {
   useEffect(() => {
     getUserSession();
   }, [product]);
-  useEffect(() => {
-    followIdList();
-  }, [followId]);
+
   useEffect(() => {
     if (slideRef.current) slideRef.current.style.marginLeft = `${-currentSlide * 30}rem`;
   }, [currentSlide]);
@@ -334,7 +294,6 @@ const Product = () => {
                     />
                     <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
                   </St.ChatModalFooter>
-
                 </St.ChatModalWrapper>
               )}
             </St.ProductBtn>
@@ -347,25 +306,7 @@ const Product = () => {
               {session?.user.id === product?.user_id ? (
                 <St.FollowBtn>내 프로필</St.FollowBtn>
               ) : (
-                <>
-                  {following ? (
-                    <St.FollowBtn
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onClickUnfollowBtn();
-                      }}>
-                      언팔로우
-                    </St.FollowBtn>
-                  ) : (
-                    <St.FollowBtn
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onClickFollowBtn();
-                      }}>
-                      팔로우
-                    </St.FollowBtn>
-                  )}
-                </>
+                product?.user_id && <Follow params={product?.user_id as string} usage="product" />
               )}
             </St.ProductUser>
           </St.ProductLikesChatUser>
