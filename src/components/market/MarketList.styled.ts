@@ -1,176 +1,60 @@
 import styled from 'styled-components';
-import HeartIcon from '../../assets/common/icon-_heart_white.webp';
-import logoImage from '../../assets/common/logo.webp';
+// import logoImage from '../../assets/common/logo.webp';
+// import defaultImg from '../../assets/market/marketdefault.png';
+import defaultImg from '../../assets/profile/defaultprofileimage.webp';
 
 export const Container = styled.div`
-  width: 30rem;
-  height: 200rem;
-  margin: 0 auto;
-  ${({ theme }) => theme.mediaQuery.sm`
-   width: 70rem;
-   height: 100rem;
-    `}
-
-  ${({ theme }) => theme.mediaQuery.lg`
-      width: 120rem;
-      height: 200rem;
-  `};
-`;
-
-export const ContentsWrapper = styled.div`
-  width: 20rem;
-  ${({ theme }) => theme.mediaQuery.sm`
-  width: 55rem;
-    `}
-
-  ${({ theme }) => theme.mediaQuery.lg`
-  margin-top:3rem;
-  width: 90rem;
-  `};
-`;
-
-export const TitlePostButtonWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  ${({ theme }) => theme.mediaQuery.sm`
-  margin-left:2rem;
-    `}
-
-  ${({ theme }) => theme.mediaQuery.lg`
-  `};
-`;
-
-export const Title = styled.div`
-  font-family: 'GmarketSansMedium';
-  /* padding-bottom: 0.5rem; */
-  /* border-bottom: 0.2rem solid black; */
-  font-size: 2rem;
-  font-weight: 600;
-  /* padding-top: 2rem; */
-  margin-bottom: 3rem;
-  /* padding: 0.9rem 1.2rem; */
-  margin: auto 0;
-
-  ${({ theme }) => theme.mediaQuery.sm`
-   font-size: 2.7rem;
-   
-    `}
-
-  ${({ theme }) => theme.mediaQuery.lg`
-      font-size: 4rem;
-  `};
-`;
-
-export const PostButton = styled.button`
-  all: unset;
-  float: right;
-
-  border: 0.1rem solid #fca311;
-  border-radius: 1rem;
-  background-color: #fca311;
-  color: #000;
-  font-size: 1.8rem;
-  &:hover {
-    cursor: pointer;
-    background-color: #14213d;
-    color: #fca311;
-    transition: 0.3s;
-  }
-
-  &:not(:hover) {
-    transition: 0.3s;
-  }
-
-  ${({ theme }) => theme.mediaQuery.sm`
-   font-size: 1.5rem;
-   padding: 0.5rem 1rem;
-    `}
-
-  ${({ theme }) => theme.mediaQuery.lg`
-    font-size: 2rem;
-    padding: 0.9rem 1.2rem;
-  `};
-`;
-
-export const Contour = styled.div`
-  border-bottom: 3px solid #000;
-  width: 35rem;
-  display: flex;
-  justify-content: center;
-  margin-top: 3rem;
-
-  ${({ theme }) => theme.mediaQuery.sm`
-  width : 55rem;
-  border-bottom: 2px solid #000;
-  margin : 1rem auto;
-  margin-left: 2rem;
-  
-  `};
-  ${({ theme }) => theme.mediaQuery.lg`
-    margin-top : 2rem;
-    width : 90rem;
-  `};
-`;
-
-export const CategoryProductsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  max-width: 35rem;
   margin: 0 auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
+    display: flex;
+    justify-content: space-between;
+    max-width: 85rem;
+    gap: 1rem;
     `}
-
   ${({ theme }) => theme.mediaQuery.lg`
-      font-size: 4rem;
-      gap: 5rem;
+    max-width: 120rem;
+    gap: 3rem;
+
   `};
 `;
 
 export const CategoryWrapper = styled.div`
-  width: 8rem;
+  display: none;
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 10rem;
-    `}
-
-  ${({ theme }) => theme.mediaQuery.lg`
-    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+    width: 20rem;
+    height: 114rem;
     margin-top: 2rem;
-  `};
-`;
-export const CategoryBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #000;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  line-height: 1.2;
-  font-size: 1.2rem;
-
-  ${({ theme }) => theme.mediaQuery.sm`
-  font-size: 1.3rem;
-`}
-
+    font-size: 1.7rem;
+    padding: 2rem 0 4rem 0;
+    `}
   ${({ theme }) => theme.mediaQuery.lg`
-  font-size: 1.7rem;
-  padding: 2rem 0 4rem 0;
-
-`};
+    width: 23rem;
+    height: 114rem;
+    margin-top: 2rem;
+    font-size: 1.7rem;
+    padding: 2rem 0 4rem 0;
+  `};
 `;
 
 export const CategoryTitle = styled.div`
   font-family: 'GmarketSansMedium';
   color: #003c52;
   cursor: pointer;
-  /* font-size: 2rem; */
-
   ${({ theme }) => theme.mediaQuery.sm`
+      margin: 2rem 0;
+      font-size: 2.5rem;
+      font-weight: bold;
 `}
-
   ${({ theme }) => theme.mediaQuery.lg`
     margin: 2rem 0;
     font-size: 3rem;
@@ -189,7 +73,6 @@ export const CategoryBtnBox = styled.div`
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  font-size: 3rem;
 `};
 `;
 export const CategoryBtn = styled.button`
@@ -213,22 +96,130 @@ export const CategoryBtn = styled.button`
   }
 `;
 
-export const ProductsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 24% 24% 24% 24%;
-  width: 20rem;
-  margin: 2rem auto;
+export const ContentsWrapper = styled.div`
+  max-width: 35rem;
+  margin: 0 auto;
   ${({ theme }) => theme.mediaQuery.sm`
-  width: 55rem;
-  gap:1rem;
-  margin-left: 2rem;
-`}
+  max-width: 62rem;
+    `}
+  ${({ theme }) => theme.mediaQuery.lg`
+  max-width: 90rem;
+  `};
+`;
+
+// export const TitlePostButtonWrapper = styled.div`
+//   align-items: center;
+
+//   ${({ theme }) => theme.mediaQuery.sm`
+//     `}
+//   ${({ theme }) => theme.mediaQuery.lg`
+//   `};
+// `;
+
+export const Title = styled.div`
+  font-family: 'GmarketSansMedium';
+  font-size: 2.7rem;
+  font-weight: 600;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+   font-size: 3rem;
+    `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-    width: 90rem;
+      font-size: 4rem;
+  `};
+`;
+
+export const PostButton = styled.button`
+  all: unset;
+  float: right;
+  font-family: 'GmarketSansMedium';
+  border: 0.1rem solid #fca311;
+  border-radius: 1rem;
+  background-color: #fca311;
+  color: #000;
+  font-size: 1.8rem;
+  display: none;
+  &:hover {
+    cursor: pointer;
+    background-color: #14213d;
+    color: #fca311;
+    transition: 0.3s;
+  }
+  &:not(:hover) {
+    transition: 0.3s;
+  }
+  ${({ theme }) => theme.mediaQuery.sm`
+   display: block;
+   font-size: 1.5rem;
+   padding: 0.5rem 1rem;
+    `}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+    font-size: 1.5rem;
+    padding: 0.9rem 1.2rem;
+  `};
+`;
+
+export const Contour = styled.div`
+  border-bottom: 0.2rem solid #000;
+  margin: 0.5rem 0 2rem 0;
+  ${({ theme }) => theme.mediaQuery.sm`
+    margin: 0.5rem 0 3rem 0;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    margin: 0.5rem 0 5rem 0;
+  `};
+`;
+
+export const MobileCategory = styled.div`
+  font-family: 'GmarketSansMedium';
+  font-weight: 600;
+
+  & select {
+    width: 16rem;
+    height: 2.8rem;
+    border: 0.2rem solid black;
+    border-radius: 0.5rem;
+    font-family: 'GmarketSansMedium';
+  }
+  ${({ theme }) => theme.mediaQuery.sm`
+    display: none;
+    `}
+`;
+export const MobilePostButton = styled.div`
+  all: unset;
+  float: right;
+  font-family: 'GmarketSansMedium';
+  padding: 0.7rem 1.2rem;
+  border: 0.1rem solid #fca311;
+  border-radius: 1rem;
+  background-color: #fca311;
+  color: #000;
+  font-size: 1.2rem;
+  &:hover {
+    cursor: pointer;
+    background-color: #14213d;
+    color: #fca311;
+    transition: 0.3s;
+  }
+  &:not(:hover) {
+    transition: 0.3s;
+  }
+  ${({ theme }) => theme.mediaQuery.sm`
+    display: none;
+    `}
+`;
+
+export const ProductsWrapper = styled.div`
+  ${({ theme }) => theme.mediaQuery.sm`
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    gap: 1rem;
+`}
+  ${({ theme }) => theme.mediaQuery.lg`
+    grid-template-columns: 24% 24% 24% 24%;
     gap: 1.5rem;
-    line-height: 1.5;
-    margin-bottom: 2rem;
 `};
 `;
 
@@ -236,11 +227,14 @@ export const ProductCard = styled.div`
   position: relative;
   background-color: #14213d;
   color: #fff;
-  margin: 0 auto;
+  margin: 2rem auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-
+  justify-content: space-between;
+  max-width: 30rem;
+  height: 40rem;
+  padding: 2rem;
+  border-radius: 2rem;
   &:hover {
     cursor: pointer;
     background-color: #14213d;
@@ -248,112 +242,75 @@ export const ProductCard = styled.div`
     color: #fca311;
     transition: 0.3s;
   }
-
   &:not(:hover) {
     transition: 0.3s;
   }
-
   &.soldout {
     background: rgba(20, 33, 61, 0.4);
     color: rgba(20, 33, 61, 0.4);
-
     & img {
       opacity: 0.3;
     }
-
     &:hover {
       color: #ff0000;
       box-shadow: none;
       transition: 0.3s;
     }
-
     &:not(:hover) {
       transition: 0.3s;
     }
   }
-
   ${({ theme }) => theme.mediaQuery.sm`
-  width: 14rem;
-  height: 22rem;
+      width: 19.8rem;
+      height: 31.1rem;
+      margin: 0 auto;
+      padding: 1rem;
 `}
-
   ${({ theme }) => theme.mediaQuery.lg`
     width: 22rem;
     height: 34.6rem;
-    padding: 1rem;
-    border-radius: 2rem;
-`};
-`;
-
-export const CardTitleAndContentBox = styled.div`
-  position: relative;
-  border-top: 1px solid #fff;
-
-  ${({ theme }) => theme.mediaQuery.sm`
-  // witdh:13rem;
-`}
-
-  ${({ theme }) => theme.mediaQuery.lg`
-  padding: 0.3rem;
-  margin-top: 0.3rem;
-`};
-`;
-
-export const Onsale = styled.div`
-  font-family: 'GmarketSansMedium';
-  position: absolute;
-  color: #ff0000;
-
-  font-weight: bold;
-
-  ${({ theme }) => theme.mediaQuery.sm`
-  font-size: 2rem;
-  top: 10rem;
-  left: 2.5rem;
-`}
-
-  ${({ theme }) => theme.mediaQuery.lg`
-  padding: 0.2rem;
-  font-size: 3rem;
-  top: 13rem;
-  left: 4.8rem;
 `};
 `;
 
 export const LogoImage = styled.div`
-  background: url(${logoImage});
-  background-size: cover;
-  width: 20rem;
-  height: 26rem;
-
+  background: url(${defaultImg});
+  /* background-size: cover; */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* background-color: #fff; */
+  width: 26rem;
+  height: 30rem;
   ${({ theme }) => theme.mediaQuery.sm`
-  width: 13rem;
-  height: 17rem;
+    width: 18rem;
+    height: 23.4rem;
 `}
-
   ${({ theme }) => theme.mediaQuery.lg`
-  width: 20rem;
-  height: 26rem;
+    width: 20rem;
+    height: 26rem;
 `};
 `;
+
 export const ProductImg = styled.div`
+  width: 26rem;
+  height: 30rem;
   margin: 0 auto;
   & img {
+    width: 26rem;
+    height: 30rem;
     object-fit: cover;
   }
-
   ${({ theme }) => theme.mediaQuery.sm`
-  & img {
-    width: 13rem;
-    height: 17rem;
-  }
-    
+    width: 18rem;
+    height: 23.4rem;
+    & img {
+      width: 18rem;
+      height: 23.4rem;
+    }
 `}
-
   ${({ theme }) => theme.mediaQuery.lg`
   width: 20rem;
   height: 26rem;
-
   & img {
     width: 20rem;
     height: 26rem;
@@ -361,25 +318,29 @@ export const ProductImg = styled.div`
 `};
 `;
 
-export const EmptyHeartImg = styled.div`
-  position: absolute;
-  background: url(${HeartIcon});
-  background-size: contain;
-  right: 0;
+export const CardTitleAndContentBox = styled.div`
+  position: relative;
+  height: 5.5rem;
+  border-top: 1px solid #fff;
+  padding: 1.3rem 0.3rem 0.3rem 0.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  width:1.5rem;
-  height:1.5rem;
-  margin-right:0.5rem;
+    height: 5.8rem;
+    padding: 1rem 0.3rem 0.3rem 0.3rem;
+    margin-top: 0.3rem;
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  width: 2rem;
-  height: 1.7rem;
-  top: 1.2rem;
-  margin-right:-0.5rem;
-  `};
+  height: 6.5rem;
+  padding: 1.3rem 0.3rem 0.3rem 0.3rem;
+  margin-top: 0.3rem;
+`};
 `;
+
 export const TitleLikes = styled.div`
   display: flex;
   justify-content: space-between;
@@ -390,30 +351,24 @@ export const ProductTitle = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
-  ${({ theme }) => theme.mediaQuery.sm`
-  width: 11.5rem;
-  font-size:1.5rem;
-  margin-top:0.3rem;
-`}
-
-  ${({ theme }) => theme.mediaQuery.lg`
-  margin-top: 0.6rem;
   font-size: 2rem;
-  width: 11ch;
+  ${({ theme }) => theme.mediaQuery.sm`
+  font-size:1.8rem;
+`}
+  ${({ theme }) => theme.mediaQuery.lg`
+  font-size: 2rem;
   `};
 `;
 
 export const ProductInfo = styled.div`
   display: flex;
   justify-content: space-between;
-
+  font-size: 1.5rem;
   ${({ theme }) => theme.mediaQuery.sm`
-  margin-top:0.5rem;
+  font-size: 1.3rem;
 `}
-
   ${({ theme }) => theme.mediaQuery.lg`
-  margin-top:-0.5rem;
+  font-size: 1.5rem;
   `};
 `;
 
@@ -422,30 +377,46 @@ export const ProductPrice = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 1.6rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
+  font-size: 1.4rem;
 `}
-
   ${({ theme }) => theme.mediaQuery.lg`
-  font-size: 1.5rem;
-  width: 11rem;
+  font-size: 1.6rem;
   `};
 `;
 
-export const ProductCreatedAt = styled.div`
+export const ProductCreatedAt = styled.div``;
+
+export const Onsale = styled.div`
+  font-family: 'GmarketSansMedium';
+  position: absolute;
+  color: #ff0000;
+  font-weight: bold;
+  font-size: 3rem;
+  top: 15rem;
+  left: 8.5rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
+  font-size: 2.5rem;
+  top: 12rem;
+  left: 4.8rem;
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  font-size: 1.5rem;
-  `};
+  padding: 0.2rem;
+  font-size: 3rem;
+  top: 13rem;
+  left: 4.8rem;
+`};
 `;
 
 export const PaginationWrapper = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
+  padding: 1.5rem 0;
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  width: 90rem;
   `};
 `;
