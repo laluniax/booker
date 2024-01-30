@@ -24,7 +24,6 @@ export const PrevButton = styled.div`
   width: 6rem;
   height: 6rem;
   margin-left: 0rem;
-
   `};
 `;
 
