@@ -697,6 +697,7 @@ export const IndBookAndRecommnedContent = styled.div`
 // 독립서점
 export const IndBookStoreWrapper = styled.div`
   margin: 0 auto;
+
   ${({ theme }) => theme.mediaQuery.sm`
     margin-top: 5rem;
   `};
@@ -759,6 +760,7 @@ export const TitleAndContentBox = styled.div`
 // 책 맞춤추천
 export const BookRecommendWrapper = styled.div`
   margin: 6rem auto;
+
   ${({ theme }) => theme.mediaQuery.sm`
     margin-top: 5rem;
   `};
@@ -785,7 +787,7 @@ export const BookRecommendBox = styled.div`
   `};
   ${({ theme }) => theme.mediaQuery.lg`
   display:flex;
-   gap: 4rem;
+   gap: 4rem
   `};
 `;
 export const BookRecommendImage = styled.div`
