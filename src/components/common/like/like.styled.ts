@@ -29,7 +29,12 @@ export const HeartButton = styled.button`
   & img {
     width: 2.5rem;
   }
-
+  &.marketlist {
+    padding-right: 0;
+    & img {
+      width: 2rem;
+    }
+  }
   &:hover {
     transform: scale(1.1);
     transition: 0.1s;
