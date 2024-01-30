@@ -13,8 +13,8 @@ const Follow = ({ params, usage }: FollowProps) => {
   const [following, setFollowing] = useState(false); // 팔로잉:거짓 이 기본
   const [userSession, setUserSession] = useState<Session | null>(null);
   //   console.log(userSession);
-  console.log(followId);
-  console.log(following);
+  // console.log(followId);
+  // console.log(following);
 
   const navigate = useNavigate();
 
@@ -31,6 +31,7 @@ const Follow = ({ params, usage }: FollowProps) => {
   const followIdList = async () => {
     const result = await followIdListHandler();
     console.log(result);
+    console.log(followId);
     const filteredResult = result.filter((item) => {
       return item.follow_id === followId;
     });
@@ -108,14 +109,14 @@ const Follow = ({ params, usage }: FollowProps) => {
 
   useEffect(() => {
     getUserData();
-    followIdList();
+    // followIdList();
   }, []);
+  // useEffect(() => {
+  //   getFollowId();
+  // }, [userSession]);
   useEffect(() => {
     getFollowId();
-  }, [userSession]);
-  useEffect(() => {
-    getFollowId();
-  }, [params]);
+  }, [userSession, params]);
   useEffect(() => {
     followIdList();
   }, [followId]);
