@@ -63,7 +63,7 @@ const Product = () => {
   // 최하단으로 스크롤하는 함수
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+      messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
     }
   };
 
@@ -99,7 +99,6 @@ const Product = () => {
   //   }
   // }, []);
 
-  
   // DM 클릭 핸들러
   const DmClickhandler = async (otherUserId: string, productId: number) => {
     const {
