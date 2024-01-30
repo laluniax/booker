@@ -308,7 +308,7 @@ const Product = () => {
               {product?.onsale ? (
                 <>
                   <St.ProductsLikesWrapper>
-                    <ProductsLike postId={postId} />
+                    <ProductsLike postId={postId} count={true} />
                   </St.ProductsLikesWrapper>
                   <St.StartChat onClick={onClickDMButton}>대화 시작하기</St.StartChat>
                 </>

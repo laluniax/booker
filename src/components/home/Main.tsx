@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getLatestProductListHandler, getPostsLikesListHandler } from '../../api/supabase.api';
 import defaultImg from '../../assets/profile/defaultprofileimage.webp';
 import { Bestseller, BooksInfoTypes, PostsListLikesTypes, ProductsTypes } from '../../types/types';
-import Loading from '../survey/Loading';
+
 import * as St from './Main.styled';
 import SlideImages from './banner/SlideImages';
 
@@ -12,6 +12,7 @@ import bookerTalkImage1 from '../../assets/mainimage/bookertalkimage1.webp';
 import bookerTalkImage2 from '../../assets/mainimage/bookertalkimage2.webp';
 import bookerTalkImage3 from '../../assets/mainimage/bookertalkimage3.webp';
 import bookerTalkImage4 from '../../assets/mainimage/bookertalkimage4.webp';
+import Loading from '../common/loading/Loading';
 
 const Main = () => {
   const navigate = useNavigate();
