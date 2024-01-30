@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getCategoryProductListHandler, getProductListHandler, getUserSessionHandler } from '../../api/supabase.api';
 import { ProductsTypes } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
+import ProductsLike from '../common/like/ProductsLike';
 import Pagination from '../common/pagination/Pagination';
 import * as St from './MarketList.styled';
 import { categoryArr } from './marketpost/Post';
@@ -103,8 +104,12 @@ const MarketList = () => {
                     </St.ProductImg>
                   )}
                   <St.CardTitleAndContentBox>
-                    <St.EmptyHeartImg />
-                    <St.ProductTitle>{item.title}</St.ProductTitle>
+                    {/* <St.EmptyHeartImg /> */}
+                    <St.TitleLikes>
+                      <St.ProductTitle>{item.title}</St.ProductTitle>
+                      <ProductsLike postId={item.id} count={false} />
+                    </St.TitleLikes>
+
                     <St.ProductInfo>
                       <St.ProductPrice>{item.price} 원</St.ProductPrice>
                       <St.ProductCreatedAt>{formatCreatedAt(item.created_at)}</St.ProductCreatedAt>

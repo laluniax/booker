@@ -115,17 +115,7 @@ export const MessageWrapper = styled.div<MessageProps>`
   display: flex;
   justify-content: ${(props) => (props.isOutgoing ? 'flex-start' : 'flex-end')};
 `;
-// export const MessageComponent = styled.div<MessageProps>`
-//   /* flex-direction: column; */
-//   padding: 10px;
-//   margin: 0.5rem;
-//   border-radius: 1rem;
-//   font-size: 1.3rem;
-//   word-wrap: break-word;
-//   background-color: ${(props) => (props.isOutgoing ? '#7FD4F3' : '#000')}; // 예시 색상
-//   color: ${(props) => (props.isOutgoing ? '#000' : '#fff')};
-// `;
-// Props 타입 정의
+
 export type MessageProps = {
   isOutgoing: boolean;
 };
@@ -209,15 +199,15 @@ export const ChatModalCloseButton = styled.button`
   }
 `;
 // 개인 채팅 모달 헤더
-export const ChatModalHeader = styled.div`
-  padding: 1rem;
-  background-color: #000;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 7rem;
-`;
+// export const ChatModalHeader = styled.div`
+//   padding: 1rem;
+//   background-color: #000;
+//   border-bottom: 1px solid #ddd;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   height: 7rem;
+// `;
 export const HeaderChattingModalTitle = styled.p`
   color: #fca311;
   font-weight: bold;
@@ -324,4 +314,141 @@ export const BookerChattingIcon = styled.div`
   width: 13rem;
   height: 13rem;
   cursor: pointer;
+`;
+
+
+export const NicknameLabel = styled.div`
+  background-color: #f0f0f0; // 닉네임 라벨 배경색
+  color: #333; // 닉네임 라벨 텍스트 색상
+  padding: 2px 8px; // 닉네임 라벨 패딩
+  border-radius: 10px; // 닉네임 라벨 둥근 모서리
+  font-size: 0.75rem; // 닉네임 라벨 글꼴 크기
+  margin-bottom: 4px; // 닉네임 라벨과 메시지 컴포넌트 사이의 여백
+  align-self: flex-start; // 부모 요소의 시작점에 정렬
+`;
+
+
+export const UserImage = styled.img`
+  width: 40px; // 유저 이미지 크기 조절
+  height: 40px;
+  border-radius: 50%; // 원형으로 만들기
+  object-fit: cover; // 이미지 비율 유지
+  margin-right: 10px;
+`;
+
+export const UserInfo = styled.div`
+  flex: 1;
+  margin-right: 10px; // 오른쪽에 있는 물품 이미지와의 간격
+`;
+
+export const UserNickname = styled.div`
+  font-weight: bold;
+  // 기타 필요한 스타일 ...
+`;
+
+export const ProductImage = styled.img`
+  width: 60px; // 물품 이미지 크기 조절
+  height: 60px;
+  border-radius: 8px; // 적당한 둥근 모서리
+  object-fit: cover;
+`;
+
+export const NotificationBadge = styled.span`
+  background-color: red;
+  color: white;
+  padding: 0.2em 0.6em;
+  font-size: 0.75em;
+  border-radius: 9999px; // 원형 모양
+  margin-left: 10px;
+  vertical-align: super;
+  // 기타 필요한 스타일 ...
+`;
+
+
+// 제품 상세 정보에 대한 스타일드 컴포넌트를 정의합니다
+export const ProductInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const ProductTitle = styled.span`
+  // 제품 제목을 위한 스타일 추가
+`;
+
+export const ProductPrice = styled.span`
+  // 제품 가격을 위한 스타일 추가
+`;
+
+export const MessagesContainer = styled.div`
+  /* 스타일 속성들 */
+`;
+
+// export const ChatModalHeader = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   background-color: #FFF; // Assuming white background
+//   border-bottom: 1px solid #ddd; // Border to separate header from chat messages
+// `;
+
+export const UserSection = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #000; // Black background for user section
+`;
+
+// export const UserInfo = styled.div`
+//   flex-grow: 1;
+//   color: white; // White text for user info
+//   display: flex;
+//   align-items: center;
+// `;
+
+export const ProductSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #FFF; // White background for product section
+`;
+
+export const ProductDetail = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+export const ChatModalHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: #FFF; // 백그라운드 색상 지정
+`;
+
+export const UserInfoSection = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #000; // 사용자 정보 섹션의 백그라운드 색상
+`;
+
+export const ProductInfoSection = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #ddd; // 상품 정보 섹션과 분리선
+`;
+
+export const DateLabel = styled.div`
+  background-color: #f0f0f0; // 배경색
+  color: #333; // 텍스트 색상
+  padding: 8px 16px; // 패딩
+  margin: 10px 0; // 위 아래 마진
+  border-radius: 4px; // 테두리 둥글게
+  font-size: 0.9em; // 폰트 크기
+  text-align: center; // 텍스트 중앙 정렬
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // 그림자 효과
+  width: fit-content; // 콘텐츠에 맞는 너비
+  margin-left: auto; // 왼쪽 자동 마진
+  margin-right: auto; // 오른쪽 자동 마진
 `;

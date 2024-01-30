@@ -141,7 +141,7 @@ export const BookIntroCardBox = styled.div`
   margin-top: 1rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-  width:120rem;
+  width:110rem;
   height: 55rem;
   gap:2rem;
   margin-top: 2rem;
@@ -765,7 +765,7 @@ export const IndBookAndRecommnedTitle = styled.div`
   font-weight: bold;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  width:60rem;
+  width:40rem;
   height:5rem;
   margin:2rem auto:
   font-size: 2rem;
@@ -803,7 +803,7 @@ export const IndBookStoreWrapper = styled.div`
   `};
   ${({ theme }) => theme.mediaQuery.lg`
     margin-top: 10rem;
-    width: 120rem;
+    width: 110rem;
   `};
 `;
 
@@ -873,7 +873,7 @@ export const BookRecommendWrapper = styled.div`
   `};
   ${({ theme }) => theme.mediaQuery.lg`
     margin-top: 10rem;
-    width:120rem;
+    width:110rem;
   `};
 `;
 export const BookRecommendBox = styled.div`

@@ -380,7 +380,10 @@ export const EmptyHeartImg = styled.div`
   margin-right:-0.5rem;
   `};
 `;
-
+export const TitleLikes = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 export const ProductTitle = styled.div`
   font-family: 'GmarketSansMedium';
   font-weight: bold;
