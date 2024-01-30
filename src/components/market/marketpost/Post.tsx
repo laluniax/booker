@@ -138,13 +138,12 @@ const Post = () => {
   return (
     <St.Container>
       <St.Title>상품등록</St.Title>
-      <St.Imgupload>
-        상품 이미지는 5개까지 가능합니다.
-        <St.ImgUploadBox>
-          <St.PostImgLabel htmlFor="img">이미지 업로드</St.PostImgLabel>
-          <St.PostImgInput id="img" type="file" multiple accept="image/*" onChange={multipleImgHandler} />
-        </St.ImgUploadBox>
-      </St.Imgupload>
+      <St.Imgupload>상품 이미지는 5개까지 가능합니다.</St.Imgupload>
+
+      <St.ImgUploadBox>
+        <St.PostImgLabel htmlFor="img">이미지 업로드</St.PostImgLabel>
+        <St.PostImgInput id="img" type="file" multiple accept="image/*" onChange={multipleImgHandler} />
+      </St.ImgUploadBox>
 
       <St.PostWrapper>
         <St.PostImg>
@@ -156,7 +155,7 @@ const Post = () => {
           </St.PostImgWrapper>
         </St.PostImg>
       </St.PostWrapper>
-      <br />
+      {/* <br /> */}
       <St.TotalItemWrapper>
         <St.ItemWrapper>
           <St.PostLabel>상품명 </St.PostLabel>
@@ -170,7 +169,6 @@ const Post = () => {
           />
         </St.ItemWrapper>
 
-        <br />
         <St.PriceWrapper>
           <St.PostLabel>가격 </St.PostLabel>
           <St.PostInput
@@ -184,7 +182,6 @@ const Post = () => {
           />
         </St.PriceWrapper>
 
-        <br />
         <St.CategoryWrapper>
           <St.PostCategory
             value={category}
