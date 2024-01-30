@@ -5,6 +5,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.div`
+  font-family: 'GmarketSansMedium';
   width: 90rem;
   padding-bottom: 0.5rem;
   border-bottom: 0.2rem solid black;
@@ -19,12 +20,14 @@ export const ProfileWrapper = styled.div`
   width: 90rem;
   height: 30rem;
   margin: 0 auto;
-  margin-bottom: 2rem;
+  margin-bottom: 6rem;
   padding: 3rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5rem;
+  gap: 3rem;
+  background-color: #14213d;
+  border-radius: 3rem;
 `;
 
 export const ProfileImgWrapper = styled.div`
@@ -45,11 +48,15 @@ export const ProfileInfo = styled.div`
   text-align: end;
 `;
 export const ProfileNicknameEmail = styled.div`
-  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 `;
 
 export const ProfileNickname = styled.div`
-  font-size: 2rem;
+  font-family: 'GmarketSansMedium';
+  color: #fff;
+  font-size: 2.5rem;
   font-weight: 700;
 `;
 
@@ -58,15 +65,32 @@ export const ProfileEmail = styled.div`
 `;
 
 export const ProfileIntroText = styled.div`
-  padding-top: 2rem;
-  font-size: 1.6rem;
+  font-family: 'GmarketSansMedium';
+  color: #fff;
+  font-size: 2rem;
+  display: flex;
+  justify-content: start;
+  padding-left: 0.4rem;
 `;
 
-export const ProfileBtn = styled.button`
-  background-color: black;
-  color: white;
-  border: none;
-  padding: 1rem;
-  margin-top: 3rem;
-  cursor: pointer;
+export const ProfileUserName = styled.span`
+  font-family: 'GmarketSansMedium';
+  color: #fca311;
+  font-size: 2.5rem;
+  font-weight: 700;
 `;
+
+// 타겟 유저 프로필
+export const TargetProfileInfo = styled.div`
+  line-height: 2;
+  text-align: start;
+`;
+
+// export const ProfileBtn = styled.button`
+//   background-color: black;
+//   color: white;
+//   border: none;
+//   padding: 1rem;
+//   margin-top: 3rem;
+//   cursor: pointer;
+// `;

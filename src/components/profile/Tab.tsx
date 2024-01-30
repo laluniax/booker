@@ -51,13 +51,16 @@ const Tab = ({ userSession, userData }: Props) => {
   };
 
   useEffect(() => {
+    setActive('1');
+  }, [params]);
+
+  useEffect(() => {
     userData && filterPostByUserId();
     userSession && getFollowList();
   }, [userSession, userData]);
 
   return (
     <St.TabWrapper>
-      {' '}
       <St.ProfileTab>
         <St.TabMenu
           onClick={() => {
@@ -94,7 +97,7 @@ const Tab = ({ userSession, userData }: Props) => {
         {active === '1' && (
           <div>
             <St.TabListTitle>북커톡</St.TabListTitle>
-            <St.PostWraapper>
+            <St.PostWrapper>
               {postsList?.slice((currentPostsPage - 1) * 5, currentPostsPage * 5)?.map((item, i) => {
                 return (
                   <St.Post key={i} onClick={() => navigate(`/detail/${item.id}`)}>
@@ -104,7 +107,8 @@ const Tab = ({ userSession, userData }: Props) => {
                 );
               })}
               <Pagination postsPerPage={5} totalPosts={postsList?.length ?? 0} paginate={setCurrentPostsPage} />
-            </St.PostWraapper>
+            </St.PostWrapper>
+            <St.Contour />
             <St.TabListTitle>중고거래</St.TabListTitle>
             <St.ProductWrapper>
               {productsList?.slice((currentProductsPage - 1) * 5, currentProductsPage * 5)?.map((item, i) => {
@@ -133,9 +137,12 @@ const Tab = ({ userSession, userData }: Props) => {
                   key={i}
                   onClick={() => {
                     navigate(`/profile/${item.follow_to}`);
+                    window.scrollTo(0, 0);
                   }}>
-                  <St.FollowImg src={item.users.user_img ?? undefined} />
-                  <St.FollowNickname>{item.users.nickname}</St.FollowNickname>
+                  <St.FollowImgAndNickNameBox>
+                    <St.FollowImg src={item.users.user_img ?? undefined} />
+                    <St.FollowNickname>{item.users.nickname}</St.FollowNickname>
+                  </St.FollowImgAndNickNameBox>
                   {params === userSession?.user.id ? (
                     <St.UnfollowBtn
                       onClick={async (e) => {
@@ -156,7 +163,7 @@ const Tab = ({ userSession, userData }: Props) => {
         {active === '3' && (
           <div>
             <St.TabListTitle>북커톡</St.TabListTitle>
-            <St.PostWraapper>
+            <St.PostWrapper>
               {postsLikes?.slice((currentPostsPage - 1) * 5, currentPostsPage * 5)?.map((item, i) => {
                 return (
                   <St.Post key={i} onClick={() => navigate(`/detail/${item.post_id}`)}>
@@ -166,7 +173,7 @@ const Tab = ({ userSession, userData }: Props) => {
                 );
               })}
               <Pagination postsPerPage={5} totalPosts={postsLikes?.length ?? 0} paginate={setCurrentPostsPage} />
-            </St.PostWraapper>
+            </St.PostWrapper>
             {userSession?.user.id === params ? (
               <>
                 <St.TabListTitle>중고거래</St.TabListTitle>

@@ -131,8 +131,8 @@ export const HeaderSearchMypage = styled.div`
   ${({ theme }) => theme.mediaQuery.lg`
   position: static;
   // position: relative;
-  gap: 20%;
-  width: 20%;
+  gap: 0%;
+  width: 17%;
   padding-left: 10rem;
 
 
@@ -178,7 +178,7 @@ export const SearchBox = styled.form`
   ${({ theme }) => theme.mediaQuery.sm`
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-  left: 90rem;
+  left: 94rem;
     top: 4.5rem; 
   `};
 `;
@@ -232,13 +232,24 @@ export const HeaderUserImage = styled.img`
 
 export const Dropdown = styled.div`
   position: absolute;
-  top: 76%; // 아이콘의 바로 아래 위치
-  right: 1%;
+  /* top: 76%; // 아이콘의 바로 아래 위치
+  right: 1.3%; */
+  top: 100%;
+  right: 0%;
   background-color: #f9f9f9;
   min-width: 160px;
   border: 1px solid #ddd;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 2;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  top: 100%;
+  right: 1%;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+   top: 76%; 
+  right: 1.3%;
+  `};
 `;
 
 export const DropdownItem = styled.a`

@@ -25,7 +25,7 @@ const ScrollToTopButton: React.FC = () => {
   };
 
   return (
-    <St.ScrollToTopButton onClick={scrollToTop} visible={isVisible}>
+    <St.ScrollToTopButton onClick={scrollToTop} $visible={isVisible}>
       up!
     </St.ScrollToTopButton>
   );

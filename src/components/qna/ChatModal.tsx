@@ -18,11 +18,11 @@ import {
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import relativeTime from 'dayjs/plugin/relativeTime.js';
+import { useNavigate } from 'react-router';
 import { useAuth } from '../../contexts/auth.context';
 import AdminChat from './AdminChat';
 import ChatLog from './ChatLog';
 import * as St from './ChatModal.styled';
-import { useNavigate } from 'react-router';
 dayjs.extend(relativeTime); // relativeTime 플러그인 활성화
 dayjs.locale('ko'); // 한국어 로케일 설정
 
@@ -47,16 +47,16 @@ export type ChatData = {
   id: string;
 };
 
-type productDetails={
-  image:string,
-  title: string,
-  price: number,
-  id:number,
-}
-type otherUserDetails={
-  nickname: string,
-  user_img: string,
-}
+type productDetails = {
+  image: string;
+  title: string;
+  price: number;
+  id: number;
+};
+type otherUserDetails = {
+  nickname: string;
+  user_img: string;
+};
 
 const Chat = () => {
   const [isOpen, setIsOpen] = useRecoilState(globalModalSwitch);
@@ -83,7 +83,6 @@ const Chat = () => {
   const [otherUserDetails, setOtherUserDetails] = useState<otherUserDetails>();
 
   const [productDetails, setProductDetails] = useState<productDetails>();
-
 
   //로그인 유저 가져오기
   useEffect(() => {
@@ -138,14 +137,13 @@ const Chat = () => {
             .eq('id', author_id)
             .single();
 
-
           // products 테이블에서 제품 정보를 가져옵니다.
           const { data: productData } = await supabase
             .from('products')
             .select('title, price, product_img,id')
             .eq('id', item_id)
             .single();
-         
+
           if (userData) {
             setOtherUserDetails({
               nickname: userData.nickname,
@@ -158,7 +156,7 @@ const Chat = () => {
               image: productData.product_img,
               title: productData.title,
               price: productData.price,
-              id :productData.id
+              id: productData.id,
             });
           }
 
@@ -174,15 +172,17 @@ const Chat = () => {
   // 메시지 전송 핸들러
   const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && inputValue.trim()) {
-      event.preventDefault(); // 폼 제출 방지
-      sendDirectMessage({
-        content: inputValue,
-        author_id: LoginPersonal,
-        chat_id: chatId,
-        item_id: productId,
-        // others_id: otherLoginPersonal,
-      });
-      setInputValue('');
+      if (event.nativeEvent.isComposing === false) {
+        event.preventDefault(); // 폼 제출 방지
+        sendDirectMessage({
+          content: inputValue,
+          author_id: LoginPersonal,
+          chat_id: chatId,
+          item_id: productId,
+          // others_id: otherLoginPersonal,
+        });
+        setInputValue('');
+      }
     }
   };
 
@@ -206,16 +206,16 @@ const Chat = () => {
     const p_chat_id = chatId;
     const p_user_id = userId;
     const { data, error } = await supabase.rpc('mark_messages_as_read', { p_chat_id, p_user_id });
- 
+
     console.log('null이면 읽기완료', error);
     if (error) {
       console.error('Error marking messages as read:', error);
     }
   }
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   // // 채팅 헤더를 렌더링하는 함수입니다
   const renderChatHeader = () => {
-  // useNavigate 훅으로부터 navigate 함수를 얻음
+    // useNavigate 훅으로부터 navigate 함수를 얻음
 
     // 제품 상세 페이지로 이동하는 함수
     const navigateToProductPage = () => {
@@ -232,7 +232,7 @@ const Chat = () => {
           <St.UserImage src={otherUserDetails?.user_img} alt="user" />
           <St.UserNickname>{otherUserDetails?.nickname}</St.UserNickname>
         </St.UserInfoSection>
-        <St.ProductInfoSection >
+        <St.ProductInfoSection>
           <St.ProductImage onClick={navigateToProductPage} src={productDetails?.image} alt="product" />
           <div>
             <St.ProductTitle>제목:{productDetails?.title}</St.ProductTitle>
@@ -243,7 +243,7 @@ const Chat = () => {
     );
   };
 
-//채팅창 메시지 보여주기
+  //채팅창 메시지 보여주기
   const renderMessages = () => {
     let lastDate: dayjs.Dayjs | null = null;
 
@@ -262,7 +262,6 @@ const Chat = () => {
             if (lastDate === null || !currentDate.isSame(lastDate, 'day')) {
               dateLabel = <St.DateLabel>{formattedDate}</St.DateLabel>; // Use DateLabel
               lastDate = currentDate;
-        
             }
 
             return (
@@ -308,15 +307,15 @@ const Chat = () => {
   };
 
   //지금을 기점으로 초분시일달년
-  const getTimeDifference = (date:string) => {
+  const getTimeDifference = (date: string) => {
     const now = dayjs();
     const messageDate = dayjs(date);
-  
+
     const minutesDiff = now.diff(messageDate, 'minute');
     const hoursDiff = now.diff(messageDate, 'hour');
     const daysDiff = now.diff(messageDate, 'day');
     const monthsDiff = now.diff(messageDate, 'month');
-  
+
     if (monthsDiff > 0) {
       return `${monthsDiff}달 전`;
     } else if (daysDiff > 0) {
@@ -329,9 +328,8 @@ const Chat = () => {
       return '방금 전';
     }
   };
-  
- 
-//채팅리스트 보여주기
+
+  //채팅리스트 보여주기
   const renderChatRoomsList = () => {
     return chatRooms
       .filter((chatRoom) => chatRoom.user_id === LoginPersonal)
@@ -372,10 +370,9 @@ const Chat = () => {
       return total + (unreadInfo ? unreadInfo.unread_count : 0);
     }, 0);
 
-    //토글 열닫
+  //토글 열닫
   const toggleChatModal = () => {
     setChatBtnOpen((prevState) => !prevState);
-
   };
 
   return (
@@ -452,7 +449,9 @@ const Chat = () => {
               ) : (
                 <>
                   {/* Chats 컴포넌트의 UI 추가 */}
-                  <St.ChatListWrapper>중고거래 전용 채팅 리스트, 중고거래에서 채팅을 시작하세요.{renderChatRoomsList()}</St.ChatListWrapper>
+                  <St.ChatListWrapper>
+                    중고거래 전용 채팅 리스트, 중고거래에서 채팅을 시작하세요.{renderChatRoomsList()}
+                  </St.ChatListWrapper>
                 </>
               )}
             </St.ChatWrapper>

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   margin-top: 1rem;
   font-size: 1.6rem;
-  min-height: 80rem;
 `;
 
 export const CommentForm = styled.div`
