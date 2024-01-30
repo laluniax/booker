@@ -318,9 +318,19 @@ export const PrevIcon = styled.div`
 export const BookerChattingIcon = styled.div`
   background: url(${bookerChattingIcon});
   background-size: contain;
-  width: 13rem;
-  height: 13rem;
+  width: 9rem;
+  height: 9rem;
   cursor: pointer;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+    width: 10rem;
+    height: 10rem;
+`}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+    width: 13rem;
+    height: 13rem;
+  `};
 `;
 
 export const NicknameLabel = styled.div`
