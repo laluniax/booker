@@ -50,7 +50,7 @@ const Chat = () => {
 
   const [productId, setProductId] = useRecoilState(productState);
   const chatRooms = useRecoilValue(chatRoomsState);
-  console.log(chatRooms);
+  // console.log(chatRooms);
 
   const [loginUser, setLoginUser] = useState('');
 
