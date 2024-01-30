@@ -14,7 +14,8 @@ export const signupHandler = async (email: string, password: string, nickname: s
     options: {
       data: {
         full_name: nickname,
-        user_img: null,
+        user_img:
+          'https://ywwmsridviznotzmkver.supabase.co/storage/v1/object/public/user_img/default_img/defaultprofileimage.webp',
       },
     },
   });
