@@ -141,7 +141,7 @@ const Detail = () => {
           <St.PostTags>{parseTags()} </St.PostTags>
         </St.TagsWrapper>{' '}
         <St.LikesWrapper>
-          <PostsLike postId={postId} />
+          <PostsLike postId={postId} count={true} />
         </St.LikesWrapper>
       </St.TitleAndPostWrapper>{' '}
       <St.PostProfileBox

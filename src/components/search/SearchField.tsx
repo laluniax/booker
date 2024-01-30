@@ -4,7 +4,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getPostsHandler, getProductListHandler } from '../../api/supabase.api';
 import { Bestseller, BooksInfoTypes, PostsTypes, ProductsTypes } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
-import Loading from '../survey/Loading';
+
+import Loading from '../common/loading/Loading';
 import * as St from './SearchField.styled';
 
 const SearchField = () => {
