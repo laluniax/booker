@@ -66,23 +66,18 @@ function KakaoMap() {
 
   useEffect(() => {
     if (map) {
-      // 줌 레벨 변경 시 실행될 콜백 함수를 정의합니다.
       const zoomChangedCallback = () => {
         const level = map.getLevel();
-        // 현재 지도의 줌 레벨에 따라 리스트를 리렌더링하거나 데이터를 재요청하는 로직을 추가합니다.
-        // 예: 현재 줌 레벨과 중심 좌표를 기준으로 주변 서점 데이터를 새로 요청합니다.
         fetchBookstoresNearby(map.getCenter().getLat(), map.getCenter().getLng());
       };
 
-      // 지도의 줌 레벨이 변경될 때마다 위에서 정의한 콜백 함수가 호출되도록 이벤트 리스너를 등록합니다.
       kakao.maps.event.addListener(map, 'zoom_changed', zoomChangedCallback);
 
-      // 컴포넌트가 언마운트되거나 지도 객체가 변경되기 전에 이벤트 리스너를 정리합니다.
       return () => {
         kakao.maps.event.removeListener(map, 'zoom_changed', zoomChangedCallback);
       };
     }
-  }, [map]); // map 객체가 변경될 때만 이 useEffect가 실행됩니다.
+  }, [map]);
 
   const searchStore = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -122,15 +117,19 @@ function KakaoMap() {
   const fetchBookstoresNearby = async (latitude: number, longitude: number) => {
     try {
       // 가져온 위도와 경도를 사용하여 일정 반경 내의 서점 정보를 가져옵니다.
-      const radius = 3;
+      const radius = 1;
 
-      const response = await fetch(`/api/bookstores?lat=${latitude}&lng=${longitude}&radius=${radius}`, {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `https://port-0-independentbookstoresdb-3wh3o2blr53yzc2.sel5.cloudtype.app/bookstores?lat=${latitude}&lng=${longitude}&radius=${radius}`,
+        {
+          method: 'GET',
+          credentials: 'include',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      });
+      );
 
       if (response.status !== 200) {
         throw new Error('서점 데이터를 불러오는 데 실패했습니다.');
@@ -227,7 +226,7 @@ function KakaoMap() {
             id={'map'}
             center={currentPosition}
             style={{ width: '100%', height: '60rem' }}
-            level={5}
+            level={3}
             onCreate={(map: kakao.maps.Map) => {
               setMap(map);
             }}>

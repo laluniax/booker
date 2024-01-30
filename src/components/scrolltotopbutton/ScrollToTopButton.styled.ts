@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface ScrollToTopButtonProps {
-  visible: boolean;
+  $visible: boolean;
 }
 
 export const ScrollToTopButton = styled.button<ScrollToTopButtonProps>`
@@ -16,7 +16,7 @@ export const ScrollToTopButton = styled.button<ScrollToTopButtonProps>`
   height: 5.5rem;
   padding: 1.5rem;
   cursor: pointer;
-  display: ${(props) => (props.visible ? 'flex' : 'none')};
+  display: ${(props) => (props.$visible ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
   font-family: 'GmarketSansMedium';

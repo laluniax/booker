@@ -62,11 +62,11 @@ export const ProfileIntroText = styled.div`
   font-size: 1.6rem;
 `;
 
-export const ProfileBtn = styled.button`
-  background-color: black;
-  color: white;
-  border: none;
-  padding: 1rem;
-  margin-top: 3rem;
-  cursor: pointer;
-`;
+// export const ProfileBtn = styled.button`
+//   background-color: black;
+//   color: white;
+//   border: none;
+//   padding: 1rem;
+//   margin-top: 3rem;
+//   cursor: pointer;
+// `;

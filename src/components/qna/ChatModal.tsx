@@ -224,15 +224,17 @@ const Chat = () => {
   // 메시지 전송 핸들러
   const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && inputValue.trim()) {
-      event.preventDefault(); // 폼 제출 방지
-      sendDirectMessage({
-        content: inputValue,
-        author_id: LoginPersonal,
-        chat_id: chatId,
-        item_id: productId,
-        // others_id: otherLoginPersonal,
-      });
-      setInputValue('');
+      if (event.nativeEvent.isComposing === false) {
+        event.preventDefault(); // 폼 제출 방지
+        sendDirectMessage({
+          content: inputValue,
+          author_id: LoginPersonal,
+          chat_id: chatId,
+          item_id: productId,
+          // others_id: otherLoginPersonal,
+        });
+        setInputValue('');
+      }
     }
   };
 

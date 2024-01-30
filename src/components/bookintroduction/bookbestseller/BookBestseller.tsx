@@ -20,21 +20,31 @@ const BookBestseller = () => {
   const [bestSeller, setBestseller] = useState<Bestseller[]>([]);
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [ref, inView] = useInView();
-  const [loading, setLoading] = useState(false);
+  const [hasMoreData, setHasMoreData] = useState(true);
   const navigate = useNavigate();
-  const bookBestseller = async () => {
-    if (isLoading) return;
+  const [loading, setLoading] = useState(false);
+  const [ref, inView] = useInView({
+    threshold: 0.5, // 스크롤이 요소의 50%에 도달했을 때 inView가 true가 됩니다.
+  });
+  const ITEMS_PER_PAGE = 10;
+
+  const bookBestseller = async (pageNum: number) => {
     setIsLoading(true);
 
     try {
-      setLoading(true);
       const response = await axios.get(
-        `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller?page=${page}`,
+        `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller?page=${pageNum}&limit=${ITEMS_PER_PAGE}`,
       );
-      setBestseller((prev) => [...prev, ...response.data.item]);
-      setPage((page) => page + 1);
-      setLoading(false);
+
+      if (response.data.item.length < ITEMS_PER_PAGE) {
+        setHasMoreData(false);
+      }
+
+      // 현재 페이지에 해당하는 데이터만 추가
+      setBestseller((prev) => [
+        ...prev,
+        ...response.data.item.slice((pageNum - 1) * ITEMS_PER_PAGE, pageNum * ITEMS_PER_PAGE),
+      ]);
     } catch (error) {
       console.error(error);
     } finally {
@@ -43,10 +53,14 @@ const BookBestseller = () => {
   };
 
   useEffect(() => {
-    if (inView) {
-      bookBestseller();
+    bookBestseller(page); // 현재 페이지 데이터 로딩
+  }, [page]);
+
+  useEffect(() => {
+    if (inView && hasMoreData && !isLoading) {
+      setPage((prevPage) => prevPage + 1); // 다음 페이지 로드
     }
-  }, [inView]);
+  }, [inView, hasMoreData, isLoading]);
 
   const GotoDetailPage = (isbn13: number) => {
     navigate(`/aboutBook/${isbn13}`);

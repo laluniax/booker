@@ -140,6 +140,9 @@ export const UserItem = styled.div`
   &:hover {
     background-color: #e9e9e9;
   }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 export const UserEmail = styled.div`
   font-weight: bold;
@@ -149,6 +152,10 @@ export const UserLastMessage = styled.div`
   color: #000;
   font-size: 1.2rem;
   padding-left: 3rem;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 export const DMButton = styled.button`
   padding: 0.5rem 1rem;
@@ -316,7 +323,6 @@ export const BookerChattingIcon = styled.div`
   cursor: pointer;
 `;
 
-
 export const NicknameLabel = styled.div`
   background-color: #f0f0f0; // 닉네임 라벨 배경색
   color: #333; // 닉네임 라벨 텍스트 색상
@@ -326,7 +332,6 @@ export const NicknameLabel = styled.div`
   margin-bottom: 4px; // 닉네임 라벨과 메시지 컴포넌트 사이의 여백
   align-self: flex-start; // 부모 요소의 시작점에 정렬
 `;
-
 
 export const UserImage = styled.img`
   width: 40px; // 유저 이미지 크기 조절
@@ -363,7 +368,6 @@ export const NotificationBadge = styled.span`
   vertical-align: super;
   // 기타 필요한 스타일 ...
 `;
-
 
 // 제품 상세 정보에 대한 스타일드 컴포넌트를 정의합니다
 export const ProductInfo = styled.div`
@@ -409,7 +413,7 @@ export const ProductSection = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  background-color: #FFF; // White background for product section
+  background-color: #fff; // White background for product section
 `;
 
 export const ProductDetail = styled.div`
@@ -421,7 +425,7 @@ export const ProductDetail = styled.div`
 export const ChatModalHeader = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #FFF; // 백그라운드 색상 지정
+  background-color: #fff; // 백그라운드 색상 지정
 `;
 
 export const UserInfoSection = styled.div`
