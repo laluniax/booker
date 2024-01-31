@@ -88,13 +88,9 @@ const AdminChat = () => {
         {/*isopen이 true면  main massege와 뒤로가기버튼 input보이게끔 */}
         {isOpen ? (
           <>
-            <St.ChatHeader>
-              <St.LogoWrapper>
-                <St.PrevBtn onClick={PrevHandler}>
-                  <St.PrevIcon />
-                </St.PrevBtn>
-              </St.LogoWrapper>
-            </St.ChatHeader>
+            <St.PrevBtn onClick={PrevHandler}>
+              <St.PrevIcon />
+            </St.PrevBtn>
             <St.MainMessage>
               안녕하세요 !
               <br />
@@ -126,8 +122,7 @@ const AdminChat = () => {
           </>
         ) : (
           <>
-            <St.ChatHeader></St.ChatHeader>
-            {/* 유저 UUID채팅방 출력, 클릭시 해당 uuid를 가진 사람과의 채팅방 오픈되며 isopen true로 변경 */}
+            {/* <St.ChatHeader></St.ChatHeader> */}
             <St.ChatBody>
               {qnaRoomIds.map((qnaRoomID) => (
                 <div key={qnaRoomID} onClick={() => handleSenderClick(qnaRoomID)}>
