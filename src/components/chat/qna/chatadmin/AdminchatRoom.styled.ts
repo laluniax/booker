@@ -5,6 +5,12 @@ export const Container = styled.section`
   height: 70%;
   padding: 10px;
   overflow: scroll;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+
+`};
+  ${({ theme }) => theme.mediaQuery.lg`
+`};
 `;
 
 export const ChatWrapper = styled.div`
@@ -47,9 +53,15 @@ export const PrevIcon = styled.div`
 export const ChatBody = styled.div`
   display: flex;
   flex-direction: column;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+
+`};
+  ${({ theme }) => theme.mediaQuery.lg`
   gap: 12px;
   padding: 8px;
   margin: 0px 16px;
+`};
 `;
 export const AdminMessage = styled.div`
   text-align: right;
