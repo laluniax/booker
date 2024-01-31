@@ -123,11 +123,11 @@ export const Book = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
    max-width: 70rem;
    width: 20rem;
-   height: 30rem;
+   height: 32rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
     max-width: 80rem;
-    width: 25rem;
+    width: 24rem;
     height: 35rem;
   `};
 
@@ -180,12 +180,13 @@ export const BookAuthor = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
+  font-size: 1.1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  
+   font-size: 1.3rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   `};
 `;
 
@@ -255,8 +256,7 @@ export const TitleAndPriceBox = styled.div`
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
-    height: 5.5rem;
-    margin-top: 1rem;
+    height: 4.4rem;
   `};
 `;
 export const ProductTitle = styled.div`
@@ -341,4 +341,8 @@ export const LogoImg = styled.div`
 
 export const PaginationWrapper = styled.div`
   margin-top: 3rem;
+`;
+
+export const SearchNoData = styled.div`
+  font-size: 2rem;
 `;

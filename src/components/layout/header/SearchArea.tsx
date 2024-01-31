@@ -28,7 +28,7 @@ const SearchArea = () => {
   };
 
   return (
-    <div>
+    <>
       <St.SearchBox
         onSubmit={(e) => {
           onSubmitHandler(e);
@@ -41,11 +41,11 @@ const SearchArea = () => {
             onChange={(e) => setInput(e.target.value.replace(/(\s*)/g, ''))}
           />
         ) : null}
-      </St.SearchBox>{' '}
+      </St.SearchBox>
       <St.HeaderBtn onClick={() => setSearchBarOpen(!searchBarOpen)}>
         <St.SearchIconImage />
       </St.HeaderBtn>
-    </div>
+    </>
   );
 };
 

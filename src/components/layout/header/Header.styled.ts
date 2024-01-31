@@ -97,11 +97,24 @@ export const HeaderUl = styled.ul`
   letter-spacing: 0.1rem;
   line-height: 1.5;
   ${({ theme }) => theme.mediaQuery.sm`
-    display: flex;
+  display: flex;
   justify-content: center;
   height: 2rem;
+  letter-spacing: 0.1rem;
+  line-height: 1.5;
+  text-align: center;
+  font-size: 1.8rem;
+  max-width: 73rem;
+  margin: 0 auto;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
+  gap: 3rem;
+  letter-spacing: 0.1rem;
+  line-height: 1.5;
+  text-align: center;
+  font-size: 1.8rem;
+  max-width: 73rem;
+  margin: 0 auto;
   `};
 `;
 
@@ -120,10 +133,11 @@ export const HeaderLi = styled.li`
 export const HeaderSearchMypage = styled.div`
   position: absolute;
   top: 2rem;
-  left: 5%;
+  left: 0%;
   display: flex;
   justify-content: space-between;
   width: 90%;
+
   ${({ theme }) => theme.mediaQuery.sm`
   width: 90%;
   top: 5rem;
@@ -184,14 +198,24 @@ export const SearchBox = styled.form`
 `;
 export const SearchBar = styled.input`
   all: unset;
+  padding: 1rem;
+  font-size: 1.6rem;
+  border-bottom: 0.1rem solid #fff;
+  width: 6rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
   font-family: 'GmarketSansMedium';
   font-size: 1.6rem;
   padding: 0.5rem;
   border-bottom: 0.1rem solid #fff;
   width: 15rem;
-  ${({ theme }) => theme.mediaQuery.sm`
   `};
   ${({ theme }) => theme.mediaQuery.lg`
+   font-family: 'GmarketSansMedium';
+   font-size: 1.6rem;
+   padding: 0.5rem;
+   border-bottom: 0.1rem solid #fff;
+   width: 15rem;
   `};
 `;
 
@@ -221,8 +245,8 @@ export const ProfileIconImage = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-    width: 5.5rem;
-    height: 5.5rem;
+    width: 5.3rem;
+    height: 5.3rem;
   `};
 `;
 
