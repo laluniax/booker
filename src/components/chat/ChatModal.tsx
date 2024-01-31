@@ -73,7 +73,6 @@ const Chat = () => {
   const [messages, setMessages] = useRecoilState(sendMessages);
   const [chatId, setChatId] = useRecoilState(ChatId);
   const { mutate: sendDirectMessage } = useSendMessage();
-
   const [productId, setProductId] = useRecoilState(productState);
   const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
   const [newMessagesCount, setNewMessagesCount] = useRecoilState(newMessagesCountState);
@@ -473,13 +472,9 @@ const Chat = () => {
                 <St.MainMessage>안녕하세요 ! 책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝</St.MainMessage>
                 <St.MainMessage>궁금한 점이 있으신가요?</St.MainMessage>
 
-                <St.AskButtonWrapper>
-                  <St.AskButton
-                    style={isAsk ? { display: 'none' } : { display: 'block' }}
-                    onClick={() => setIsAsk(true)}>
-                    문의하기
-                  </St.AskButton>
-                </St.AskButtonWrapper>
+                <St.AskButton style={isAsk ? { display: 'none' } : { display: 'block' }} onClick={() => setIsAsk(true)}>
+                  문의하기
+                </St.AskButton>
               </St.ChatTopBox>
               <St.Contour />
               {isAsk ? (
@@ -509,6 +504,12 @@ const Chat = () => {
         </St.Container>
       )}
       <St.TalkButtonWrapper>
+        {!ChatBtnOpen && totalUnreadCount > 0 && (
+          <St.NotificationBadge>
+            {totalUnreadCount}
+            {/* {newMessagesCount} */}
+          </St.NotificationBadge>
+        )}
         <St.BookerChattingIcon
           onClick={() => {
             setIsOpen(!isOpen);
@@ -516,12 +517,6 @@ const Chat = () => {
             toggleChatModal();
           }}
         />
-        {!ChatBtnOpen && totalUnreadCount > 0 && (
-          <St.NotificationBadge>
-            {totalUnreadCount}
-            {/* {newMessagesCount} */}
-          </St.NotificationBadge>
-        )}
       </St.TalkButtonWrapper>
     </>
   );
