@@ -30,12 +30,12 @@ const Follow = ({ params, usage }: FollowProps) => {
   // 팔로우/언팔로우 판단하기
   const followIdList = async () => {
     const result = await followIdListHandler();
-    console.log(result);
-    console.log(followId);
+    // console.log(result);
+    // console.log(followId);
     const filteredResult = result.filter((item) => {
       return item.follow_id === followId;
     });
-    console.log(filteredResult);
+    // console.log(filteredResult);
     if (filteredResult.length > 0) setFollowing(true);
     else setFollowing(false);
   };
