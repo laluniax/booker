@@ -8,7 +8,6 @@ import Header from './header/Header';
 const Layout = () => {
   return (
     <>
-      {/* <Chat /> */}
       <Header />
       <St.Container>
         <Outlet />
