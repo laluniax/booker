@@ -6,7 +6,6 @@ import BookerPick from '../components/bookintroduction/bookerpick/BookerPick';
 import BookSpecial from '../components/bookintroduction/bookspecial/BookSpecial';
 import NewBook from '../components/bookintroduction/newbook/NewBook';
 
-import AboutLayout from '../components/layout/AboutLayout';
 import Layout from '../components/layout/Layout';
 
 import AdminChat from '../components/chat/qna/chatadmin/AdminChatRoom';
@@ -71,7 +70,7 @@ const Router = () => {
           {/* Qna 페이지 */}
           <Route path="/chat" element={<AdminChat />} />
           {/* 도서소개 페이지  */}
-          <Route element={<AboutLayout />}>
+          <Route element={<AboutBooks />}>
             <Route path="/aboutbook/bestseller" element={<BookBestseller />} />
             <Route path="/aboutbook/newbook" element={<NewBook />} />
             <Route path="/aboutbook/bookspecial" element={<BookSpecial />} />

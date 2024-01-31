@@ -23,6 +23,10 @@ export const MobileCategoryWrapper = styled.div`
   `};
 `;
 
+export const MobileCategorySelect = styled.select`
+  font-size: 1.6rem;
+`;
+
 export const CategoryWrapper = styled.div`
   display: none;
   ${({ theme }) => theme.mediaQuery.sm`
@@ -147,6 +151,7 @@ export const Title = styled.div`
 export const MobilePostCateWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 3rem;
   & select {
     border: 0.2rem solid black;
     font-family: 'GmarketSansMedium';
@@ -165,7 +170,7 @@ export const MobilePostButton = styled.button`
 
   border: 0.1rem solid #fca311;
   border-radius: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   background-color: #fca311;
   color: #000;
   font-weight: bold;
@@ -183,7 +188,7 @@ export const MobilePostButton = styled.button`
   ${({ theme }) => theme.mediaQuery.sm`
 display: none;
 
-  `};
+  `}
 `;
 export const PostButton = styled.div`
   display: none;
@@ -212,7 +217,7 @@ export const PostButton = styled.div`
   }
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   padding: 0.9rem 1.2rem;
   `};
 `;
@@ -263,6 +268,7 @@ export const PostTitle = styled.span`
   text-overflow: ellipsis;
 `;
 export const PostNicknameDate = styled.div`
+  font-family: 'Pretendard-Regular';
   min-width: 30%;
   ${({ theme }) => theme.mediaQuery.sm`
     display: flex;
@@ -272,7 +278,8 @@ export const PostNicknameDate = styled.div`
 `;
 
 export const PostNickName = styled.div`
-  font-size: 1.2rem;
+  font-family: 'Pretendard-Regular';
+  font-size: 1.5rem;
   display: flex;
   justify-content: end;
   margin-bottom: 0.5rem;
@@ -289,19 +296,24 @@ export const PostNickName = styled.div`
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-
+  font-size : 1.7rem;
   `};
 `;
 
 // export const PostContent = styled.span``;
 
 export const PostDate = styled.span`
-  font-size: 1.3rem;
+  font-size: 1.4rem;
 
   float: right;
 
   ${({ theme }) => theme.mediaQuery.sm`  
     font-size: 1.5rem;
+
+  `};
+
+  ${({ theme }) => theme.mediaQuery.lg`  
+  font-size : 1.7rem;
 
   `};
 `;

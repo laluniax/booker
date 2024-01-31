@@ -2,21 +2,7 @@ import styled from 'styled-components';
 import bookerChattingIcon from '../../assets/common/bookerchattingicon.webp';
 import prevIcon from '../../assets/common/prevbutton1.webp';
 
-export const Container = styled.div`
-  width: 35rem;
-  height: 55rem;
-  position: relative;
-
-  ${({ theme }) => theme.mediaQuery.sm`
-        width: 50rem;
-        height: 65rem;
-    `}
-
-  ${({ theme }) => theme.mediaQuery.lg`
-      width: 56rem;
-      height: 67rem;
-  `};
-`;
+export const Container = styled.div``;
 export const ChatWrapper = styled.div`
   /* box-sizing: border-box; */
   position: fixed;

@@ -156,7 +156,7 @@ export const PostButton = styled.button`
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     padding: 0.9rem 1.2rem;
   `};
 `;
@@ -196,7 +196,7 @@ export const MobilePostButton = styled.div`
   border-radius: 1rem;
   background-color: #fca311;
   color: #000;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   &:hover {
     cursor: pointer;
     background-color: #14213d;
