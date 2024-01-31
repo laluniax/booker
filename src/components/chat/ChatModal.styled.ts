@@ -3,22 +3,15 @@ import bookerChattingIcon from '../../assets/common/bookerchattingicon.webp';
 import prevIcon from '../../assets/common/prevbutton1.webp';
 
 export const Container = styled.div`
-  width: 35rem;
-  height: 55rem;
-  position: relative;
-
   ${({ theme }) => theme.mediaQuery.sm`
-        width: 50rem;
-        height: 65rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-      width: 56rem;
-      height: 67rem;
   `};
 `;
 export const ChatWrapper = styled.div`
   /* box-sizing: border-box; */
+
   position: fixed;
   /* z-index: 1000; */
   box-shadow: rgba(100, 100, 111, 0.2) 0 0.7rem 2.9rem 0;
@@ -102,8 +95,9 @@ export const ChatTopBox = styled.div`
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  height: 10rem;
+  height: 5rem;
   width: 40rem;
+  margin-top:3rem;
   `};
 `;
 
@@ -126,7 +120,7 @@ export const MainMessage = styled.div`
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.4rem;
-  width:40rem;
+  width:30rem;
   height:2rem;
   text-align:center;
   margin-top:1rem;
@@ -191,20 +185,14 @@ export const Contour = styled.div`
 export const ChatContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  width: 25rem;
-  height: 4rem;
+  align-items: center;
   margin-top: -1rem;
+  margin-bottom: 1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-      width: 40rem;
-      height: 3rem;
-      margin-top: 2rem;
+  margin-bottom: -1rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-    width: 40rem;
-    height: 3rem;
-    margin-top: 3.5rem;
   `};
 `;
 
@@ -252,27 +240,27 @@ export const ChatContent = styled.div`
 
 // 채팅 리스트
 export const ChatListWrapper = styled.div`
-  overflow: auto;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0.5rem auto;
   font-size: 1.1rem;
   width: 25rem;
-  height: 40rem;
+  height: auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
      margin-top: 2rem;
      font-size: 1.2rem;
      width:40rem;
-     height:50rem;
+     height:auto;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
    margin-top: 3rem;
    font-size: 1.3rem;
    width:40rem;
-   height:55rem;
+   height:auto;
   `};
 `;
 
@@ -281,13 +269,25 @@ export const ChatInputWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: auto;
+  margin-left: -0.5rem;
   z-index: 999;
+  padding: 0 0.6rem 0 1.4rem;
+  width: 26.5rem;
+  height: 3rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
+    padding: 0 0.6rem 0 1.4rem;
+    width:39.5rem;
+    height:5rem;
+    margin-left: 0.5rem;
+
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 0 0.6rem 0 1.4rem;
+  width:47rem;
+  height:5rem;
   `};
 `;
 
@@ -297,19 +297,63 @@ export const Input = styled.input`
   border-radius: 1rem;
   border: none;
   background: linear-gradient(92.34deg, rgba(239, 239, 240, 0.8) 48.04%, rgba(247, 247, 248, 0.8) 100%);
+  margin-top: 0.5rem;
+  min-height: 3rem;
+  padding: 0 0.6rem 0 1.4rem;
+  font-size: 1rem;
   &:focus {
     outline: none;
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
+      margin-top: 1rem;
+      min-height: 4rem;
+      padding: 0 0.6rem 0 1.4rem;
+      font-size: 1.2rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
     margin-top: 2rem;
     min-height: 5rem;
+    width:40rem;
     padding: 0 0.6rem 0 1.4rem;
+    font-size: 1.5rem;
   `};
 `;
+
+export const QnaSendButton = styled.button`
+  background-color: #ffcc99;
+  color: 0099ff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  height: 3rem;
+  width: 4rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  margin-top: 0.8rem;
+
+  &:hover {
+    background-color: #262626;
+  }
+
+  ${({ theme }) => theme.mediaQuery.sm`
+    height: 4rem;
+    width:5rem;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    margin-top:0.8rem;
+    `}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  height: 5rem;
+  width:6rem;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  margin-top:2rem;
+  `};
+`;
+
 export const TalkButtonWrapper = styled.div`
   position: fixed;
   bottom: 5rem;
@@ -376,13 +420,12 @@ export const UserItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 0.1rem solid #000;
+  /* border-bottom: 0.1rem solid #ccc; */
   color: #000;
   cursor: pointer;
   margin: 0 auto;
   width: 25rem;
-  height: 4rem;
-  margin-bottom: 0.5rem;
+  height: 4.5rem;
   &:hover {
     background-color: #e9e9e9;
   }
@@ -397,8 +440,8 @@ export const UserItem = styled.div`
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  width: 38rem;
-  height: 5rem;
+  width: 40rem;
+  height: 6rem;
   margin-bottom: 1rem;
   `};
 `;
@@ -421,15 +464,18 @@ export const UserLastMessage = styled.div`
   text-overflow: ellipsis;
   font-size: 1rem;
   margin-top: 0.5rem;
+  width: 15rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
     font-size: 1.2rem;
     margin-top:0.5rem;
+    width:22rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.2rem;
   margin-top:0.5rem;
+  width:25rem;
   `};
 `;
 
@@ -460,13 +506,23 @@ export const ChatModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
-  background-color: white;
+  background-color: #fff;
   border-radius: 1rem;
   box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.2);
   overflow: hidden;
   z-index: 2000;
+  bottom: 6rem;
+  right: 1rem;
+  width: 30rem;
+  height: 40rem;
+  border: 0.1rem solid #ccc;
 
   ${({ theme }) => theme.mediaQuery.sm`
+    bottom: 6rem;
+    right: 1rem;
+    width: 45rem;
+    height: 50rem;
+    border: 0.1rem solid #ccc;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -503,20 +559,10 @@ export const ChatModalCloseButton = styled.button`
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 2.6rem;
-  margin-right: 0.4rem;
   `};
 `;
 
 // 개인 채팅 모달 헤더
-// export const ChatModalHeader = styled.div`
-//   padding: 1rem;
-//   background-color: #000;
-//   border-bottom: 1px solid #ddd;
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   height: 7rem;
-// `;
 export const HeaderChattingModalTitle = styled.p`
   color: #fca311;
   font-weight: bold;
@@ -534,19 +580,27 @@ export const HeaderChattingModalTitle = styled.p`
 export const CloseButton = styled.button`
   all: unset;
   color: white;
-  font-weight: bold;
+  & img {
+    width: 1.1rem;
+    height: 1.8rem;
+  }
   &:hover {
     cursor: pointer;
     color: #fca311;
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
+    & img{
+      width:1.3rem;
+      height:2rem;
+    }
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  margin-left: 2.3rem;
-  font-size: 1.6rem;
-  margin-right: 1rem;
+  & img{
+    width:1.3rem;
+    height:2rem;
+  }
   `};
 `;
 
@@ -566,7 +620,6 @@ export const ChatModalBody = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
   height: calc(100vh - 200px); //채팅창의 높이를 화면에 맞게 조정
 
   ${({ theme }) => theme.mediaQuery.sm`
@@ -579,25 +632,78 @@ export const ChatModalBody = styled.div`
 
 export const MessageComponent = styled.div<MessageProps>`
   display: flex;
+  flex-direction: column;
   justify-content: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
   word-wrap: break-word;
-  background-color: ${(props) => (props.isOutgoing ? '#14213D' : '#FCA311')}; /* 배경 색상을 변경합니다. */
+  background-color: ${(props) => (props.isOutgoing ? '#FCA311' : '#14213D')}; /* 배경 색상을 변경합니다. */
   color: ${(props) => (props.isOutgoing ? '#fff' : '#fff')}; /* 텍스트 색상을 변경합니다. */
   align-self: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
   /* 추가: 메시지 버블 안에 텍스트가 중앙에 오도록 만듭니다. */
-  align-items: center;
+  align-items: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
   font-weight: bold;
   text-align: ${(props) => (props.isOutgoing ? 'right' : 'left')};
+  text-align: right;
+  padding: 0.6rem;
+  margin: 0.3rem;
+  border-radius: 1rem;
+  max-width: 10rem;
+  width: auto; /* 메시지의 최대 너비를 설정합니다. */
+  height: auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
+      padding: 0.8rem;
+      margin: 0.5rem ;
+      border-radius: 1rem;
+      max-width: 15rem;
+      width: auto; /* 메시지의 최대 너비를 설정합니다. */
+      height:auto;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-    padding: 1rem 2rem;
-    margin: 0.5rem;
-    border-radius: 20px;
-    font-size: 1.5rem;
-    max-width: 40%; /* 메시지의 최대 너비를 설정합니다. */
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border-radius: 1rem;
+    max-width: 20rem;
+    width: auto; /* 메시지의 최대 너비를 설정합니다. */
+    height:auto;
+  `};
+`;
+
+export const MessageContentTime = styled.div`
+  margin-right: auto;
+  /* margin-left: 3rem; */
+  font-size: 0.8rem;
+  margin-right: 0.1rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+    font-size: 1rem;
+    margin-right: 0.1rem;
+    `}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+    font-size: 1.2rem;
+    margin-right: 0.1rem;
+  `};
+`;
+
+export const MessageContentText = styled.div`
+  font-size: 1.4rem;
+  margin: 0.3rem;
+  width: auto;
+  height: auto;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  font-size: 1.5rem;
+  margin-top: 0.4rem;
+  width: auto;
+  height: auto;
+    `}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  width: auto;
+  height: auto;
   `};
 `;
 
@@ -607,8 +713,11 @@ export const ChatModalFooter = styled.div`
   border-top: 0.1rem solid #ddd;
   display: flex;
   align-items: center;
-
+  padding: 0.6rem;
+  height: 4.5rem;
   ${({ theme }) => theme.mediaQuery.sm`
+    padding: 0.8rem;
+    height: 7rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -624,11 +733,19 @@ export const InputField = styled.input`
   background-color: #fff;
   border-radius: 1rem;
   border-bottom: 0.1rem solid #000;
+  margin-right: 1rem;
+  padding: 0.2rem;
+  height: 3rem;
+  font-size: 1.5rem;
   ::placeholder {
     font-size: 1.5rem;
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
+    margin-right: 1rem;
+    padding: 0.2rem;
+    height: 4rem;
+    font-size: 1.5rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -644,6 +761,10 @@ export const SendButton = styled.button`
   color: #fca311;
   border: none;
   cursor: pointer;
+  height: 3.4rem;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  padding: 1rem;
 
   font-weight: bold;
   &:hover {
@@ -651,6 +772,10 @@ export const SendButton = styled.button`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
+    height: 4.4rem;
+    border-radius: 1rem;
+    font-size: 1.4rem;
+    padding: 1rem 1.5rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -666,11 +791,15 @@ export const PrevIcon = styled.div`
   background-size: contain;
 
   ${({ theme }) => theme.mediaQuery.sm`
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom:-2rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 3rem;
   height: 3rem;
+  margin-bottom:-1rem;
   `};
 `;
 
@@ -698,36 +827,60 @@ export const BookerChattingIcon = styled.div`
 `;
 
 export const NicknameLabel = styled.div`
-  background-color: #f0f0f0; // 닉네임 라벨 배경색
-  color: #333; // 닉네임 라벨 텍스트 색상
+  /* background-color: #f0f0f0; // 닉네임 라벨 배경색 */
+  /* background-color: black; // 닉네임 라벨 배경색 */
+  color: black; // 닉네임 라벨 텍스트 색상
   align-self: flex-start; // 부모 요소의 시작점에 정렬
+  // padding: 2px 8px; // 닉네임 라벨 패딩
+  border-radius: 10px; // 닉네임 라벨 둥근 모서리
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+  font-size: 1.1rem; // 닉네임 라벨 글꼴 크기
+  // margin-bottom: 4px; // 닉네임 라벨과 메시지 컴포넌트 사이의 여백
 
+  ${({ theme }) => theme.mediaQuery.sm`
+    margin-left:0.5rem;
+    margin-top:1rem;
+    margin-bottom:0.3rem;
+    font-size: 1.4rem; // 닉네임 라벨 글꼴 크기
+`}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  border-radius: 10px; // 닉네임 라벨 둥근 모서리
+  margin-left:0.4rem;
+  margin-top:1rem;
+  margin-bottom:-0.1rem;
+  font-size: 1.7rem; // 닉네임 라벨 글꼴 크기
+  `};
+`;
+
+export const UserImageNickName = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
   ${({ theme }) => theme.mediaQuery.sm`
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  padding: 2px 8px; // 닉네임 라벨 패딩
-  border-radius: 10px; // 닉네임 라벨 둥근 모서리
-  font-size: 0.75rem; // 닉네임 라벨 글꼴 크기
-  margin-bottom: 4px; // 닉네임 라벨과 메시지 컴포넌트 사이의 여백
   `};
 `;
 
 export const UserImage = styled.img`
   border-radius: 50%; // 원형으로 만들기
   object-fit: cover; // 이미지 비율 유지
-  margin-right: 0.5rem;
-  width: 3.5rem; // 유저 이미지 크기 조절
-  height: 3.5rem;
+  width: 3.6rem; // 유저 이미지 크기 조절
+  height: 3.6rem;
+  margin: 0 auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    margin-right: 1rem;
-    width: 4rem; // 유저 이미지 크기 조절
-    height: 4rem;
+    width: 3.8rem; // 유저 이미지 크기 조절
+    height: 3.8rem;
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  margin-right: 1rem;
   width: 4rem; // 유저 이미지 크기 조절
   height: 4rem;
   `};
@@ -756,7 +909,8 @@ export const UserInfo = styled.div`
 export const NicknameMessageTimeWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 0 auto;
+  align-items: center;
+  /* margin: 0 auto; */
   width: 15rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
@@ -783,26 +937,46 @@ export const MessageTime = styled.div`
   `};
 `;
 
-export const UserNickname = styled.div`
+export const ChatRoomUserNickname = styled.div`
   font-weight: bold;
+  color: white;
+  font-size: 1rem;
+  margin-top: 0.2rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+    font-size: 1.2rem;
+    margin-top:0.3rem;
+`}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  font-size: 1.5rem;
+  margin-top:0.5rem;
+  `};
+`;
+
+export const ChatListUserNickname = styled.div`
+  font-weight: bold;
+  color: black;
 `;
 
 export const ProductImage = styled.img`
   /* object-fit: cover; */
-  width: 4rem; // 물품 이미지 크기 조절
-  height: 4rem;
+  width: 4.5rem; // 물품 이미지 크기 조절
+  height: 4.5rem;
   margin-left: 0.5rem;
+  border: 1px solid gray;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 4rem; // 물품 이미지 크기 조절
-    height: 4rem;
+    width: 5rem; // 물품 이미지 크기 조절
+    height: 5rem;
     margin-left:0.5rem;
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  width: 5rem; // 물품 이미지 크기 조절
-  height: 5rem;
+  width: 6rem; // 물품 이미지 크기 조절
+  height: 6rem;
   margin-left:0.5rem;
+  border-radius:1rem;
   `};
 `;
 
@@ -920,12 +1094,45 @@ export const ProductInfo = styled.div`
   justify-content: space-between;
 `;
 
+export const ProductTitleProduct = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+  font-family: 'GmarketSansMedium';
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  margin-left: 1.5rem;
+`}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  margin-left: 2rem;
+  `};
+`;
+
 export const ProductTitle = styled.span`
   // 제품 제목을 위한 스타일 추가
+  font-size: 1.1rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  font-size: 1.3rem;
+`}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+    font-size: 1.5rem;
+  `};
 `;
 
 export const ProductPrice = styled.span`
   // 제품 가격을 위한 스타일 추가
+  margin-top: 0.6rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  margin-top: 0.8rem;
+`}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  margin-top: 1rem;
+  `};
 `;
 
 export const UserSection = styled.div`
@@ -964,33 +1171,48 @@ export const ProductDetail = styled.div`
 export const ChatModalHeader = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #fff; // 백그라운드 색상 지정
 `;
 
 export const UserInfoSection = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background-color: #000; // 사용자 정보 섹션의 백그라운드 색상
+  justify-content: flex-start;
+  background-color: #14213d; // 사용자 정보 섹션의 백그라운드 색상
+  padding: 0.8rem;
+  width: 30rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
+    padding: 0.8rem;
+    width:45rem;
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  padding: 10px;
+  padding: 1rem;
+  width:48rem;
   `};
 `;
 
 export const ProductInfoSection = styled.div`
   display: flex;
   align-items: center;
-  border-top: 1px solid #ddd; // 상품 정보 섹션과 분리선
-
+  background-color: rgba(252, 163, 17, 0.3); // 백그라운드 색상 지정
+  border-radius: 1rem;
+  cursor: pointer;
+  width: 29rem;
+  height: 5rem;
+  margin: 0.8rem auto;
+  /* border-top: 1px solid #ddd; // 상품 정보 섹션과 분리선 */
   ${({ theme }) => theme.mediaQuery.sm`
+    width: 42.5rem;
+    height: 6rem;
+    margin: 0.8rem auto;
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 10px;
+  width: 45rem;
+  height: 8rem;
+  margin: 1rem auto;
   `};
 `;
 
@@ -1000,8 +1222,21 @@ export const DateLabel = styled.div`
   text-align: center; // 텍스트 중앙 정렬
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // 그림자 효과
   width: fit-content; // 콘텐츠에 맞는 너비
+  margin: 0 auto;
+  padding: 4px 12px; // 패딩
+  margin: 6px 0; // 위 아래 마진
+  border-radius: 2px; // 테두리 둥글게
+  font-size: 0.7em; // 폰트 크기
+  margin-left: auto; // 왼쪽 자동 마진
+  margin-right: auto; // 오른쪽 자동 마진
 
   ${({ theme }) => theme.mediaQuery.sm`
+  padding: 6px 14px; // 패딩
+  margin: 8px 0; // 위 아래 마진
+  border-radius: 3px; // 테두리 둥글게
+  font-size: 0.8em; // 폰트 크기
+  margin-left: auto; // 왼쪽 자동 마진
+  margin-right: auto; // 오른쪽 자동 마진
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`

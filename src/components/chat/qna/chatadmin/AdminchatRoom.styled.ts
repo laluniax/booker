@@ -26,8 +26,6 @@ export const ChatWrapper = styled.div`
   overflow: scroll;
   background-color: white;
   z-index: 999;
-  /* width: 45rem;
-  height: 60rem; */
 `;
 
 export const PrevBtn = styled.div`
@@ -76,7 +74,7 @@ export const MainMessage = styled.p`
 `};
   ${({ theme }) => theme.mediaQuery.lg`
   width: 45rem;
-  height: 20rem;
+  height: 30rem;
 `};
 `;
 export const ChatInputWrapper = styled.div`
