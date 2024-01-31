@@ -20,9 +20,13 @@ const ChatLog = () => {
     if (!auth.session) return;
 
     getQnaLog(auth.session.user.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // 의존성 배열에서 messages를 제거
+  }, [auth.session]);
+
+  useEffect(() => {
+    // 메시지 상태가 변경될 때 스크롤을 맨 아래로 이동
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [auth.session, messages]);
+  }, [messages]);
 
   //qna table 가져오는 함수
   const getQnaLog = async (roomId: string) => {
