@@ -10,18 +10,19 @@ import {
   getUserSessionHandler,
   supabase,
 } from '../../../api/supabase.api';
-import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/product.atom';
+import { ChatId, MessageType, otherPerson, person, productState, sendMessages } from '../../../atom/product.atom';
 
 import { Session } from '@supabase/supabase-js';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { ProductsTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
-import { MessageType } from '../../chat/ChatModal';
+
 import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
 import { categoryArr } from '../marketpost/Post';
 import * as St from './Product.styled';
+// import { MessageType } from '../../chat/market/ChatMarket';
 
 const Product = () => {
   const params = useParams().id;

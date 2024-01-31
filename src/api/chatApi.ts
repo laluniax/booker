@@ -3,8 +3,11 @@ import { supabase } from './supabase.api';
 
 import { useRecoilState } from 'recoil';
 import { ChatId } from '../atom/product.atom';
-import { ChatData } from '../components/chat/ChatModal';
 
+
+export type ChatData = {
+  id: string;
+};
 // 챗방 생성 또는 가져오기 로직을 커스텀 훅으로 분리
 export function useCreateOrGetChat() {
   const queryClient = useQueryClient();
