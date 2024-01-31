@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import prev from '../../../assets/common/prevbutton2.webp';
 import deleteIcon from '../../../assets/market/deleteicon.webp';
 import editIcon from '../../../assets/market/editicon.webp';
-import { MessageProps } from '../../qna/ChatModal.styled';
+import { MessageProps } from '../../chat/ChatModal.styled';
 // import Prev from '../../styles/assets/buttonimages/prev2.png';
 
 export const Container = styled.div`

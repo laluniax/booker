@@ -20,9 +20,9 @@ import SliderNextIcon from '../../../assets/common/slider_right.webp';
 import logoImage from '../../../assets/profile/defaultprofileimage.webp';
 import { ProductsTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
+import { MessageType } from '../../chat/ChatModal';
 import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
-import { MessageType } from '../../qna/ChatModal';
 import { categoryArr } from '../marketpost/Post';
 import * as St from './Product.styled';
 
