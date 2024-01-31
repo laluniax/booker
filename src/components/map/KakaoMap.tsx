@@ -117,10 +117,10 @@ function KakaoMap() {
   const fetchBookstoresNearby = async (latitude: number, longitude: number) => {
     try {
       // 가져온 위도와 경도를 사용하여 일정 반경 내의 서점 정보를 가져옵니다.
-      const radius = 1;
+      const radius = 3;
 
       const response = await fetch(
-        `https://port-0-independentbookstoresdb-3wh3o2blr53yzc2.sel5.cloudtype.app/bookstores?lat=${latitude}&lng=${longitude}&radius=${radius}`,
+        `https://port-0-independentbookstoresdb-3wh3o2blr53yzc2.sel5.cloudtype.app/bookstoresdb?lat=${latitude}&lng=${longitude}&radius=${radius}`,
         {
           method: 'GET',
           credentials: 'include',
