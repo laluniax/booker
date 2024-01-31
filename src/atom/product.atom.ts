@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
-import { MessageType } from '../components/qna/ChatModal';
 import { UnreadCount } from '../App';
+import { MessageType } from '../components/chat/ChatModal';
 
 // import { selector } from 'recoil';
 
@@ -34,7 +34,7 @@ export const chatRoomsState = atom<ChatRoom[]>({
 type ProductImage = string | null;
 
 export type ChatRoom = {
-  author_id:string;
+  author_id: string;
   chat_id: string;
   user_id: string;
   item_id: number;
@@ -43,8 +43,7 @@ export type ChatRoom = {
   product_img: string;
   unread_count: UnreadCount;
   created_at: string;
-  user_img:string;
-
+  user_img: string;
 };
 
 export const isChatModalOpenState = atom({
@@ -72,7 +71,7 @@ export const loginUserState = atom({
   default: '',
 });
 
-export const UnreadCounts = atom<UnreadCount[] >({
+export const UnreadCounts = atom<UnreadCount[]>({
   key: 'UnreadCounts',
   default: [],
 });

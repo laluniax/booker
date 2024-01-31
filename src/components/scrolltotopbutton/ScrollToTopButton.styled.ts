@@ -6,15 +6,10 @@ interface ScrollToTopButtonProps {
 
 export const ScrollToTopButton = styled.button<ScrollToTopButtonProps>`
   position: fixed;
-  bottom: 14rem;
-  right: 4.7rem;
   background-color: #14213d;
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 5.5rem;
-  height: 5.5rem;
-  padding: 1.5rem;
   cursor: pointer;
   display: ${(props) => (props.$visible ? 'flex' : 'none')};
   justify-content: center;
@@ -23,15 +18,22 @@ export const ScrollToTopButton = styled.button<ScrollToTopButtonProps>`
   font-weight: bold;
   transition: background-color 0.3s ease;
   z-index: 20;
-  font-size: 1.8rem;
   transition: 0.3s;
+  margin-bottom: 3rem;
+
+  width: 3.5rem;
+  height: 3.5rem;
+  bottom: 10rem;
+  right: 3.5rem;
+  font-size: 1.2rem;
+  padding: 1.5rem;
 
   &:hover {
     color: #fca311;
     transition: 0.3s;
-    width: 6.2rem;
-    height: 6.2rem;
-    font-size: 2.3rem;
+    width: 3.8rem;
+    height: 3.8rem;
+    font-size: 1.4rem;
   }
 
   &::before {
@@ -41,4 +43,34 @@ export const ScrollToTopButton = styled.button<ScrollToTopButtonProps>`
   &::after {
     font-size: 10px;
   }
+
+  ${({ theme }) => theme.mediaQuery.sm`
+    width: 4rem;
+    height: 4rem;
+    bottom: 11rem;
+    right: 4rem;
+    font-size: 1.6rem;
+    padding: 1.5rem;
+
+    &:hover {
+      width: 4.5rem;
+      height: 4.5rem;
+      font-size: 2rem;
+    }
+`}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+    width: 5.5rem;
+    height: 5.5rem;
+    bottom: 14rem;
+    right: 4.7rem;
+    font-size: 1.8rem;
+    padding: 1.5rem;
+
+    &:hover {
+      width: 6.2rem;
+      height: 6.2rem;
+      font-size: 2.3rem;
+    }
+  `};
 `;

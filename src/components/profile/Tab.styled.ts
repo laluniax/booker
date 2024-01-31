@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const TabWrapper = styled.div`
   height: 100vh;
+  font-family: 'GmarketSansMedium';
 `;
 
 export const ProfileTab = styled.div`
@@ -18,7 +19,7 @@ export const ProfileTab = styled.div`
     border-bottom: 0.2rem solid #bcbcbc;
     cursor: pointer;
     &.active {
-      border-bottom: 0.2rem solid black;
+      border-bottom: 0.2rem solid #fca311;
       color: black;
     }
   }
@@ -27,18 +28,25 @@ export const ProfileTab = styled.div`
 export const TabMenu = styled.div``;
 
 export const ProfileContent = styled.div`
-  width: 80rem;
+  width: 85rem;
   margin: 0 auto;
 `;
 
 export const TabListTitle = styled.div`
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 600;
   margin: 5rem 0 2rem 0;
 `;
 
+// 구분선
+export const Contour = styled.div`
+  border-bottom: 0.2rem solid #000;
+  width: 100%;
+  margin-top: 3rem;
+`;
+
 // 내가 쓴 글
-export const PostWraapper = styled.div`
+export const PostWrapper = styled.div`
   height: 35rem;
 `;
 
@@ -49,9 +57,22 @@ export const Post = styled.div`
   font-size: 1.5rem;
   padding: 1.5rem 0;
   cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #dbdbdb;
+    border-radius: 1rem;
+    transition: 0.2s;
+  }
+
+  &:not(:hover) {
+    transition: 0.2s;
+  }
 `;
 
-export const PostTitle = styled.div``;
+export const PostTitle = styled.div`
+  font-size: 1.8rem;
+`;
 
 export const PostDate = styled.div``;
 
@@ -64,48 +85,92 @@ export const Product = styled.div`
   justify-content: space-between;
   align-items: center;
   border-bottom: 0.1rem solid #bcbcbc;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   padding: 1.5rem 0;
-  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #dbdbdb;
+    border-radius: 1rem;
+    transition: 0.2s;
+  }
+
+  &:not(:hover) {
+    transition: 0.2s;
+  }
 `;
 export const ProductTitlePrice = styled.div`
-  width: 60rem;
+  width: 58rem;
   line-height: 2;
+  margin-left: 1.3rem;
 `;
-export const ProductTitle = styled.div``;
+export const ProductTitle = styled.div`
+  width: 50rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
 
 export const ProductImg = styled.img`
-  width: 5rem;
-  height: 5rem;
+  width: 7rem;
+  height: 7rem;
   object-fit: cover;
+  background-color: #14213d;
+  border-radius: 2rem;
 `;
 
-export const ProductPrice = styled.div``;
+export const ProductPrice = styled.div`
+  font-size: 1.8rem;
+`;
 
 export const ProductDate = styled.div`
-  font-size: 1.3rem;
+  font-size: 1.6rem;
 `;
 
 // 팔로우 목록
 export const FollowWrapper = styled.div`
-  width: 50rem;
+  width: 80rem;
   margin: 0 auto;
   margin-top: 5rem;
 `;
 
 export const Follow = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   border-bottom: 0.1rem solid #bcbcbc;
   font-size: 1.5rem;
   padding: 1.5rem 0;
-  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #14213d;
+    border-radius: 2rem;
+    padding: 1rem;
+    color: #fff;
+
+    transition: 0.3s;
+
+    & div {
+      color: #fca311;
+    }
+  }
+
+  &:not(:hover) {
+    transition: 0.4s;
+  }
+`;
+
+export const FollowImgAndNickNameBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
 `;
 
 export const FollowImg = styled.img`
-  width: 5rem;
-  height: 5rem;
+  width: 7rem;
+  height: 7rem;
   border-radius: 50%;
 `;
 
@@ -114,9 +179,21 @@ export const FollowNickname = styled.div`
   width: 30rem;
 `;
 export const UnfollowBtn = styled.button`
+  font-family: 'GmarketSansMedium';
   background-color: transparent;
   border: none;
+  font-size: 1.6rem;
   color: #bcbcbc;
+
+  &:hover {
+    color: #fca311;
+    transition: 0.2s;
+    font-weight: bold;
+  }
+
+  &:not(:hover) {
+    transition: 0.3s;
+  }
 `;
 
 // 프로필 수정하기
@@ -130,39 +207,101 @@ export const ProfileImgEdit = styled.div`
 `;
 
 export const ProfileEditTitle = styled.div`
-  font-size: 1.5rem;
-  width: 10rem;
+  font-size: 1.8rem;
+  width: 13rem;
 `;
-export const ProfileImgUpload = styled.div`
+export const ProfileImgEditBox = styled.div`
   width: 65rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  background-color: #14213d;
+  padding: 1.6rem;
+  border-radius: 2rem;
+`;
+
+export const ProfileImgBox = styled.div`
+  width: 60rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 2rem;
 `;
 
 export const ProfileImg = styled.img`
-  width: 10rem;
-  height: 10rem;
+  width: 20rem;
+  height: 20rem;
   object-fit: cover;
   background-color: white;
   border-radius: 50%;
 `;
 
-export const ProfileImgUploadFile = styled.div``;
+export const ProfileImgUploadFile = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50rem;
+  gap: 2rem;
+  height: 4rem;
+`;
+
+export const ProfileLabelBox = styled.div`
+  display: flex;
+  border-right: 0.2em solid #fca311;
+  align-items: center;
+  height: 2.6rem;
+`;
+
 export const ProfileLabel = styled.label`
-  cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   padding-right: 1rem;
-  border-right: 0.2em solid black;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+  color: #fff;
+  margin-right: 0.4rem;
+
+  &:hover {
+    padding: 1rem;
+    cursor: pointer;
+    color: #fca311;
+    transition: 0.3s;
+    border-radius: 2rem;
+    margin-right: 0.8rem;
+    font-size: 2rem;
+  }
+
+  &:not(:hover) {
+    transition: 0.3s;
+  }
 `;
 
 export const ProfileImgInput = styled.input`
   display: none;
 `;
 export const ProfileImgUpdate = styled.button`
-  background-color: transparent;
+  all: unset;
+  font-family: 'GmarketSansMedium';
+  font-size: 1.7rem;
   border: none;
+  text-align: center;
+  height: 2rem;
+  color: #fff;
+
+  &:hover {
+    padding: 0.4rem;
+    cursor: pointer;
+    color: #fca311;
+    transition: 0.3s;
+    border-radius: 2rem;
+    font-size: 2rem;
+  }
+
+  &:not(:hover) {
+    transition: 0.3s;
+  }
 `;
+export const ProfileEditBox = styled.div``;
 
 export const ProfileNicknameEdit = styled(ProfileImgEdit)`
   display: flex;
@@ -170,53 +309,108 @@ export const ProfileNicknameEdit = styled(ProfileImgEdit)`
 `;
 export const ProfileNicknameEditValidation = styled.div`
   width: 65rem;
+  height: 6rem;
   display: flex;
   justify-content: space-between;
 `;
 export const ProfileNicknameInput = styled.input`
+  font-family: 'GmarketSansMedium';
   border: none;
   border-bottom: 0.1rem solid black;
   background-color: transparent;
   font-size: 2rem;
+  width: 25rem;
 `;
+
+export const ProfileNicknameLength = styled.span`
+  font-size: 1.5rem;
+  padding-left: 0.5rem;
+`;
+
 export const ProfileNicknameValidation = styled.button`
-  background-color: transparent;
+  all: unset;
+  font-size: 1.7rem;
   border: none;
   padding: 1rem;
+
+  &:hover {
+    cursor: pointer;
+    color: #fca311;
+    transition: 0.3s;
+    font-weight: bold;
+  }
+
+  &:not(:hover) {
+    transition: 0.3s;
+  }
 `;
+
+export const NicknameValidationTextCorrect = styled.div`
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  color: #0f77ff;
+`;
+
+export const NicknameValidationTextError = styled.div`
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  color: #ff0f0f;
+`;
+
 export const ProfileIntroTextEdit = styled(ProfileImgEdit)`
   display: flex;
   align-items: center;
 `;
 export const ProfileIntroTextWrapper = styled.div`
   width: 65rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
   & span {
     /* float: right; */
   }
 `;
 export const ProfileIntroTextArea = styled.textarea`
-  border: none;
+  font-family: 'GmarketSansMedium';
   border-bottom: 0.1rem solid black;
+  font-size: 1.7rem;
   resize: none;
-  height: 4rem;
+  height: 10rem;
   line-height: 1.2;
   width: 93.5%;
+  padding: 1.4rem;
+  outline: none;
+
+  border: 1px solid #14213d;
+  border-radius: 2rem;
 `;
 
 export const ProfileBtnDiv = styled.div`
-  display: center;
-  flex-direction: column;
-  /* justify-content: center;
-  align-items: center; */
+  display: flex;
+  justify-content: right;
   text-align: center;
 `;
 export const ProfileBtn = styled.button`
-  background-color: black;
-  color: white;
-  border: none;
-  padding: 2rem;
+  all: unset;
+  background-color: #14213d;
+  color: #fff;
+  font-family: 'GmarketSansMedium';
+  width: 15rem;
+  height: 5rem;
+  border-radius: 2rem;
   margin-top: 3rem;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: bold;
-  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+    color: #fca311;
+    transition: 0.3s;
+  }
+
+  &:not(:hover) {
+    transition: 0.3s;
+  }
 `;

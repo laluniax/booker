@@ -52,6 +52,7 @@ const ProductsLike = ({ postId, count }: LikeProps) => {
         {likes.some((like) => like.user_id === currentUserId) ? '좋아요 해제' : '좋아요'}
       </button> */}
       <St.HeartButton
+        className={count ? '' : 'marketlist'}
         onClick={(e) => {
           e.stopPropagation();
           toggleLike();

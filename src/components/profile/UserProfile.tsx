@@ -38,18 +38,22 @@ const UserProfile = () => {
           <St.ProfileInfo>
             <St.ProfileNicknameEmail>
               <St.ProfileNickname>
-                안녕하세요! {nickname || userSession?.user.user_metadata.preferred_username}님
+                안녕하세요!{' '}
+                <St.ProfileUserName>
+                  {nickname || userSession?.user.user_metadata.preferred_username}
+                </St.ProfileUserName>
+                님
               </St.ProfileNickname>
               <St.ProfileIntroText>{userData?.intro_text}</St.ProfileIntroText>
             </St.ProfileNicknameEmail>
           </St.ProfileInfo>
         ) : (
           // 타겟 유저 프로필
-          <St.ProfileInfo>
+          <St.TargetProfileInfo>
             <St.ProfileNickname>{nickname}</St.ProfileNickname>
             <St.ProfileIntroText>{userData?.intro_text}</St.ProfileIntroText>
             {params && <Follow params={params} usage="userprofile" />}
-          </St.ProfileInfo>
+          </St.TargetProfileInfo>
         )}
       </St.ProfileWrapper>
       <Tab userSession={userSession} userData={userData} />

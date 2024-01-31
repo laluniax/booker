@@ -139,13 +139,15 @@ const SearchField = () => {
           <>
             {bookertalkList.slice((currentPostsPage - 1) * 5, currentPostsPage * 5).map((item, i) => {
               return (
-                <St.PostList key={i} onClick={() => navigate(`/detail/${item.id}`)}>
-                  <St.Post width={13}>{item.title}</St.Post>
-                  <St.Post width={50}>{item.content}</St.Post>
-                  <St.Post width={15}>
-                    {item.users.nickname} | {formatCreatedAt(item.created_at)}
-                  </St.Post>
-                </St.PostList>
+                <St.PostListBox>
+                  <St.PostList key={i} onClick={() => navigate(`/detail/${item.id}`)}>
+                    <St.Post width={13}>{item.title}</St.Post>
+                    <St.Post width={50}>{item.content}</St.Post>
+                    <St.Post width={15}>
+                      {item.users.nickname} | {formatCreatedAt(item.created_at)}
+                    </St.Post>
+                  </St.PostList>
+                </St.PostListBox>
               );
             })}
           </>
@@ -273,8 +275,10 @@ const SearchField = () => {
                       <img src={(item.product_img && item.product_img[0]) ?? undefined} alt="검색결과상품이미지" />
                     </St.ProductImg>
                   )}
-                  <div>{item.title}</div>
-                  <div>{item.price} 원</div>
+                  <St.TitleAndPriceBox>
+                    <St.ProductTitle>{item.title}</St.ProductTitle>
+                    <St.ProductPrice>{item.price} 원</St.ProductPrice>
+                  </St.TitleAndPriceBox>
                 </St.Product>
               );
             })}

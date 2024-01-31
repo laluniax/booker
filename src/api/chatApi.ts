@@ -3,9 +3,7 @@ import { supabase } from './supabase.api';
 
 import { useRecoilState } from 'recoil';
 import { ChatId } from '../atom/product.atom';
-import { ChatData } from '../components/qna/ChatModal';
-
-
+import { ChatData } from '../components/chat/ChatModal';
 
 // 챗방 생성 또는 가져오기 로직을 커스텀 훅으로 분리
 export function useCreateOrGetChat() {
@@ -32,8 +30,7 @@ export function useCreateOrGetChat() {
     // 챗방 아이디가 있으면 저장
     if (chatUser && chatUser.chat_id) {
       setChatId(chatUser.chat_id);
-      console.log('챗방이 이미 존재')
-
+      console.log('챗방이 이미 존재');
     } else if (!error) {
       // 기존 챗방이 없으므로 새 챗방 생성
       const { data: newChatData, error: newChatError } = (await supabase
