@@ -100,6 +100,7 @@ const Main = () => {
             </St.BannerRecommendTitleBox>
           </St.BannerRecommendBox>
         </St.BannerWrapper>
+
         <St.Contour />
         {/* 북커톡  */}
         <St.BookerTalkWrapper>
@@ -118,8 +119,10 @@ const Main = () => {
                       window.scrollTo(0, 0);
                     }}
                   />
-                  <St.CardTitle>{item.title}</St.CardTitle>
-                  <St.CardContent>{item.users.nickname}</St.CardContent>
+                  <St.BookIntroTitleAndContent>
+                    <St.CardTitle>{item.title}</St.CardTitle>
+                    <St.CardContent>{item.users.nickname}</St.CardContent>
+                  </St.BookIntroTitleAndContent>
                 </St.BookerTalkCard>
               );
             })}
@@ -137,63 +140,80 @@ const Main = () => {
               <St.BookIntroCategory>신간도서</St.BookIntroCategory>
               <St.BookIntroCategory>스페셜</St.BookIntroCategory>
               <St.BookIntroCategory>북커들의 선택 </St.BookIntroCategory>
-            </St.CategoryBox> */}
-            <St.BookIntroCard
-              onClick={() => {
-                navigate(`/aboutbook/bestseller`);
-              }}>
+            </St.CategoryBox> */}{' '}
+            <St.BookIntroBox>
               <St.CategoryBox>
                 <St.BookIntroCategory>베스트셀러</St.BookIntroCategory>
-              </St.CategoryBox>{' '}
-              {loading1 ? <Loading /> : null}
-              <St.BookImage>
-                <img src={bestSeller?.cover} />
-              </St.BookImage>
-              <St.BookIntroCardTitle>{bestSeller?.title}</St.BookIntroCardTitle>
-              <St.BookIntroCardContent>{bestSeller?.author}</St.BookIntroCardContent>
-            </St.BookIntroCard>
-            <St.BookIntroCard
-              onClick={() => {
-                navigate(`/aboutbook/newbook`);
-              }}>
+              </St.CategoryBox>
+
+              <St.BookIntroCard
+                onClick={() => {
+                  navigate(`/aboutbook/bestseller`);
+                }}>
+                {loading1 ? <Loading /> : null}
+                <St.BookImage>
+                  <img src={bestSeller?.cover} />
+                </St.BookImage>
+                <St.BookIntroTitleAndContent>
+                  <St.BookIntroCardTitle>{bestSeller?.title}</St.BookIntroCardTitle>
+                  <St.BookIntroCardContent>{bestSeller?.author}</St.BookIntroCardContent>
+                </St.BookIntroTitleAndContent>
+              </St.BookIntroCard>
+            </St.BookIntroBox>
+            <St.BookIntroBox>
               <St.CategoryBox>
                 <St.BookIntroCategory>신간도서</St.BookIntroCategory>
-              </St.CategoryBox>{' '}
-              {loading2 ? <Loading /> : null}
-              <St.BookImage>
-                <img src={newbook?.cover} />
-              </St.BookImage>
-              <St.BookIntroCardTitle>{newbook?.title}</St.BookIntroCardTitle>
-              <St.BookIntroCardContent>{newbook?.author}</St.BookIntroCardContent>
-            </St.BookIntroCard>
-            <St.BookIntroCard
-              onClick={() => {
-                navigate(`/aboutbook/bookspecial`);
-              }}>
+              </St.CategoryBox>
+              <St.BookIntroCard
+                onClick={() => {
+                  navigate(`/aboutbook/newbook`);
+                }}>
+                {loading2 ? <Loading /> : null}
+                <St.BookImage>
+                  <img src={newbook?.cover} />
+                </St.BookImage>
+                <St.BookIntroTitleAndContent>
+                  <St.BookIntroCardTitle>{newbook?.title}</St.BookIntroCardTitle>
+                  <St.BookIntroCardContent>{newbook?.author}</St.BookIntroCardContent>
+                </St.BookIntroTitleAndContent>
+              </St.BookIntroCard>
+            </St.BookIntroBox>
+            <St.BookIntroBox>
               <St.CategoryBox>
                 <St.BookIntroCategory>스페셜</St.BookIntroCategory>
               </St.CategoryBox>{' '}
-              {loading3 ? <Loading /> : null}
-              <St.BookImage>
-                <img src={bookSpecial?.cover} />
-              </St.BookImage>
-              <St.BookIntroCardTitle>{bookSpecial?.title}</St.BookIntroCardTitle>
-              <St.BookIntroCardContent>{bookSpecial?.author}</St.BookIntroCardContent>
-            </St.BookIntroCard>
-            <St.BookIntroCard
-              onClick={() => {
-                navigate(`/aboutbook/bookerpick`);
-              }}>
+              <St.BookIntroCard
+                onClick={() => {
+                  navigate(`/aboutbook/bookspecial`);
+                }}>
+                {loading3 ? <Loading /> : null}
+                <St.BookImage>
+                  <img src={bookSpecial?.cover} />
+                </St.BookImage>
+                <St.BookIntroTitleAndContent>
+                  <St.BookIntroCardTitle>{bookSpecial?.title}</St.BookIntroCardTitle>
+                  <St.BookIntroCardContent>{bookSpecial?.author}</St.BookIntroCardContent>
+                </St.BookIntroTitleAndContent>
+              </St.BookIntroCard>
+            </St.BookIntroBox>
+            <St.BookIntroBox>
               <St.CategoryBox>
                 <St.BookIntroCategory>북커들의 선택</St.BookIntroCategory>
-              </St.CategoryBox>{' '}
-              {loading4 ? <Loading /> : null}
-              <St.BookImage>
-                <img src={bookerPick?.cover} />
-              </St.BookImage>
-              <St.BookIntroCardTitle>{bookerPick?.title}</St.BookIntroCardTitle>
-              <St.BookIntroCardContent>{bookerPick?.author}</St.BookIntroCardContent>
-            </St.BookIntroCard>
+              </St.CategoryBox>
+              <St.BookIntroCard
+                onClick={() => {
+                  navigate(`/aboutbook/bookerpick`);
+                }}>
+                {loading4 ? <Loading /> : null}
+                <St.BookImage>
+                  <img src={bookerPick?.cover} />
+                </St.BookImage>
+                <St.BookIntroTitleAndContent>
+                  <St.BookIntroCardTitle>{bookerPick?.title}</St.BookIntroCardTitle>
+                  <St.BookIntroCardContent>{bookerPick?.author}</St.BookIntroCardContent>
+                </St.BookIntroTitleAndContent>
+              </St.BookIntroCard>
+            </St.BookIntroBox>
           </St.BookIntroCardBox>
         </St.BookIntroWrapper>
         {/* 중고거래 */}
@@ -213,9 +233,11 @@ const Main = () => {
                   <St.MarketProductImage>
                     <img src={(item.product_img && item.product_img[0]) || defaultImg} />
                   </St.MarketProductImage>
-                  <St.ProductTitle>{item.title}</St.ProductTitle>
-                  <St.ProductPrice>₩ {item.price}</St.ProductPrice>
-                  <St.ProductContent>{item.users.nickname}님</St.ProductContent>
+                  <St.ProductContentBox>
+                    <St.ProductTitle>{item.title}</St.ProductTitle>
+                    <St.ProductPrice>₩ {item.price}</St.ProductPrice>
+                    <St.ProductContent>{item.users.nickname}님</St.ProductContent>
+                  </St.ProductContentBox>
                 </St.MarketProductCard>
               );
             })}

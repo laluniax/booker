@@ -85,21 +85,22 @@ const AdminChat = () => {
   return (
     <St.Container>
       <St.ChatWrapper>
+        {/*isopen이 true면  main massege와 뒤로가기버튼 input보이게끔 */}
         {isOpen ? (
           <>
             <St.PrevBtn onClick={PrevHandler}>
               <St.PrevIcon />
             </St.PrevBtn>
-            <St.MainMessage>
-              안녕하세요 !
-              <br />
-              책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝ <br />
-              궁금한 점이 있으신가요?
-            </St.MainMessage>
+            <St.MainMessage>안녕하세요 !</St.MainMessage>
+            <br />
+            <St.MainMessage>책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝</St.MainMessage>
+            <br />
+            궁금한 점이 있으신가요?
             <St.ChatBody>
               {messages.map((message) => {
                 return (
                   <>
+                    {/* 메세지타입이 answer이면 오른쪽(관리자채팅) 아니면 왼쪽(유저채팅)  */}
                     {message.message_type === 'answer' ? (
                       <St.AdminMessage>{message.content}</St.AdminMessage>
                     ) : (
