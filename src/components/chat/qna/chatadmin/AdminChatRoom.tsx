@@ -87,13 +87,9 @@ const AdminChat = () => {
       <St.ChatWrapper>
         {isOpen ? (
           <>
-            <St.ChatHeader>
-              <St.LogoWrapper>
-                <St.PrevBtn onClick={PrevHandler}>
-                  <St.PrevIcon />
-                </St.PrevBtn>
-              </St.LogoWrapper>
-            </St.ChatHeader>
+            <St.PrevBtn onClick={PrevHandler}>
+              <St.PrevIcon />
+            </St.PrevBtn>
             <St.MainMessage>
               안녕하세요 !
               <br />
@@ -124,7 +120,7 @@ const AdminChat = () => {
           </>
         ) : (
           <>
-            <St.ChatHeader></St.ChatHeader>
+            {/* <St.ChatHeader></St.ChatHeader> */}
             <St.ChatBody>
               {qnaRoomIds.map((qnaRoomID) => (
                 <div key={qnaRoomID} onClick={() => handleSenderClick(qnaRoomID)}>

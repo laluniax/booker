@@ -2,43 +2,32 @@ import styled from 'styled-components';
 import prevIcon from '../../../../assets/common/prevbutton1.webp';
 
 export const Container = styled.section`
-  height: 70%;
-  padding: 10px;
+  width: 35rem;
+  height: 55rem;
   overflow: scroll;
 
   ${({ theme }) => theme.mediaQuery.sm`
-
+        width: 50rem;
+        height: 65rem;
 `};
   ${({ theme }) => theme.mediaQuery.lg`
+        width: 56rem;
+        height: 67rem;
 `};
 `;
 
 export const ChatWrapper = styled.div`
-  width: 390px;
-  height: 590px;
+  bottom: 10rem;
+  right: 1rem;
   box-sizing: border-box;
   position: fixed;
-  bottom: 100px;
-  right: 10px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 2rem;
-  padding: 8px;
   overflow: scroll;
   background-color: white;
+  z-index: 999;
+`;
 
-  z-index: 9999;
-`;
-export const ChatHeader = styled.div`
-  display: flex;
-  padding: 8px;
-  margin: 16px 16px 12px;
-  overflow: hidden;
-`;
-export const LogoWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-`;
 export const PrevBtn = styled.div`
   cursor: pointer;
 `;
@@ -48,6 +37,15 @@ export const PrevIcon = styled.div`
   background-size: contain;
   width: 3rem;
   height: 3rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  width: 3rem;
+  height: 3rem;
+`};
+  ${({ theme }) => theme.mediaQuery.lg`
+  width: 3rem;
+  height: 3rem;
+`};
 `;
 
 export const ChatBody = styled.div`
@@ -71,7 +69,11 @@ export const UserMessage = styled.div`
   text-align: left;
 `;
 export const MainMessage = styled.p`
-  padding: 10px;
+  ${({ theme }) => theme.mediaQuery.sm`
+
+`};
+  ${({ theme }) => theme.mediaQuery.lg`
+`};
 `;
 export const ChatInputWrapper = styled.div`
   position: relative;
