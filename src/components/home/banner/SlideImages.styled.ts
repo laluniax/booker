@@ -4,21 +4,20 @@ import rightButtonIcon from '../../../assets/common/buttonright.webp';
 
 export const SlideshowContainer = styled.div`
   position: relative;
-  width: 35rem;
-  height: 20rem;
+  max-width: 33rem;
+  height: 16.4rem;
   overflow: hidden;
   margin: 0 auto;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
   grid-column: 1;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width:46rem;
-    height:26rem;
-    margin-left: 2rem;
+    max-width: 52.7rem;
+    height: 37rem;
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
-    width:85rem;
+    max-width:85rem;
     height:51rem;
     margin-left: 2rem;
   `};
@@ -48,8 +47,8 @@ export const slideInLeft = keyframes`
 
 export const SlideshowImage = styled.img`
   background-size: contain;
-  width: 35rem;
-  height: 20rem;
+  width: 22rem;
+  height: 16.4rem;
   margin: 0 auto;
   object-fit: cover;
   object-position: 50% 40%;
@@ -68,8 +67,8 @@ export const SlideshowImage = styled.img`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 46rem;
-    height:26rem;
+       width: 52.7rem;
+       height:37rem;
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -89,6 +88,12 @@ export const PrevButton = styled.button`
   font-size: 18px;
   cursor: pointer;
   z-index: 2;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  `};
 `;
 
 export const NextButton = styled.button`
@@ -109,6 +114,12 @@ export const NextButton = styled.button`
     transform: scale(1) translateX(0) rotate(0);
     animation: ${slideInLeft} 0.7s ease-in-out;
   }
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  `};
 `;
 
 export const LeftIcon = styled.span`
@@ -116,14 +127,35 @@ export const LeftIcon = styled.span`
   text-indent: -9999px;
   position: absolute;
   top: 42%;
-  left: 50%;
-  margin-left: -10px;
-  margin-top: -17px;
+  left: 20%;
+  margin-left: -24px;
+  margin-top: -8px;
+  width: 36px;
+  height: 26px;
+  font-size: 0;
+  background-size: 20px 37px;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+    width: 40px;
+    height: 40px;
+    margin-left: -10px;
+    margin-top: -17px;
+    background-size: 40px 60px;
+    top: 42%;
+    left: 50%;
+    text-indent: -9999px;
+  `};
+
+  ${({ theme }) => theme.mediaQuery.lg`
   width: 50px;
   height: 40px;
-  text-indent: -9999px;
-  font-size: 0;
+  margin-left: -10px;
+  margin-top: -17px;
   background-size: 40px 60px;
+  top: 42%;
+  left: 50%
+  text-indent: -9999px;;
+  `};
 `;
 
 export const RightIcon = styled.span`
@@ -132,12 +164,39 @@ export const RightIcon = styled.span`
   position: absolute;
   top: 42%;
   left: 50%;
-  margin-left: -30px;
-  margin-top: -17px;
-  width: 50px;
-  height: 40px;
+  margin-left: 0px;
+  margin-top: -10px;
+  width: 36px;
+  height: 26px;
   text-indent: -9999px;
   font-size: 0;
-  background-size: 40px 60px;
-  border-radius: 80%;
+  background-size: 20px 37px;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+    width: 40px;
+    height: 40px;
+    top: 42%;
+    left: 50%;
+    margin-left: -30px;
+    margin-top: -17px;
+    width: 50px;
+    height: 40px;
+    text-indent: -9999px;
+    font-size: 0;
+    background-size: 40px 60px;
+  `};
+
+  ${({ theme }) => theme.mediaQuery.lg`
+   width: 50px;
+   height: 40px;
+   top: 42%;
+   left: 50%;
+   margin-left: -30px;
+   margin-top: -17px;
+   width: 50px;
+   height: 40px;
+   text-indent: -9999px;
+   font-size: 0;
+   background-size: 40px 60px;
+  `};
 `;

@@ -152,7 +152,7 @@ const SearchField = () => {
             })}
           </>
         ) : (
-          <>검색 결과가 없습니다.</>
+          <St.SearchNoData>검색 결과가 없습니다.</St.SearchNoData>
         )}
         {/* 한 페이지에 보여줄 페이지 갯수 조정하기 → posstsPerPage의 숫자를 바꿔보세요! */}
         <Pagination postsPerPage={5} totalPosts={bookertalkList?.length ?? 0} paginate={setCurrentPostsPage} />
@@ -183,7 +183,7 @@ const SearchField = () => {
             </St.BookList>
           </>
         ) : (
-          <></>
+          <St.SearchNoData>검색 결과가 없습니다.</St.SearchNoData>
         )}
         {newBook.length > 0 ? (
           <>
@@ -284,7 +284,7 @@ const SearchField = () => {
             })}
           </St.ProductList>
         ) : (
-          <>검색 결과가 없습니다.</>
+          <St.SearchNoData>검색 결과가 없습니다.</St.SearchNoData>
         )}
       </St.SearchWrapper>
     </St.Container>
