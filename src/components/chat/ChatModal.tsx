@@ -84,13 +84,9 @@ const Chat = () => {
                 <St.MainMessage>안녕하세요 ! 책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝</St.MainMessage>
                 <St.MainMessage>궁금한 점이 있으신가요?</St.MainMessage>
 
-                <St.AskButtonWrapper>
-                  <St.AskButton
-                    style={isAsk ? { display: 'none' } : { display: 'block' }}
-                    onClick={() => setIsAsk(true)}>
-                    문의하기
-                  </St.AskButton>
-                </St.AskButtonWrapper>
+                <St.AskButton style={isAsk ? { display: 'none' } : { display: 'block' }} onClick={() => setIsAsk(true)}>
+                  문의하기
+                </St.AskButton>
               </St.ChatTopBox>
               <St.Contour />
               {isAsk ? (
@@ -115,6 +111,7 @@ const Chat = () => {
         </St.Container>
       )}
       <St.TalkButtonWrapper>
+
         <St.BookerChattingIcon
           onClick={() => {
             setIsOpen(!isOpen);

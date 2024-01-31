@@ -85,6 +85,7 @@ const AdminChat = () => {
   return (
     <St.Container>
       <St.ChatWrapper>
+        {/*isopen이 true면  main massege와 뒤로가기버튼 input보이게끔 */}
         {isOpen ? (
           <>
             <St.ChatHeader>
@@ -104,6 +105,7 @@ const AdminChat = () => {
               {messages.map((message) => {
                 return (
                   <>
+                    {/* 메세지타입이 answer이면 오른쪽(관리자채팅) 아니면 왼쪽(유저채팅)  */}
                     {message.message_type === 'answer' ? (
                       <St.AdminMessage>{message.content}</St.AdminMessage>
                     ) : (
@@ -125,6 +127,7 @@ const AdminChat = () => {
         ) : (
           <>
             <St.ChatHeader></St.ChatHeader>
+            {/* 유저 UUID채팅방 출력, 클릭시 해당 uuid를 가진 사람과의 채팅방 오픈되며 isopen true로 변경 */}
             <St.ChatBody>
               {qnaRoomIds.map((qnaRoomID) => (
                 <div key={qnaRoomID} onClick={() => handleSenderClick(qnaRoomID)}>

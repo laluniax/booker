@@ -15,6 +15,7 @@ import {
   person,
   productDetail,
   productState,
+  updateMesaages,
 } from '../../../atom/product.atom';
 import * as St from '../ChatModal.styled';
 import { useEffect } from 'react';
@@ -118,7 +119,7 @@ const ChatRoomList = () => {
       }
     };
 
-    
+
     useEffect(() => {
     fetchChatRooms();
 

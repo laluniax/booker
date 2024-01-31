@@ -117,10 +117,10 @@ function KakaoMap() {
   const fetchBookstoresNearby = async (latitude: number, longitude: number) => {
     try {
       // 가져온 위도와 경도를 사용하여 일정 반경 내의 서점 정보를 가져옵니다.
-      const radius = 1;
+      const radius = 3;
 
       const response = await fetch(
-        `https://port-0-independentbookstoresdb-3wh3o2blr53yzc2.sel5.cloudtype.app/bookstores?lat=${latitude}&lng=${longitude}&radius=${radius}`,
+        `https://port-0-independentbookstoresdb-3wh3o2blr53yzc2.sel5.cloudtype.app/bookstoresdb?lat=${latitude}&lng=${longitude}&radius=${radius}`,
         {
           method: 'GET',
           credentials: 'include',
@@ -142,7 +142,6 @@ function KakaoMap() {
       setError('서점 데이터를 불러오는 데 실패했습니다.');
     }
   };
-  console.log(aroundStore);
 
   //현재 좌표 저장 함수
   const getLocation = () => {
@@ -256,7 +255,6 @@ function KakaoMap() {
                     },
                   }}
                   onClick={() => markerClickHandler(position.id)}>
-
                   {selectedMarkerId === position.id && ( //내가 연것만 열려야함
                     <CustomOverlayMap
                       zIndex={1}
@@ -265,7 +263,6 @@ function KakaoMap() {
                       <St.InfoWrapper>
                         <St.Info>
                           <St.InfoTitle>
-
                             {position.name}
                             <div className="close" onClick={() => markerClickHandler(position.id)} title="닫기">
                               x
