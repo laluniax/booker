@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-import logoImage from '../../../assets/common/logo.webp';
 import prev from '../../../assets/common/prevbutton2.webp';
-import SliderPrevIcon from '../../../assets/common/slider_left.webp';
-import SliderNextIcon from '../../../assets/common/slider_right.webp';
 import deleteIcon from '../../../assets/market/deleteicon.webp';
 import editIcon from '../../../assets/market/editicon.webp';
 import { MessageProps } from '../../chat/ChatModal.styled';
@@ -10,75 +7,147 @@ import { MessageProps } from '../../chat/ChatModal.styled';
 
 export const Container = styled.div`
   position: relative;
-  width: 90rem;
+  max-width: 40rem;
   min-height: 120rem;
   margin: 0 auto;
+  ${({ theme }) => theme.mediaQuery.sm`
+    max-width: 70rem;
+
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    max-width: 90rem;
+  `};
 `;
 
 export const PrevButton = styled.div`
   position: absolute;
-  left: -10rem;
-  top: -1rem;
+  left: 0rem;
+  top: -6rem;
   background: url(${prev});
   background-size: contain;
-  width: 6rem;
-  height: 6rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 2rem;
   cursor: pointer;
+  ${({ theme }) => theme.mediaQuery.sm`
+    left: -10rem;
+    top: -1rem;
+    width: 6rem;
+    height: 6rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  `};
 `;
 
 export const Title = styled.div`
+  max-width: 35rem;
   font-family: 'GmarketSansMedium';
-  margin: 5rem 0;
+  margin: 5rem auto;
   padding-bottom: 0.5rem;
   border-bottom: 0.2rem solid black;
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: 600;
+  ${({ theme }) => theme.mediaQuery.sm`
+ max-width: 70rem;
+  font-size: 3rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+ max-width: 90rem;
+  font-size: 4rem;
+  `};
 `;
 export const ProductWrapper = styled.div`
+  ${({ theme }) => theme.mediaQuery.sm`
   display: flex;
   justify-content: center;
   gap: 3rem;
+  `};
 `;
 export const LogoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 30rem;
   height: 40rem;
+  & img {
+    width: 30rem;
+    height: 40rem;
+    object-fit: cover;
+  }
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    width: 50rem;
+    height: 50rem;
+    & img {
+      width: 50rem;
+      height: 50rem;
+      object-fit: cover;
+    }
+  `};
 `;
-export const LogoImage = styled.div`
-  background: url(${logoImage});
-  background-size: contain;
-  max-width: 25rem;
-  max-height: 4.3766rem;
-`;
+// export const LogoImage = styled.img`
+//   background: url(${logoImage});
+//   background-size: contain;
+//   /* max-width: 25rem; */
+//   /* max-height: 4.3766rem; */
+// `;
 export const SliderWrapper = styled.div`
   position: relative;
-  width: 50rem;
-  height: 50rem;
+  width: 40rem;
+  height: 40rem;
   overflow: hidden;
+  margin-bottom: 3rem;
+  ${({ theme }) => theme.mediaQuery.sm`
+  margin-bottom: 0rem;
+    width: 40rem;
+    height: 50rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    width: 50rem;
+    height: 50rem;
+  `};
 `;
 
 interface SliderUlProps {
-  slideCount: number;
+  $slideCount: number;
+  $currentSlide: number;
 }
 
 export const SliderUl = styled.ul<SliderUlProps>`
   display: flex;
-  width: calc(50rem * ${(props) => props.slideCount});
+  width: calc(40rem * ${(props) => props.$slideCount});
   transition: transform 0.5s ease-in-out;
+  transform: translateX(-${(props) => props.$currentSlide * 10}rem);
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  transform: translateX(-${(props: SliderUlProps) => props.$currentSlide * 20}rem);
+    width: calc(50rem * ${(props: SliderUlProps) => props.$slideCount});
+  `};
 `;
 
 export const SliderLi = styled.li`
-  width: 50rem;
-  height: 50rem;
-
+  width: 40rem;
+  height: 40rem;
   & img {
+    width: 40rem;
+    height: 40rem;
+    object-fit: cover;
+  }
+  ${({ theme }) => theme.mediaQuery.sm`
+    width: 40rem;
+    height: 50rem;
+    & img {
+      width: 40rem;
+      height: 50rem;
+    }
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
     width: 50rem;
     height: 50rem;
-  }
+    & img {
+      width: 50rem;
+      height: 50rem;
+    }
+  `};
 `;
 
 export const SliderBtn = styled.button`
@@ -87,10 +156,12 @@ export const SliderBtn = styled.button`
   border: none;
   border-radius: 50%;
   position: absolute;
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
   top: 50%;
-  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &.prev {
     left: 1rem;
@@ -98,29 +169,48 @@ export const SliderBtn = styled.button`
   &.next {
     right: 1rem;
   }
+  & img {
+    width: 1.2rem;
+    opacity: 0.6;
+  }
+  ${({ theme }) => theme.mediaQuery.sm`
+    width: 3.5rem;
+    height: 3.5rem;
+  `}
 `;
 
-export const SliderPrevBtn = styled.div`
-  background: url(${SliderPrevIcon});
-  background-size: contain;
-  width: 1.3rem;
-  height: 2rem;
-`;
+// export const SliderPrevBtn = styled.div`
+//   background: url(${SliderPrevIcon});
+//   background-size: contain;
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   width: 1.3rem;
+//   height: 2rem;
+// `;
 
-export const SliderNextBtn = styled.div`
-  background: url(${SliderNextIcon});
-  margin-left: 0.4rem;
-  background-size: contain;
-  width: 1.2rem;
-  height: 2rem;
-`;
+// export const SliderNextBtn = styled.div`
+//   background: url(${SliderNextIcon});
+//   margin-left: 0.4rem;
+//   background-size: contain;
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   width: 1.2rem;
+//   height: 2rem;
+// `;
 
 export const ProductInfo = styled.div`
-  width: 40rem;
+  width: 35rem;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: end;
   gap: 3.8rem;
+  ${({ theme }) => theme.mediaQuery.sm`
+  width: 30rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  width: 40rem;
+  `};
 `;
 
 export const ProductTitleAndDate = styled.div`
@@ -134,29 +224,63 @@ export const ProductTitle = styled.div`
   font-size: 3rem;
   font-weight: 600;
   line-height: 1.5;
-  width: 20ch;
+  width: 35rem;
   text-overflow: ellipsis;
   overflow: hidden;
+  ${({ theme }) => theme.mediaQuery.sm`
+  font-size: 2rem;
+  width: 30rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  font-size: 3rem;
+  width: 40rem;
+  `};
 `;
 
 export const ProductDate = styled.div`
   font-size: 1.6rem;
+  ${({ theme }) => theme.mediaQuery.sm`
+  font-size: 1.4rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  font-size: 1.6rem;
+  `};
 `;
 
 export const ProductCategory = styled.div`
-  font-size: 1.7rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  /* line-height: 1.5; */
+  & span {
+    font-weight: 400;
+  }
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    font-size: 1.7rem;
+    font-weight: 600;
+    & span {
+      font-weight: 400;
+    }
+  `};
+`;
+export const ProductGrade = styled.div`
+  font-size: 1.5rem;
+  margin-top: 1rem;
   font-weight: 600;
   & span {
     font-weight: 400;
   }
-`;
-export const ProductGrade = styled.div`
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.7rem;
   margin-top: 1rem;
   font-weight: 600;
   & span {
     font-weight: 400;
   }
+  `};
 `;
 
 export const PriceBtnWrapper = styled.div`
@@ -189,7 +313,7 @@ export const ProductLikes = styled.div`
   background-color: #14213d;
   border: none;
   color: #fff;
-  width: 18.5rem;
+  width: 16.5rem;
   height: 5rem;
   font-size: 2rem;
   border-radius: 2rem;
@@ -197,6 +321,20 @@ export const ProductLikes = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  ${({ theme }) => theme.mediaQuery.sm`
+  width: 14rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  width: 18.5rem;
+  `};
+`;
+
+export const ProductsLikesWrapper = styled(ProductLikes)`
+  cursor: default;
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  `};
 `;
 
 export const StartChat = styled.div`
@@ -206,9 +344,9 @@ export const StartChat = styled.div`
   align-items: center;
   background-color: #14213d;
   color: #fff;
-  width: 18.5rem;
+  width: 16.5rem;
   height: 5rem;
-  font-size: 2rem;
+  font-size: 1.6rem;
   border-radius: 2rem;
 
   &:hover {
@@ -220,11 +358,15 @@ export const StartChat = styled.div`
   &:not(:hover) {
     transition: 0.2s;
   }
+  ${({ theme }) => theme.mediaQuery.sm`
+  width: 14rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  font-size: 2rem;
+  width: 18.5rem;
+  `};
 `;
 
-export const ProductsLikesWrapper = styled(ProductLikes)`
-  cursor: default;
-`;
 export const ProductSoldOut = styled.div`
   font-size: 1.7rem;
   margin: 0 auto;
@@ -252,10 +394,27 @@ export const ProductUser = styled.div`
     height: 4rem;
     border-radius: 30%;
     background-color: #fff;
+    object-fit: cover;
   }
   & div {
-    width: 21rem;
+    width: 16rem;
   }
+  ${({ theme }) => theme.mediaQuery.sm`
+    & div {
+      width: 11rem;
+    }
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    & img {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 30%;
+    object-fit: cover;
+    }
+    & div {
+      width: 21rem;
+    }
+  `};
 `;
 export const FollowBtn = styled.button`
   font-family: 'GmarketSansMedium';

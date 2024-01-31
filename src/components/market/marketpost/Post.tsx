@@ -162,6 +162,7 @@ const Post = () => {
           <St.PostInput
             type="text"
             placeholder="상품명을 입력해주세요"
+            maxLength={50}
             value={title}
             onChange={(e) => {
               setTitle(e.target.value);
@@ -219,6 +220,7 @@ const Post = () => {
           <St.PostLabel>상품 설명 </St.PostLabel>
           <St.PostTextArea
             placeholder="상품 설명을 입력해주세요"
+            maxLength={3000}
             value={content}
             onChange={(e) => {
               setContent(e.target.value);
