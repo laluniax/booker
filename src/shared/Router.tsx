@@ -9,19 +9,13 @@ import NewBook from '../components/bookintroduction/newbook/NewBook';
 import AboutLayout from '../components/layout/AboutLayout';
 import Layout from '../components/layout/Layout';
 
-import AdminChat from '../components/qna/AdminChat';
-import BestSellerCheapSurvey from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey';
-import BestSellerCheapSurvey2 from '../components/survey/surveyQuestionnaire/bestSellerCheap/BestSellerCheapSurvey2';
-import BestSellerDomForSurvey from '../components/survey/surveyQuestionnaire/bestSellerDomFor/BestSellerDomForSurvey';
-import BestSellerGenreSurvey from '../components/survey/surveyQuestionnaire/bestSellerGenre/BestSellerGenreSurvey';
-import BestSellerNewSurvey from '../components/survey/surveyQuestionnaire/bestSellerNew/BestSellerNewSurvey';
-import BestSellerValueSurvey from '../components/survey/surveyQuestionnaire/bestSellerValue/BestSellerValueSurvey';
-import BestSellerCheap from '../components/survey/surveyResult/BestSellerCheap';
-import BestSellerDomFor from '../components/survey/surveyResult/BestSellerDomFor';
-import BestSellerGenre from '../components/survey/surveyResult/BestSellerGenre';
-import BestSellerNew from '../components/survey/surveyResult/BestSellerNew';
-import BestSellerValue from '../components/survey/surveyResult/BestSellerValue';
+import AdminChat from '../components/chat/qna/chatadmin/AdminChatRoom';
 
+import { Session } from '@supabase/supabase-js';
+import { useEffect, useState } from 'react';
+import { getUserSessionHandler } from '../api/supabase.api';
+import SurveyQuestionnaire from '../components/survey/SurveyQuestionnaire';
+import SurveyResult from '../components/survey/SurveyResult';
 import AboutBooks from '../pages/AboutBooks';
 import BookerTalk from '../pages/BookerTalk';
 import BookerTalkDetail from '../pages/BookerTalkDetail';
@@ -38,16 +32,22 @@ import Search from '../pages/Search';
 import Survey from '../pages/Survey';
 
 const Router = () => {
+  const [session, setSession] = useState<Session | null>();
+  const getUserSession = async () => {
+    const result = await getUserSessionHandler();
+    setSession(result.session);
+  };
+  useEffect(() => {
+    getUserSession();
+  }, []);
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-
           <Route path="*" element={<Navigate replace to="/" />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/search" element={<Search />} />
-
           {/* 북커톡 커뮤니티 */}
           <Route path="/bookertalk" element={<BookerTalk />} />
           <Route path="/bookertalk/:id" element={<BookerTalk />} />
@@ -66,20 +66,8 @@ const Router = () => {
           <Route path="/product/:id" element={<MarketProduct />} />
           {/* 설문조사 페이지 / 설문조사 질문 페이지 / 설문조사 결과 페이지 */}
           <Route path="/survey" element={<Survey />} />
-          <Route path="/bestsellercheapsurvey" element={<BestSellerCheapSurvey />} />
-          <Route path="/bestsellercheapsurvey2" element={<BestSellerCheapSurvey2 />} />
-          <Route path="/bestsellerdomforsurvey" element={<BestSellerDomForSurvey />} />
-          <Route path="/bestsellergenresurvey" element={<BestSellerGenreSurvey />} />
-          <Route path="/bestsellernewsurvey" element={<BestSellerNewSurvey />} />
-          <Route path="/bestsellervaluesurvey" element={<BestSellerValueSurvey />} />
-          <Route path="/bestsellergenre/:genre" element={<BestSellerGenre />} />
-          <Route path="/bestsellercheap/:genre" element={<BestSellerCheap />} />
-          <Route path="/bestsellerdomFor/:genre" element={<BestSellerDomFor />} />
-          <Route path="/bestsellernew/:genre" element={<BestSellerNew />} />
-          <Route path="/bestsellervalue/:genre" element={<BestSellerValue />} />
-          <Route path="/market/:id" element={<Market />} />
-          <Route path="/marketpost" element={<MarketPost />} />
-          <Route path="/product/:id" element={<MarketProduct />} />
+          <Route path="/survey/:id" element={<SurveyQuestionnaire />} />
+          <Route path="/survey/search" element={<SurveyResult />} />
           {/* Qna 페이지 */}
           <Route path="/chat" element={<AdminChat />} />
           {/* 도서소개 페이지  */}

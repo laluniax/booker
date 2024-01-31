@@ -256,6 +256,7 @@ function KakaoMap() {
                     },
                   }}
                   onClick={() => markerClickHandler(position.id)}>
+
                   {selectedMarkerId === position.id && ( //내가 연것만 열려야함
                     <CustomOverlayMap
                       zIndex={1}
@@ -264,6 +265,7 @@ function KakaoMap() {
                       <St.InfoWrapper>
                         <St.Info>
                           <St.InfoTitle>
+
                             {position.name}
                             <div className="close" onClick={() => markerClickHandler(position.id)} title="닫기">
                               x

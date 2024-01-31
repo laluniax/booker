@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Productlike, getLikeCountP, supabase } from '../../../api/supabase.api';
-import coloredheart from '../../../assets/common/coloredheart.webp';
-import heartbold from '../../../assets/common/heartbold.webp';
+import coloredheart from '../../../assets/common/heavy_black_heart.webp';
+import heartbold from '../../../assets/common/icon-_heart_white.webp';
 import { useAuth } from '../../../contexts/auth.context';
 import { LikeProps } from '../../../types/types';
 import * as St from './like.styled';
 
-const ProductsLike = ({ postId }: LikeProps) => {
+const ProductsLike = ({ postId, count }: LikeProps) => {
   const [likes, setLikes] = useState<any[]>([]);
   const auth = useAuth();
   const currentUserId = auth.session?.profile.id;
@@ -51,11 +51,16 @@ const ProductsLike = ({ postId }: LikeProps) => {
       {/* <button onClick={toggleLike}>
         {likes.some((like) => like.user_id === currentUserId) ? '좋아요 해제' : '좋아요'}
       </button> */}
-      <St.HeartButton onClick={toggleLike}>
+      <St.HeartButton
+        className={count ? '' : 'marketlist'}
+        onClick={(e) => {
+          e.stopPropagation();
+          toggleLike();
+        }}>
         {/* {likes.some((like) => like.user_id === currentUserId) ? '좋아요 해제' : '좋아요'} */}
         {likes.some((like) => like.user_id === currentUserId) ? <img src={coloredheart} /> : <img src={heartbold} />}
       </St.HeartButton>
-      <St.CountLike>{likes.length}</St.CountLike>
+      {count ? <St.CountLike>{likes.length}</St.CountLike> : null}
     </St.Container>
   );
 };

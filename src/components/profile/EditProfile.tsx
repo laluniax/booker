@@ -12,6 +12,7 @@ import {
   updateUserIntroTextHandler,
   uploadUserImgHandler,
 } from '../../api/supabase.api';
+import profileImage from '../../assets/profile/defaultprofileimage.webp';
 import { Tables } from '../../types/types';
 import * as St from './Tab.styled';
 
@@ -123,27 +124,35 @@ const EditProfile = () => {
   }, [params]);
   return (
     <St.ProfileEditWrapper>
+      <St.ProfileBtnDiv>
+        <St.ProfileBtn onClick={onClickUpdateUserData}>프로필 수정완료</St.ProfileBtn>
+      </St.ProfileBtnDiv>
       <St.ProfileImgEdit>
         <St.ProfileEditTitle>프로필 이미지</St.ProfileEditTitle>
-        <St.ProfileImgUpload>
-          <St.ProfileImg
-            src={
-              tempImg ||
-              userSession?.user.user_metadata.avatar_url ||
-              `${process.env.PUBLIC_URL}/images/header/profileImg.png`
-            }
-          />
-          <St.ProfileImgUploadFile>
-            <St.ProfileLabel htmlFor="imgInput">이미지 선택하기</St.ProfileLabel>
-            <St.ProfileImgInput id="imgInput" type="file" accept="image/*" ref={imgRef} onChange={updateUserTempImg} />
-            <St.ProfileImgUpdate onClick={onClickImgUpdate}>완료</St.ProfileImgUpdate>
-          </St.ProfileImgUploadFile>
-        </St.ProfileImgUpload>
+        <St.ProfileImgEditBox>
+          <St.ProfileImgBox>
+            <St.ProfileImg src={tempImg || userSession?.user.user_metadata.avatar_url || profileImage} />{' '}
+            <St.ProfileImgUploadFile>
+              <St.ProfileLabelBox>
+                <St.ProfileLabel htmlFor="imgInput">이미지 선택하기</St.ProfileLabel>
+                <St.ProfileImgInput
+                  id="imgInput"
+                  type="file"
+                  accept="image/*"
+                  ref={imgRef}
+                  onChange={updateUserTempImg}
+                />
+              </St.ProfileLabelBox>
+
+              <St.ProfileImgUpdate onClick={onClickImgUpdate}>완료</St.ProfileImgUpdate>
+            </St.ProfileImgUploadFile>
+          </St.ProfileImgBox>
+        </St.ProfileImgEditBox>
       </St.ProfileImgEdit>
       <St.ProfileNicknameEdit>
         <St.ProfileEditTitle>닉네임</St.ProfileEditTitle>
         <St.ProfileNicknameEditValidation>
-          <div>
+          <St.ProfileEditBox>
             <St.ProfileNicknameInput
               type="text"
               maxLength={10}
@@ -152,11 +161,17 @@ const EditProfile = () => {
                 setNickname(e.target.value);
               }}
             />
-            <span>{nickname.length}/10</span>
+            <St.ProfileNicknameLength>{nickname.length}/10</St.ProfileNicknameLength>
             {validationText ? (
-              <>{nicknameValidation ? <div>사용가능한 닉네임입니다.</div> : <div>중복된 닉네임입니다.</div>}</>
+              <>
+                {nicknameValidation ? (
+                  <St.NicknameValidationTextCorrect>사용가능한 닉네임입니다.</St.NicknameValidationTextCorrect>
+                ) : (
+                  <St.NicknameValidationTextError>중복된 닉네임입니다.</St.NicknameValidationTextError>
+                )}
+              </>
             ) : null}
-          </div>
+          </St.ProfileEditBox>
           <St.ProfileNicknameValidation onClick={onClickNicknameValidation}>
             닉네임 중복확인
           </St.ProfileNicknameValidation>
@@ -166,12 +181,9 @@ const EditProfile = () => {
         <St.ProfileEditTitle>한 줄 소개</St.ProfileEditTitle>
         <St.ProfileIntroTextWrapper>
           <St.ProfileIntroTextArea value={introText} onChange={(e) => setIntroText(e.target.value)} maxLength={80} />
-          <span>{introText.length}/80</span>
+          <St.ProfileNicknameLength>{introText.length}/80</St.ProfileNicknameLength>
         </St.ProfileIntroTextWrapper>
       </St.ProfileIntroTextEdit>
-      <St.ProfileBtnDiv>
-        <St.ProfileBtn onClick={onClickUpdateUserData}>프로필 수정완료</St.ProfileBtn>
-      </St.ProfileBtnDiv>
     </St.ProfileEditWrapper>
   );
 };

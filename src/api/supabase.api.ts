@@ -14,7 +14,8 @@ export const signupHandler = async (email: string, password: string, nickname: s
     options: {
       data: {
         full_name: nickname,
-        user_img: 'https://ywwmsridviznotzmkver.supabase.co/storage/v1/object/public/user_img/default_img/React.png',
+        user_img:
+          'https://ywwmsridviznotzmkver.supabase.co/storage/v1/object/public/user_img/default_img/defaultprofileimage.webp',
       },
     },
   });
@@ -244,6 +245,17 @@ export const getProductHandler = async (id: string) => {
   return data;
 };
 
+// 상품 읽어오기 (메인에서 사용)
+export const getLatestProductListHandler = async () => {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*, users(*)')
+    .order('created_at', { ascending: false })
+    .limit(4);
+  if (error) throw error;
+  return data;
+};
+
 // 상품 삭제하기
 export const deleteProductHandler = async (productId: string) => {
   const { error } = await supabase.from('products').delete().eq('id', productId);
@@ -295,6 +307,12 @@ export const filteredCategory = async (params: string) => {
 // posts의 id랑 똑같은 정보 가져오는 함수입니다.
 export const filteredPostId = async (params: string) => {
   const { data, error } = await supabase.from('posts').select('*, users(*)').eq('id', params);
+  if (error) throw error;
+  return data;
+};
+// posts likes 순위에 따라 가져오는 메인에서 쓰는 함수
+export const getPostsLikesListHandler = async () => {
+  const { data, error } = await supabase.from('posts').select('*, post_likes(*), users(*)');
   if (error) throw error;
   return data;
 };

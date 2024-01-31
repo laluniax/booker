@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCategoryProductListHandler, getProductListHandler, getUserSessionHandler } from '../../api/supabase.api';
 import { ProductsTypes } from '../../types/types';
+import { formatCreatedAt } from '../../utils/date';
+import ProductsLike from '../common/like/ProductsLike';
 import Pagination from '../common/pagination/Pagination';
 import * as St from './MarketList.styled';
 import { categoryArr } from './marketpost/Post';
@@ -34,6 +36,11 @@ const MarketList = () => {
     }
   };
 
+  const onClickPostBtn = () => {
+    session ? navigate('/marketpost') : window.confirm('로그인 페이지로 이동하시겠습니까?') && navigate(`/login`);
+    window.scrollTo(0, 0);
+  };
+
   useEffect(() => {
     getUserSession();
     getProductList();
@@ -45,73 +52,79 @@ const MarketList = () => {
 
   return (
     <St.Container>
-      <St.CategoryProductsWrapper>
-        <St.CategoryWrapper>
-          <St.CategoryBox>
-            <St.CategoryTitle
-              onClick={() => {
-                navigate(`/market`);
-              }}>
-              카테고리
-            </St.CategoryTitle>
-            <St.CategoryBtnBox>
-              {categoryArr.map((item, i) => (
-                <St.CategoryBtn
-                  key={i}
-                  onClick={() => navigate(`/market/${i}`)}
-                  className={i === Number(params) ? 'active' : ''}>
-                  {item}
-                </St.CategoryBtn>
-              ))}
-            </St.CategoryBtnBox>
-          </St.CategoryBox>
-        </St.CategoryWrapper>{' '}
-        <St.ContentsWrapper>
-          <St.Title>
-            {category ? category : '중고거래'}
-            <St.PostButton
-              onClick={() => {
-                {
-                  session
-                    ? navigate('/marketpost')
-                    : window.confirm('로그인 페이지로 이동하시겠습니까?') && navigate(`/login`);
-                }
-              }}>
-              글쓰기
-            </St.PostButton>
-          </St.Title>
-          <St.ProductsWrapper>
-            {currentPosts.map((item, i) => {
-              return (
-                <St.ProductCard
-                  key={i}
-                  className={item.onsale ? '' : 'soldout'}
-                  onClick={() => {
-                    navigate(`/product/${item.id}`);
-                  }}>
-                  {item.product_img?.length === 0 ? (
-                    <St.LogoImage />
-                  ) : (
-                    <St.ProductImg>
-                      <img src={(item.product_img && item.product_img[0]) ?? undefined} />
-                    </St.ProductImg>
-                  )}
+      <St.CategoryWrapper>
+        <St.CategoryTitle
+          onClick={() => {
+            navigate(`/market`);
+          }}>
+          카테고리
+        </St.CategoryTitle>
 
-                  <St.ProductTitle>{item.title}</St.ProductTitle>
+        <St.CategoryBtnBox>
+          {categoryArr.map((item, i) => (
+            <St.CategoryBtn
+              key={i}
+              onClick={() => navigate(`/market/${i}`)}
+              className={i === Number(params) ? 'active' : ''}>
+              {item}
+            </St.CategoryBtn>
+          ))}
+        </St.CategoryBtnBox>
+      </St.CategoryWrapper>{' '}
+      <St.ContentsWrapper>
+        {/* <St.TitlePostButtonWrapper> */}
+        <St.Title>
+          {category ? category : '중고거래'}
+          <St.PostButton onClick={onClickPostBtn}>글쓰기</St.PostButton>
+        </St.Title>
+        {/* </St.TitlePostButtonWrapper> */}
+        <St.Contour />
+        <St.MobileCategory>
+          <select>
+            {categoryArr.map((item, i) => {
+              return <option key={i}>{item}</option>;
+            })}
+          </select>
+          <St.MobilePostButton onClick={onClickPostBtn}>글쓰기</St.MobilePostButton>
+        </St.MobileCategory>
+        <St.ProductsWrapper>
+          {currentPosts.map((item, i) => {
+            return (
+              <St.ProductCard
+                key={i}
+                className={item.onsale ? '' : 'soldout'}
+                onClick={() => {
+                  navigate(`/product/${item.id}`);
+                  window.scrollTo(0, 0);
+                }}>
+                {item.product_img?.length === 0 ? (
+                  <St.LogoImage />
+                ) : (
+                  <St.ProductImg>
+                    <img src={(item.product_img && item.product_img[0]) ?? undefined} />
+                  </St.ProductImg>
+                )}
+                <St.CardTitleAndContentBox>
+                  <St.TitleLikes>
+                    <St.ProductTitle>{item.title}</St.ProductTitle>
+                    <ProductsLike postId={item.id} count={false} />
+                  </St.TitleLikes>
+
                   <St.ProductInfo>
                     <St.ProductPrice>{item.price} 원</St.ProductPrice>
-                    <St.ProductLikes>♥️</St.ProductLikes>
+                    <St.ProductCreatedAt>{formatCreatedAt(item.created_at)}</St.ProductCreatedAt>
                   </St.ProductInfo>
-                  {item.onsale ? null : <St.Onsale>판매 완료</St.Onsale>}
-                </St.ProductCard>
-              );
-            })}
-          </St.ProductsWrapper>
-          <St.PaginationWrapper>
-            <Pagination postsPerPage={postsPerPage} totalPosts={list.length} paginate={setCurrentPage} />
-          </St.PaginationWrapper>
-        </St.ContentsWrapper>
-      </St.CategoryProductsWrapper>
+                </St.CardTitleAndContentBox>
+
+                {item.onsale ? null : <St.Onsale>판매 완료</St.Onsale>}
+              </St.ProductCard>
+            );
+          })}
+        </St.ProductsWrapper>
+        <St.PaginationWrapper>
+          <Pagination postsPerPage={postsPerPage} totalPosts={list.length} paginate={setCurrentPage} />
+        </St.PaginationWrapper>
+      </St.ContentsWrapper>
     </St.Container>
   );
 };

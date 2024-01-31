@@ -79,9 +79,9 @@ const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
               .sort((a, b) => a.id - b.id)
               .map((item, i) => {
                 return (
-                  <St.Subcomment key={i}>
+                  <St.SubCommentList key={i}>
                     <St.SubCommentNextText> ┗ </St.SubCommentNextText>
-                    <div>
+                    <St.SubComment>
                       <St.SubCommentUserAndBtn>
                         <St.SubCommentUser>
                           <St.SubCommentImg src={item.users.user_img ?? undefined} />
@@ -98,7 +98,7 @@ const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
                                       onClick={() => {
                                         updateSubComment();
                                       }}>
-                                      완료 |
+                                      완료
                                     </St.SubCommentEditSubmitButton>
                                     <St.SubCommentEditSubmitButton
                                       onClick={() => {
@@ -117,7 +117,7 @@ const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
                                     setSubCommentId(item.id);
                                     setInputSubComment(item.content as string);
                                   }}>
-                                  수정 |
+                                  수정
                                 </St.SubCommentButton>
                                 <St.SubCommentButton
                                   onClick={() => {
@@ -144,8 +144,8 @@ const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
                           item.content
                         )}
                       </St.SubCommentContent>
-                    </div>
-                  </St.Subcomment>
+                    </St.SubComment>
+                  </St.SubCommentList>
                 );
               })}
           </St.SubCommentBox>
