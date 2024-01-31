@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Loading from '../../common/loading/Loading';
 import * as St from '../BookIntroduction.styled';
@@ -17,11 +17,23 @@ interface Bestseller {
 }
 
 const BookBestseller = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [selectedCategory, setSelectedCategory] = useState<string>(location.pathname);
+
+  const CategoryClickHandler = (category: string) => {
+    setSelectedCategory(category); // 현재 선택된 카테고리 상태를 업데이트
+    navigate(category);
+  };
+  useEffect(() => {
+    setSelectedCategory(location.pathname);
+  }, [location]);
+
   const [bestSeller, setBestseller] = useState<Bestseller[]>([]);
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasMoreData, setHasMoreData] = useState<boolean>(true);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [ref, inView] = useInView({
     threshold: 0.5, // 스크롤이 요소의 50%에 도달했을 때 inView가 true가 됩니다.
@@ -68,30 +80,65 @@ const BookBestseller = () => {
 
   return (
     <St.Container>
-      <St.Header>
-        <St.CategoryTitle>베스트셀러</St.CategoryTitle>
-      </St.Header>
-      <St.Body>
-        {loading ? <Loading /> : null}
-        {bestSeller.map((book, i) => {
-          return (
-            <St.BookCardWrapper key={i} onClick={() => GotoDetailPage(book.isbn13)}>
-              {/* <br /> */}
-              {/* <St.BookCardWrapper> */}
-              <St.BookImg>
-                <img src={book.cover} alt="책 이미지" width={230} height={290} />
-              </St.BookImg>
-              <St.BookIntro>
-                <St.Title>{book.title}</St.Title>
-                <St.Author>저자 | {book.author}</St.Author>
-                <St.Plot>출판사 | {book.publisher}</St.Plot>
-              </St.BookIntro>
-            </St.BookCardWrapper>
-            // </St.BookCardWrapper>
-          );
-        })}
-        <div ref={ref}></div>
-      </St.Body>
+      <St.CategoryWrapper>
+        <St.CatrgoryBox>
+          <St.Category>
+            <St.CategoryList
+              // isSelected={selectedCategory === 'Bestseller'}
+              className={selectedCategory === '/aboutBook/Bestseller' ? 'active' : ''}
+              onClick={() => CategoryClickHandler('/aboutBook/Bestseller')}>
+              베스트셀러
+            </St.CategoryList>
+            <St.CategoryList
+              // isSelected={selectedCategory === 'NewBook'}
+              className={selectedCategory === '/aboutBook/NewBook' ? 'active' : ''}
+              onClick={() => CategoryClickHandler('/aboutBook/NewBook')}>
+              신간도서
+            </St.CategoryList>
+            <St.CategoryList
+              // isSelected={selectedCategory === 'BookSpecial'}
+              className={selectedCategory === '/aboutBook/BookSpecial' ? 'active' : ''}
+              onClick={() => CategoryClickHandler('/aboutBook/BookSpecial')}>
+              스페셜
+            </St.CategoryList>
+            <St.CategoryList
+              // isSelected={selectedCategory === 'BookerPick'}
+              className={selectedCategory === '/aboutBook/BookerPick' ? 'active' : ''}
+              onClick={() => CategoryClickHandler('/aboutBook/BookerPick')}>
+              북커픽
+            </St.CategoryList>
+          </St.Category>
+        </St.CatrgoryBox>
+      </St.CategoryWrapper>
+
+      <St.BookintroWrapper>
+        <St.Header>
+          <St.CategoryTitle>베스트셀러</St.CategoryTitle>
+        </St.Header>
+        <St.Body>
+          {loading ? <Loading /> : null}
+          {bestSeller.map((book, i) => {
+            return (
+              <St.BookCardWrapper key={i} onClick={() => GotoDetailPage(book.isbn13)}>
+                {/* <br /> */}
+                {/* <St.BookCardWrapper> */}
+                <St.BookCardWrapper>
+                  <St.BookImg>
+                    <img src={book.cover} alt="책 이미지" width={230} height={290} />
+                  </St.BookImg>
+                  <St.BookIntro>
+                    <St.Title>{book.title}</St.Title>
+                    <St.Author>저자 | {book.author}</St.Author>
+                    <St.Plot>출판사 | {book.publisher}</St.Plot>
+                  </St.BookIntro>
+                </St.BookCardWrapper>
+              </St.BookCardWrapper>
+              // </St.BookCardWrapper>
+            );
+          })}
+          <div ref={ref}></div>
+        </St.Body>
+      </St.BookintroWrapper>
     </St.Container>
   );
 };

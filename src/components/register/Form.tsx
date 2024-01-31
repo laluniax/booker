@@ -180,14 +180,17 @@ const Form = () => {
         <St.FormBox>
           <St.Title>회원가입</St.Title>
           <St.Label1>이메일</St.Label1>
-          <St.Input
-            type="email"
-            ref={emailRef}
-            placeholder="이메일"
-            onChange ={() => validateEmail(emailRef.current?.value || '')}
-            onKeyDown={handleKeyPress}
-          />
-          <St.Button onClick={checkEmail}>중복확인</St.Button>
+          <St.EmailAndNickNameBox>
+            <St.Input
+              type="email"
+              ref={emailRef}
+              placeholder="이메일"
+              onChange={() => validateEmail(emailRef.current?.value || '')}
+              onKeyDown={handleKeyPress}
+            />
+            <St.Button onClick={checkEmail}>중복확인</St.Button>
+          </St.EmailAndNickNameBox>
+
           {emailError &&
             (emailError.startsWith('유효한') ? (
               <St.SuccessText>{emailError}</St.SuccessText>
@@ -199,7 +202,7 @@ const Form = () => {
             type="password"
             ref={passwordRef}
             placeholder="비밀번호"
-            onChange ={() => validatePassword(passwordRef.current?.value || '')}
+            onChange={() => validatePassword(passwordRef.current?.value || '')}
             onKeyDown={handleKeyPress}
           />
           {passwordError &&
@@ -214,7 +217,7 @@ const Form = () => {
             type="password"
             ref={repasswordRef}
             placeholder="비밀번호 재확인"
-            onChange ={validateRepassword}
+            onChange={validateRepassword}
             onKeyDown={handleKeyPress}
           />
           {repasswordError &&
@@ -226,8 +229,10 @@ const Form = () => {
           <br />
           <br />
           <St.Label1>닉네임</St.Label1>
-          <St.Input type="text" ref={nicknameRef} placeholder="닉네임" />
-          <St.Button onClick={checkNickName}>중복확인</St.Button>
+          <St.EmailAndNickNameBox>
+            <St.Input type="text" ref={nicknameRef} placeholder="닉네임" />
+            <St.Button onClick={checkNickName}>중복확인</St.Button>
+          </St.EmailAndNickNameBox>
           {nicknameError &&
             (nicknameError.startsWith('유효한') ? (
               <St.SuccessText>{nicknameError}</St.SuccessText>
