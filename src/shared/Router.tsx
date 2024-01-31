@@ -9,7 +9,7 @@ import NewBook from '../components/bookintroduction/newbook/NewBook';
 import AboutLayout from '../components/layout/AboutLayout';
 import Layout from '../components/layout/Layout';
 
-import AdminChat from '../components/qna/AdminChat';
+import AdminChat from '../components/chat/qna/chatadmin/AdminChatRoom';
 
 import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';

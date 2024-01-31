@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../../api/supabase.api';
-import { useAuth } from '../../contexts/auth.context';
-import * as St from './Adminchat.styled';
+import { supabase } from '../../../../api/supabase.api';
+import { useAuth } from '../../../../contexts/auth.context';
+import * as St from './AdminchatRoom.styled';
 
 interface Message {
   created_at: string;
@@ -85,26 +85,27 @@ const AdminChat = () => {
   return (
     <St.Container>
       <St.ChatWrapper>
+        {/*isopen이 true면  main massege와 뒤로가기버튼 input보이게끔 */}
         {isOpen ? (
           <>
             <St.ChatHeader>
               <St.LogoWrapper>
                 <St.PrevBtn onClick={PrevHandler}>
-                  {/* <img src="images/chat/prev.png" alt="Prev" width={30} height={30} /> */}
+                  <St.PrevIcon />
                 </St.PrevBtn>
-                <img src="/images/common/logo.png" alt="Logo" />
               </St.LogoWrapper>
             </St.ChatHeader>
             <St.MainMessage>
               안녕하세요 !
               <br />
               책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝ <br />
-              궁금한 점이 있으신가요?{' '}
+              궁금한 점이 있으신가요?
             </St.MainMessage>
             <St.ChatBody>
               {messages.map((message) => {
                 return (
                   <>
+                    {/* 메세지타입이 answer이면 오른쪽(관리자채팅) 아니면 왼쪽(유저채팅)  */}
                     {message.message_type === 'answer' ? (
                       <St.AdminMessage>{message.content}</St.AdminMessage>
                     ) : (
@@ -125,9 +126,8 @@ const AdminChat = () => {
           </>
         ) : (
           <>
-            <St.ChatHeader>
-              <img src="/images/common/logo.png" alt="Logo" />
-            </St.ChatHeader>
+            <St.ChatHeader></St.ChatHeader>
+            {/* 유저 UUID채팅방 출력, 클릭시 해당 uuid를 가진 사람과의 채팅방 오픈되며 isopen true로 변경 */}
             <St.ChatBody>
               {qnaRoomIds.map((qnaRoomID) => (
                 <div key={qnaRoomID} onClick={() => handleSenderClick(qnaRoomID)}>

@@ -15,11 +15,14 @@ import { ChatId, otherPerson, person, productState, sendMessages } from '../../.
 import { Session } from '@supabase/supabase-js';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
+import SliderPrevIcon from '../../../assets/common/slider_left.webp';
+import SliderNextIcon from '../../../assets/common/slider_right.webp';
+import logoImage from '../../../assets/profile/defaultprofileimage.webp';
 import { ProductsTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
+import { MessageType } from '../../chat/ChatModal';
 import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
-import { MessageType } from '../../qna/ChatModal';
 import { categoryArr } from '../marketpost/Post';
 import * as St from './Product.styled';
 
@@ -248,17 +251,17 @@ const Product = () => {
       <St.Title>중고 거래 상세페이지</St.Title>
       <St.ProductWrapper>
         {product?.product_img?.length === 0 ? (
-          <>
-            <St.LogoWrapper>
-              <St.LogoImage />
-            </St.LogoWrapper>
-          </>
+          <St.LogoWrapper>
+            <img src={logoImage} />
+            {/* <St.LogoImage /> */}
+          </St.LogoWrapper>
         ) : (
           <St.SliderWrapper>
             <St.SliderUl
               ref={slideRef}
-              style={{ transform: `translateX(-${currentSlide * 20}rem)` }}
-              slideCount={product?.product_img?.length ?? 0}>
+              // style={{ transform: `translateX(-${currentSlide * 20}rem)` }}
+              $currentSlide={currentSlide}
+              $slideCount={product?.product_img?.length ?? 0}>
               {product?.product_img?.map((img, i) => (
                 <St.SliderLi key={i}>
                   <img src={img} alt={`Product image ${i + 1}`} />
@@ -267,12 +270,14 @@ const Product = () => {
             </St.SliderUl>
             {currentSlide !== 0 && (
               <St.SliderBtn onClick={onClickPrevBtn} className="prev">
-                <St.SliderPrevBtn />
+                <img src={SliderPrevIcon} />
+                {/* <St.SliderPrevBtn /> */}
               </St.SliderBtn>
             )}
             {currentSlide !== slideLength - 1 && (
               <St.SliderBtn onClick={onClickNextBtn} className="next">
-                <St.SliderNextBtn />
+                <img src={SliderNextIcon} />
+                {/* <St.SliderNextBtn /> */}
               </St.SliderBtn>
             )}
           </St.SliderWrapper>

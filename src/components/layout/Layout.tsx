@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import ChatModal from '../../components/qna/ChatModal';
+import ChatModal from '../chat/ChatModal';
 import ScrollToTopButton from '../scrolltotopbutton/ScrollToTopButton';
 import * as St from './LayoutStyle';
 import Footer from './footer/Footer';

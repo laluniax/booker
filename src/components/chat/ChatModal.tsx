@@ -19,10 +19,11 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import { useNavigate } from 'react-router';
+import defaultImage from '../../assets/profile/defaultprofileimage.webp';
 import { useAuth } from '../../contexts/auth.context';
-import AdminChat from './AdminChat';
-import ChatLog from './ChatLog';
 import * as St from './ChatModal.styled';
+import AdminChat from './qna/chatadmin/AdminChatRoom';
+import ChatLog from './qna/chatuser/UserChatRoom';
 dayjs.extend(relativeTime); // relativeTime 플러그인 활성화
 dayjs.locale('ko'); // 한국어 로케일 설정
 
@@ -72,7 +73,6 @@ const Chat = () => {
   const [messages, setMessages] = useRecoilState(sendMessages);
   const [chatId, setChatId] = useRecoilState(ChatId);
   const { mutate: sendDirectMessage } = useSendMessage();
-
   const [productId, setProductId] = useRecoilState(productState);
   const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
   const [newMessagesCount, setNewMessagesCount] = useRecoilState(newMessagesCountState);
@@ -396,21 +396,23 @@ const Chat = () => {
           <St.UserItem
             key={chatRoom.chat_id}
             onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id, chatRoom.author_id)}>
-            <St.UserImage src={chatRoom.user_img || '기본 이미지 경로'} alt="user image" />
+            {/* <St.NicknameToTimeWrapper> */}
+            <St.AlarmUserWrapper>
+              {unreadInfo && unreadInfo.unread_count > 0 && <St.AlarmDetail>{unreadInfo.unread_count}</St.AlarmDetail>}
+              <St.UserImage src={chatRoom?.user_img || defaultImage} />
+            </St.AlarmUserWrapper>
 
             <St.UserInfo>
-              <St.UserNickname>
-                {chatRoom.sendNickname}
-                {/* 해당 채팅방의 읽지 않은 메시지 수가 있으면 알림 배지 표시 */}
-                {unreadInfo && unreadInfo.unread_count > 0 && (
-                  <St.NotificationBadge>{unreadInfo.unread_count}</St.NotificationBadge>
-                )}
-              </St.UserNickname>
-              <St.UserLastMessage>
-                {chatRoom.lastMessage || 'No messages yet.'} {lastMessageTimeAgo}{' '}
-              </St.UserLastMessage>
+              <St.NicknameMessageTimeWrapper>
+                <St.UserNickname>{chatRoom.sendNickname}</St.UserNickname>
+                <St.MessageTime>{lastMessageTimeAgo}</St.MessageTime>
+              </St.NicknameMessageTimeWrapper>
+              {/* 해당 채팅방의 읽지 않은 메시지 수가 있으면 알림 배지 표시 */}
+
+              <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
             </St.UserInfo>
-            <St.ProductImage src={chatRoom.product_img || '기본 물품 이미지 경로'} alt="product image" />
+            {/* </St.NicknameToTimeWrapper> */}
+            <St.ProductImage src={chatRoom.product_img || defaultImage} />
           </St.UserItem>
         );
       });
@@ -439,14 +441,6 @@ const Chat = () => {
             <St.ChatModalWrapper>
               <St.ChatModalHeader> {renderChatHeader()} </St.ChatModalHeader>
               <St.ChatModalBody ref={chatBodyRef}>
-                {/* 채팅 모달 내용 */}
-                {/* <St.ChatModalHeader>
-                <St.CloseButton onClick={() => setIsChatModalOpen(false)}>←</St.CloseButton>
-                <St.HeaderChattingModalTitle>채팅</St.HeaderChattingModalTitle>
-                <div>
-                  <St.HeaderPurchaseConfirmationButton>구매확정</St.HeaderPurchaseConfirmationButton>
-                </div>
-              </St.ChatModalHeader> */}
                 {renderMessages()}
                 <div ref={messagesEndRef} />
               </St.ChatModalBody>
@@ -475,22 +469,14 @@ const Chat = () => {
                 <St.ChatHeader></St.ChatHeader>
               )}
               <St.ChatTopBox>
-                <St.MainMessage>
-                  안녕하세요 !
-                  <br />
-                  책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝ <br />
-                  궁금한 점이 있으신가요?{' '}
-                  <St.AskButtonWrapper>
-                    <St.AskButton
-                      style={isAsk ? { display: 'none' } : { display: 'block' }}
-                      onClick={() => setIsAsk(true)}>
-                      문의하기
-                    </St.AskButton>
-                  </St.AskButtonWrapper>
-                  <St.Contour />
-                </St.MainMessage>
-              </St.ChatTopBox>
+                <St.MainMessage>안녕하세요 ! 책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝</St.MainMessage>
+                <St.MainMessage>궁금한 점이 있으신가요?</St.MainMessage>
 
+                <St.AskButton style={isAsk ? { display: 'none' } : { display: 'block' }} onClick={() => setIsAsk(true)}>
+                  문의하기
+                </St.AskButton>
+              </St.ChatTopBox>
+              <St.Contour />
               {isAsk ? (
                 <>
                   <ChatLog />
@@ -506,9 +492,11 @@ const Chat = () => {
               ) : (
                 <>
                   {/* Chats 컴포넌트의 UI 추가 */}
-                  <St.ChatListWrapper>
-                    중고거래 전용 채팅 리스트, 중고거래에서 채팅을 시작하세요.{renderChatRoomsList()}
-                  </St.ChatListWrapper>
+                  <St.ChatContentWrapper>
+                    <St.ChatContentTitle>중고거래 전용 채팅 리스트</St.ChatContentTitle>
+                    <St.ChatContent>(중고거래에서 채팅을 시작하세요!)</St.ChatContent>
+                  </St.ChatContentWrapper>
+                  <St.ChatListWrapper>{renderChatRoomsList()}</St.ChatListWrapper>
                 </>
               )}
             </St.ChatWrapper>
@@ -516,6 +504,12 @@ const Chat = () => {
         </St.Container>
       )}
       <St.TalkButtonWrapper>
+        {!ChatBtnOpen && totalUnreadCount > 0 && (
+          <St.NotificationBadge>
+            {totalUnreadCount}
+            {/* {newMessagesCount} */}
+          </St.NotificationBadge>
+        )}
         <St.BookerChattingIcon
           onClick={() => {
             setIsOpen(!isOpen);
@@ -523,12 +517,6 @@ const Chat = () => {
             toggleChatModal();
           }}
         />
-        {!ChatBtnOpen && totalUnreadCount > 0 && (
-          <St.NotificationBadge>
-            {totalUnreadCount}
-            {/* {newMessagesCount} */}
-          </St.NotificationBadge>
-        )}
       </St.TalkButtonWrapper>
     </>
   );

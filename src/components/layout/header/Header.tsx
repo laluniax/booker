@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signoutHandler } from '../../../api/supabase.api';
+import { getUserSessionHandler, signoutHandler } from '../../../api/supabase.api';
 import logo from '../../../assets/common/logo.webp';
 import { useAuth } from '../../../contexts/auth.context';
 import * as St from './Header.styled';
@@ -10,6 +10,17 @@ const Header = () => {
   const navigate = useNavigate();
   const auth = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [nickname, setNickname] = useState('');
+
+  const getUserSession = async () => {
+    const result = await getUserSessionHandler();
+    setNickname(
+      result.session?.user.user_metadata.full_name ||
+        result.session?.user.user_metadata.preferred_name ||
+        result.session?.user.user_metadata.user_name ||
+        result.session?.user.user_metadata.name,
+    );
+  };
 
   const onClickSignoutHandler = async () => {
     await signoutHandler();
@@ -53,6 +64,7 @@ const Header = () => {
           {auth.session ? (
             <St.HeaderBtn onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
               <St.ProfileIconImage />
+              <div>{nickname ? <span>{nickname}</span> : null}</div>
               {isDropdownOpen && (
                 <St.Dropdown>
                   <St.DropdownItem onClick={() => navigate(`/profile/${auth.session?.user.id}`)}>
