@@ -169,6 +169,17 @@ export type PostsListLikesTypes = {
   post_likes: Tables<'post_likes'>;
   users: Tables<'users'>;
 };
+export interface MessageList {
+  created_at: string;
+  content: string;
+  sender_id: string;
+  message_type: string;
+  id: number;
+}
+
+export type MessageProps = {
+  messages: MessageList[];
+};
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 

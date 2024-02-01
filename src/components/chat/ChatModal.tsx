@@ -21,6 +21,7 @@ import relativeTime from 'dayjs/plugin/relativeTime.js';
 import { useNavigate } from 'react-router';
 import defaultImage from '../../assets/profile/defaultprofileimage.webp';
 import { useAuth } from '../../contexts/auth.context';
+import { MessageList } from '../../types/types';
 import * as St from './ChatModal.styled';
 import AdminChat from './qna/chatadmin/AdminChatRoom';
 import ChatLog from './qna/chatuser/UserChatRoom';
@@ -87,6 +88,7 @@ const Chat = () => {
   const [isAtBottom, setIsAtBottom] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
+  const [Usermessages, setUserMessages] = useState<MessageList[]>([]);
 
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
@@ -336,6 +338,24 @@ const Chat = () => {
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
   };
+
+  useEffect(() => {
+    if (!auth.session) return;
+    getQnaLog(auth.session.user.id);
+  }, []);
+  useEffect(() => {}, [messages]);
+  //qna table 가져오는 함수
+  const getQnaLog = async (roomId: string) => {
+    if (!auth.session) return;
+    const response = await supabase.from('qna').select('*').eq('room_id', roomId);
+    const result = response.data;
+    if (result) {
+      setUserMessages(result);
+    } else {
+      setUserMessages([]);
+    }
+  };
+
   //메세지보내는 함수
   const sendMessage = async () => {
     if (!auth.session) return;
@@ -347,6 +367,7 @@ const Chat = () => {
       message_type: 'question',
     });
     setAskMessage(''); // 메시지 전송 후 입력 필드 초기화
+    getQnaLog(auth.session.user.id);
   };
   const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -479,7 +500,7 @@ const Chat = () => {
               <St.Contour />
               {isAsk ? (
                 <>
-                  <ChatLog />
+                  <ChatLog messages={Usermessages} />
                   <St.ChatInputWrapper>
                     <St.Input
                       placeholder="메세지를 입력해주세요"
