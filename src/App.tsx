@@ -57,7 +57,6 @@ const App = () => {
   //챗룸 리스트
   useEffect(() => {
     const fetchChatRooms = async () => {
-
       try {
         // 채팅방 ID 가져오기
         const { data: chatRoomsData, error: chatRoomsError } = await supabase.from('chats').select('*');
@@ -98,7 +97,6 @@ const App = () => {
                   .eq('id', lastMessageData.author_id)
                   .single();
 
-                
                 if (userError) throw userError;
                 if (userData) {
                   sendNickname = userData.nickname;
@@ -188,7 +186,6 @@ const App = () => {
           .select('*,users(*)')
           .eq('chat_id', chatId);
 
-
         if (messagesError) {
           console.error('메시지를 가져오는 중 오류가 발생했습니다:', messagesError);
           return;
@@ -251,7 +248,6 @@ const App = () => {
     const handleNewMessageCount = (payload: MessagePayload) => {
       // 채팅 모달이 열려 있지 않을 때만 새 메시지 수를 증가
       if (!ChatBtnOpen) {
-
         setNewMessagesCount((prevCount) => prevCount + 1);
       }
     };
@@ -267,7 +263,6 @@ const App = () => {
       }
       const user_id = user?.id;
       const { data, error } = await supabase.rpc('count_unread_messages', { user_id });
-
 
       if (error) {
         console.log('읽지 않은 수 업데이트 오류:', error);
@@ -289,7 +284,7 @@ const App = () => {
           table: 'messages',
         },
         async (payload) => {
-          console.log('payload', payload);
+          // console.log('payload', payload);
 
           handleNewMessageCount(payload as MessagePayload);
 
