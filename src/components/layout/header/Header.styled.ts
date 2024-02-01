@@ -189,12 +189,14 @@ export const LoginBtn = styled.div`
 
 export const SearchBox = styled.form`
   position: absolute; // 절대 위치 설정
-  left: 5rem;
+  left: 4rem;
   top: 0;
   ${({ theme }) => theme.mediaQuery.sm`
+   left: 5.3rem;
+    top: 0.6rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-  left: 94rem;
+  left: 91rem;
     top: 4.5rem; 
   `};
 `;

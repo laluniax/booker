@@ -15,7 +15,8 @@ export const Container = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   margin-top: 15rem;
   max-width: 70rem;
-  `};
+  
+  `}
   ${({ theme }) => theme.mediaQuery.lg`
   max-width: 90rem;
   `};
