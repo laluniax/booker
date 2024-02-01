@@ -118,14 +118,24 @@ export const HeaderUl = styled.ul`
   `};
 `;
 
-export const HeaderLi = styled.li`
+export const HeaderLi = styled.li<{ isActive: boolean }>`
   & a {
     text-decoration: none;
-    color: #fff;
+    color: ${(props) => (props.isActive ? '#fca311' : '#fff')};
+    font-weight: ${(props) => (props.isActive ? 'bold' : 'normal')};
+
+    &:active {
+      font-weight: bold;
+    }
 
     &:hover {
       cursor: pointer;
       color: #fca311;
+      transition: 0.3s;
+    }
+
+    &:not(:hover) {
+      transition: 0.3s;
     }
   }
 `;
