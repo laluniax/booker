@@ -208,7 +208,7 @@ export const uploadProductImgStorageUrl = async (productId: string, productImg: 
   });
   const imgUrl = await Promise.all(uploadImg);
   const imgUrls = getPublicUrlsHandler(imgUrl);
-  return { imgUrls, productId };
+  return imgUrls;
 };
 // storage에 있는 상품 사진 publicUrl로 불러오는 함수
 const getPublicUrlsHandler = (imgUrl: { path: string }[]) => {
@@ -261,14 +261,24 @@ export const deleteProductHandler = async (productId: string) => {
   const { error } = await supabase.from('products').delete().eq('id', productId);
   return error;
 };
+// x 버튼 눌렀을 때 상품 이미지 스토리지에서 삭제하기
+export const deleteXbuttonStorage = async (params: string, deleteImg: string[]) => {
+  const result = deleteImg.map(async (path) => {
+    const { data, error } = await supabase.storage.from('product_img').remove([`${params}/${path}`]);
+    if (error) throw error;
+    return data;
+  });
+  return result;
+};
+
 export const deleteProductImgStorage = async (productId: string) => {
-  const list = await deleteProductImgList(productId);
+  const list = await productImgList(productId);
   const listPaths = list.map((item) => `${productId}/${item.name}`);
   const { data, error } = await supabase.storage.from('product_img').remove(listPaths);
   if (error) throw error;
   return data;
 };
-const deleteProductImgList = async (productId: string) => {
+const productImgList = async (productId: string) => {
   const { data, error } = await supabase.storage.from('product_img').list(productId);
   if (error) throw error;
   return data;
