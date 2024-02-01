@@ -60,7 +60,6 @@ export const ChatHeader = styled.div`
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 0.8rem;
-  // margin: 1.6rem 1.6rem 1.2rem;
   `};
 `;
 
@@ -89,15 +88,15 @@ export const ChatTopBox = styled.div`
   margin-top: 1.5rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    height: 7rem;
+    height: 9rem;
     width: 40rem;
     margin-top:2rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  height: 5rem;
+  height: 13rem;
   width: 40rem;
-  margin-top:3rem;
+  margin-top:1rem;
   `};
 `;
 
@@ -137,7 +136,7 @@ export const AskButton = styled.button`
   color: #fca311;
   font-weight: bold;
   margin-top: 1rem;
-  width: 10rem;
+  width: 8rem;
   height: 4rem;
   font-size: 1.2rem;
   padding: 0.5rem;
@@ -147,16 +146,16 @@ export const AskButton = styled.button`
 
   ${({ theme }) => theme.mediaQuery.sm`
       margin-top: 1rem;
-      width: 10rem;
-      height: 3rem;
-      font-size: 1.3rem;
+      width: 9rem;
+      height: 2.5rem;
+      font-size: 1.2rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
     margin-top: 2rem;
-    width: 35rem;
-    height: 4rem;
-    font-size: 1.5rem;
+    width: 12rem;
+    height: 2.6rem;
+    font-size: 1.4rem;
   `};
 `;
 
@@ -269,7 +268,7 @@ export const ChatInputWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: auto;
+  margin: 0.1rem auto;
   margin-left: -0.5rem;
   z-index: 999;
   padding: 0 0.6rem 0 1.4rem;
@@ -281,7 +280,7 @@ export const ChatInputWrapper = styled.div`
     width:39.5rem;
     height:5rem;
     margin-left: 0.5rem;
-
+    margin-top: -0.3rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -328,7 +327,7 @@ export const QnaSendButton = styled.button`
   cursor: pointer;
   font-weight: bold;
   height: 3rem;
-  width: 4rem;
+  width: 5rem;
   border-radius: 1rem;
   font-size: 1rem;
   margin-top: 0.8rem;
@@ -671,7 +670,6 @@ export const MessageComponent = styled.div<MessageProps>`
 
 export const MessageContentTime = styled.div`
   margin-right: auto;
-  /* margin-left: 3rem; */
   font-size: 0.8rem;
   margin-right: 0.1rem;
 
@@ -789,11 +787,15 @@ export const SendButton = styled.button`
 export const PrevIcon = styled.div`
   background: url(${prevIcon});
   background-size: contain;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: -1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
     width: 2.5rem;
     height: 2.5rem;
     margin-bottom:-2rem;
+    margin-top:1rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
