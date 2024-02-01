@@ -121,11 +121,11 @@ const BookerTalkMain = () => {
         </St.Title>
         <St.MobilePostCateWrapper>
           <St.MobileCategoryWrapper>
-            <select onChange={(e) => navigation(`/bookertalk/${categoryUuid[e.target.value]}`)}>
+            <St.MobileCategorySelect onChange={(e) => navigation(`/bookertalk/${categoryUuid[e.target.value]}`)}>
               {Object.keys(categoryUuid).map((item, i) => {
                 return <option key={i}>{item}</option>;
               })}
-            </select>
+            </St.MobileCategorySelect>
           </St.MobileCategoryWrapper>
           <St.MobilePostButton onClick={onClickPostButton}>글쓰기</St.MobilePostButton>
         </St.MobilePostCateWrapper>

@@ -61,6 +61,7 @@ const Header = () => {
         </St.HeaderUl>
         <St.HeaderSearchMypage>
           <SearchArea />
+
           {auth.session ? (
             <St.HeaderBtn onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
               <St.ProfileIconImage />

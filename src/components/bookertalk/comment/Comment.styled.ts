@@ -63,6 +63,7 @@ export const CommentWrapper = styled.div`
   padding-bottom: 10rem;
   max-width: 35rem;
   margin: 0 auto;
+
   ${({ theme }) => theme.mediaQuery.sm`
   max-width: 60rem;
   `};
@@ -100,11 +101,13 @@ export const UserImgNicknameCreatedAt = styled.div`
 export const CommentNicknameCreatedAt = styled.div``;
 export const CommentNickname = styled.div`
   font-family: 'GmarketSansMedium';
-  font-size: 1.6rem;
+  font-size: 1.8rem;
+  font-weight: bold;
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 2rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
+   font-size: 2rem;
   `};
 `;
 
