@@ -75,12 +75,15 @@ export const ChatTopBox = styled.div`
   margin-top: 1.5rem;
   ${({ theme }) => theme.mediaQuery.sm`
     height: 9rem;
+    height: 9rem;
     width: 40rem;
     margin-top:2rem;
     `}
   ${({ theme }) => theme.mediaQuery.lg`
   height: 13rem;
+  height: 13rem;
   width: 40rem;
+  margin-top:1rem;
   margin-top:1rem;
   `};
 `;
@@ -119,6 +122,7 @@ export const AskButton = styled.button`
   font-weight: bold;
   margin-top: 1rem;
   width: 8rem;
+  width: 8rem;
   height: 4rem;
   font-size: 1.2rem;
   padding: 0.5rem;
@@ -130,9 +134,15 @@ export const AskButton = styled.button`
       width: 9rem;
       height: 2.5rem;
       font-size: 1.2rem;
+      width: 9rem;
+      height: 2.5rem;
+      font-size: 1.2rem;
     `}
   ${({ theme }) => theme.mediaQuery.lg`
     margin-top: 2rem;
+    width: 12rem;
+    height: 2.6rem;
+    font-size: 1.4rem;
     width: 12rem;
     height: 2.6rem;
     font-size: 1.4rem;
@@ -237,6 +247,7 @@ export const ChatInputWrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0.1rem auto;
+  margin: 0.1rem auto;
   margin-left: -0.5rem;
   z-index: 999;
   padding: 0 0.6rem 0 1.4rem;
@@ -247,6 +258,7 @@ export const ChatInputWrapper = styled.div`
     width:39.5rem;
     height:5rem;
     margin-left: 0.5rem;
+    margin-top: -0.3rem;
     margin-top: -0.3rem;
     `}
   ${({ theme }) => theme.mediaQuery.lg`
@@ -289,6 +301,7 @@ export const QnaSendButton = styled.button`
   cursor: pointer;
   font-weight: bold;
   height: 3rem;
+  width: 5rem;
   width: 5rem;
   border-radius: 1rem;
   font-size: 1rem;
@@ -692,10 +705,12 @@ export const PrevIcon = styled.div`
   width: 2rem;
   height: 2rem;
   margin-bottom: -1rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
     width: 2.5rem;
     height: 2.5rem;
     margin-bottom:-2rem;
+    margin-top:1rem;
     margin-top:1rem;
     `}
   ${({ theme }) => theme.mediaQuery.lg`

@@ -267,16 +267,16 @@ const Chat = () => {
       console.error('Error marking messages as read:', error);
     }
   }
-
   const navigate = useNavigate();
-
   // // 채팅 헤더를 렌더링하는 함수입니다
+
   const renderChatHeader = () => {
     // useNavigate 훅으로부터 navigate 함수를 얻음
 
     // 제품 상세 페이지로 이동하는 함수
     const navigateToProductPage = () => {
       const productId = productDetails?.id; // productDetails로부터 제품의 ID를 얻음
+      console.log(productId);
       if (productId) {
         navigate(`/product/${productId}`); // 제품 ID를 사용하여 경로를 생성하고, 해당 경로로 이동
       }
