@@ -776,13 +776,13 @@ export const ProductTitle = styled.div`
 
   ${({ theme }) => theme.mediaQuery.sm`
     font-size: 1.6rem;
-    width: 25ch;
+    width: 16ch;
     margin-left: 1rem;
     letter-spacing: 0.1rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 2rem;
-  width: 25ch;
+  width: 19ch;
   margin-left: 1rem;
   letter-spacing: 0.1rem;
   `};
@@ -794,6 +794,8 @@ export const ProductContentBox = styled.div`
 
   ${({ theme }) => theme.mediaQuery.sm`
   margin-top: 1rem;
+  margin-left: 0rem;
+  
   `};
   ${({ theme }) => theme.mediaQuery.lg`
   margin-left: 0.6rem;
@@ -811,7 +813,7 @@ export const ProductContent = styled.div`
   font-size: 1.7rem;
   margin-top: 0.5rem;
   margin-left: 1rem;
-  width: 30rem;
+  width: 19ch;
   height: 3rem;
   `};
 `;
