@@ -19,8 +19,10 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import { useNavigate } from 'react-router';
+import OutButton from '../../assets/common/slider_left.webp';
 import defaultImage from '../../assets/profile/defaultprofileimage.webp';
 import { useAuth } from '../../contexts/auth.context';
+import { MessageList } from '../../types/types';
 import * as St from './ChatModal.styled';
 import AdminChat from './qna/chatadmin/AdminChatRoom';
 import ChatLog from './qna/chatuser/UserChatRoom';
@@ -87,6 +89,7 @@ const Chat = () => {
   const [isAtBottom, setIsAtBottom] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
+  const [Usermessages, setUserMessages] = useState<MessageList[]>([]);
 
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
@@ -264,16 +267,16 @@ const Chat = () => {
       console.error('Error marking messages as read:', error);
     }
   }
-
   const navigate = useNavigate();
-
   // // 채팅 헤더를 렌더링하는 함수입니다
+
   const renderChatHeader = () => {
     // useNavigate 훅으로부터 navigate 함수를 얻음
 
     // 제품 상세 페이지로 이동하는 함수
     const navigateToProductPage = () => {
       const productId = productDetails?.id; // productDetails로부터 제품의 ID를 얻음
+      console.log(productId);
       if (productId) {
         navigate(`/product/${productId}`); // 제품 ID를 사용하여 경로를 생성하고, 해당 경로로 이동
       }
@@ -282,16 +285,20 @@ const Chat = () => {
     return (
       <St.ChatModalHeader>
         <St.UserInfoSection>
-          <St.CloseButton onClick={() => setIsChatModalOpen(false)}>←</St.CloseButton>
-          <St.UserImage src={otherUserDetails?.user_img} alt="user" />
-          <St.UserNickname>{otherUserDetails?.nickname}</St.UserNickname>
+          <St.CloseButton onClick={() => setIsChatModalOpen(false)}>
+            <img src={OutButton} />
+          </St.CloseButton>
+          <St.UserImageNickName>
+            <St.UserImage src={otherUserDetails?.user_img} alt="user" />
+            <St.ChatRoomUserNickname>{otherUserDetails?.nickname}</St.ChatRoomUserNickname>
+          </St.UserImageNickName>
         </St.UserInfoSection>
-        <St.ProductInfoSection>
-          <St.ProductImage onClick={navigateToProductPage} src={productDetails?.image} alt="product" />
-          <div>
-            <St.ProductTitle>제목:{productDetails?.title}</St.ProductTitle>
-            <St.ProductPrice>가격:{productDetails?.price}</St.ProductPrice>
-          </div>
+        <St.ProductInfoSection onClick={navigateToProductPage}>
+          <St.ProductImage src={productDetails?.image} alt="product" />
+          <St.ProductTitleProduct>
+            <St.ProductTitle>제목 : {productDetails?.title}</St.ProductTitle>
+            <St.ProductPrice>가격 : {productDetails?.price}</St.ProductPrice>
+          </St.ProductTitleProduct>
         </St.ProductInfoSection>
       </St.ChatModalHeader>
     );
@@ -323,7 +330,8 @@ const Chat = () => {
                 {dateLabel} {/* Display the date label if the date has changed */}
                 {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
                 <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-                  {message.content} {formattedTime}
+                  <St.MessageContentTime>{formattedTime}</St.MessageContentTime>
+                  <St.MessageContentText>{message.content} </St.MessageContentText>
                 </St.MessageComponent>
               </>
             );
@@ -336,7 +344,24 @@ const Chat = () => {
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
   };
-  //메세지보내는 함수
+  useEffect(() => {
+    if (!auth.session) return;
+    getQnaLog(auth.session.user.id);
+  }, []);
+  useEffect(() => {}, [messages]);
+  //qna table 가져오는 함수
+  const getQnaLog = async (roomId: string) => {
+    if (!auth.session) return;
+    const response = await supabase.from('qna').select('*').eq('room_id', roomId);
+    const result = response.data;
+    if (result) {
+      setUserMessages(result);
+    } else {
+      setUserMessages([]);
+    }
+  };
+
+  //문의하기 메세지보내는 함수
   const sendMessage = async () => {
     if (!auth.session) return;
     if (!askMessage.trim()) return; // 메시지가 비어있지 않은지 확인
@@ -347,6 +372,7 @@ const Chat = () => {
       message_type: 'question',
     });
     setAskMessage(''); // 메시지 전송 후 입력 필드 초기화
+    getQnaLog(auth.session.user.id);
   };
   const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -404,7 +430,7 @@ const Chat = () => {
 
             <St.UserInfo>
               <St.NicknameMessageTimeWrapper>
-                <St.UserNickname>{chatRoom.sendNickname}</St.UserNickname>
+                <St.ChatListUserNickname>{chatRoom.sendNickname}</St.ChatListUserNickname>
                 <St.MessageTime>{lastMessageTimeAgo}</St.MessageTime>
               </St.NicknameMessageTimeWrapper>
               {/* 해당 채팅방의 읽지 않은 메시지 수가 있으면 알림 배지 표시 */}
@@ -479,7 +505,7 @@ const Chat = () => {
               <St.Contour />
               {isAsk ? (
                 <>
-                  <ChatLog />
+                  <ChatLog messages={Usermessages} />
                   <St.ChatInputWrapper>
                     <St.Input
                       placeholder="메세지를 입력해주세요"
@@ -487,6 +513,7 @@ const Chat = () => {
                       onChange={onChangeMessageHandler}
                       onKeyDown={onKeyDownHandler}
                     />
+                    <St.QnaSendButton onClick={sendMessage}>전송</St.QnaSendButton>
                   </St.ChatInputWrapper>
                 </>
               ) : (

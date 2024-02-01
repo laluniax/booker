@@ -80,21 +80,16 @@ const AdminChat = () => {
     if (currentQnaRoomId) {
       messageTable(); // 선택된 방 ID가 변경될 때마다 메시지를 불러옴
     }
-  }, [currentQnaRoomId]);
+  }, []);
 
   return (
     <St.Container>
       <St.ChatWrapper>
-        {/*isopen이 true면  main massege와 뒤로가기버튼 input보이게끔 */}
         {isOpen ? (
           <>
-            <St.ChatHeader>
-              <St.LogoWrapper>
-                <St.PrevBtn onClick={PrevHandler}>
-                  <St.PrevIcon />
-                </St.PrevBtn>
-              </St.LogoWrapper>
-            </St.ChatHeader>
+            <St.PrevBtn onClick={PrevHandler}>
+              <St.PrevIcon />
+            </St.PrevBtn>
             <St.MainMessage>
               안녕하세요 !
               <br />
@@ -105,7 +100,6 @@ const AdminChat = () => {
               {messages.map((message) => {
                 return (
                   <>
-                    {/* 메세지타입이 answer이면 오른쪽(관리자채팅) 아니면 왼쪽(유저채팅)  */}
                     {message.message_type === 'answer' ? (
                       <St.AdminMessage>{message.content}</St.AdminMessage>
                     ) : (
@@ -126,8 +120,7 @@ const AdminChat = () => {
           </>
         ) : (
           <>
-            <St.ChatHeader></St.ChatHeader>
-            {/* 유저 UUID채팅방 출력, 클릭시 해당 uuid를 가진 사람과의 채팅방 오픈되며 isopen true로 변경 */}
+            {/* <St.ChatHeader></St.ChatHeader> */}
             <St.ChatBody>
               {qnaRoomIds.map((qnaRoomID) => (
                 <div key={qnaRoomID} onClick={() => handleSenderClick(qnaRoomID)}>

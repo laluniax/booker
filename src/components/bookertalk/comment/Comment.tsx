@@ -68,7 +68,9 @@ const Comment = ({ setCommentsCount }: PropsTypes) => {
         <St.CommentForm>
           <St.FormUserData>
             <St.UserImg src={metaData?.user_img || metaData?.avatar_url} />
-            <div>{metaData?.full_name || metaData?.preferred_username || metaData?.user_name || metaData?.name}</div>
+            <St.CommentNickname>
+              {metaData?.full_name || metaData?.preferred_username || metaData?.user_name || metaData?.name}
+            </St.CommentNickname>
           </St.FormUserData>
           <St.CommentTextArea
             value={content}

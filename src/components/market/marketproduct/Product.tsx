@@ -235,7 +235,8 @@ const Product = () => {
 
   useEffect(() => {
     getProduct();
-  }, []);
+  }, [params]);
+
   useEffect(() => {
     getUserSession();
   }, [product]);
