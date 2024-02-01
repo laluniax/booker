@@ -23,6 +23,8 @@ function KakaoMap() {
   });
   const baseUrl = process.env.REACT_APP_KAKAO_API_BASE_URL;
 
+  console.log(selectedMarkerInfo);
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -287,10 +289,13 @@ function KakaoMap() {
             })}
           </Map>
         </St.Map>
-        {selectedMarkerInfo && (
-          <div>
-            <DetailMapInfo markerInfo={selectedMarkerInfo} />
-          </div>
+        {selectedMarkerInfo === null ? (
+          <></>
+        ) : (
+          <>
+            {' '}
+            <DetailMapInfo markerInfo={selectedMarkerInfo} />{' '}
+          </>
         )}
       </St.MapContainer>
       <AboutIndBookStore />
