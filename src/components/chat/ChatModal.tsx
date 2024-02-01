@@ -31,7 +31,7 @@ const Chat = () => {
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
   };
-  //메세지보내는 함수
+  //문의하기 메세지보내는 함수
   const sendMessage = async () => {
     if (!auth.session) return;
     if (!askMessage.trim()) return; // 메시지가 비어있지 않은지 확인
@@ -99,6 +99,7 @@ const Chat = () => {
                       onChange={onChangeMessageHandler}
                       onKeyDown={onKeyDownHandler}
                     />
+                    <St.QnaSendButton onClick={sendMessage}>전송</St.QnaSendButton>
                   </St.ChatInputWrapper>
                 </>
               ) : (

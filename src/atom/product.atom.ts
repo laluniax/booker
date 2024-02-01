@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { UnreadCount } from '../App';
+
 
 
 
@@ -31,13 +31,13 @@ export const mainChatModalOpen = atom({
   key: 'mainChatModalOpen', // 고유한 키
   default: false, // 기본값
 });
-type productDetails = {
+export type productDetails = {
   image: string;
   title: string;
   price: number;
   id: number;
 };
-type otherUserDetails = {
+export type otherUserDetails = {
   nickname: string;
   user_img: string;
 };
@@ -94,6 +94,11 @@ export type ChatRoom = {
   created_at: string;
   user_img: string;
 };
+export type UnreadCount = {
+  chat_id: string;
+  unread_count: number;
+};
+
 
 export const isChatModalOpenState = atom({
   key: 'isChatModalOpenState',
@@ -117,6 +122,11 @@ export const shouldCountMessagesState = atom({
 
 export const loginUserState = atom({
   key: 'loginUserState',
+  default: '',
+});
+
+export const selectedUserImages = atom({
+  key: 'selectedUserImages',
   default: '',
 });
 

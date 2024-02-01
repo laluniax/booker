@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { ChatId, MessageType, UnreadCounts, globalModalSwitch, mainChatModalOpen, person, sendMessages } from '../../../atom/product.atom';
+import { ChatId, MessagePayload, MessageType, UnreadCounts, globalModalSwitch, mainChatModalOpen, person, sendMessages, updateMesaages } from '../../../atom/product.atom';
 
 import * as St from '../ChatModal.styled';
 import ChatHeaderMessaegs from './ChatHeaderMessaegs';
@@ -17,9 +17,65 @@ const ChatMessages = () => {
   const [isAtBottom, setIsAtBottom] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
-  const [isOpen, setIsOpen] = useRecoilState(globalModalSwitch);
+//   const [isOpen, setIsOpen] = useRecoilState(globalModalSwitch);
   const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);
+  const [updateMesaage, setUpdateMesaage] = useRecoilState(updateMesaages);
+
+    //챗방 메시지 가져오기
+    const fetchMessages = async () => {
+        if (chatId) {
+          // Fetch all messages for the chatId
+          let { data: messagesData, error: messagesError } = await supabase
+            .from('messages')
+            .select('*,users(*)')
+            .eq('chat_id', chatId);
   
+          if (messagesError) {
+            console.error('메시지를 가져오는 중 오류가 발생했습니다:', messagesError);
+            return;
+          }
+  
+          if (!messagesData) {
+            setMessages([]);
+            return;
+          }
+  
+          setMessages(messagesData);
+        }
+      };
+  
+
+  //챗메시지 가져오기
+  useEffect(() => {
+
+    fetchMessages();
+  
+  }, [chatId, updateMesaage]);
+
+  useEffect(()=>{
+      //새 메시지 생성시 감지할 채널 구독
+      const changes = supabase
+      .channel('schema-db-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'messages',
+        },
+        async (payload) => {
+          console.log('payload', payload);
+        //   fetchMessages();
+          setUpdateMesaage(payload as MessagePayload);
+        },
+      )
+      .subscribe();
+
+    return () => {
+      changes.unsubscribe();
+    };
+  },[])
+
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
     const current = chatBodyRef.current;

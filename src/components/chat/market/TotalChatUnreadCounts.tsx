@@ -1,8 +1,17 @@
-import { useRecoilState } from 'recoil';
-import { ChatId, MessagePayload, UnreadCounts, chatRoomsState, isChatModalOpenState, newMessagesCountState, person, updateMesaages } from '../../../atom/product.atom';
-import * as St from '../ChatModal.styled';
 import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import { supabase } from '../../../api/supabase.api';
+import {
+  ChatId,
+  MessagePayload,
+  UnreadCounts,
+  chatRoomsState,
+  isChatModalOpenState,
+  newMessagesCountState,
+  person,
+  updateMesaages,
+} from '../../../atom/product.atom';
+import * as St from '../ChatModal.styled';
 
 const TotalChatUnreadCounts = () => {
   const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
@@ -22,52 +31,51 @@ const TotalChatUnreadCounts = () => {
     }, 0);
   //메시지 카운팅
 
-    //읽지않음 카운팅
-    async function updateUnreadCount() {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-  
-        if (!user?.id) {
-          console.log('user not found');
-        }
-        const user_id = user?.id;
-        const { data, error } = await supabase.rpc('count_unread_messages', { user_id });
-  
-        if (error) {
-          console.log('읽지 않은 수 업데이트 오류:', error);
-        } else {
-          setUnreadCounts(data);
-        }
-      }
+  //읽지않음 카운팅
+  async function updateUnreadCount() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user?.id) {
+      console.log('user not found');
+    }
+    const user_id = user?.id;
+    const { data, error } = await supabase.rpc('count_unread_messages', { user_id });
+
+    if (error) {
+      console.log('읽지 않은 수 업데이트 오류:', error);
+    } else {
+      setUnreadCounts(data);
+    }
+  }
 
   useEffect(() => {
     updateUnreadCount();
-  }, [ newMessagesCount]);
+  }, [chatId, newMessagesCount, updateMesaage]);
 
-useEffect(()=>{
+  useEffect(() => {
+    //메시지 생길때마다, 덧씌워주기
+    const handleNewMessage = (payload: MessagePayload) => {
+      setChatRooms((prevChatRooms) =>
+        prevChatRooms.map((chatRoom) => {
+          if (chatRoom.chat_id === payload.new.chat_id) {
+            // 예시: unread_count 업데이트
 
-        // //메시지 생길때마다, 덧씌워주기
-    // const handleNewMessage = (payload: MessagePayload) => {
-    //   setChatRooms((prevChatRooms) =>
-    //     prevChatRooms.map((chatRoom) => {
-    //       if (chatRoom.chat_id === payload.new.chat_id) {
-    //         // 예시: unread_count 업데이트
+            return {
+              ...chatRoom,
+              lastMessage: payload.new.content,
+              created_at: payload.new.created_at,
+            };
+          } else {
+            return chatRoom;
+          }
+        }),
+      );
+    };
 
-    //         return {
-    //           ...chatRoom,
-    //           lastMessage: payload.new.content,
-    //           created_at: payload.new.created_at,
-    //         };
-    //       } else {
-    //         return chatRoom;
-    //       }
-    //     }),
-    //   );
-    // };
-
-      //새 메시지 생성시 감지할 채널 구독
-      const changes = supabase
+    //새 메시지 생성시 감지할 채널 구독
+    const changes = supabase
       .channel('schema-db-changes')
       .on(
         'postgres_changes',
@@ -78,14 +86,13 @@ useEffect(()=>{
         },
         async (payload) => {
           console.log('payload', payload);
-      
 
-    setNewMessagesCount((prev)=>prev+1)
-        //   handleNewMessageCount(payload as MessagePayload);
+          setNewMessagesCount((prev) => prev + 1);
+
 
           // 새 메시지 카운트를 증가시킬지 결정하는 함수 호출
-        //   handleNewMessage(payload as MessagePayload);
-        //   setUpdateMesaage(payload as MessagePayload);
+          handleNewMessage(payload as MessagePayload);
+
         },
       )
       .subscribe();
@@ -102,15 +109,11 @@ useEffect(()=>{
       changes.unsubscribe();
       chatChannel?.unsubscribe();
     };
-},[])
+  }, []);
 
-//   //토글 열닫
-//   const toggleChatModal = () => {
-//     setChatBtnOpen((prevState) => !prevState);
-//   };
+ 
   return (
     <>
-
       {!ChatBtnOpen && totalUnreadCount > 0 && (
         <St.NotificationBadge>
           {totalUnreadCount}

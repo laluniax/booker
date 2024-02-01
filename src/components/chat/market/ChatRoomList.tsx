@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
-import relativeTime from 'dayjs/plugin/relativeTime.js';
+import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { supabase } from '../../../api/supabase.api';
 import defaultImage from '../../../assets/profile/defaultprofileimage.webp';
@@ -18,10 +18,8 @@ import {
   updateMesaages,
 } from '../../../atom/product.atom';
 import * as St from '../ChatModal.styled';
-import { useEffect } from 'react';
 
 const ChatRoomList = () => {
-  
   const [chatId, setChatId] = useRecoilState(ChatId);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [productId, setProductId] = useRecoilState(productState);
@@ -34,99 +32,97 @@ const ChatRoomList = () => {
 
   //챗룸 리스트
 
-    const fetchChatRooms = async () => {
-      try {
-        // 채팅방 ID 가져오기
-        const { data: chatRoomsData, error: chatRoomsError } = await supabase.from('chats').select('*');
+  const fetchChatRooms = async () => {
+    try {
+      // 채팅방 ID 가져오기
+      const { data: chatRoomsData, error: chatRoomsError } = await supabase.from('chats').select('*');
 
-        if (chatRoomsError) throw chatRoomsError;
+      if (chatRoomsError) throw chatRoomsError;
 
-        // 각 채팅방에 대해 사용자의 닉네임과 마지막 메시지를 가져오기
-        const updatedChatRooms = await Promise.all(
-          chatRoomsData.map(async (chatRoom) => {
-            const { data: chatUser, error: chatUserError } = await supabase
-              .from('chats_users')
-              .select('*')
-              .eq('chat_id', chatRoom.id);
+      // 각 채팅방에 대해 사용자의 닉네임과 마지막 메시지를 가져오기
+      const updatedChatRooms = await Promise.all(
+        chatRoomsData.map(async (chatRoom) => {
+          const { data: chatUser, error: chatUserError } = await supabase
+            .from('chats_users')
+            .select('*')
+            .eq('chat_id', chatRoom.id);
 
-            if (chatUserError) throw chatUserError;
+          if (chatUserError) throw chatUserError;
 
-            //챗방 마지막 메시지
-            const { data: lastMessageData, error: lastMessageError } = await supabase
-              .from('messages')
-              .select(`content, users(nickname), author_id,item_id,created_at`)
-              .eq('chat_id', chatRoom.id)
-              .order('created_at', { ascending: false })
-              .limit(1)
-              .maybeSingle();
+          //챗방 마지막 메시지
+          const { data: lastMessageData, error: lastMessageError } = await supabase
+            .from('messages')
+            .select(`content, users(nickname), author_id,item_id,created_at`)
+            .eq('chat_id', chatRoom.id)
+            .order('created_at', { ascending: false })
+            .limit(1)
+            .maybeSingle();
 
-            let sendNickname = '알 수 없음';
-            let user_img = '알 수 없음';
-            let product_img = '알 수 없음';
-            // let unread_count = 0;
-            const author_id = lastMessageData ? lastMessageData.author_id : '알 수 없음';
+          let sendNickname = '알 수 없음';
+          let user_img = '알 수 없음';
+          let product_img = '알 수 없음';
+          // let unread_count = 0;
+          const author_id = lastMessageData ? lastMessageData.author_id : '알 수 없음';
 
-            if (lastMessageData) {
-              // lastMessageData가 있는 경우에만 sendNickname과 user_img 설정
-              if (lastMessageData.author_id) {
-                const { data: userData, error: userError } = await supabase
-                  .from('users')
-                  .select('*')
-                  .eq('id', lastMessageData.author_id)
-                  .single();
+          if (lastMessageData) {
+            // lastMessageData가 있는 경우에만 sendNickname과 user_img 설정
+            if (lastMessageData.author_id) {
+              const { data: userData, error: userError } = await supabase
+                .from('users')
+                .select('*')
+                .eq('id', lastMessageData.author_id)
+                .single();
 
-                if (userError) throw userError;
-                if (userData) {
-                  sendNickname = userData.nickname;
-                  user_img = userData.user_img;
-                }
-              }
-
-              // lastMessageData가 있는 경우에만 product_img 설정
-              if (lastMessageData.item_id) {
-                const { data: productData, error: productError } = await supabase
-                  .from('products')
-                  .select('product_img')
-                  .eq('id', lastMessageData.item_id)
-                  .maybeSingle();
-
-                if (productError) throw productError;
-                if (productData) {
-                  product_img = productData.product_img;
-                }
+              if (userError) throw userError;
+              if (userData) {
+                sendNickname = userData.nickname;
+                user_img = userData.user_img;
               }
             }
 
-            return chatUser.map((chatUser) => ({
-              author_id: author_id,
-              chat_id: chatRoom.id,
-              user_id: chatUser.user_id || '알 수 없음',
-              item_id: chatUser.item_id || '알 수 없음',
-              lastMessage: lastMessageData ? lastMessageData.content : '메시지가 없습니다.',
-              sendNickname: sendNickname,
-              user_img: user_img,
-              created_at: lastMessageData ? lastMessageData.created_at : '메시지가 없습니다.',
-              product_img: product_img,
-            }));
-          }),
-        );
-        // Flatten the array of arrays
-        const flatChatRooms = updatedChatRooms.flat();
+            // lastMessageData가 있는 경우에만 product_img 설정
+            if (lastMessageData.item_id) {
+              const { data: productData, error: productError } = await supabase
+                .from('products')
+                .select('product_img')
+                .eq('id', lastMessageData.item_id)
+                .maybeSingle();
 
-        setChatRooms(flatChatRooms as ChatRoom[]);
-      } catch (error) {
-        console.error('채팅방 가져오기 오류:', error);
-      }
-    };
+              if (productError) throw productError;
+              if (productData) {
+                product_img = productData.product_img;
+              }
+            }
+          }
 
+          return chatUser.map((chatUser) => ({
+            author_id: author_id,
+            chat_id: chatRoom.id,
+            user_id: chatUser.user_id || '알 수 없음',
+            item_id: chatUser.item_id || '알 수 없음',
+            lastMessage: lastMessageData ? lastMessageData.content : '메시지가 없습니다.',
+            sendNickname: sendNickname,
+            user_img: user_img,
+            created_at: lastMessageData ? lastMessageData.created_at : '메시지가 없습니다.',
+            product_img: product_img,
+          }));
+        }),
+      );
+      // Flatten the array of arrays
+      const flatChatRooms = updatedChatRooms.flat();
 
-    useEffect(() => {
+      setChatRooms(flatChatRooms as ChatRoom[]);
+    } catch (error) {
+      console.error('채팅방 가져오기 오류:', error);
+    }
+  };
+
+  useEffect(() => {
     fetchChatRooms();
+    RenderChatRoomsList();
+  }, [chatId, updateMesaage]);
 
-  }, [chatId]);
-  
-  useEffect(()=>{
-    
+  useEffect(() => {
     //새 메시지 생성시 감지할 채널 구독
     const changes = supabase
       .channel('schema-db-changes')
@@ -140,25 +136,14 @@ const ChatRoomList = () => {
         async (payload) => {
           console.log('payload', payload);
           setUpdateMesaage(payload as MessagePayload);
-          fetchChatRooms();
         },
       )
       .subscribe();
 
-    // 채팅방 변경사항을 감지할 채널 구독
-    const chatChannel = supabase
-      .channel('chat-channel')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {
-        fetchChatRooms();
-      })
-      .subscribe();
-
     return () => {
       changes.unsubscribe();
-      chatChannel?.unsubscribe();
     };
-  },[])
-
+  }, []);
 
   //지금을 기점으로 초분시일달년
   const getTimeDifference = (date: string) => {
@@ -204,7 +189,7 @@ const ChatRoomList = () => {
 
             <St.UserInfo>
               <St.NicknameMessageTimeWrapper>
-                <St.UserNickname>{chatRoom.sendNickname}</St.UserNickname>
+                <St.ChatListUserNickname>{chatRoom.sendNickname}</St.ChatListUserNickname>
                 <St.MessageTime>{lastMessageTimeAgo}</St.MessageTime>
               </St.NicknameMessageTimeWrapper>
               {/* 해당 채팅방의 읽지 않은 메시지 수가 있으면 알림 배지 표시 */}
@@ -218,59 +203,77 @@ const ChatRoomList = () => {
       });
   };
 
+  useEffect(() => {}, []);
+
   const DmClickhandler = async (item_id: number, chat_id: string, author_id: string) => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
     if (user && user.email) {
-      if (user) {
-        // markChatAsRead(chat_id, user.id);
-        // setChatId(chat_id);
-        // setLoginPersonal(user.id);
-        // // setOtherLoginPersonal(otherUserId);
-        // setProductId(item_id);
+      try {
+        markChatAsRead(chat_id, user.id);
+        setChatId(chat_id);
+        setLoginPersonal(user.id);
+        setProductId(item_id);
 
-        try {
-          markChatAsRead(chat_id, user.id);
-          setChatId(chat_id);
-          setLoginPersonal(user.id);
-          setProductId(item_id);
+        // 현재 채팅방의 사용자들을 조회합니다.
+        const { data: chatUsers, error: chatUsersError } = await supabase
+          .from('chats_users')
+          .select('user_id')
+          .eq('chat_id', chat_id);
 
-          // 'users' 테이블에서 'author_id'를 사용하여 다른 사용자의 정보를 가져옵니다.
-          const { data: userData, error: userError } = await supabase
-            .from('users')
-            .select('nickname, user_img')
-            .eq('id', author_id)
-            .single();
-
-          // products 테이블에서 제품 정보를 가져옵니다.
-          const { data: productData } = await supabase
-            .from('products')
-            .select('title, price, product_img,id')
-            .eq('id', item_id)
-            .single();
-
-          if (userData) {
-            setOtherUserDetails({
-              nickname: userData.nickname,
-              user_img: userData.user_img,
-            });
-          }
-
-          if (productData) {
-            setProductDetails({
-              image: productData.product_img,
-              title: productData.title,
-              price: productData.price,
-              id: productData.id,
-            });
-          }
-
-          setIsChatModalOpen(true);
-        } catch (error) {
-          console.error('Error fetching user or product details:', error);
+        if (chatUsersError) {
+          console.error('Chat users fetching error:', chatUsersError);
+          return;
         }
+
+        // 현재 로그인한 사용자가 아닌 다른 사용자의 ID를 찾습니다.
+        const otherUserId = chatUsers.find((chatUser) => chatUser.user_id !== user.id)?.user_id;
+
+        if (!otherUserId) {
+          console.error('No other user found in this chat');
+          return;
+        }
+
+        // 찾은 다른 사용자의 ID로 사용자 정보를 조회합니다.
+        const { data: userData, error: userError } = await supabase
+          .from('users')
+          .select('nickname, user_img')
+          .eq('id', otherUserId)
+          .single();
+
+        if (userError) {
+          console.error('Error fetching other user data:', userError);
+          return;
+        }
+
+        // products 테이블에서 제품 정보를 가져옵니다.
+        const { data: productData } = await supabase
+          .from('products')
+          .select('title, price, product_img,id')
+          .eq('id', item_id)
+          .single();
+
+        if (userData) {
+          setOtherUserDetails({
+            nickname: userData.nickname,
+            user_img: userData.user_img,
+          });
+        }
+
+        if (productData) {
+          setProductDetails({
+            image: productData.product_img,
+            title: productData.title,
+            price: productData.price,
+            id: productData.id,
+          });
+        }
+
+        setIsChatModalOpen(true);
+      } catch (error) {
+        console.error('Error fetching user or product details:', error);
       }
     }
   };
@@ -286,12 +289,15 @@ const ChatRoomList = () => {
     }
   }
 
-  return (<>  
-  <St.ChatContentWrapper>
-    <St.ChatContentTitle>중고거래 전용 채팅 리스트</St.ChatContentTitle>
-    <St.ChatContent>(중고거래에서 채팅을 시작하세요!)</St.ChatContent>
-  </St.ChatContentWrapper>
-  <St.ChatListWrapper>{RenderChatRoomsList()}</St.ChatListWrapper></>)
+  return (
+    <>
+      <St.ChatContentWrapper>
+        <St.ChatContentTitle>중고거래 전용 채팅 리스트</St.ChatContentTitle>
+        <St.ChatContent>(중고거래에서 채팅을 시작하세요!)</St.ChatContent>
+      </St.ChatContentWrapper>
+      <St.ChatListWrapper>{RenderChatRoomsList()}</St.ChatListWrapper>
+    </>
+  );
 };
 
 export default ChatRoomList;
