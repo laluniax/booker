@@ -91,10 +91,31 @@ export const CategoryList = styled.button`
   ${({ theme }) => theme.mediaQuery.sm`
   margin: 0.3rem;
   font-size: 1.8rem;
+
+  &.active {
+    color: #fca311;
+    font-size: 1.8rem;
+    border-bottom: 0.1rem solid #fca311;
+    padding-bottom: 0.4rem;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  
   `};
   ${({ theme }) => theme.mediaQuery.lg`
   margin: 0.3rem;
   font-size: 2rem;
+
+  &.active {
+    color: #fca311;
+    font-size: 2.1rem;
+    border-bottom: 0.1rem solid #fca311;
+    padding-bottom: 0.4rem;
+  }
+  &:hover {
+    cursor: pointer;
+  }
   `};
 `;
 
