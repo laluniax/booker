@@ -977,6 +977,7 @@ export const ProductTitleProduct = styled.div`
   flex-direction: column;
   margin-left: 1rem;
   font-family: 'GmarketSansMedium';
+
   ${({ theme }) => theme.mediaQuery.sm`
   margin-left: 1.5rem;
 `}
@@ -984,16 +985,25 @@ export const ProductTitleProduct = styled.div`
   margin-left: 2rem;
   `};
 `;
+
 export const ProductTitle = styled.span`
   // 제품 제목을 위한 스타일 추가
   font-size: 1.1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 22rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 1.3rem;
+  width:34rem;
 `}
   ${({ theme }) => theme.mediaQuery.lg`
     font-size: 1.5rem;
+    width: 35rem;
   `};
 `;
+
 export const ProductPrice = styled.span`
   // 제품 가격을 위한 스타일 추가
   margin-top: 0.6rem;
