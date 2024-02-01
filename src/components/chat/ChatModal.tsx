@@ -19,6 +19,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import { useNavigate } from 'react-router';
+import OutButton from '../../assets/common/slider_left.webp';
 import defaultImage from '../../assets/profile/defaultprofileimage.webp';
 import { useAuth } from '../../contexts/auth.context';
 import { MessageList } from '../../types/types';
@@ -284,16 +285,20 @@ const Chat = () => {
     return (
       <St.ChatModalHeader>
         <St.UserInfoSection>
-          <St.CloseButton onClick={() => setIsChatModalOpen(false)}>←</St.CloseButton>
-          <St.UserImage src={otherUserDetails?.user_img} alt="user" />
-          <St.UserNickname>{otherUserDetails?.nickname}</St.UserNickname>
+          <St.CloseButton onClick={() => setIsChatModalOpen(false)}>
+            <img src={OutButton} />
+          </St.CloseButton>
+          <St.UserImageNickName>
+            <St.UserImage src={otherUserDetails?.user_img} alt="user" />
+            <St.ChatRoomUserNickname>{otherUserDetails?.nickname}</St.ChatRoomUserNickname>
+          </St.UserImageNickName>
         </St.UserInfoSection>
-        <St.ProductInfoSection>
-          <St.ProductImage onClick={navigateToProductPage} src={productDetails?.image} alt="product" />
-          <div>
-            <St.ProductTitle>제목:{productDetails?.title}</St.ProductTitle>
-            <St.ProductPrice>가격:{productDetails?.price}</St.ProductPrice>
-          </div>
+        <St.ProductInfoSection onClick={navigateToProductPage}>
+          <St.ProductImage src={productDetails?.image} alt="product" />
+          <St.ProductTitleProduct>
+            <St.ProductTitle>제목 : {productDetails?.title}</St.ProductTitle>
+            <St.ProductPrice>가격 : {productDetails?.price}</St.ProductPrice>
+          </St.ProductTitleProduct>
         </St.ProductInfoSection>
       </St.ChatModalHeader>
     );
@@ -325,7 +330,8 @@ const Chat = () => {
                 {dateLabel} {/* Display the date label if the date has changed */}
                 {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
                 <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-                  {message.content} {formattedTime}
+                  <St.MessageContentTime>{formattedTime}</St.MessageContentTime>
+                  <St.MessageContentText>{message.content} </St.MessageContentText>
                 </St.MessageComponent>
               </>
             );
@@ -338,7 +344,6 @@ const Chat = () => {
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
   };
-
   useEffect(() => {
     if (!auth.session) return;
     getQnaLog(auth.session.user.id);
@@ -356,7 +361,7 @@ const Chat = () => {
     }
   };
 
-  //메세지보내는 함수
+  //문의하기 메세지보내는 함수
   const sendMessage = async () => {
     if (!auth.session) return;
     if (!askMessage.trim()) return; // 메시지가 비어있지 않은지 확인
@@ -425,7 +430,7 @@ const Chat = () => {
 
             <St.UserInfo>
               <St.NicknameMessageTimeWrapper>
-                <St.UserNickname>{chatRoom.sendNickname}</St.UserNickname>
+                <St.ChatListUserNickname>{chatRoom.sendNickname}</St.ChatListUserNickname>
                 <St.MessageTime>{lastMessageTimeAgo}</St.MessageTime>
               </St.NicknameMessageTimeWrapper>
               {/* 해당 채팅방의 읽지 않은 메시지 수가 있으면 알림 배지 표시 */}
@@ -508,6 +513,7 @@ const Chat = () => {
                       onChange={onChangeMessageHandler}
                       onKeyDown={onKeyDownHandler}
                     />
+                    <St.QnaSendButton onClick={sendMessage}>전송</St.QnaSendButton>
                   </St.ChatInputWrapper>
                 </>
               ) : (

@@ -136,17 +136,19 @@ export const HeaderSearchMypage = styled.div`
   left: 0%;
   display: flex;
   justify-content: space-between;
-  width: 90%;
+  width: 100%;
 
   ${({ theme }) => theme.mediaQuery.sm`
+  display: flex;
+  justify-content: space-between;
   width: 90%;
-  top: 5rem;
+  margin-left: 1rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
   position: static;
   // position: relative;
   gap: 0%;
-  width: 17%;
+  width: 20%;
   padding-left: 10rem;
 
 
@@ -156,14 +158,15 @@ export const HeaderSearchMypage = styled.div`
   // left: 95%;
   `};
 `;
-export const HeaderBtn = styled.button`
-  width: 4rem;
-  height: 4rem;
+export const HeaderBtn = styled.div`
+  width: 5.3rem;
+  height: 5.3rem;
   font-size: 1.5rem;
   color: white;
   background-color: transparent;
   border: none;
   cursor: pointer;
+
   /* & img { */
   /* width: 4rem; */
   /* height: 4rem; */
@@ -178,13 +181,12 @@ export const LoginBtn = styled.div`
   font-size: 1.8rem;
   font-family: 'GmarketSansMedium';
 
-  &:hover {
-    cursor: pointer;
-    color: #7fd4f3;
-  }
+  width: 5.3rem;
+  height: 5.3rem;
 `;
 
 // 검색
+
 export const SearchBox = styled.form`
   position: absolute; // 절대 위치 설정
   left: 5rem;
@@ -223,15 +225,16 @@ export const SearchIconImage = styled.div`
   background: url(${searchIcon});
   background-size: contain;
   margin-right: 3rem;
-  width: 4rem;
-  height: 4rem;
+
+  width: 4.5rem;
+  height: 4.5rem;
   cursor: pointer;
   ${({ theme }) => theme.mediaQuery.sm`
-
+ margin-left: 1rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-    width: 5rem;
-    height: 5rem;
+    width: 5.3rem;
+    height: 5.3rem;
   `};
 `;
 
@@ -259,7 +262,7 @@ export const Dropdown = styled.div`
   /* top: 76%; // 아이콘의 바로 아래 위치
   right: 1.3%; */
   top: 100%;
-  right: 0%;
+  right: 4%;
   background-color: #f9f9f9;
   min-width: 160px;
   border: 1px solid #ddd;
@@ -268,11 +271,11 @@ export const Dropdown = styled.div`
 
   ${({ theme }) => theme.mediaQuery.sm`
   top: 100%;
-  right: 1%;
+  right: 3%;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
    top: 76%; 
-  right: 1.3%;
+  right: 3.2%;
   `};
 `;
 

@@ -9,6 +9,7 @@ const ChatLog = ({ messages }: MessageProps) => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+
   return (
     <St.Container>
       {messages.map((message) => (
