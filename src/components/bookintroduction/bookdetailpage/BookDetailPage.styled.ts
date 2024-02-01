@@ -3,16 +3,16 @@ import prev from '../../../assets/common/prevbutton2.webp';
 
 export const Container = styled.div`
   width: 30rem;
-  height: 120rem;
+  height: 130rem;
   margin: 0 auto;
+  font-family: 'GmarketSansMedium';
+  line-height: 1.5;
   ${({ theme }) => theme.mediaQuery.sm`
   width: 70rem;
-  height: 100rem;
   margin-top: 5rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-  width: 120rem;
-  height: 100rem;
+  width: 90rem;
   `};
 `;
 
@@ -23,7 +23,7 @@ export const PrevButton = styled.div`
   height: 4rem;
   border-radius: 2rem;
   cursor: pointer;
-
+  margin-bottom: 1rem;
   ${({ theme }) => theme.mediaQuery.sm`
   width: 5rem;
   height: 5rem;
@@ -66,7 +66,7 @@ export const InfoHeader = styled.div`
   flex-direction: row;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-  width: 120rem;
+  width: 90rem;
   `};
 `;
 

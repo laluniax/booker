@@ -46,7 +46,7 @@ const Header = () => {
             <a href="/bookertalk">북커톡</a>
           </St.HeaderLi>
           <St.HeaderLi>
-            <a href="/aboutbooks">도서소개</a>
+            <a href="/aboutbook/bestseller">도서소개</a>
           </St.HeaderLi>
           <St.HeaderLi>
             <a href="/survey">맞춤추천</a>

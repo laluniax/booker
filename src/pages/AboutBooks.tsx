@@ -1,7 +1,7 @@
-import BookBestseller from '../components/bookintroduction/bookbestseller/BookBestseller';
+import BookIntroduction from '../components/bookintroduction/BookIntroduction';
 
 const AboutBooks = () => {
-  return <BookBestseller />;
+  return <BookIntroduction />;
 };
 
 export default AboutBooks;
