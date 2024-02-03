@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { supabase } from './Supabase.api';
+import { supabase } from './Supabase1.api';
 
 import { useRecoilState } from 'recoil';
-import { ChatId } from '../atom/Product.atom';
+import { ChatId } from '../atom/Product1.atom';
 import { ChatDataType } from '../components/chat/ChatModal.type';
 import { CreateOrGetChatTypes, SendDirectMessageTypes } from './Api.type';
 

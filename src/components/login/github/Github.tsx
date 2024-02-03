@@ -1,4 +1,4 @@
-import { githubLoginHandler } from '../../../api/Supabase.api';
+import { githubLoginHandler } from '../../../api/Supabase1.api';
 import * as St from '../Form.styled';
 
 export const GithubLogin = async () => {

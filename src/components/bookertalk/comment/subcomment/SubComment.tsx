@@ -4,7 +4,7 @@ import {
   getSubCommentsInfoHandler,
   insertSubCommentHandler,
   updateSubCommentHandler,
-} from '../../../../api/Supabase.api';
+} from '../../../../api/Supabase1.api';
 import { SubCommentTypes } from '../../../../types/types';
 import { formatCreatedAt } from '../../../../utils/date';
 import * as St from '../Comment.styled';

@@ -1,7 +1,7 @@
 import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { followHandler, followIdListHandler, getUserSessionHandler, unFollowHandler } from '../../../api/Supabase.api';
+import { followHandler, followIdListHandler, getUserSessionHandler, unFollowHandler } from '../../../api/Supabase1.api';
 import * as St from './Follow.styled';
 import { FollowProps } from './Follow.type';
 

@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Productlike, getLikeCountP, supabase } from '../../../api/Supabase.api';
+import { Productlike, getLikeCountP, supabase } from '../../../api/Supabase1.api';
 import coloredheart from '../../../assets/common/heavy_black_heart.webp';
 import heartbold from '../../../assets/common/icon-_heart_white.webp';
 import { useAuth } from '../../../contexts/auth.context';
-import * as St from './Like.styled';
 import { LikeProps } from './Like.type';
+import * as St from './Like1.styled';
 
 const ProductsLike = ({ postId, count }: LikeProps) => {
   const [likes, setLikes] = useState<any[]>([]);

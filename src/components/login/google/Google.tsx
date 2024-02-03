@@ -1,4 +1,4 @@
-import { googleLoginHandler } from '../../../api/Supabase.api';
+import { googleLoginHandler } from '../../../api/Supabase1.api';
 import * as St from '../Form.styled';
 
 export const GoogleLogin = async () => {
