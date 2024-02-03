@@ -1,8 +1,9 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import { useSendMessage } from '../../../api/chatApi';
+
 import { ChatId, chatTypingValue, person, productState } from '../../../atom/product.atom';
 import * as St from '../ChatModal.styled';
+import { useSendMessage } from '../../../api/Chat.api';
 
 
 const ChatInpuValuSendHandler = () => {

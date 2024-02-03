@@ -19,18 +19,3 @@ export const mediaQuery = Object.entries(breakPoints).reduce((acc, [key, value])
 }, init);
 
 export default mediaQuery;
-
-// 사용 예시 : export const ProfileWrapper = styled.div`
-//   box-sizing: border-box;
-//   margin: 3rem auto;
-//   padding: 3rem;
-//   border: 0.2rem solid #dcdcdc;
-//   height: 100%;
-//   width: 50rem;
-//   ${({ theme }) => theme.mediaQuery.sm`
-//     width : 80rem;
-// `}
-//   ${({ theme }) => theme.mediaQuery.lg`
-//     width : 100rem;
-// `}
-// `;

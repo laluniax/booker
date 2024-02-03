@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { nanoid } from 'nanoid';
+import { PostTypes, ProductTypes } from './Api.type';
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL as string;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY as string;
@@ -28,7 +29,6 @@ export const signinHandler = async (email: string, password: string) => {
     email,
     password,
   });
-
   return { data, error };
 };
 
@@ -113,16 +113,19 @@ export const updateUserAuthNicknameHandler = async (nickname: string) => {
   if (error) throw error;
   return data;
 };
+
 export const updateUserAuthUserImgHandler = async (userImg: string) => {
   const { data, error } = await supabase.auth.updateUser({ data: { user_img: userImg } });
   if (error) throw error;
   return data;
 };
+
 export const updateUserIntroTextHandler = async (params: string, introText: string) => {
   const { data, error } = await supabase.from('users').update({ intro_text: introText }).eq('id', params).select();
   if (error) throw error;
   return data;
 };
+
 // 유저 정보 수정하기 (이미지 - storage에 저장)
 export const uploadUserImgHandler = async (params: string, userImg: File) => {
   const { data, error } = await supabase.storage.from('user_img').upload(`${params}/${params}`, userImg);
@@ -152,6 +155,7 @@ export const followHandler = async (followId: string, params: string, session: s
   if (error) throw error;
   return data;
 };
+
 // 언팔로우 하기
 export const unFollowHandler = async (followId: string) => {
   const { error } = await supabase.from('follows').delete().eq('follow_id', followId);
@@ -164,28 +168,19 @@ export const getFollowListHandler = async (session: string) => {
   if (error) throw error;
   return data;
 };
+
 // 팔로우 필터링
 export const filteringFollowHandler = async (followId: string) => {
   const { data, error } = await supabase.from('follows').select('*').eq('follow_id', followId);
   if (error) throw error;
   return data;
 };
+
 // 팚로우 id 목록 가져오기 (팔로우 중인지 필터링하여 판단)
 export const followIdListHandler = async () => {
   const { data, error } = await supabase.from('follows').select('follow_id');
   if (error) throw error;
   return data;
-};
-
-// Market
-type ProductTypes = {
-  userId: string;
-  title: string;
-  content: string;
-  price: string;
-  category: string;
-  productGrade: string;
-  onSale: boolean;
 };
 
 // 상품 등록하기
@@ -208,7 +203,7 @@ export const uploadProductImgStorageUrl = async (productId: string, productImg: 
   });
   const imgUrl = await Promise.all(uploadImg);
   const imgUrls = getPublicUrlsHandler(imgUrl);
-  return { imgUrls, productId };
+  return imgUrls;
 };
 // storage에 있는 상품 사진 publicUrl로 불러오는 함수
 const getPublicUrlsHandler = (imgUrl: { path: string }[]) => {
@@ -261,14 +256,24 @@ export const deleteProductHandler = async (productId: string) => {
   const { error } = await supabase.from('products').delete().eq('id', productId);
   return error;
 };
+// x 버튼 눌렀을 때 상품 이미지 스토리지에서 삭제하기
+export const deleteXbuttonStorage = async (params: string, deleteImg: string[]) => {
+  const result = deleteImg.map(async (path) => {
+    const { data, error } = await supabase.storage.from('product_img').remove([`${params}/${path}`]);
+    if (error) throw error;
+    return data;
+  });
+  return result;
+};
+
 export const deleteProductImgStorage = async (productId: string) => {
-  const list = await deleteProductImgList(productId);
+  const list = await productImgList(productId);
   const listPaths = list.map((item) => `${productId}/${item.name}`);
   const { data, error } = await supabase.storage.from('product_img').remove(listPaths);
   if (error) throw error;
   return data;
 };
-const deleteProductImgList = async (productId: string) => {
+const productImgList = async (productId: string) => {
   const { data, error } = await supabase.storage.from('product_img').list(productId);
   if (error) throw error;
   return data;
@@ -310,6 +315,7 @@ export const filteredPostId = async (params: string) => {
   if (error) throw error;
   return data;
 };
+
 // posts likes 순위에 따라 가져오는 메인에서 쓰는 함수
 export const getPostsLikesListHandler = async () => {
   const { data, error } = await supabase.from('posts').select('*, post_likes(*), users(*)');
@@ -332,15 +338,6 @@ export const uploadImageFile = async (blob: File) => {
 const getPublicPostImgUrl = (postImg: string) => {
   const { data } = supabase.storage.from('post_img').getPublicUrl(`${postImg}`);
   return data;
-};
-
-export type PostTypes = {
-  title: string;
-  content: string | undefined;
-  tags: string[];
-  userId: string;
-  genreUuid: string;
-  postImg: string[];
 };
 
 // insert post
@@ -371,6 +368,7 @@ export const updatePostHandler = async (
 export const deletePostHandler = async (postId: string) => {
   const { error } = await supabase.from('posts').delete().eq('id', postId);
 };
+
 // post 삭제 할 때 해당 storage 파일도 함께 삭제
 export const deletePostImgStorageHandler = async (postImg: string[]) => {
   const result = postImg.map(async (item) => {
@@ -387,20 +385,13 @@ export const filterPostsByUserIdHandler = async (userId: string) => {
   if (error) throw error;
   return data;
 };
+
 // userId로 products 불러오는 함수(profile)
 export const filterProductsByUserIdHandler = async (userId: string) => {
   const { data, error } = await supabase.from('products').select('*').eq('user_id', userId);
   if (error) throw error;
   return data;
 };
-
-// Comments
-// comment 불러오는 함수 (해당 postId에 따른 댓글 불러오기)
-// export const filterCommentHandler = async (postId: number) => {
-//   const { data, error } = await supabase.from('comments').select('*').eq('post_id', postId);
-//   if (error) throw error;
-//   return data;
-// };
 
 // comments 정보 가져오는 함수(댓글)
 export const getCommentsInfoHandler = async (postId: number) => {
@@ -464,50 +455,45 @@ export const deleteSubCommentHandler = async (subCommentId: number) => {
 // mapMarkerData 가져오는 함수
 export const mapMarkerDataHandler = async () => {
   const { data, error } = await supabase.from('independentBookStores').select('*');
-  console.log(data);
   console.log(error);
   return data;
 };
 
 // 게시글: 좋아요 수를 불러오는 함수
-
 export const getLikeCount = async (postId: number | undefined) => {
   const { data, error } = await supabase.from('post_likes').select('*').eq('post_id', postId);
   if (error) throw error;
   return data;
 };
 
-/* //게시글: 이미 좋아요 한 경우, 좋아요 제거
-export const cancelLike = async (existingLike: string) => {
-  const { data, error } = await supabase.from('likes').delete().match({ id: existingLike.id });
-  if (error) throw error;
-  return data;
-}; */
 //게시글: 좋아요 하지 않은 경우, 좋아요 추가
 export const like = async (postId: number | undefined, currentUserId: string | undefined) => {
   const { data, error } = await supabase.from('post_likes').insert([{ post_id: postId, user_id: currentUserId }]);
   if (error) throw error;
   return data;
 };
-// 상품: 좋아요 수를 불러오는 함수
 
+// 상품: 좋아요 수를 불러오는 함수
 export const getLikeCountP = async (postId: number | undefined) => {
   const { data, error } = await supabase.from('product_likes').select('*').eq('post_id', postId);
   if (error) throw error;
   return data;
 };
+
 //상품: 좋아요 하지 않은 경우, 좋아요 추가
 export const Productlike = async (postId: number | undefined, currentUserId: string | undefined) => {
   const { data, error } = await supabase.from('product_likes').insert([{ post_id: postId, user_id: currentUserId }]);
   if (error) throw error;
   return data;
 };
+
 // 프로필에 좋아요 누른 게시글 불러오기
 export const getLikesPostsListHandler = async (userId: string) => {
   const { data, error } = await supabase.from('post_likes').select('*,posts(*)').eq('user_id', userId);
   if (error) throw error;
   return data;
 };
+
 // 프로필에 좋아요 누른 상품 불러오기
 export const getLikesProductsListHandler = async (userId: string) => {
   const { data, error } = await supabase.from('product_likes').select('*,products(*)').eq('user_id', userId);

@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { ChatRoomTypes } from './Product.type';
 
 
 
@@ -9,14 +10,17 @@ export const productState = atom({
   key: 'productState', // 고유한 키
   default: 0, // 기본값
 });
+
 export const person = atom({
   key: 'person', // 고유한 키
   default: '', // 기본값
 });
+
 export const otherPerson = atom({
   key: 'otherPerson', // 고유한 키
   default: '', // 기본값
 });
+
 export const ChatId = atom({
   key: 'ChatId', // 고유한 키
   default: '', // 기본값
@@ -77,7 +81,7 @@ export const sendMessages = atom<MessageType[]>({
   default: [], // 초기값은 빈 배열
 });
 
-export const chatRoomsState = atom<ChatRoom[]>({
+export const chatRoomsState = atom<ChatRoomTypes[]>({
   key: 'chatRoomsState',
   default: [], // 초기값은 빈 배열
 });

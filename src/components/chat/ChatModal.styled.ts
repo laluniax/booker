@@ -2,18 +2,10 @@ import styled from 'styled-components';
 import bookerChattingIcon from '../../assets/common/bookerchattingicon.webp';
 import prevIcon from '../../assets/common/prevbutton1.webp';
 
-export const Container = styled.div`
-  ${({ theme }) => theme.mediaQuery.sm`
-    `}
+export const Container = styled.div``;
 
-  ${({ theme }) => theme.mediaQuery.lg`
-  `};
-`;
 export const ChatWrapper = styled.div`
-  /* box-sizing: border-box; */
-
   position: fixed;
-  /* z-index: 1000; */
   box-shadow: rgba(100, 100, 111, 0.2) 0 0.7rem 2.9rem 0;
   background-color: white;
   overflow: scroll;
@@ -44,6 +36,7 @@ export const ChatWrapper = styled.div`
   padding: 0.8rem;
   `};
 `;
+
 export const LogoWrapper = styled.div``;
 
 export const PrevBtn = styled.div`
@@ -60,7 +53,6 @@ export const ChatHeader = styled.div`
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 0.8rem;
-  // margin: 1.6rem 1.6rem 1.2rem;
   `};
 `;
 
@@ -89,18 +81,20 @@ export const ChatTopBox = styled.div`
   margin-top: 1.5rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    height: 7rem;
-    width: 40rem;
-    margin-top:2rem;
+  height: 9rem;
+  height: 9rem;
+  width: 40rem;
+  margin-top:2rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  height: 5rem;
+  height: 13rem;
+  height: 13rem;
   width: 40rem;
-  margin-top:3rem;
+  margin-top:1rem;
+  margin-top:1rem;
   `};
 `;
-
 export const MainMessage = styled.div`
   display: flex;
   justify-content: center;
@@ -110,12 +104,13 @@ export const MainMessage = styled.div`
   height: 2rem;
   text-align: center;
   margin-top: 0.5rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.2rem;
-    width:40rem;
-    height:2rem;
-    text-align:center;
-    margin-top:0.5rem;
+  font-size: 1.2rem;
+  width:40rem;
+  height:2rem;
+  text-align:center;
+  margin-top:0.5rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -137,26 +132,34 @@ export const AskButton = styled.button`
   color: #fca311;
   font-weight: bold;
   margin-top: 1rem;
-  width: 10rem;
+  width: 8rem;
+  width: 8rem;
   height: 4rem;
   font-size: 1.2rem;
   padding: 0.5rem;
+
   &:hover {
     cursor: pointer;
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-      margin-top: 1rem;
-      width: 10rem;
-      height: 3rem;
-      font-size: 1.3rem;
-    `}
+  margin-top: 1rem;
+  width: 9rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  width: 9rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-    margin-top: 2rem;
-    width: 35rem;
-    height: 4rem;
-    font-size: 1.5rem;
+  margin-top: 2rem;
+  width: 12rem;
+  height: 2.6rem;
+  font-size: 1.4rem;
+  width: 12rem;
+  height: 2.6rem;
+  font-size: 1.4rem;
   `};
 `;
 
@@ -174,6 +177,7 @@ export const Contour = styled.div`
   border-bottom: 2px solid #000;
   margin : 2rem auto;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
     margin-top : 1rem;
     width : 40rem;
@@ -192,6 +196,7 @@ export const ChatContentWrapper = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   margin-bottom: -1rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   `};
 `;
@@ -204,16 +209,17 @@ export const ChatContentTitle = styled.div`
   height: 2rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-      font-weight: bold;
-      font-size: 1.4rem;
-      width: 40rem;
-      height: 2rem;
+  font-weight: bold;
+  font-size: 1.4rem;
+  width: 40rem;
+  height: 2rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-    font-weight: bold;
-    font-size: 1.6rem;
-    width: 40rem;
-    height: 2rem;
+  font-weight: bold;
+  font-size: 1.6rem;
+  width: 40rem;
+  height: 2rem;
   `};
 `;
 
@@ -225,16 +231,17 @@ export const ChatContent = styled.div`
   margin: -0.3rem auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
-      font-size: 1.2rem;
-      width: 40rem;
-      height: 1.5rem;
-      margin: 0.5rem auto;
+  font-size: 1.2rem;
+  width: 40rem;
+  height: 1.5rem;
+  margin: 0.5rem auto;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-    font-size: 1.4rem;
-    width: 40rem;
-    height: 1.5rem;
-    margin: 1rem auto;
+  font-size: 1.4rem;
+  width: 40rem;
+  height: 1.5rem;
+  margin: 1rem auto;
   `};
 `;
 
@@ -250,17 +257,17 @@ export const ChatListWrapper = styled.div`
   height: auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
-     margin-top: 2rem;
-     font-size: 1.2rem;
-     width:40rem;
-     height:auto;
-    `}
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  width:40rem;
+  height:auto;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-   margin-top: 3rem;
-   font-size: 1.3rem;
-   width:40rem;
-   height:auto;
+  margin-top: 3rem;
+  font-size: 1.3rem;
+  width:40rem;
+  height:auto;
   `};
 `;
 
@@ -269,7 +276,8 @@ export const ChatInputWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: auto;
+  margin: 0.1rem auto;
+  margin: 0.1rem auto;
   margin-left: -0.5rem;
   z-index: 999;
   padding: 0 0.6rem 0 1.4rem;
@@ -277,12 +285,13 @@ export const ChatInputWrapper = styled.div`
   height: 3rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    padding: 0 0.6rem 0 1.4rem;
-    width:39.5rem;
-    height:5rem;
-    margin-left: 0.5rem;
-
-    `}
+  padding: 0 0.6rem 0 1.4rem;
+  width:39.5rem;
+  height:5rem;
+  margin-left: 0.5rem;
+  margin-top: -0.3rem;
+  margin-top: -0.3rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 0 0.6rem 0 1.4rem;
@@ -301,23 +310,24 @@ export const Input = styled.input`
   min-height: 3rem;
   padding: 0 0.6rem 0 1.4rem;
   font-size: 1rem;
+
   &:focus {
     outline: none;
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-      margin-top: 1rem;
-      min-height: 4rem;
-      padding: 0 0.6rem 0 1.4rem;
-      font-size: 1.2rem;
-    `}
+  margin-top: 1rem;
+  min-height: 4rem;
+  padding: 0 0.6rem 0 1.4rem;
+  font-size: 1.2rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-    margin-top: 2rem;
-    min-height: 5rem;
-    width:40rem;
-    padding: 0 0.6rem 0 1.4rem;
-    font-size: 1.5rem;
+  margin-top: 2rem;
+  min-height: 5rem;
+  width:40rem;
+  padding: 0 0.6rem 0 1.4rem;
+  font-size: 1.5rem;
   `};
 `;
 
@@ -328,7 +338,8 @@ export const QnaSendButton = styled.button`
   cursor: pointer;
   font-weight: bold;
   height: 3rem;
-  width: 4rem;
+  width: 5rem;
+  width: 5rem;
   border-radius: 1rem;
   font-size: 1rem;
   margin-top: 0.8rem;
@@ -338,12 +349,12 @@ export const QnaSendButton = styled.button`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    height: 4rem;
-    width:5rem;
-    border-radius: 1rem;
-    font-size: 1.2rem;
-    margin-top:0.8rem;
-    `}
+  height: 4rem;
+  width:5rem;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  margin-top:0.8rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   height: 5rem;
@@ -364,13 +375,13 @@ export const TalkButtonWrapper = styled.div`
   z-index: 20;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    bottom: 4rem;
-    right: 1rem;
-    `}
+  bottom: 4rem;
+  right: 1rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-    bottom: 3rem;
-    right: 1rem;
+  bottom: 3rem;
+  right: 1rem;
   `};
 `;
 
@@ -388,21 +399,21 @@ export const ScrollToTopButton = styled.div`
   right: 3.5rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 4rem;
-    height: 4rem;
-    bottom: 11rem;
-    right: 4rem;
-    font-size: 1.6rem;
-    padding: 1.5rem;
-`}
+  width: 4rem;
+  height: 4rem;
+  bottom: 11rem;
+  right: 4rem;
+  font-size: 1.6rem;
+  padding: 1.5rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-    width: 5.5rem;
-    height: 5.5rem;
-    bottom: 14rem;
-    right: 4.7rem;
-    font-size: 1.8rem;
-    padding: 1.5rem;
+  width: 5.5rem;
+  height: 5.5rem;
+  bottom: 14rem;
+  right: 4.7rem;
+  font-size: 1.8rem;
+  padding: 1.5rem;
   `};
 `;
 
@@ -420,24 +431,24 @@ export const UserItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* border-bottom: 0.1rem solid #ccc; */
   color: #000;
   cursor: pointer;
   margin: 0 auto;
   width: 25rem;
   height: 4.5rem;
-  &:hover {
-    background-color: #e9e9e9;
-  }
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
+  &:hover {
+    background-color: #e9e9e9;
+  }
+
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 36rem;
-    height: 4.5rem;
-    margin-bottom: 0.5rem;
-    `}
+  width: 36rem;
+  height: 4.5rem;
+  margin-bottom: 0.5rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 40rem;
@@ -450,7 +461,7 @@ export const UserEmail = styled.div`
   font-weight: bold;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    `}
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.3rem;
@@ -465,12 +476,11 @@ export const UserLastMessage = styled.div`
   font-size: 1rem;
   margin-top: 0.5rem;
   width: 15rem;
-
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.2rem;
-    margin-top:0.5rem;
-    width:22rem;
-    `}
+  font-size: 1.2rem;
+  margin-top:0.5rem;
+  width:22rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.2rem;
@@ -485,6 +495,7 @@ export const DMButton = styled.button`
   color: #fff;
   cursor: pointer;
   font-weight: bold;
+
   &:hover {
     background-color: #fca311;
     color: #000;
@@ -492,7 +503,7 @@ export const DMButton = styled.button`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    `}
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 0.5rem 1rem;
@@ -518,12 +529,12 @@ export const ChatModalWrapper = styled.div`
   border: 0.1rem solid #ccc;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    bottom: 6rem;
-    right: 1rem;
-    width: 45rem;
-    height: 50rem;
-    border: 0.1rem solid #ccc;
-    `}
+  bottom: 6rem;
+  right: 1rem;
+  width: 45rem;
+  height: 50rem;
+  border: 0.1rem solid #ccc;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   bottom: 6rem;
@@ -538,7 +549,7 @@ export const ChatModalTitle = styled.p`
   color: #fff;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    `}
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.5rem;
@@ -549,13 +560,14 @@ export const ChatModalTitle = styled.p`
 export const ChatModalCloseButton = styled.button`
   all: unset;
   color: #fff;
+
   &:hover {
     cursor: pointer;
     color: #fca311;
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    `}
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 2.6rem;
@@ -568,7 +580,7 @@ export const HeaderChattingModalTitle = styled.p`
   font-weight: bold;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    `}
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.5rem;
@@ -580,21 +592,23 @@ export const HeaderChattingModalTitle = styled.p`
 export const CloseButton = styled.button`
   all: unset;
   color: white;
+
   & img {
     width: 1.1rem;
     height: 1.8rem;
   }
+
   &:hover {
     cursor: pointer;
     color: #fca311;
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    & img{
-      width:1.3rem;
-      height:2rem;
-    }
-    `}
+  & img{
+    width:1.3rem;
+    height:2rem;
+  }
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   & img{
@@ -610,11 +624,13 @@ export const HeaderPurchaseConfirmationButton = styled.button`
   font-size: 1.5rem;
   color: #fff;
   font-weight: bold;
+
   &:hover {
     cursor: pointer;
     color: #fca311;
   }
 `;
+
 // 모달 바디
 export const ChatModalBody = styled.div`
   overflow-y: auto;
@@ -651,38 +667,37 @@ export const MessageComponent = styled.div<MessageProps>`
   height: auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
-      padding: 0.8rem;
-      margin: 0.5rem ;
-      border-radius: 1rem;
-      max-width: 15rem;
-      width: auto; /* 메시지의 최대 너비를 설정합니다. */
-      height:auto;
-    `}
+  padding: 0.8rem;
+  margin: 0.5rem ;
+  border-radius: 1rem;
+  max-width: 15rem;
+  width: auto; /* 메시지의 최대 너비를 설정합니다. */
+  height:auto;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-    padding: 1rem;
-    margin-top: 0.5rem;
-    border-radius: 1rem;
-    max-width: 20rem;
-    width: auto; /* 메시지의 최대 너비를 설정합니다. */
-    height:auto;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  border-radius: 1rem;
+  max-width: 20rem;
+  width: auto; /* 메시지의 최대 너비를 설정합니다. */
+  height:auto;
   `};
 `;
 
 export const MessageContentTime = styled.div`
   margin-right: auto;
-  /* margin-left: 3rem; */
   font-size: 0.8rem;
   margin-right: 0.1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1rem;
-    margin-right: 0.1rem;
-    `}
+  font-size: 1rem;
+  margin-right: 0.1rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-    font-size: 1.2rem;
-    margin-right: 0.1rem;
+  font-size: 1.2rem;
+  margin-right: 0.1rem;
   `};
 `;
 
@@ -697,7 +712,7 @@ export const MessageContentText = styled.div`
   margin-top: 0.4rem;
   width: auto;
   height: auto;
-    `}
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.5rem;
@@ -716,9 +731,9 @@ export const ChatModalFooter = styled.div`
   padding: 0.6rem;
   height: 4.5rem;
   ${({ theme }) => theme.mediaQuery.sm`
-    padding: 0.8rem;
-    height: 7rem;
-    `}
+  padding: 0.8rem;
+  height: 7rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 1rem;
@@ -737,16 +752,17 @@ export const InputField = styled.input`
   padding: 0.2rem;
   height: 3rem;
   font-size: 1.5rem;
+
   ::placeholder {
     font-size: 1.5rem;
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    margin-right: 1rem;
-    padding: 0.2rem;
-    height: 4rem;
-    font-size: 1.5rem;
-    `}
+  margin-right: 1rem;
+  padding: 0.2rem;
+  height: 4rem;
+  font-size: 1.5rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   margin-right: 1rem;
@@ -765,18 +781,18 @@ export const SendButton = styled.button`
   border-radius: 1rem;
   font-size: 1.4rem;
   padding: 1rem;
-
   font-weight: bold;
+
   &:hover {
     background-color: #262626;
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    height: 4.4rem;
-    border-radius: 1rem;
-    font-size: 1.4rem;
-    padding: 1rem 1.5rem;
-    `}
+  height: 4.4rem;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  padding: 1rem 1.5rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   height: 4.4rem;
@@ -789,12 +805,17 @@ export const SendButton = styled.button`
 export const PrevIcon = styled.div`
   background: url(${prevIcon});
   background-size: contain;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: -1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-bottom:-2rem;
-    `}
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom:-2rem;
+  margin-top:1rem;
+  margin-top:1rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 3rem;
@@ -811,40 +832,36 @@ export const BookerChattingIcon = styled.div`
   cursor: pointer;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 10rem;
-    height: 10rem;
-`}
+  width: 10rem;
+  height: 10rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-    width: 13rem;
-    height: 13rem;
-    // margin-bottom: 3rem;
-    // width: 13.5rem;
-    // height: 13.5rem;
-    // bottom: 10rem;
-    // right: 3.5rem;
+  width: 13rem;
+  height: 13rem;
+  margin-bottom: 3rem;
+  width: 13.5rem;
+  height: 13.5rem;
+  bottom: 10rem;
+  right: 3.5rem;
   `};
 `;
 
 export const NicknameLabel = styled.div`
-  /* background-color: #f0f0f0; // 닉네임 라벨 배경색 */
-  /* background-color: black; // 닉네임 라벨 배경색 */
   color: black; // 닉네임 라벨 텍스트 색상
   align-self: flex-start; // 부모 요소의 시작점에 정렬
-  // padding: 2px 8px; // 닉네임 라벨 패딩
   border-radius: 10px; // 닉네임 라벨 둥근 모서리
   margin-left: 0.5rem;
   margin-top: 1rem;
   margin-bottom: 0.3rem;
   font-size: 1.1rem; // 닉네임 라벨 글꼴 크기
-  // margin-bottom: 4px; // 닉네임 라벨과 메시지 컴포넌트 사이의 여백
 
   ${({ theme }) => theme.mediaQuery.sm`
-    margin-left:0.5rem;
-    margin-top:1rem;
-    margin-bottom:0.3rem;
-    font-size: 1.4rem; // 닉네임 라벨 글꼴 크기
-`}
+  margin-left:0.5rem;
+  margin-top:1rem;
+  margin-bottom:0.3rem;
+  font-size: 1.4rem; // 닉네임 라벨 글꼴 크기
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   border-radius: 10px; // 닉네임 라벨 둥근 모서리
@@ -861,11 +878,6 @@ export const UserImageNickName = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  ${({ theme }) => theme.mediaQuery.sm`
-`}
-
-  ${({ theme }) => theme.mediaQuery.lg`
-  `};
 `;
 
 export const UserImage = styled.img`
@@ -876,9 +888,9 @@ export const UserImage = styled.img`
   margin: 0 auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 3.8rem; // 유저 이미지 크기 조절
-    height: 3.8rem;
-`}
+  width: 3.8rem; // 유저 이미지 크기 조절
+  height: 3.8rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 4rem; // 유저 이미지 크기 조절
@@ -887,7 +899,6 @@ export const UserImage = styled.img`
 `;
 
 export const UserInfo = styled.div`
-  /* flex: 1; */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -896,9 +907,9 @@ export const UserInfo = styled.div`
   margin-left: 0.5rem; // 오른쪽에 있는 물품 이미지와의 간격
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 22rem;
-    margin-left: 0.5rem; // 오른쪽에 있는 물품 이미지와의 간격
-`}
+  width: 22rem;
+  margin-left: 0.5rem; // 오른쪽에 있는 물품 이미지와의 간격
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 25rem;
@@ -910,12 +921,11 @@ export const NicknameMessageTimeWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* margin: 0 auto; */
   width: 15rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
   width: 22rem;
-`}
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 25rem;
@@ -927,10 +937,9 @@ export const MessageTime = styled.div`
   margin-right: 0.5rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.1rem;
+  font-size: 1.1rem;
   margin-right: 1rem;
-
-`}
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.1rem;
@@ -942,11 +951,10 @@ export const ChatRoomUserNickname = styled.div`
   color: white;
   font-size: 1rem;
   margin-top: 0.2rem;
-
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.2rem;
-    margin-top:0.3rem;
-`}
+  font-size: 1.2rem;
+  margin-top:0.3rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.5rem;
@@ -960,17 +968,16 @@ export const ChatListUserNickname = styled.div`
 `;
 
 export const ProductImage = styled.img`
-  /* object-fit: cover; */
   width: 4.5rem; // 물품 이미지 크기 조절
   height: 4.5rem;
   margin-left: 0.5rem;
   border: 1px solid gray;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 5rem; // 물품 이미지 크기 조절
-    height: 5rem;
-    margin-left:0.5rem;
-`}
+  width: 5rem; // 물품 이미지 크기 조절
+  height: 5rem;
+  margin-left:0.5rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 6rem; // 물품 이미지 크기 조절
@@ -988,13 +995,13 @@ export const AlarmUserWrapper = styled.div`
   margin-left: 0.7rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 4rem;
-    height: 4rem;
-    margin-left:1rem;
-`}
+  width: 4rem;
+  height: 4rem;
+  margin-left:1rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  width: 4rem; 
+  width: 4rem;
   height: 4rem;
   `};
 `;
@@ -1019,16 +1026,16 @@ export const AlarmDetail = styled.span`
   top: 0.5rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    border-radius: 9999px; // 원형 모양
-    margin-left: -1.5rem;
-    margin-top: -0.5rem;
-    padding: 0.2em 0.6em;
-    font-size: 1rem;
-    width:1.7rem;
-    height:1.7rem;
-    left:1rem;
-    top:0.5rem;
-`}
+  border-radius: 9999px; // 원형 모양
+  margin-left: -1.5rem;
+  margin-top: -0.5rem;
+  padding: 0.2em 0.6em;
+  font-size: 1rem;
+  width:1.7rem;
+  height:1.7rem;
+  left:1rem;
+  top:0.5rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   border-radius: 9999px; // 원형 모양
@@ -1063,16 +1070,16 @@ export const NotificationBadge = styled.span`
   top: 3.3rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    border-radius: 5rem;
-    margin-left: -1rem;
-    margin-top: -0.5rem;
-    padding: 0.2em 0.6em;
-    font-size: 1.2rem;
-    width:2.2rem;
-    height:2.2rem;
-    left:1.5rem;
-    top:3.5rem;
-`}
+  border-radius: 5rem;
+  margin-left: -1rem;
+  margin-top: -0.5rem;
+  padding: 0.2em 0.6em;
+  font-size: 1.2rem;
+  width:2.2rem;
+  height:2.2rem;
+  left:1.5rem;
+  top:3.5rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   border-radius: 5rem;
@@ -1102,7 +1109,7 @@ export const ProductTitleProduct = styled.div`
 
   ${({ theme }) => theme.mediaQuery.sm`
   margin-left: 1.5rem;
-`}
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   margin-left: 2rem;
@@ -1112,13 +1119,19 @@ export const ProductTitleProduct = styled.div`
 export const ProductTitle = styled.span`
   // 제품 제목을 위한 스타일 추가
   font-size: 1.1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 22rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 1.3rem;
-`}
+  width:34rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-    font-size: 1.5rem;
+  font-size: 1.5rem;
+  width: 35rem;
   `};
 `;
 
@@ -1128,7 +1141,7 @@ export const ProductPrice = styled.span`
 
   ${({ theme }) => theme.mediaQuery.sm`
   margin-top: 0.8rem;
-`}
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   margin-top: 1rem;
@@ -1138,11 +1151,7 @@ export const ProductPrice = styled.span`
 export const UserSection = styled.div`
   display: flex;
   align-items: center;
-
-  background-color: #000; // Black background for user section
-
-  ${({ theme }) => theme.mediaQuery.sm`
-`}
+  background-color: #000;
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 10px;
@@ -1152,10 +1161,7 @@ export const UserSection = styled.div`
 export const ProductSection = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: #fff; // White background for product section
-
-  ${({ theme }) => theme.mediaQuery.sm`
-`}
+  background-color: #fff;
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 10px;
@@ -1182,9 +1188,9 @@ export const UserInfoSection = styled.div`
   width: 30rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    padding: 0.8rem;
-    width:45rem;
-`}
+  padding: 0.8rem;
+  width:45rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 1rem;
@@ -1201,12 +1207,12 @@ export const ProductInfoSection = styled.div`
   width: 29rem;
   height: 5rem;
   margin: 0.8rem auto;
-  /* border-top: 1px solid #ddd; // 상품 정보 섹션과 분리선 */
+
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 42.5rem;
-    height: 6rem;
-    margin: 0.8rem auto;
-`}
+  width: 42.5rem;
+  height: 6rem;
+  margin: 0.8rem auto;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 10px;
@@ -1237,7 +1243,7 @@ export const DateLabel = styled.div`
   font-size: 0.8em; // 폰트 크기
   margin-left: auto; // 왼쪽 자동 마진
   margin-right: auto; // 오른쪽 자동 마진
-`}
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 8px 16px; // 패딩

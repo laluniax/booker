@@ -1,27 +1,29 @@
 import { useEffect, useState } from 'react';
 import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
-import { mapMarkerDataHandler } from '../../api/supabase.api';
-import { Location, Marker, UserLocationState, mapMarkerDataTypes } from '../../types/types';
+import { mapMarkerDataHandler } from '../../api/Supabase.api';
 import * as St from './KakaoMap.styled';
+import { LocationTypes, MapMarkerDataTypes, MarkerTypes, UserLocationStateTypes } from './KakaoMap.type';
 import AboutIndBookStore from './aboutindbookstore/AboutIndBookStore';
 import DetailMapInfo from './detailmapinfo/DetailInfo';
 
 function KakaoMap() {
   //db에 저장한 맵 마커 데이터
-  const [markerData, setMarkerData] = useState<mapMarkerDataTypes[] | undefined>([]);
-  const [location, setLocation] = useState<Location>({ latitude: null, longitude: null });
+  const [markerData, setMarkerData] = useState<MapMarkerDataTypes[] | undefined>([]);
+  const [location, setLocation] = useState<LocationTypes>({ latitude: null, longitude: null });
   const [error, setError] = useState<string | null>(null);
   const [selectedMarkerId, setSelectedMarkerId] = useState<number | null>(null);
   const [searchPlace, setSearchPlace] = useState<string>('');
-  const [markers, setMarkers] = useState<Marker[]>([]);
-  const [aroundStore, setAroundStore] = useState<mapMarkerDataTypes[]>([]);
+  const [markers, setMarkers] = useState<MarkerTypes[]>([]);
+  const [aroundStore, setAroundStore] = useState<MapMarkerDataTypes[]>([]);
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
-  const [selectedMarkerInfo, setSelectedMarkerInfo] = useState<mapMarkerDataTypes | null>(null);
-  const [currentPosition, setCurrentPosition] = useState<UserLocationState>({
+  const [selectedMarkerInfo, setSelectedMarkerInfo] = useState<MapMarkerDataTypes | null>(null);
+  const [currentPosition, setCurrentPosition] = useState<UserLocationStateTypes>({
     lat: 37.50231497199725,
     lng: 127.04484141806945,
   });
   const baseUrl = process.env.REACT_APP_KAKAO_API_BASE_URL;
+
+  console.log(selectedMarkerInfo);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -48,7 +50,6 @@ function KakaoMap() {
   }, []);
 
   // 가져온 데이터 상태 변수에 저장
-
   useEffect(() => {
     fetchMapMarkerData();
     getLocation();
@@ -70,9 +71,7 @@ function KakaoMap() {
         const level = map.getLevel();
         fetchBookstoresNearby(map.getCenter().getLat(), map.getCenter().getLng());
       };
-
       kakao.maps.event.addListener(map, 'zoom_changed', zoomChangedCallback);
-
       return () => {
         kakao.maps.event.removeListener(map, 'zoom_changed', zoomChangedCallback);
       };
@@ -82,28 +81,24 @@ function KakaoMap() {
   const searchStore = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const ps = new window.kakao.maps.services.Places();
-
     if (searchPlace) {
       ps.keywordSearch(searchPlace, (data, status, _pagination) => {
         if (status === window.kakao.maps.services.Status.OK) {
           const bounds = new kakao.maps.LatLngBounds();
-          let markers: Marker[] = data.map((item) => ({
+          let markers: MarkerTypes[] = data.map((item) => ({
             position: {
               lat: parseFloat(item.y),
               lng: parseFloat(item.x),
             },
             content: item.place_name,
           }));
-
           setMarkers(markers);
-
           if (data.length > 0) {
             const firstResult = data[0];
             const latitude = parseFloat(firstResult.y);
             const longitude = parseFloat(firstResult.x);
             fetchBookstoresNearby(latitude, longitude);
           }
-
           if (map) {
             map.setBounds(bounds); // 지도의 확대/축소 레벨과 중심 위치를 설정합니다.
           }
@@ -118,7 +113,6 @@ function KakaoMap() {
     try {
       // 가져온 위도와 경도를 사용하여 일정 반경 내의 서점 정보를 가져옵니다.
       const radius = 3;
-
       const response = await fetch(
         `https://port-0-independentbookstoresdb-3wh3o2blr53yzc2.sel5.cloudtype.app/bookstoresdb?lat=${latitude}&lng=${longitude}&radius=${radius}`,
         {
@@ -183,6 +177,7 @@ function KakaoMap() {
     const clickedMarkerInfo = markerData?.find((marker) => marker.id === markerId);
     setSelectedMarkerInfo(clickedMarkerInfo || null);
   };
+
   const updateMapCenter = (latitude: number, longitude: number) => {
     setCurrentPosition({ lat: latitude, lng: longitude });
     if (map) {
@@ -195,7 +190,6 @@ function KakaoMap() {
       <St.MapContainer>
         <St.Map>
           <St.Title>전국에 독립서점은 얼마나 있을까?</St.Title>
-
           {/* 검색창 */}
           <St.SearchWrapper>
             <St.SearchFormWrapper>
@@ -206,7 +200,6 @@ function KakaoMap() {
                 </St.SearchBox>
               </St.SearchForm>
             </St.SearchFormWrapper>
-
             <St.SearchList>
               {aroundStore &&
                 aroundStore.length > 0 &&
@@ -220,7 +213,6 @@ function KakaoMap() {
                 ))}
             </St.SearchList>
           </St.SearchWrapper>
-
           <Map
             id={'map'}
             center={currentPosition}
@@ -287,10 +279,13 @@ function KakaoMap() {
             })}
           </Map>
         </St.Map>
-        {selectedMarkerInfo && (
-          <div>
-            <DetailMapInfo markerInfo={selectedMarkerInfo} />
-          </div>
+        {selectedMarkerInfo === null ? (
+          <></>
+        ) : (
+          <>
+            {' '}
+            <DetailMapInfo markerInfo={selectedMarkerInfo} />{' '}
+          </>
         )}
       </St.MapContainer>
       <AboutIndBookStore />

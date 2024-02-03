@@ -1,20 +1,20 @@
 // 명화
 import { useEffect, useState } from 'react';
-import Famouspainting1 from '../../../styles/assets/mainpageslideimages/famouspainting1.jpg';
-import Famouspainting2 from '../../../styles/assets/mainpageslideimages/famouspaintingimage6.jpg';
-import Famouspainting3 from '../../../styles/assets/mainpageslideimages/mainfamouspainting.jpg';
-import Famouspainting4 from '../../../styles/assets/mainpageslideimages/mainfamouspainting2.jpg';
-import Famouspainting5 from '../../../styles/assets/mainpageslideimages/mainfamouspainting3.jpg';
-import Famouspainting6 from '../../../styles/assets/mainpageslideimages/mainfamouspainting4.jpg';
+import SlideImage1 from '../../../assets/mainimage/slideimage1.webp';
+import SlideImage2 from '../../../assets/mainimage/slideimage2.webp';
+import SlideImage3 from '../../../assets/mainimage/slideimage3.webp';
+import SlideImage4 from '../../../assets/mainimage/slideimage4.webp';
+import SlideImage5 from '../../../assets/mainimage/slideimage5.webp';
+import SlideImage6 from '../../../assets/mainimage/slideimage6.webp';
 import * as St from './SlideImages.styled';
 
 const images = [
-  { image: Famouspainting1, alt: 'Famouspainting1' },
-  { image: Famouspainting2, alt: 'Famouspainting2' },
-  { image: Famouspainting3, alt: 'Famouspainting3' },
-  { image: Famouspainting4, alt: 'Famouspainting4' },
-  { image: Famouspainting5, alt: 'Famouspainting5' },
-  { image: Famouspainting6, alt: 'Famouspainting6' },
+  { image: SlideImage1, alt: 'SlideImage1' },
+  { image: SlideImage2, alt: 'SlideImage2' },
+  { image: SlideImage3, alt: 'SlideImage3' },
+  { image: SlideImage4, alt: 'SlideImage4' },
+  { image: SlideImage5, alt: 'SlideImage5' },
+  { image: SlideImage6, alt: 'SlideImage6' },
 ];
 
 const SlideImages = () => {
@@ -30,7 +30,6 @@ const SlideImages = () => {
 
   useEffect(() => {
     const interval = setInterval(NextClickhandler, 5000);
-
     return () => clearInterval(interval);
   }, []);
 

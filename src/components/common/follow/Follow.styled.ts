@@ -43,6 +43,7 @@ export const ProductFollowBtn = styled.button`
     transform: scale(0.9);
     transition: 0.1s;
   }
+
   &:not(:hover) {
     transition: 0.1s;
   }
@@ -58,14 +59,17 @@ export const PostFollowBtn = styled.button`
   border-radius: 1.4rem;
   padding: 1rem 2rem;
   margin-top: 1rem;
+
   &:hover {
     color: #fca311;
   }
+
   ${({ theme }) => theme.mediaQuery.sm`
   margin-top: 1.5rem;
   font-size: 1.4rem;
   padding: 1.3rem 2rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   margin-top: 2rem;
   `};

@@ -1,14 +1,7 @@
-import * as St from '../components/bookintroduction/BookIntroduction.styled';
-import BookBestseller from '../components/bookintroduction/bookbestseller/BookBestseller';
-import AboutBookNav from '../components/bookintroduction/bookintronav/AboutBookNav';
+import BookIntroduction from '../components/bookintroduction/BookIntroduction';
 
 const AboutBooks = () => {
-  return (
-    <St.Wrapper>
-      <AboutBookNav />
-      <BookBestseller />
-    </St.Wrapper>
-  );
+  return <BookIntroduction />;
 };
 
 export default AboutBooks;

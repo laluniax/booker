@@ -5,16 +5,13 @@ import * as St from './Header.styled';
 const SearchArea = () => {
   const [searchBarOpen, setSearchBarOpen] = useState(false);
   const [input, setInput] = useState('');
-
   const navigate = useNavigate();
-
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (input === '') {
       alert('검색어를 입력해주세요.');
       return;
     }
-
     setInput('');
     navigate(`/search?search=${input}`);
   };

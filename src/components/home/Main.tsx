@@ -1,20 +1,22 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getLatestProductListHandler, getPostsLikesListHandler } from '../../api/supabase.api';
+import { getLatestProductListHandler, getPostsLikesListHandler } from '../../api/Supabase.api';
 import bookerTalkImage1 from '../../assets/mainimage/bookertalkimage1.webp';
 import bookerTalkImage2 from '../../assets/mainimage/bookertalkimage2.webp';
 import bookerTalkImage3 from '../../assets/mainimage/bookertalkimage3.webp';
 import bookerTalkImage4 from '../../assets/mainimage/bookertalkimage4.webp';
 import defaultImg from '../../assets/profile/defaultprofileimage.webp';
-import { Bestseller, BooksInfoTypes, PostsListLikesTypes, ProductsTypes } from '../../types/types';
+import { ProductsTypes } from '../../types/types';
 import Loading from '../common/loading/Loading';
 import * as St from './Main.styled';
+import { BestsellerTypes, BooksInfoTypes, PostsListLikesTypes } from './Main.type';
 import SlideImages from './banner/SlideImages';
+
 const Main = () => {
   const navigate = useNavigate();
   const [postsList, setPostsList] = useState<PostsListLikesTypes[]>([]);
-  const [bestSeller, setBestSeller] = useState<Bestseller>();
+  const [bestSeller, setBestSeller] = useState<BestsellerTypes>();
   const [newbook, setNewbook] = useState<BooksInfoTypes>();
   const [bookSpecial, setBookSpecial] = useState<BooksInfoTypes>();
   const [bookerPick, setBookerPick] = useState<BooksInfoTypes>();
@@ -28,6 +30,7 @@ const Main = () => {
     const posts = await getPostsLikesListHandler();
     setPostsList(posts.sort((a, b) => b.post_likes.length - a.post_likes.length).slice(0, 4));
   };
+
   const getBookIntroduction = async () => {
     // 베스트셀러
     try {
@@ -66,15 +69,18 @@ const Main = () => {
       console.log(error);
     }
   };
+
   const getProductList = async () => {
     const products = await getLatestProductListHandler();
     setProductsList(products.sort((a, b) => b.id - a.id));
   };
+
   useEffect(() => {
     getPostsList();
     getBookIntroduction();
     getProductList();
   }, []);
+
   return (
     <>
       <St.Container>
@@ -89,7 +95,6 @@ const Main = () => {
           </St.BannerBookIntroBox>
           <St.BannerRecommendBox>
             <SlideImages />
-            {/* <St.BannerRecommendImage /> */}
             <St.BannerRecommendTitleBox>
               <St.BannerRecommendTitle
                 onClick={() => {
@@ -135,17 +140,10 @@ const Main = () => {
             <St.Detail>꾸준히 사랑받는 작품들</St.Detail>
           </St.Titlebox>
           <St.BookIntroCardBox>
-            {/* <St.CategoryBox>
-              <St.BookIntroCategory>베스트셀러</St.BookIntroCategory>
-              <St.BookIntroCategory>신간도서</St.BookIntroCategory>
-              <St.BookIntroCategory>스페셜</St.BookIntroCategory>
-              <St.BookIntroCategory>북커들의 선택 </St.BookIntroCategory>
-            </St.CategoryBox> */}{' '}
             <St.BookIntroBox>
               <St.CategoryBox>
                 <St.BookIntroCategory>베스트셀러</St.BookIntroCategory>
               </St.CategoryBox>
-
               <St.BookIntroCard
                 onClick={() => {
                   navigate(`/aboutbook/bestseller`);
@@ -229,6 +227,7 @@ const Main = () => {
                   key={i}
                   onClick={() => {
                     navigate(`/product/${item.id}`);
+                    window.scrollTo(0, 0);
                   }}>
                   <St.MarketProductImage>
                     <img src={(item.product_img && item.product_img[0]) || defaultImg} />

@@ -1,28 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { useSendMessage } from '../../api/Chat.api';
+import { supabase } from '../../api/Supabase.api';
 
-import { supabase } from '../../api/supabase.api';
-import {
-  UnreadCounts,
-  firstChatModalOpenState,
-  globalModalSwitch,
-  mainChatModalOpen,
-  person,
-  sendMessages,
-} from '../../atom/product.atom';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import { useAuth } from '../../contexts/auth.context';
+import { MessageTypes } from '../../types/types';
 import * as St from './ChatModal.styled';
 import ChatHeaderMessaegs from './market/ChatHeaderMessaegs';
 import ChatInpuValuSendHandler from './market/ChatInpuValuSendHandler';
 import ChatMessages from './market/ChatMessages';
 import ChatRoomList from './market/ChatRoomList';
 import TotalChatUnreadCounts from './market/TotalChatUnreadCounts';
+import { MessageListTypes, OtherUserDetailTypes, ProductDetailTypes } from './ChatModal.type';
 import AdminChat from './qna/chatadmin/AdminChatRoom';
 import ChatLog from './qna/chatuser/UserChatRoom';
+import { UnreadCounts, firstChatModalOpenState, globalModalSwitch, mainChatModalOpen, person, sendMessages } from '../../atom/product.atom';
 dayjs.extend(relativeTime); // relativeTime 플러그인 활성화
 dayjs.locale('ko'); // 한국어 로케일 설정
 
@@ -42,6 +38,7 @@ const Chat = () => {
   const [isAtBottom, setIsAtBottom] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
+  const [Usermessages, setUserMessages] = useState<MessageListTypes[]>([]);
 
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
@@ -103,7 +100,6 @@ const Chat = () => {
     const chatBody = chatBodyRef.current;
     if (chatBody) {
       chatBody.addEventListener('scroll', handleScroll);
-
       // 컴포넌트 언마운트 시 이벤트 리스너 제거
       return () => {
         chatBody.removeEventListener('scroll', handleScroll);
@@ -115,6 +111,25 @@ const Chat = () => {
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
   };
+
+  useEffect(() => {
+    if (!auth.session) return;
+    getQnaLog(auth.session.user.id);
+  }, []);
+
+  useEffect(() => {}, [messages]);
+  //qna table 가져오는 함수
+  const getQnaLog = async (roomId: string) => {
+    if (!auth.session) return;
+    const response = await supabase.from('qna').select('*').eq('room_id', roomId);
+    const result = response.data;
+    if (result) {
+      setUserMessages(result);
+    } else {
+      setUserMessages([]);
+    }
+  };
+
   //문의하기 메세지보내는 함수
   const sendMessage = async () => {
     if (!auth.session) return;
@@ -126,13 +141,16 @@ const Chat = () => {
       message_type: 'question',
     });
     setAskMessage(''); // 메시지 전송 후 입력 필드 초기화
+    getQnaLog(auth.session.user.id);
   };
+
   const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault(); // 폼 제출 방지
       sendMessage();
     }
   };
+
   if (!auth.session) return null;
 
   const prevHandler = () => {
@@ -182,7 +200,6 @@ const Chat = () => {
               <St.ChatTopBox>
                 <St.MainMessage>안녕하세요 ! 책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝</St.MainMessage>
                 <St.MainMessage>궁금한 점이 있으신가요?</St.MainMessage>
-
                 <St.AskButton style={isAsk ? { display: 'none' } : { display: 'block' }} onClick={() => setIsAsk(true)}>
                   문의하기
                 </St.AskButton>
@@ -190,7 +207,7 @@ const Chat = () => {
               <St.Contour />
               {isAsk ? (
                 <>
-                  <ChatLog />
+                  <ChatLog messages={Usermessages} />
                   <St.ChatInputWrapper>
                     <St.Input
                       placeholder="메세지를 입력해주세요"

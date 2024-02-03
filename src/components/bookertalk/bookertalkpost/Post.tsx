@@ -10,23 +10,9 @@ import {
   submitPostListHandler,
   updatePostHandler,
   uploadImageFile,
-} from '../../../api/supabase.api';
+} from '../../../api/Supabase.api';
 import * as St from './Post.styled';
-
-type Categories = {
-  자유수다: string[];
-  도서추천: string[];
-};
-
-export type CateGenresTypes = {
-  [key: string]: string;
-};
-
-export type HookMap = {
-  // 첫번째 인자로 파일 정보다 담긴 Blob 객체 , 두번째 인자로 콜백함수 받음
-  addImageBlobHook?: (blob: File, callback: HookCallback) => void;
-};
-type HookCallback = (url: string, text?: string) => void;
+import { CateGenresTypes, CategoriesTypes, HookCallbackType } from './Post.type';
 
 export const categoryUuid: CateGenresTypes = {
   '도서추천 / 인문': 'a249535a-b19a-4fb4-bcd9-0788e780a2ac',
@@ -37,7 +23,6 @@ export const categoryUuid: CateGenresTypes = {
   '도서추천 / 과학': '4e0930d6-9cad-40f9-8aa9-591e882ffd31',
   '도서추천 / 소설': '355e40c7-0337-4527-a5da-3fd6aef50246',
   '도서추천 / 시 • 에세이': 'e3a14e02-e941-4f40-b289-9fa9242f3f63',
-
   '자유수다 / 인문': '7c6121b1-5306-4505-9812-9dffffcc7df8',
   '자유수다 / 경제 • 경영': '3f8ad6c4-650d-4b10-893d-b8f0d896ba8a',
   '자유수다 / 자기계발': 'ee4907e4-96e6-4466-84eb-dee2d92e846c',
@@ -57,7 +42,6 @@ const Post = () => {
   const [tagList, setTagList] = useState<string[]>([]);
   const [userId, setUserId] = useState('');
   const [postImg, setPostImg] = useState<string[]>([]);
-
   const params = useParams().id;
 
   // 토스트 에디터
@@ -82,6 +66,7 @@ const Post = () => {
     setPostImg(result[0].post_img);
     toastRef.current?.getInstance().setMarkdown(result[0].content);
   };
+
   const categoryChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
   };
@@ -90,10 +75,12 @@ const Post = () => {
   const genreChangeHander = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setGenres(e.target.value);
   };
+
   // 태그
   const onChangeTagItem = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTagItem(e.target.value);
   };
+
   // 엔터키를 눌렀을 때 태그 제출
   const onKeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -102,6 +89,7 @@ const Post = () => {
       submitTagItem();
     }
   };
+
   const submitTagItem = () => {
     // '#' 기호를 제거한 후 다시 추가
     let formattedTagItem = `#${tagItem.replace(/^#/, '')}`;
@@ -112,6 +100,7 @@ const Post = () => {
     }
     setTagItem('');
   };
+
   // 태그 삭제 버튼
   const DeleteTagItem = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
@@ -123,7 +112,7 @@ const Post = () => {
   };
 
   // 아래는 이미지 url을 가져오기 위한 과정입니다.
-  const onUploadImage = async (blob: Blob | File, callback: HookCallback) => {
+  const onUploadImage = async (blob: Blob | File, callback: HookCallbackType) => {
     const data = await uploadImageFile(blob as File);
     setPostImg((prev) => [...prev, data.postImg]);
     const url = data.publicUrl.publicUrl;
@@ -150,7 +139,6 @@ const Post = () => {
         const result = await submitPostListHandler(newPost);
         navigation(`/detail/${result[0].id}`);
       }
-
       setTitle('');
       setTagList([]);
     } else return;
@@ -160,6 +148,7 @@ const Post = () => {
     getUserSession();
     params && getPost();
   }, [params]);
+
   return (
     <St.Container>
       <St.FormWrapper>
@@ -193,7 +182,6 @@ const Post = () => {
                   </St.tagItem>
                 );
               })}
-
             <St.TagInputBox>
               <St.TagInput
                 value={tagItem}
@@ -217,11 +205,10 @@ const Post = () => {
                 </option>
               ))}
             </St.CategorySelect>
-
-            {category && categories[category as keyof Categories] && (
+            {category && categories[category as keyof CategoriesTypes] && (
               <St.GenreSelect value={genres} onChange={genreChangeHander}>
                 <St.GenreOption value="">장르를 선택해주세요</St.GenreOption>
-                {categories[category as keyof Categories].map((genre: string, index: number) => (
+                {categories[category as keyof CategoriesTypes].map((genre: string, index: number) => (
                   <option key={index} value={genre}>
                     {genre}
                   </option>
@@ -236,7 +223,6 @@ const Post = () => {
               height="600px"
               initialEditType="wysiwyg"
               useCommandShortcut={false}
-              // plugins={[colorSyntax]}
               language="ko-KR"
               ref={toastRef}
               hooks={{

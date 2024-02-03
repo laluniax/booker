@@ -1,22 +1,15 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../../../../api/supabase.api';
+import { supabase } from '../../../../api/Supabase.api';
 import { useAuth } from '../../../../contexts/auth.context';
+import { MessageTypes } from '../../../../types/types';
 import * as St from './AdminchatRoom.styled';
-
-interface Message {
-  created_at: string;
-  content: string;
-  sender_id: string;
-  message_type: string;
-  id: number;
-}
 
 const AdminChat = () => {
   const [qnaRoomIds, setQnaRoomIds] = useState<string[]>([]);
   const [answerMessage, setAnswerMessage] = useState<string>('');
   const [currentQnaRoomId, setCurrentQnaRoomId] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<MessageTypes[]>([]);
   const auth = useAuth();
 
   const getQnaTable = async () => {
@@ -80,12 +73,11 @@ const AdminChat = () => {
     if (currentQnaRoomId) {
       messageTable(); // 선택된 방 ID가 변경될 때마다 메시지를 불러옴
     }
-  }, [currentQnaRoomId]);
+  }, []);
 
   return (
     <St.Container>
       <St.ChatWrapper>
-        {/*isopen이 true면  main massege와 뒤로가기버튼 input보이게끔 */}
         {isOpen ? (
           <>
             <St.PrevBtn onClick={PrevHandler}>
@@ -101,7 +93,6 @@ const AdminChat = () => {
               {messages.map((message) => {
                 return (
                   <>
-                    {/* 메세지타입이 answer이면 오른쪽(관리자채팅) 아니면 왼쪽(유저채팅)  */}
                     {message.message_type === 'answer' ? (
                       <St.AdminMessage>{message.content}</St.AdminMessage>
                     ) : (
@@ -122,7 +113,6 @@ const AdminChat = () => {
           </>
         ) : (
           <>
-            {/* <St.ChatHeader></St.ChatHeader> */}
             <St.ChatBody>
               {qnaRoomIds.map((qnaRoomID) => (
                 <div key={qnaRoomID} onClick={() => handleSenderClick(qnaRoomID)}>

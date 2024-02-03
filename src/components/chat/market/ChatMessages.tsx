@@ -7,7 +7,8 @@ import { ChatId, MessagePayload, MessageType, UnreadCounts, globalModalSwitch, m
 import * as St from '../ChatModal.styled';
 import ChatHeaderMessaegs from './ChatHeaderMessaegs';
 import ChatInpuValuSendHandler from './ChatInpuValuSendHandler';
-import { supabase } from '../../../api/supabase.api';
+import { supabase } from '../../../api/Supabase.api';
+
 
 const ChatMessages = () => {
   const [messages, setMessages] = useRecoilState(sendMessages);
@@ -104,6 +105,8 @@ const ChatMessages = () => {
       </>
     );
   };
+
+  
   return <>
   {RenderMessages()}
   

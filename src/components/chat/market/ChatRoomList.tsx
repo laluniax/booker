@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { supabase } from '../../../api/supabase.api';
+
 import defaultImage from '../../../assets/profile/defaultprofileimage.webp';
 import {
   ChatId,
@@ -18,6 +18,7 @@ import {
   updateMesaages,
 } from '../../../atom/product.atom';
 import * as St from '../ChatModal.styled';
+import { supabase } from '../../../api/Supabase.api';
 
 const ChatRoomList = () => {
   const [chatId, setChatId] = useRecoilState(ChatId);

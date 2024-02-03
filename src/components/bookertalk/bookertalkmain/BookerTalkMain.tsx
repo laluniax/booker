@@ -1,25 +1,22 @@
 import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { filteredCategory, getPostsHandler, getUserSessionHandler } from '../../../api/supabase.api';
-import { PostsTypes } from '../../../types/types';
+import { filteredCategory, getPostsHandler, getUserSessionHandler } from '../../../api/Supabase.api';
 import { formatCreatedAt } from '../../../utils/date';
 import Pagination from '../../common/pagination/Pagination';
-import { CateGenresTypes, categoryUuid } from '../bookertalkpost/Post';
+import { categoryUuid } from '../bookertalkpost/Post';
 import * as St from './BookerTalkMain.styled';
+import { CateGenresTypes, PostsTypes } from './BookerTalkMain.type';
 
 const BookerTalkMain = () => {
   const navigation = useNavigate();
   const params = useParams().id;
-
   const [data, setData] = useState<PostsTypes[]>();
   const [session, setSession] = useState<Session | null>();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const postsPerPage = 10;
-
   // 장르 버튼을 눌렀을 때 색을 변경하기 위한 상태 입니다.
   const [selectedGenre, setSelectedGenre] = useState<null | string>(null);
-
   const getUserSession = async () => {
     const result = await getUserSessionHandler();
     setSession(result.session);
@@ -104,7 +101,6 @@ const BookerTalkMain = () => {
           </St.CategoryTopTitle>
           <St.BookRecommendBox>
             <St.CategoryTitle>도서추천</St.CategoryTitle>
-
             <St.GenreButtonbox>{recommendButtonHandler()}</St.GenreButtonbox>
           </St.BookRecommendBox>
           <St.FreeTalkBox>
@@ -113,7 +109,6 @@ const BookerTalkMain = () => {
           </St.FreeTalkBox>
         </St.CategoryBox>
       </St.CategoryWrapper>
-
       <St.ContentWrapper>
         <St.Title>
           {params ? findKeyByValue(categoryUuid, params as string) : '북커톡'}
@@ -121,11 +116,11 @@ const BookerTalkMain = () => {
         </St.Title>
         <St.MobilePostCateWrapper>
           <St.MobileCategoryWrapper>
-            <select onChange={(e) => navigation(`/bookertalk/${categoryUuid[e.target.value]}`)}>
+            <St.MobileCategorySelect onChange={(e) => navigation(`/bookertalk/${categoryUuid[e.target.value]}`)}>
               {Object.keys(categoryUuid).map((item, i) => {
                 return <option key={i}>{item}</option>;
               })}
-            </select>
+            </St.MobileCategorySelect>
           </St.MobileCategoryWrapper>
           <St.MobilePostButton onClick={onClickPostButton}>글쓰기</St.MobilePostButton>
         </St.MobilePostCateWrapper>

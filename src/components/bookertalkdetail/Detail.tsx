@@ -10,15 +10,15 @@ import {
   deletePostImgStorageHandler,
   filteredPostId,
   getUserSessionHandler,
-} from '../../api/supabase.api';
+} from '../../api/Supabase.api';
 import deleteicon from '../../assets/market/deleteicon.webp';
 import editicon from '../../assets/market/editicon.webp';
-import { PostsTypes } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
 import Comment from '../bookertalk/comment/Comment';
 import Follow from '../common/follow/Follow';
 import PostsLike from '../common/like/PostsLike';
 import * as St from './Detail.styled';
+import { PostsTypes } from './Detail.type';
 
 const Detail = () => {
   const params = useParams().id;
@@ -33,6 +33,7 @@ const Detail = () => {
     const result = await filteredPostId(params as string);
     setPost(result[0]);
   };
+
   // 유저세션데이터 가져오기
   const getUserData = async () => {
     const session = await getUserSessionHandler();
@@ -52,6 +53,7 @@ const Detail = () => {
   const onClickUpdatePostButton = () => {
     if (window.confirm('게시글을 수정하시겠습니까?')) navigation(`/bookertalk/write/${params}`);
   };
+
   const onClickDeletePostButton = async () => {
     if (!window.confirm('삭제하시겠습니까?')) return;
     await deletePostHandler(params as string);
@@ -62,6 +64,7 @@ const Detail = () => {
   useEffect(() => {
     getPosts();
   }, []);
+
   useEffect(() => {
     getUserData();
   }, [post]);

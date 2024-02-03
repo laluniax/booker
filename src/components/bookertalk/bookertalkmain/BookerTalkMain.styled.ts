@@ -5,33 +5,38 @@ export const Container = styled.div`
   min-height: 90rem;
   gap: 6rem;
   margin-top: 8rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
   display: flex;
   max-width: 85rem;
   margin: 0 auto;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-    max-width: 120rem;
+  max-width: 120rem;
   `};
 `;
 
 export const MobileCategoryWrapper = styled.div`
   display: flex;
   justify-content: end;
+
   ${({ theme }) => theme.mediaQuery.sm`
   display:none;
   `};
 `;
 
+export const MobileCategorySelect = styled.select`
+  font-size: 1.6rem;
+`;
+
 export const CategoryWrapper = styled.div`
   display: none;
+
   ${({ theme }) => theme.mediaQuery.sm`
   display: block;
-    max-width: 20rem;
+  max-width: 20rem;
   `};
-  /* ${({ theme }) => theme.mediaQuery.lg`
-    max-width: 25rem;
-  `}; */
 `;
 
 export const CategoryBox = styled.div`
@@ -41,8 +46,6 @@ export const CategoryBox = styled.div`
   justify-content: center;
   width: 20rem;
   height: 72rem;
-  /* background: #ebebeb; */
-  /* color: #fff; */
   border: 1px solid #000;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -53,6 +56,7 @@ export const CategoryBox = styled.div`
 export const BookRecommendBox = styled.div`
   margin-bottom: 1rem;
 `;
+
 export const CategoryTopTitle = styled.h1`
   font-family: 'GmarketSansMedium';
   margin-bottom: 1rem;
@@ -61,6 +65,7 @@ export const CategoryTopTitle = styled.h1`
   color: #003c52;
   cursor: pointer;
 `;
+
 export const CategoryTitle = styled.h1`
   font-family: 'GmarketSansMedium';
   margin-top: 2rem;
@@ -87,6 +92,7 @@ export const GenreButton = styled.button`
   color: black;
   width: 10.5rem;
   height: 2.5rem;
+
   &.active {
     width: 10.5rem;
     height: 2.5rem;
@@ -95,6 +101,7 @@ export const GenreButton = styled.button`
     font-size: 2rem;
     border-bottom: 0.1rem solid black;
   }
+
   &:hover {
     cursor: pointer;
     transition: 0.2s;
@@ -105,6 +112,7 @@ export const GenreButton = styled.button`
     transition: 0.2s;
   }
 `;
+
 export const FreeTalkBox = styled.div`
   margin-top: 1rem;
 `;
@@ -112,13 +120,15 @@ export const FreeTalkBox = styled.div`
 export const PaginationWrapper = styled.div`
   margin-top: 3rem;
 `;
-// 리스트 부분
+
 export const ContentWrapper = styled.div`
   width: 80%;
   margin: 0 auto;
+
   ${({ theme }) => theme.mediaQuery.sm`
   max-width: 70rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   max-width: 90rem;
   `};
@@ -135,25 +145,26 @@ export const Title = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   margin-bottom: 5rem;
   font-size: 3rem;
-  // max-width: 70rem;
-
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 4rem;
-  // max-width: 90rem;
-
   `};
 `;
+
 export const MobilePostCateWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 3rem;
+
   & select {
     border: 0.2rem solid black;
     font-family: 'GmarketSansMedium';
     border-radius: 0.5rem;
   }
+
   ${({ theme }) => theme.mediaQuery.sm`
-display: none;
+  display: none;
   `};
 `;
 
@@ -162,13 +173,13 @@ export const MobilePostButton = styled.button`
   font-family: 'GmarketSansMedium';
   float: right;
   padding: 0.7rem 1.2rem;
-
   border: 0.1rem solid #fca311;
   border-radius: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   background-color: #fca311;
   color: #000;
   font-weight: bold;
+
   &:hover {
     cursor: pointer;
     background-color: #14213d;
@@ -180,25 +191,27 @@ export const MobilePostButton = styled.button`
     cursor: pointer;
     transition: 0.3s;
   }
-  ${({ theme }) => theme.mediaQuery.sm`
-display: none;
 
-  `};
+  ${({ theme }) => theme.mediaQuery.sm`
+  display: none;
+  `}
 `;
+
 export const PostButton = styled.div`
   display: none;
+
   ${({ theme }) => theme.mediaQuery.sm`
   display: block;
   all: unset;
   font-family: 'GmarketSansMedium';
   float: right;
   padding: 0.7rem 1.2rem;
-
   border: 0.1rem solid #fca311;
   border-radius: 1rem;
   font-size: 1.3rem;
   background-color: #fca311;
   color: #000;
+
   &:hover {
     cursor: pointer;
     background-color: #14213D;
@@ -211,8 +224,9 @@ export const PostButton = styled.div`
     transition: 0.3s;
   }
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   padding: 0.9rem 1.2rem;
   `};
 `;
@@ -220,13 +234,16 @@ export const PostButton = styled.div`
 export const PostListWrapper = styled.div`
   max-width: 40rem;
   margin: 0 auto;
+
   ${({ theme }) => theme.mediaQuery.sm`
   max-width: 70rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   max-width: 90rem;
   `};
 `;
+
 export const PostListBox = styled.div`
   display: flex;
   height: 4.8rem;
@@ -246,14 +263,8 @@ export const PostListBox = styled.div`
   &:not(:hover) {
     transition: 0.2s;
   }
-
-  /* ${({ theme }) => theme.mediaQuery.sm`
-  font-size: 1.8rem;
-  `};
-  ${({ theme }) => theme.mediaQuery.lg`
-
-  `}; */
 `;
+
 export const PostTitle = styled.span`
   font-family: 'GmarketSansMedium';
   margin-left: 0.2rem;
@@ -262,46 +273,49 @@ export const PostTitle = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
 export const PostNicknameDate = styled.div`
+  font-family: 'Pretendard-Regular';
   min-width: 30%;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    display: flex;
-    justify-content: end;
-    align-items:center;
+  display: flex;
+  justify-content: end;
+  align-items:center;
   `};
 `;
 
 export const PostNickName = styled.div`
-  font-size: 1.2rem;
+  font-family: 'Pretendard-Regular';
+  font-size: 1.5rem;
   display: flex;
   justify-content: end;
   margin-bottom: 0.5rem;
   white-space: nowrap;
   overflow: hidden;
-  /* text-overflow: ellipsis; */
-  ${({ theme }) => theme.mediaQuery.sm`  
-   margin-right: 1rem;
-   padding-right: 1rem;
-    font-size: 1.6rem;
-    border-right: 0.1rem solid black;
-  margin-bottom: 0rem;
 
+  ${({ theme }) => theme.mediaQuery.sm`  
+  margin-right: 1rem;
+  padding-right: 1rem;
+  font-size: 1.6rem;
+  border-right: 0.1rem solid black;
+  margin-bottom: 0rem;\
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-
+  font-size : 1.7rem;
   `};
 `;
 
-// export const PostContent = styled.span``;
-
 export const PostDate = styled.span`
-  font-size: 1.3rem;
-
+  font-size: 1.4rem;
   float: right;
 
   ${({ theme }) => theme.mediaQuery.sm`  
-    font-size: 1.5rem;
+  font-size: 1.5rem;
+  `};
 
+  ${({ theme }) => theme.mediaQuery.lg`  
+  font-size : 1.7rem;
   `};
 `;

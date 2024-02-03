@@ -4,17 +4,27 @@ import googleIcon from '../../assets/snslogo/googlelogo.webp';
 
 //전체 컨테이너
 export const Container = styled.div`
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 74rem;
+  }
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  `};
+
+  ${({ theme }) => theme.mediaQuery.lg`
   display: flex;
   justify-content: center;
   margin-left: 25rem;
-
-  @media (max-width: 768px) {
-    margin-left: 4rem;
-  }
+  `};
 `;
 
 export const FormAndImageSlideWrapper = styled.div`
-  // background-color: yellow;
   display: grid;
   grid-template-columns: 1fr 1fr; // 두 열로 나눕니다
   width: 150rem;
@@ -25,7 +35,6 @@ export const FormAndImageSlideWrapper = styled.div`
     grid-template-columns: 1fr; // 작은 화면에서는 열을 쌓습니다
     width: 50rem;
     height: 80rem;
-    display: flex;
   }
 `;
 
@@ -34,29 +43,32 @@ export const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: flex-start; // 왼쪽 정렬 */
   padding: 2rem;
-  //   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // 그림자 효과
   width: 40rem; // 너비 설정
   border-radius: 4px; // 모서리 둥글게
   font-size: 1.5rem;
   margin-left: 2rem;
-  @media (max-width: 768px) {
-  }
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  `};
 `;
 
 // 제목 스타일
 export const Title = styled.h2`
+  font-family: 'GmarketSansMedium';
   display: flex;
   justify-content: center;
   font-size: 3rem;
   font-weight: bold;
-  margin-bottom: 1rem; // 제목 아래 여백
+  margin-bottom: 2rem; // 제목 아래 여백
   color: #333; // 색상 설정
 `;
 
 // 레이블과 인풋을 감싸는 컨테이너
 export const InputGroup = styled.div`
+  font-family: 'GmarketSansMedium';
   width: 100%;
   margin-bottom: 1rem;
 `;
@@ -71,6 +83,8 @@ export const Label = styled.label`
 
 // 인풋 스타일
 export const Input = styled.input`
+  font-family: 'GmarketSansMedium';
+  padding: 0.3rem;
   width: 95%;
   padding: 1rem;
   border: 1px solid #ccc;
@@ -83,25 +97,31 @@ export const Input = styled.input`
 
 // 버튼 스타일
 export const Button = styled.button`
+  font-family: 'GmarketSansMedium';
   width: 100%;
+  height: 4rem;
   padding: 0.8rem;
   border: none;
-  background-color: #000; // 버튼 색상
+  background-color: #14213d; // 버튼 색상
   color: white;
   border-radius: 2rem;
   font-size: 1.7rem;
   cursor: pointer;
+
   &:hover {
-    background-color: #0056b3; // 호버 색상
+    background-color: #fca311; // 호버 색상
   }
 `;
 
 export const SignUpLink = styled.div`
+  font-family: 'GmarketSansMedium';
   display: flex;
   justify-content: center;
   margin-top: 1rem;
   cursor: pointer;
+  padding-bottom: 1rem;
   color: #4a90e2;
+
   &:hover {
     text-decoration: underline;
   }
