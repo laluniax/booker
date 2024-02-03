@@ -100,8 +100,8 @@ export type UnreadCount = {
 };
 
 
-export const isChatModalOpenState = atom({
-  key: 'isChatModalOpenState',
+export const firstChatModalOpenState = atom({
+  key: 'firstChatModalOpenState',
   default: false,
 });
 

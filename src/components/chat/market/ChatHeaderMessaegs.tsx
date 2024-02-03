@@ -25,7 +25,7 @@ const ChatHeaderMessaegs = () => {
   const navigate = useNavigate();
 
 useEffect(()=>{
-    console.log('123')
+    // console.log('123')
     RenderChatHeader();
 },[updateMesaage,newMessagesCount])
 
@@ -45,7 +45,7 @@ useEffect(()=>{
 
           <St.CloseButton onClick={() => setIsChatModalOpen(false)}>←</St.CloseButton>
           <St.UserImage src={otherUserDetails?.user_img} alt="user" />
-          <>{console.log('d이미지체인지',otherUserDetails?.user_img)}</>
+
           <St.ChatRoomUserNickname>{otherUserDetails?.nickname}</St.ChatRoomUserNickname>
         </St.UserInfoSection>
         <St.ProductInfoSection>
@@ -60,7 +60,7 @@ useEffect(()=>{
       </St.ChatModalHeader>
     );
   };
-  return <St.ChatModalHeader>{RenderChatHeader()}</St.ChatModalHeader>;
+  return <div>{RenderChatHeader()}</div>;
 };
 
 export default ChatHeaderMessaegs;

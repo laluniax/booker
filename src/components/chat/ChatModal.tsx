@@ -1,14 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { supabase } from '../../api/supabase.api';
-import { globalModalSwitch, isChatModalOpenState } from '../../atom/product.atom';
+import {
+  UnreadCounts,
+  firstChatModalOpenState,
+  globalModalSwitch,
+  mainChatModalOpen,
+  person,
+  sendMessages,
+} from '../../atom/product.atom';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import { useAuth } from '../../contexts/auth.context';
 import * as St from './ChatModal.styled';
+import ChatHeaderMessaegs from './market/ChatHeaderMessaegs';
+import ChatInpuValuSendHandler from './market/ChatInpuValuSendHandler';
 import ChatMessages from './market/ChatMessages';
 import ChatRoomList from './market/ChatRoomList';
 import TotalChatUnreadCounts from './market/TotalChatUnreadCounts';
@@ -24,8 +33,83 @@ const Chat = () => {
   const [isAsk, setIsAsk] = useState<boolean>(false);
   //메세지 저장 state
   const [askMessage, setAskMessage] = useState<string>('');
-  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
-  const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(isChatModalOpenState);
+  const [isChatModalOpen, setIsChatModalOpen] = useRecoilState(mainChatModalOpen);
+  const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(firstChatModalOpenState);
+  const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
+  const [ischatRoomModalOpen, setIschatRoomModalOpen] = useRecoilState(mainChatModalOpen);
+  const [messages, setMessages] = useRecoilState(sendMessages);
+  const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);
+  const [isAtBottom, setIsAtBottom] = useState(true);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatBodyRef = useRef<HTMLDivElement>(null);
+
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    const current = chatBodyRef.current;
+    if (current) {
+      const isAtBottom = current.scrollHeight - current.scrollTop === current.clientHeight;
+      setIsAtBottom(isAtBottom);
+    }
+  };
+
+  // 최하단으로 스크롤하는 함수
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
+    }
+  };
+  //로그인 유저 가져오기
+  useEffect(() => {
+    async function fetchLoggedInUser() {
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (user?.id) {
+          setLoginPersonal(user.id);
+        } else {
+          setLoginPersonal('');
+        }
+      } catch (error) {
+        console.error('Error fetching logged in user:', error);
+      }
+    }
+
+    fetchLoggedInUser();
+  }, [unreadCounts]);
+
+  // 채팅 모달이 열리거나 메시지 목록이 변경될 때 스크롤
+  useEffect(() => {
+    if (ischatRoomModalOpen && isAtBottom) {
+      // 비동기적으로 스크롤 함수 실행하여 모든 DOM 업데이트 후 스크롤되도록 함
+      setTimeout(scrollToBottom, 0);
+    }
+  }, [messages, ischatRoomModalOpen, isAtBottom]);
+
+  // 채팅 컨테이너에 스크롤 이벤트 리스너 추가
+  useEffect(() => {
+    const chatBody = chatBodyRef.current;
+    if (chatBody) {
+      chatBody.addEventListener('scroll', handleScroll);
+      return () => {
+        chatBody.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
+
+  // 채팅 몸체에 스크롤 이벤트 리스너를 추가
+  useEffect(() => {
+    const chatBody = chatBodyRef.current;
+    if (chatBody) {
+      chatBody.addEventListener('scroll', handleScroll);
+
+      // 컴포넌트 언마운트 시 이벤트 리스너 제거
+      return () => {
+        chatBody.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
 
   const auth = useAuth();
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +150,22 @@ const Chat = () => {
         isOpen && <AdminChat />
       ) : (
         <St.Container>
-          <ChatMessages />
+          {isChatModalOpen && (
+            <St.ChatModalWrapper>
+              <St.ChatModalHeader>
+
+                <ChatHeaderMessaegs />
+              </St.ChatModalHeader>
+              <St.ChatModalBody ref={chatBodyRef}>
+                <ChatMessages />
+                <div ref={messagesEndRef} />
+              </St.ChatModalBody>
+              <St.ChatModalFooter>
+                <ChatInpuValuSendHandler />
+              </St.ChatModalFooter>
+            </St.ChatModalWrapper>
+          )}
+
           {/* 채팅 UI가 모달 UI 위에 올라가지 않도록 조건부 렌더링을 적용합니다. */}
           {isSwitch && !isChatModalOpen && (
             <St.ChatWrapper>
@@ -112,7 +211,6 @@ const Chat = () => {
         </St.Container>
       )}
       <St.TalkButtonWrapper>
-
         <St.BookerChattingIcon
           onClick={() => {
             setIsOpen(!isOpen);

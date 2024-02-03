@@ -6,7 +6,9 @@ import {
   MessagePayload,
   UnreadCounts,
   chatRoomsState,
-  isChatModalOpenState,
+  
+  firstChatModalOpenState,
+  
   newMessagesCountState,
   person,
   updateMesaages,
@@ -15,7 +17,7 @@ import * as St from '../ChatModal.styled';
 
 const TotalChatUnreadCounts = () => {
   const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
-  const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(isChatModalOpenState);
+  const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(firstChatModalOpenState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);
   const [chatId, setChatId] = useRecoilState(ChatId);

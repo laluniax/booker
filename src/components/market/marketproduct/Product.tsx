@@ -25,7 +25,7 @@ import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
 import { categoryArr } from '../marketpost/Post';
 import * as St from './Product.styled';
-
+// import { MessageType } from '../../chat/market/ChatMarket';
 
 const Product = () => {
   const params = useParams().id;

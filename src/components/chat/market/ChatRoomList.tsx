@@ -203,7 +203,7 @@ const ChatRoomList = () => {
       });
   };
 
-  useEffect(() => {}, []);
+
 
   const DmClickhandler = async (item_id: number, chat_id: string, author_id: string) => {
     const {

@@ -51,7 +51,7 @@ const ChatInpuValuSendHandler = () => {
   };
 
   return (
-    <St.ChatModalFooter>
+    <>
       <St.InputField
         value={inputValue}
         onChange={InputChanger}
@@ -59,7 +59,7 @@ const ChatInpuValuSendHandler = () => {
         placeholder="메세지를 입력해주세요"
       />
       <St.SendButton onClick={SendDmMessage}>전송</St.SendButton>
-    </St.ChatModalFooter>
+    </>
   );
 };
 
