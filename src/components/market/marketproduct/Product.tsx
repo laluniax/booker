@@ -22,9 +22,10 @@ import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
 import { categoryArr } from '../marketpost/Post';
 import * as St from './Product.styled';
-import { ChatId, MessageType, otherPerson, person, productState, sendMessages } from '../../../atom/product.atom';
+
 import ChatInpuValuSendHandler from '../../chat/market/ChatInpuValuSendHandler';
 import ChatMessages from '../../chat/market/ChatMessages';
+import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/product.atom';
 // import { MessageType } from '../../chat/market/ChatMarket';
 dayjs.locale('ko'); // 한국어 로케일을 기본값으로 설정
 
