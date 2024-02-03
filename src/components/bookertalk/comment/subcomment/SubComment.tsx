@@ -1,13 +1,21 @@
 import { useEffect, useState } from 'react';
+// import {
+//   deleteSubCommentHandler,
+//   getSubCommentsInfoHandler,
+//   insertSubCommentHandler,
+//   updateSubCommentHandler,
+// } from '../../../api/supabase.api';
+// import { SubCommentTypes } from '../../../types/types';
+// import { formatCreatedAt } from '../../../utils/date';
 import {
   deleteSubCommentHandler,
   getSubCommentsInfoHandler,
   insertSubCommentHandler,
   updateSubCommentHandler,
-} from '../../../api/supabase.api';
-import { SubCommentTypes } from '../../../types/types';
-import { formatCreatedAt } from '../../../utils/date';
-import * as St from './Comment.styled';
+} from '../../../../api/supabase.api';
+import { SubCommentTypes } from '../../../../types/types';
+import { formatCreatedAt } from '../../../../utils/date';
+import * as St from './Subcomment.styled';
 
 type Props = {
   commentId: number | undefined;
@@ -64,6 +72,7 @@ const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
   useEffect(() => {
     getSubCommentsInfo();
   }, []);
+
   return (
     <St.SubCommentWrapper>
       {toggleOpen ? (
@@ -134,7 +143,7 @@ const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
                       </St.SubCommentUserAndBtn>
                       <St.SubCommentContent>
                         {item.id === subCommentId ? (
-                          <St.subCommentEditInput
+                          <St.SubCommentEditInput
                             value={inputSubComment}
                             onChange={(e) => {
                               setInputSubComment(e.target.value);
