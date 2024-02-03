@@ -12,13 +12,18 @@ import {
   newMessagesCountState,
   person,
   updateMesaages,
-} from '../../../atom/product.atom';
+} from '../../../atom/Product.atom';
 import * as St from '../ChatModal.styled';
 import { supabase } from '../../../api/Supabase.api';
 
-const TotalChatUnreadCounts = () => {
+type TotalChatUnreadCountsProps = {
+  ChatBtnOpen: boolean;
+};
+
+
+const TotalChatUnreadCounts =({ ChatBtnOpen }: TotalChatUnreadCountsProps) => {
   const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
-  const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(firstChatModalOpenState);
+  // const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(firstChatModalOpenState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);
   const [chatId, setChatId] = useRecoilState(ChatId);
@@ -33,6 +38,7 @@ const TotalChatUnreadCounts = () => {
       return total + (unreadInfo ? unreadInfo.unread_count : 0);
     }, 0);
   //메시지 카운팅
+
 
   //읽지않음 카운팅
   async function updateUnreadCount() {
@@ -120,7 +126,6 @@ const TotalChatUnreadCounts = () => {
       {!ChatBtnOpen && totalUnreadCount > 0 && (
         <St.NotificationBadge>
           {totalUnreadCount}
-          {/* {newMessagesCount} */}
         </St.NotificationBadge>
       )}
     </>

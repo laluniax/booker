@@ -9,10 +9,10 @@ import {
   productDetail,
   productState,
   updateMesaages,
-} from '../../../atom/product.atom';
+} from '../../../atom/Product.atom';
 import * as St from '../ChatModal.styled';
 
-const ChatHeaderMessaegs = () => {
+const ChatHeaderMessaegs = () => { //props 못 내림.
   const [productDetails, setProductDetails] = useRecoilState(productDetail);
   const [isChatModalOpen, setIsChatModalOpen] = useRecoilState(mainChatModalOpen);
   const [otherUserDetails, setOtherUserDetails] = useRecoilState(otherUserDetail);
@@ -24,10 +24,9 @@ const ChatHeaderMessaegs = () => {
   // useNavigate 훅으로부터 navigate 함수를 얻음
   const navigate = useNavigate();
 
-useEffect(()=>{
-    // console.log('123')
+  useEffect(() => {
     RenderChatHeader();
-},[updateMesaage,newMessagesCount])
+  }, [updateMesaage, newMessagesCount]);
 
   // // 채팅 헤더를 렌더링하는 함수입니다
   const RenderChatHeader = () => {
@@ -35,22 +34,20 @@ useEffect(()=>{
     const navigateToProductPage = () => {
       const productId = productDetails?.id; // productDetails로부터 제품의 ID를 얻음
       if (productId) {
-        navigate(`/product/${productId}`,); // 제품 ID를 사용하여 경로를 생성하고, 해당 경로로 이동
+        navigate(`/product/${productId}`); // 제품 ID를 사용하여 경로를 생성하고, 해당 경로로 이동
       }
     };
 
     return (
       <St.ChatModalHeader>
         <St.UserInfoSection>
-
           <St.CloseButton onClick={() => setIsChatModalOpen(false)}>←</St.CloseButton>
           <St.UserImage src={otherUserDetails?.user_img} alt="user" />
 
           <St.ChatRoomUserNickname>{otherUserDetails?.nickname}</St.ChatRoomUserNickname>
         </St.UserInfoSection>
         <St.ProductInfoSection>
-           
-          <St.ProductImage onClick={()=>navigateToProductPage()} src={productDetails?.image} alt="product" />
+          <St.ProductImage onClick={() => navigateToProductPage()} src={productDetails?.image} alt="product" />
 
           <div>
             <St.ProductTitle>제목:{productDetails?.title}</St.ProductTitle>

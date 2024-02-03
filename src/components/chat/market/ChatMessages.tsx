@@ -3,7 +3,7 @@ import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import * as St from '../ChatModal.styled';
-import { ChatId, MessagePayload, MessageType, mainChatModalOpen, person, sendMessages, updateMesaages } from '../../../atom/product.atom';
+import { ChatId, MessagePayload, MessageType, mainChatModalOpen, person, sendMessages, updateMesaages } from '../../../atom/Product.atom';
 import { supabase } from '../../../api/Supabase.api';
 
 
@@ -13,10 +13,8 @@ const ChatMessages = () => {
   const [chatId, setChatId] = useRecoilState(ChatId);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [updateMesaage, setUpdateMesaage] = useRecoilState(updateMesaages);
-  const [ischatRoomModalOpen, setIschatRoomModalOpen] = useRecoilState(mainChatModalOpen);
-  const [isAtBottom, setIsAtBottom] = useState(true);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const chatBodyRef = useRef<HTMLDivElement>(null);
+  // const [ischatRoomModalOpen, setIschatRoomModalOpen] = useRecoilState(mainChatModalOpen);
+
 
     //챗방 메시지 가져오기
     const fetchMessages = async () => {
@@ -108,60 +106,12 @@ const ChatMessages = () => {
     );
   };
 
-  // 스크롤 이벤트 핸들러
-  const handleScroll = () => {
-    const current = chatBodyRef.current;
-    if (current) {
-      const isAtBottom = current.scrollHeight - current.scrollTop === current.clientHeight;
-      setIsAtBottom(isAtBottom);
-    }
-  };
-
-  // 최하단으로 스크롤하는 함수
-  const scrollToBottom = () => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
-    }
-  };
-
-  
-  // 채팅 모달이 열리거나 메시지 목록이 변경될 때 스크롤
-  useEffect(() => {
-    if (ischatRoomModalOpen && isAtBottom) {
-      // 비동기적으로 스크롤 함수 실행하여 모든 DOM 업데이트 후 스크롤되도록 함
-      setTimeout(scrollToBottom, 0);
-    }
-  }, [messages, ischatRoomModalOpen, isAtBottom]);
-
-  // 채팅 컨테이너에 스크롤 이벤트 리스너 추가
-  useEffect(() => {
-    const chatBody = chatBodyRef.current;
-    if (chatBody) {
-      chatBody.addEventListener('scroll', handleScroll);
-      return () => {
-        chatBody.removeEventListener('scroll', handleScroll);
-      };
-    }
-  }, []);
-
-  // 채팅 몸체에 스크롤 이벤트 리스너를 추가
-  useEffect(() => {
-    const chatBody = chatBodyRef.current;
-    if (chatBody) {
-      chatBody.addEventListener('scroll', handleScroll);
-      // 컴포넌트 언마운트 시 이벤트 리스너 제거
-      return () => {
-        chatBody.removeEventListener('scroll', handleScroll);
-      };
-    }
-  }, []);
 
   
   return <>
-          <St.ChatModalBody ref={chatBodyRef}>
+    
   {RenderMessages()}
-  <div ref={messagesEndRef} />
-              </St.ChatModalBody>
+
   </>    
    
 

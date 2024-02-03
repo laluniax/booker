@@ -25,7 +25,7 @@ import * as St from './Product.styled';
 
 import ChatInpuValuSendHandler from '../../chat/market/ChatInpuValuSendHandler';
 import ChatMessages from '../../chat/market/ChatMessages';
-import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/product.atom';
+import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/Product.atom';
 // import { MessageType } from '../../chat/market/ChatMarket';
 dayjs.locale('ko'); // 한국어 로케일을 기본값으로 설정
 
@@ -262,7 +262,7 @@ const Product = () => {
                     <St.ChatModalHeader>
                       <St.CloseButton onClick={() => setIsChatModalOpen(false)}>←</St.CloseButton>
                       <St.HeaderChattingModalTitle>채팅</St.HeaderChattingModalTitle>
-                      <div></div>
+                 
                     </St.ChatModalHeader>
                   </St.ChatModalHeader>
                   <St.ChatModalBody ref={chatBodyRef}>

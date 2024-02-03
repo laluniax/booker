@@ -26,10 +26,10 @@ export const ChatId = atom({
   default: '', // 기본값
 });
 
-export const chatTypingValue = atom({
-  key: 'chatTypingValue', // 고유한 키
-  default: '', // 기본값
-});
+// export const chatTypingValue = atom({
+//   key: 'chatTypingValue', // 고유한 키
+//   default: '', // 기본값
+// });
 
 export const mainChatModalOpen = atom({
   key: 'mainChatModalOpen', // 고유한 키

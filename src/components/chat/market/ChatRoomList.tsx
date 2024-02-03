@@ -16,7 +16,7 @@ import {
   productDetail,
   productState,
   updateMesaages,
-} from '../../../atom/product.atom';
+} from '../../../atom/Product.atom';
 import * as St from '../ChatModal.styled';
 import { supabase } from '../../../api/Supabase.api';
 
@@ -28,7 +28,7 @@ const ChatRoomList = () => {
   const [otherUserDetails, setOtherUserDetails] = useRecoilState(otherUserDetail);
   const [productDetails, setProductDetails] = useRecoilState(productDetail);
   const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
-  const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);
+  const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);//프롭스가 위로는 못가는데?
   const [updateMesaage, setUpdateMesaage] = useRecoilState(updateMesaages);
 
   //챗룸 리스트

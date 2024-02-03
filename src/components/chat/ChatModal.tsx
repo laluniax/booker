@@ -18,7 +18,7 @@ import TotalChatUnreadCounts from './market/TotalChatUnreadCounts';
 import { MessageListTypes, OtherUserDetailTypes, ProductDetailTypes } from './ChatModal.type';
 import AdminChat from './qna/chatadmin/AdminChatRoom';
 import ChatLog from './qna/chatuser/UserChatRoom';
-import { UnreadCounts, firstChatModalOpenState, globalModalSwitch, mainChatModalOpen, person, sendMessages } from '../../atom/product.atom';
+import { UnreadCounts, firstChatModalOpenState, globalModalSwitch, mainChatModalOpen, person, sendMessages } from '../../atom/Product.atom';
 import { supabase } from '../../api/Supabase.api';
 
 dayjs.extend(relativeTime); // relativeTime 플러그인 활성화
@@ -31,14 +31,65 @@ const Chat = () => {
   const [isAsk, setIsAsk] = useState<boolean>(false);
   //메세지 저장 state
   const [askMessage, setAskMessage] = useState<string>('');
-  const [isChatModalOpen, setIsChatModalOpen] = useRecoilState(mainChatModalOpen);
-  const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(firstChatModalOpenState);
+  const [ischatRoomModalOpen, setIschatRoomModalOpen] = useRecoilState(mainChatModalOpen);
+  const [ChatBtnOpen, setChatBtnOpen] = useState(false);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
 
   const [messages, setMessages] = useRecoilState(sendMessages);
   const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);
-
+  const [isAtBottom, setIsAtBottom] = useState(true);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatBodyRef = useRef<HTMLDivElement>(null);
   const [Usermessages, setUserMessages] = useState<MessageListTypes[]>([]);
+
+
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    const current = chatBodyRef.current;
+    if (current) {
+      const isAtBottom = current.scrollHeight - current.scrollTop === current.clientHeight;
+      setIsAtBottom(isAtBottom);
+    }
+  };
+
+  // 최하단으로 스크롤하는 함수
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
+    }
+  };
+
+  
+  // 채팅 모달이 열리거나 메시지 목록이 변경될 때 스크롤
+  useEffect(() => {
+    if (ischatRoomModalOpen && isAtBottom) {
+      // 비동기적으로 스크롤 함수 실행하여 모든 DOM 업데이트 후 스크롤되도록 함
+      setTimeout(scrollToBottom, 0);
+    }
+  }, [messages, ischatRoomModalOpen, isAtBottom]);
+
+  // 채팅 컨테이너에 스크롤 이벤트 리스너 추가
+  useEffect(() => {
+    const chatBody = chatBodyRef.current;
+    if (chatBody) {
+      chatBody.addEventListener('scroll', handleScroll);
+      return () => {
+        chatBody.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
+
+  // 채팅 몸체에 스크롤 이벤트 리스너를 추가
+  useEffect(() => {
+    const chatBody = chatBodyRef.current;
+    if (chatBody) {
+      chatBody.addEventListener('scroll', handleScroll);
+      // 컴포넌트 언마운트 시 이벤트 리스너 제거
+      return () => {
+        chatBody.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
 
   //로그인 유저 가져오기
   useEffect(() => {
@@ -114,6 +165,7 @@ const Chat = () => {
   //토글 열닫
   const toggleChatModal = () => {
     setChatBtnOpen((prevState) => !prevState);
+    
   };
 
   return (
@@ -122,15 +174,15 @@ const Chat = () => {
         isOpen && <AdminChat />
       ) : (
         <St.Container>
-          {isChatModalOpen && (
+          {ischatRoomModalOpen && (
             <St.ChatModalWrapper>
-              <St.ChatModalHeader>
-
+                 <St.ChatModalHeader>
                 <ChatHeaderMessaegs />
               </St.ChatModalHeader>
-      
+              <St.ChatModalBody ref={chatBodyRef}>
                 <ChatMessages />
-         
+                <div ref={messagesEndRef} />
+              </St.ChatModalBody>
               <St.ChatModalFooter>
                 <ChatInpuValuSendHandler />
               </St.ChatModalFooter>
@@ -138,7 +190,7 @@ const Chat = () => {
           )}
 
           {/* 채팅 UI가 모달 UI 위에 올라가지 않도록 조건부 렌더링을 적용합니다. */}
-          {isSwitch && !isChatModalOpen && (
+          {isSwitch && !ischatRoomModalOpen && (
             <St.ChatWrapper>
               {isAsk ? (
                 <St.LogoWrapper>
@@ -181,6 +233,7 @@ const Chat = () => {
         </St.Container>
       )}
       <St.TalkButtonWrapper>
+      <TotalChatUnreadCounts  ChatBtnOpen={ChatBtnOpen}/>
         <St.BookerChattingIcon
           onClick={() => {
             setIsOpen(!isOpen);
@@ -188,7 +241,7 @@ const Chat = () => {
             toggleChatModal();
           }}
         />
-        <TotalChatUnreadCounts />
+
       </St.TalkButtonWrapper>
     </>
   );

@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { ChatId, chatTypingValue, person, productState } from '../../../atom/product.atom';
+import { ChatId, person, productState } from '../../../atom/Product.atom';
 import * as St from '../ChatModal.styled';
 import { useSendMessage } from '../../../api/Chat.api';
 
 
 const ChatInpuValuSendHandler = () => {
-  const [inputValue, setInputValue] = useRecoilState(chatTypingValue);
+  const [inputValue, setInputValue] = useState('');
   const { mutate: sendDirectMessage } = useSendMessage();
   const [chatId, setChatId] = useRecoilState(ChatId);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
