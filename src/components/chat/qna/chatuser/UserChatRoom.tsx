@@ -1,14 +1,13 @@
 import { useEffect, useRef } from 'react';
-import { MessageProps } from '../../../../types/types';
 import * as St from './UserChatRoom.styled';
+import { MessageProp } from './UserChatRoom.type';
 
-const ChatLog = ({ messages }: MessageProps) => {
+const ChatLog = ({ messages }: MessageProp) => {
   const messageEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-
 
   return (
     <St.Container>

@@ -11,7 +11,7 @@ import {
   updateUserAuthUserImgHandler,
   updateUserIntroTextHandler,
   uploadUserImgHandler,
-} from '../../api/supabase.api';
+} from '../../api/Supabase.api';
 import profileImage from '../../assets/profile/defaultprofileimage.webp';
 import { Tables } from '../../types/types';
 import * as St from './Tab.styled';
@@ -25,10 +25,8 @@ const EditProfile = () => {
   const [nicknameValidation, setNicknameValidation] = useState(true);
   const [validationText, setValidationText] = useState(false);
   const [introText, setIntroText] = useState('');
-
   const params = useParams().id;
   const imgRef = useRef<HTMLInputElement>(null);
-
   const getUserData = async () => {
     const result = await getUserDataHandler(params as string);
     const session = await getUserSessionHandler();
@@ -72,10 +70,10 @@ const EditProfile = () => {
       return;
     }
   };
+
   // 닉네임 유효성(중복검사) 함수
   const onClickNicknameValidation = async () => {
     const result = await nicknameValidationHandler(nickname);
-    console.log(result);
     // 닉네임 중복 검사
     if (result.error) {
       console.error('닉네임 중복 검사 중 오류 발생:', result.error);
@@ -89,6 +87,7 @@ const EditProfile = () => {
     }
     setValidationText(true);
   };
+
   // 프로필 업데이트 함수
   const updateUserData = async () => {
     await updateUserAuthNicknameHandler(nickname);
@@ -97,6 +96,7 @@ const EditProfile = () => {
     getUserData();
     setValidationText(false);
   };
+
   // 프로펠 업데이트 유효성 검사
   const onClickUpdateUserData = () => {
     if (!validationText) {
@@ -143,7 +143,6 @@ const EditProfile = () => {
                   onChange={updateUserTempImg}
                 />
               </St.ProfileLabelBox>
-
               <St.ProfileImgUpdate onClick={onClickImgUpdate}>완료</St.ProfileImgUpdate>
             </St.ProfileImgUploadFile>
           </St.ProfileImgBox>

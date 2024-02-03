@@ -58,12 +58,10 @@ const GlobalStyle = createGlobalStyle`
     };
 
     body {
-                /* font-family: "GmarketSansMedium"; */
                 font-family: 'ChosunGu';
     }
     a {
                 font-family: "GmarketSansMedium";
-
     }
     html {
         font-size: 62.5%;
@@ -94,14 +92,6 @@ const GlobalStyle = createGlobalStyle`
     font-weight: normal;
     font-style: normal;
 }
-
-//로고 폰트 후보 
-@font-face {
-    font-family: 'Cafe24ClassicType-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Cafe24ClassicType-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
 `;
+
 export default GlobalStyle;

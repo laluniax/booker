@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserSessionHandler, signoutHandler } from '../../../api/supabase.api';
+import { getUserSessionHandler, signoutHandler } from '../../../api/Supabase.api';
 import logo from '../../../assets/common/logo.webp';
 import { useAuth } from '../../../contexts/auth.context';
 import * as St from './Header.styled';
@@ -30,18 +30,13 @@ const Header = () => {
   return (
     <St.Container>
       <St.Wrapper>
-        {/* <St.SearchWrapper>
-          <SearchArea />
-        </St.SearchWrapper> */}
         <St.ImageWrapper
           onClick={() => {
             navigate('/');
           }}>
           <img src={logo} />
-          {/* <St.HeaderLogo /> */}
         </St.ImageWrapper>
         <St.HeaderUl>
-          {/* <St.HeaderLiBox> */}
           <St.HeaderLi>
             <a href="/bookertalk">북커톡</a>
           </St.HeaderLi>
@@ -57,7 +52,6 @@ const Header = () => {
           <St.HeaderLi>
             <a href="/indBookStores">독립서점</a>
           </St.HeaderLi>
-          {/* </St.HeaderLiBox> */}
         </St.HeaderUl>
         <St.HeaderSearchMypage>
           <SearchArea />

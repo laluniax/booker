@@ -8,7 +8,6 @@ const AboutIndBookStore = () => {
       <br />
       <St.TitleAndContentWrapper>
         <St.Title>독립서점이 무엇일까요?</St.Title>
-
         <St.Content>
           - <St.EmphasisContent>독립서점</St.EmphasisContent>은 대규모 자본이나 큰 유통망에 의존하지 않고 ,
           <St.EmphasisContent> 서점 주인의 개인적인 취향에 따라 꾸며진 작은 서점</St.EmphasisContent>을 의미해요!
@@ -30,7 +29,6 @@ const AboutIndBookStore = () => {
           </St.Content>
         </St.Content>
       </St.TitleAndContentWrapper>
-
       <St.ImageWrapper>
         <St.ImageBox>
           <St.TrendImage1 />
@@ -38,11 +36,9 @@ const AboutIndBookStore = () => {
         </St.ImageBox>
         <St.TrendImage3 />
       </St.ImageWrapper>
-
       <St.CoutourBox>
         <St.Contour />
       </St.CoutourBox>
-
       <St.TitleAndContentWrapper>
         <St.Title>독립서점의 매력이 뭘까요?</St.Title>
         <St.Content>
@@ -56,12 +52,10 @@ const AboutIndBookStore = () => {
           <St.IndeBookStoreImages1 />
           <St.IndeBookStoreImages2 />
         </St.IndeBookStoreImageBox>
-
         <br />
         <St.CoutourBox>
           <St.Contour />
         </St.CoutourBox>
-
         <St.AboutIndeTitle>독립서점의 장점은 무엇일까요?</St.AboutIndeTitle>
         <St.SubTitle>1. 커뮤니티와의 상호작용</St.SubTitle>
         <St.Content>

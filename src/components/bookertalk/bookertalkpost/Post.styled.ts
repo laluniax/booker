@@ -4,6 +4,7 @@ export const Container = styled.div`
   min-height: 100rem;
   margin-bottom: 10rem;
 `;
+
 export const FormWrapper = styled.div`
   margin-top: 10rem;
 `;
@@ -30,6 +31,7 @@ export const TitleInput = styled.input`
   padding-bottom: 1rem;
   width: 70%;
   text-align: left;
+
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 3rem;
   `};
@@ -46,9 +48,9 @@ export const TagWrapper = styled.div`
   margin-top: 1rem;
   white-space: pre-line;
   flex-wrap: wrap;
+
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 1.8rem;
-
   `};
 `;
 
@@ -131,6 +133,7 @@ export const TagInput = styled.input`
   min-width: 8rem;
   cursor: text;
   margin-left: 2rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 2rem;
   `};
@@ -149,17 +152,16 @@ export const CategoryAndGenreBox = styled.div`
 
 export const CategorySelect = styled.select`
   font-family: 'GmarketSansMedium';
-
   font-size: 1.2rem;
   width: 15rem;
   height: 4rem;
   border-radius: 1rem;
   text-align: center;
   font-size: 1rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 1.5rem;
   width: 23rem;
-
   `};
 `;
 
@@ -174,34 +176,28 @@ export const GenreSelect = styled.select`
   height: 4rem;
   text-align: center;
   border-radius: 1rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 1.5rem;
   width: 23rem;
-
   `};
 `;
 
 export const GenreOption = styled.option``;
 
-// 내용 작성
-// export const ContentWrapper = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   margin-top: 2rem;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// `;
 export const EditorBox = styled.div`
   max-width: 40rem;
   margin: 0 auto;
+
   ${({ theme }) => theme.mediaQuery.sm`
-max-width: 70rem;
+  max-width: 70rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-max-width: 90rem;
+  max-width: 90rem;
   `};
 `;
+
 export const ContentInput = styled.textarea`
   all: unset;
   width: 71rem;
@@ -214,9 +210,9 @@ export const SubmitButtonBox = styled.div`
   font-family: 'GmarketSansMedium';
   display: flex;
   justify-content: center;
-  /* height: 6rem; */
   margin-top: 5rem;
   align-items: center;
+
   ${({ theme }) => theme.mediaQuery.lg`
   justify-content: right;
   margin-top: 3rem;
@@ -232,7 +228,6 @@ export const SubmitButton = styled.button`
   width: 10rem;
   height: 2rem;
   text-align: center;
-
   border-radius: 1rem;
   color: #fca311;
 
@@ -240,14 +235,16 @@ export const SubmitButton = styled.button`
     cursor: pointer;
     background-color: #1f3563;
   }
+
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 2rem;
     width: 15rem;
     height: 2.5rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 2rem;
-    width: 15rem;
-    height: 2.5rem;  margin-right: 1rem;
+  width: 15rem;
+  height: 2.5rem;  margin-right: 1rem;
   `};
 `;

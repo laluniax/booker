@@ -1,24 +1,3 @@
-export type Bestseller = {
-  bestRank: number;
-  title: string;
-  author: string;
-  cover: string;
-  pubDate: string;
-  description: string;
-  categoryName: string;
-  priceStandard: number;
-  publisher: string;
-  isbn: string;
-};
-export type BooksInfoTypes = {
-  author: string;
-  categoryName: string;
-  cover: string;
-  publisher: string;
-  title: string;
-  bestRank: number;
-  isbn13: string;
-};
 // getCommentsInfoHandler 함수의 types
 type CommentTypes = {
   comments: Comments[];
@@ -57,30 +36,7 @@ type SubComments = {
   user_id: string | null;
   users: Tables<'users'>;
 };
-type ProductsTypes = {
-  category: string | null;
-  content: string | null;
-  created_at: string;
-  id: number;
-  onsale: boolean | null;
-  price: string | null;
-  product_grade: string | null;
-  product_img: string[] | null;
-  title: string | null;
-  user_id: string | null;
-  users: Tables<'users'>;
-};
-type PostsTypes = {
-  content: string | null;
-  created_at: string;
-  genre_id: string | null;
-  id: number;
-  post_img: string[] | null;
-  tags: string | null;
-  title: string | null;
-  user_id: string | null;
-  users: Tables<'users'>;
-};
+
 type FollowsTypes = {
   created_at: string;
   follow_from: string | null;
@@ -97,6 +53,7 @@ type PostsLikesTypes = {
   user_id: string;
   posts: Tables<'posts'>;
 };
+
 type ProductsLikesTypes = {
   created_at: string;
   id: number;
@@ -104,34 +61,21 @@ type ProductsLikesTypes = {
   user_id: string;
   products: Tables<'products'>;
 };
-export type mapMarkerDataTypes = {
+
+export type ProductsTypes = {
+  category: string | null;
+  content: string | null;
+  created_at: string;
   id: number;
-  gov_id: string;
-  name: string;
-  category1: string;
-  category2: string;
-  address: string;
-  latitude: number;
-  longitude: number;
-  weekdays_open_at: number;
-  weekdays_close_at: number;
-  saturday_open_at: number;
-  saturday_close_at: number;
-  sunday_open_at: number;
-  sunday_close_at: number;
-  closedDay_open_at: number;
-  closedDay_close_at: number;
-  closedDay_guide: string;
-  tel_num: number;
-  optn_dc: string;
-  adit_dc: string;
-  postal_code: number;
+  onsale: boolean | null;
+  price: string | null;
+  product_grade: string | null;
+  product_img: string[] | null;
+  title: string | null;
+  user_id: string | null;
+  users: Tables<'users'>;
 };
 
-export type LikeProps = {
-  postId: number | undefined;
-  count: boolean;
-};
 export type Message = {
   created_at: string;
   content: string;
@@ -140,45 +84,18 @@ export type Message = {
   id: number;
 };
 
-export interface UserLocationState {
-  lat: number;
-  lng: number;
-}
-
-type Marker = {
-  position: {
-    lat: number; // 숫자 타입으로 수정
-    lng: number; // 숫자 타입으로 수정
-  };
-  content: string;
-};
-// 위치 정보 타입 정의
-export interface Location {
-  latitude: number | null;
-  longitude: number | null;
-}
-export type PostsListLikesTypes = {
-  content: string | null;
-  created_at: string;
-  genre_id: string | null;
-  id: number;
-  post_img: string[] | null;
-  tags: string[] | null;
-  title: string | null;
-  user_id: string | null;
-  post_likes: Tables<'post_likes'>;
-  users: Tables<'users'>;
-};
-export interface MessageList {
+export type MessageTypes = {
   created_at: string;
   content: string;
   sender_id: string;
   message_type: string;
   id: number;
-}
 
-export type MessageProps = {
-  messages: MessageList[];
+  author_id: string;
+  chat_id: string;
+  item_id: number;
+  others_id: string;
+  users?: UserTypes; // 사용자 닉네임을 포함할 수 있는 옵셔널 프로퍼티
 };
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];

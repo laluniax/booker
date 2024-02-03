@@ -4,7 +4,6 @@ export const Container = styled.section`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  /* background: #a6a6a6; */
   background: linear-gradient(92.34deg, rgba(239, 240, 240, 0.8) 95.04%, rgba(247, 247, 248, 0.8) 100%);
   margin: 0 auto;
   padding: 1rem;
@@ -19,6 +18,7 @@ export const Container = styled.section`
   width:38rem;
   height:29rem;
 `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 1rem;
   // margin-top: 1rem;
@@ -32,8 +32,8 @@ export const CustomerMessageBox = styled.div`
   justify-content: right;
 
   ${({ theme }) => theme.mediaQuery.sm`
-
 `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   margin-right: 1rem;
 `};
@@ -60,6 +60,7 @@ export const AdminChatLogWrapper = styled.div`
     margin-bottom: 8px;
     max-width: 15rem;
 `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   border-radius: 8px;
   padding: 1rem 1.5rem;
@@ -90,6 +91,7 @@ export const CustomerChatLogWrapper = styled.div`
     margin-bottom: 8px;
     max-width: 15rem;
 `};
+
   ${({ theme }) => theme.mediaQuery.lg`
     border-radius: 8px;
     padding: 1rem 1.5rem;
@@ -106,6 +108,7 @@ export const MessageContent = styled.p`
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 1.2rem;
 `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.4rem;
 `};

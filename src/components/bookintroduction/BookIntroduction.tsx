@@ -2,22 +2,12 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-
 import Loading from '../common/loading/Loading';
 import * as St from './BookIntroduction.styled';
-
-interface Bestseller {
-  author: string;
-  categoryName: string;
-  cover: string;
-  publisher: string;
-  title: string;
-  bestRank: number;
-  isbn13: number;
-}
+import { BestsellerTypes } from './BookIntroduction.type';
 
 const BookIntroduction = () => {
-  const [bookLists, setBookLists] = useState<Bestseller[]>([]);
+  const [bookLists, setBookLists] = useState<BestsellerTypes[]>([]);
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasMoreData, setHasMoreData] = useState<boolean>(true);
@@ -29,13 +19,10 @@ const BookIntroduction = () => {
     threshold: 0.5, // 스크롤이 요소의 50%에 도달했을 때 inView가 true가 됩니다.
   });
   const ITEMS_PER_PAGE = 10;
-
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams().id;
-
   const [selectedCategory, setSelectedCategory] = useState<string>(location.pathname);
-
   const CategoryClickHandler = (category: string) => {
     setSelectedCategory(category); // 현재 선택된 카테고리 상태를 업데이트
     navigate(category);
@@ -96,15 +83,18 @@ const BookIntroduction = () => {
   useEffect(() => {
     getBookList(page); // 현재 페이지 데이터 로딩
   }, [page]);
+
   useEffect(() => {
     getBookCategory();
     getBookList(page); // 현재 페이지 데이터 로딩
     setPage(1);
   }, [params]);
+
   useEffect(() => {
     setBookLists([]); // 리스트 초기화
     getBookList(page); // 새 URL로 데이터 로딩
   }, [url]);
+
   useEffect(() => {
     if (inView && hasMoreData && !isLoading) {
       setPage((prevPage) => prevPage + 1); // 다음 페이지 로드
@@ -117,13 +107,11 @@ const BookIntroduction = () => {
         <St.CatrgoryBox>
           <St.Category>
             <St.CategoryList
-              // isSelected={selectedCategory === 'Bestseller'}
               className={selectedCategory === '/aboutbook/bestseller' ? 'active' : ''}
               onClick={() => CategoryClickHandler('/aboutbook/bestseller')}>
               베스트셀러
             </St.CategoryList>
             <St.CategoryList
-              // isSelected={selectedCategory === 'NewBook'}
               className={selectedCategory === '/aboutbook/newbook' ? 'active' : ''}
               onClick={() => CategoryClickHandler('/aboutbook/newbook')}>
               신간도서
@@ -143,7 +131,6 @@ const BookIntroduction = () => {
           </St.Category>
         </St.CatrgoryBox>
       </St.CategoryWrapper>
-
       <St.BookintroWrapper>
         <St.Header>
           <St.CategoryTitle>{title}</St.CategoryTitle>
@@ -153,8 +140,6 @@ const BookIntroduction = () => {
           {bookLists.map((book, i) => {
             return (
               <St.BookCardWrapper key={i} onClick={() => GotoDetailPage(book.isbn13)}>
-                {/* <br /> */}
-                {/* <St.BookCardWrapper> */}
                 <St.BookCardWrapper>
                   <St.BookImg>
                     <img src={book.cover} alt="책 이미지" width={230} height={290} />
@@ -166,7 +151,6 @@ const BookIntroduction = () => {
                   </St.BookIntro>
                 </St.BookCardWrapper>
               </St.BookCardWrapper>
-              // </St.BookCardWrapper>
             );
           })}
           <div ref={ref}></div>

@@ -4,18 +4,13 @@ import {
   getSubCommentsInfoHandler,
   insertSubCommentHandler,
   updateSubCommentHandler,
-} from '../../../api/supabase.api';
+} from '../../../api/Supabase.api';
 import { SubCommentTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
 import * as St from './Comment.styled';
+import { PropsType } from './SubComment.type';
 
-type Props = {
-  commentId: number | undefined;
-  session: string | undefined;
-  setCommentsCount: React.Dispatch<React.SetStateAction<number>>;
-};
-
-const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
+const SubComment = ({ commentId, session, setCommentsCount }: PropsType) => {
   const [toggleOpen, setToggleOpen] = useState(false);
   const [content, setContent] = useState('');
   const [data, setData] = useState<SubCommentTypes>();
@@ -23,22 +18,9 @@ const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
   const [inputSubComment, setInputSubComment] = useState('');
   const [subCommentId, setSubCommentId] = useState<number>();
 
-  // console.log(data);
-
   const getSubCommentsInfo = async () => {
     const result = await getSubCommentsInfoHandler(commentId as number);
     setData(result[0]);
-    // const subcomments = result[0].subcomments
-    // console.log(result);
-    // const subCommentsCount = subcomments.reduce((acc, item) => {
-    //   return acc + item.length;
-    // });
-    // console.log(subCommentsCount);
-    // const subCommentsCount = result.reduce((acc, item) => {
-    //   return acc + item.subcomments?.length;
-    // });
-    // console.log(subCommentsCount);
-    // setCommentsCount(subCommentsCount);
   };
 
   const insertSubComment = async () => {
@@ -49,7 +31,6 @@ const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
 
   const updateSubComment = async () => {
     const result = await updateSubCommentHandler(inputSubComment, subCommentId as number);
-    // setContent('');
     getSubCommentsInfo();
     setIsEditing(false);
     setSubCommentId(undefined);
@@ -64,6 +45,7 @@ const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
   useEffect(() => {
     getSubCommentsInfo();
   }, []);
+
   return (
     <St.SubCommentWrapper>
       {toggleOpen ? (

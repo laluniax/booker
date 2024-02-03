@@ -51,6 +51,7 @@ export const ImageBox = styled.div`
   display: grid;
   gap: 2rem;
 `;
+
 // 통계 이미지들
 export const TrendImage1 = styled.div`
   background: url(${trendImage1});

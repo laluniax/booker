@@ -5,8 +5,9 @@ export const Container = styled.div`
   height: 40rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    height: 85rem;
+  height: 85rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   height: 85rem;
   `};
@@ -24,21 +25,16 @@ export const FormWrapper = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   font-size: 1.6rem;
 
-  ${({ theme }) => theme.mediaQuery.sm`
-  `};
   ${({ theme }) => theme.mediaQuery.lg`
-   height: auto;
+  height: auto;
   `};
 `;
 export const FormBox = styled.div`
   margin-left: 2rem;
 
-  ${({ theme }) => theme.mediaQuery.sm`
-  `};
   ${({ theme }) => theme.mediaQuery.lg`
   max-width: 59rem;
   height: auto;
-
   `};
 `;
 
@@ -58,6 +54,7 @@ export const Label1 = styled.label`
   font-weight: bold;
   margin-bottom: 1rem;
 `;
+
 export const Label = styled.label`
   font-family: 'GmarketSansMedium';
   display: block;
@@ -66,6 +63,7 @@ export const Label = styled.label`
   font-size: 2rem;
   font-weight: bold;
 `;
+
 export const EmailAndNickNameBox = styled.div`
   width: 100%;
   padding-right: 1rem;
@@ -83,12 +81,13 @@ export const Input = styled.input`
   font-size: 1.5rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-   width: 70%;
-   font-size: 1.7rem;
+  width: 70%;
+  font-size: 1.7rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-   width: 70%;
-   font-size: 2rem;
+  width: 70%;
+  font-size: 2rem;
   `};
 `;
 
@@ -108,11 +107,12 @@ export const Button = styled.button`
 
   ${({ theme }) => theme.mediaQuery.sm`
   width: 14%;
-   font-size: 1.8rem;
+  font-size: 1.8rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-    width: 17%;
-    font-size: 1.8rem;
+  width: 17%;
+  font-size: 1.8rem;
   `};
 
   &:hover {
@@ -158,6 +158,7 @@ export const RegisterButton = styled.button`
     box-shadow: 0 0 5px #333;
   }
 `;
+
 export const SignInLink = styled.div`
   font-family: 'GmarketSansMedium';
   display: flex;
@@ -166,6 +167,7 @@ export const SignInLink = styled.div`
   cursor: pointer;
   color: #4a90e2;
   font-size: 1.6rem;
+
   &:hover {
     text-decoration: underline;
     font-weight: bold;

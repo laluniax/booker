@@ -1,6 +1,6 @@
 import { Session } from '@supabase/supabase-js';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { supabase } from '../api/supabase.api';
+import { supabase } from '../api/Supabase.api';
 
 type AuthContextValue = {
   isAuthInitialized: boolean;
@@ -22,14 +22,12 @@ export function AuthContextProvider({ children }: { children: React.ReactNode })
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session) {
         const getUsersData = await supabase.from('users').select('*').eq('id', session.user.id).single();
-
         setSession({ ...session, profile: getUsersData.data });
       } else {
         setSession(null);
       }
       setIsAuthInitialized(true);
     });
-
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {

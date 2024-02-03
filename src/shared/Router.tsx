@@ -1,16 +1,12 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-
-import BookDetailPage from '../components/bookintroduction/bookdetailpage/BookDetailPage';
-
-import Layout from '../components/layout/Layout';
-
-import AdminChat from '../components/chat/qna/chatadmin/AdminChatRoom';
-
 import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
-import { getUserSessionHandler } from '../api/supabase.api';
-import SurveyQuestionnaire from '../components/survey/SurveyQuestionnaire';
-import SurveyResult from '../components/survey/SurveyResult';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { getUserSessionHandler } from '../api/Supabase.api';
+import BookDetailPage from '../components/bookintroduction/bookdetailpage/BookDetailPage';
+import AdminChat from '../components/chat/qna/chatadmin/AdminChatRoom';
+import Layout from '../components/layout/Layout';
+import SurveyQuestionnaire from '../components/survey/SurveyQuestionnaire/SurveyQuestionnaire';
+import SurveyResult from '../components/survey/surveyresult/SurveyResult';
 import AboutBooks from '../pages/AboutBooks';
 import BookerTalk from '../pages/BookerTalk';
 import BookerTalkDetail from '../pages/BookerTalkDetail';
@@ -32,9 +28,11 @@ const Router = () => {
     const result = await getUserSessionHandler();
     setSession(result.session);
   };
+
   useEffect(() => {
     getUserSession();
   }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -54,10 +52,10 @@ const Router = () => {
           <Route path="/aboutbooks" element={<AboutBooks />} />
           {/* 중고책 판매 / 중고책 상세 페이지 */}
           <Route path="/market" element={<Market />} />
-          <Route path="/marketproduct" element={<MarketProduct />} />
           <Route path="/market/:id" element={<Market />} />
           <Route path="/marketpost" element={<MarketPost />} />
           <Route path="/marketpost/:id" element={<MarketPost />} />
+          <Route path="/marketproduct" element={<MarketProduct />} />
           <Route path="/product/:id" element={<MarketProduct />} />
           {/* 설문조사 페이지 / 설문조사 질문 페이지 / 설문조사 결과 페이지 */}
           <Route path="/survey" element={<Survey />} />
@@ -68,15 +66,8 @@ const Router = () => {
           {/* 도서소개 페이지  */}
           <Route path="/aboutbook/:id" element={<AboutBooks />} />
           <Route path="/aboutbook/detail/:itemid" element={<BookDetailPage />} />
-
-          {/* <Route path="/aboutbook/bestseller" element={<BookBestseller />} />
-            <Route path="/aboutbook/newbook" element={<NewBook />} />
-            <Route path="/aboutbook/bookspecial" element={<BookSpecial />} />
-            <Route path="/aboutbook/bookerpick" element={<BookerPick />} />
-          </Route> */}
           {/* 도서 이동 페이지 */}
         </Route>
-
         {/* 로그인/ 회원가입에 헤더 푸터 적용하고 싶으시면 Layout 라우터 태그 안에 넣어주시면 됩니다. */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
