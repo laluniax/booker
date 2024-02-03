@@ -10,8 +10,8 @@ import {
 } from '../../../api/supabase.api';
 import { CommentTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
+import SubComment from '../comment/subcomment/SubComment';
 import * as St from './Comment.styled';
-import SubComment from './SubComment';
 
 type PropsTypes = {
   setCommentsCount: React.Dispatch<React.SetStateAction<number>>;
