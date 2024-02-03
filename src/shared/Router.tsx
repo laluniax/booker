@@ -5,7 +5,7 @@ import { getUserSessionHandler } from '../api/Supabase.api';
 import BookDetailPage from '../components/bookintroduction/bookdetailpage/BookDetailPage';
 import AdminChat from '../components/chat/qna/chatadmin/AdminChatRoom';
 import Layout from '../components/layout/Layout';
-import SurveyQuestionnaire from '../components/survey/SurveyQuestionnaire/SurveyQuestionnaire';
+import SurveyQuestionnaire from '../components/survey/surveyquestionnaire/SurveyQuestionnaire';
 import SurveyResult from '../components/survey/surveyresult/SurveyResult';
 import AboutBooks from '../pages/AboutBooks';
 import BookerTalk from '../pages/BookerTalk';

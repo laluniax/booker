@@ -7,7 +7,7 @@ import {
 } from '../../../../api/Supabase.api';
 import { SubCommentTypes } from '../../../../types/types';
 import { formatCreatedAt } from '../../../../utils/date';
-import * as St from '../Comment.styled';
+import * as St from './SubComment.styled';
 
 type Props = {
   commentId: number | undefined;
