@@ -1,50 +1,37 @@
 import { atom } from 'recoil';
 import { UnreadCount } from '../App';
-import { MessageType } from '../components/chat/ChatModal';
-
-// import { selector } from 'recoil';
+import { MessageTypes } from '../types/types';
+import { ChatRoomTypes } from './Product.type';
 
 export const productState = atom({
   key: 'productState', // 고유한 키
   default: 0, // 기본값
 });
+
 export const person = atom({
   key: 'person', // 고유한 키
   default: '', // 기본값
 });
+
 export const otherPerson = atom({
   key: 'otherPerson', // 고유한 키
   default: '', // 기본값
 });
+
 export const ChatId = atom({
   key: 'ChatId', // 고유한 키
   default: '', // 기본값
 });
 
-export const sendMessages = atom<MessageType[]>({
+export const sendMessages = atom<MessageTypes[]>({
   key: 'sendMessagesState',
   default: [], // 초기값은 빈 배열
 });
 
-export const chatRoomsState = atom<ChatRoom[]>({
+export const chatRoomsState = atom<ChatRoomTypes[]>({
   key: 'chatRoomsState',
   default: [], // 초기값은 빈 배열
 });
-
-type ProductImage = string | null;
-
-export type ChatRoom = {
-  author_id: string;
-  chat_id: string;
-  user_id: string;
-  item_id: number;
-  lastMessage: string;
-  sendNickname: string;
-  product_img: string;
-  unread_count: UnreadCount;
-  created_at: string;
-  user_img: string;
-};
 
 export const isChatModalOpenState = atom({
   key: 'isChatModalOpenState',
@@ -75,22 +62,3 @@ export const UnreadCounts = atom<UnreadCount[]>({
   key: 'UnreadCounts',
   default: [],
 });
-
-// // ======================================
-// // 사용법
-// export const textState = atom({
-//   key: 'textState', // 고유한 키
-//   default: '', // 기본값
-// });
-
-// export const charCountState = selector({
-//   key: 'charCountState', // 고유한 키
-//   get: ({get}) => {
-//     const text = get(textState);
-//     return text.length;
-//   },
-// });
-
-// 쓰는 법
-// const [productId, setProductId] = useRecoilState(productState);
-// const productId = useRecoilValue(productState);

@@ -48,9 +48,9 @@ export const CatrgoryBox = styled.div`
   ${({ theme }) => theme.mediaQuery.lg`
   width: 18rem;
   height: 23rem;
- 
   `};
 `;
+
 export const Category = styled.div`
   display: flex;
   flex-direction: row;
@@ -62,8 +62,8 @@ export const Category = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
    display: flex;
    flex-direction: column;
@@ -84,6 +84,7 @@ export const CategoryList = styled.button`
     border-bottom: 0.1rem solid #fca311;
     padding-bottom: 0.4rem;
   }
+
   &:hover {
     cursor: pointer;
   }
@@ -103,6 +104,7 @@ export const CategoryList = styled.button`
   }
   
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   margin: 0.3rem;
   font-size: 2rem;
@@ -130,6 +132,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   max-width:70rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   max-width:120rem;
   display:flex;
@@ -152,6 +155,7 @@ export const Container = styled.div`
     flex-direction: row;
     gap: 0;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
     max-width: 120rem;
     display: flex;
@@ -173,6 +177,7 @@ export const BookintroWrapper = styled.div`
    max-width: 87rem;
    width: 56rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
    display: flex;
    flex-direction: column;
@@ -195,6 +200,7 @@ export const CategoryTitle = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 4rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 5rem;
   display: flex;
@@ -216,6 +222,7 @@ export const Body = styled.div`
   grid-gap: 3rem;
   margin: 1rem auto;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   width: 80rem;
   margin-top: 4rem;
@@ -223,6 +230,7 @@ export const Body = styled.div`
   margin: 1rem auto;
   `};
 `;
+
 export const BookCardWrapper = styled.div`
   border-bottom: 1px solid #000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -257,6 +265,7 @@ export const BookCardWrapper = styled.div`
     transition: 0.3s;
   }
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 5rem;
   width: 31rem;
@@ -273,6 +282,7 @@ export const BookCardWrapper = styled.div`
   }
   `};
 `;
+
 export const BookGenre = styled.h3`
   font-size: 14px;
 `;
@@ -340,6 +350,7 @@ export const BookIntro = styled.div`
     gap: 1rem;
   `};
 `;
+
 export const Title = styled.h4`
   width: 13ch;
   white-space: nowrap;
@@ -376,6 +387,7 @@ export const Author = styled.span`
   width:28rem;
   `};
 `;
+
 export const Plot = styled.span`
   white-space: nowrap;
   overflow: hidden;

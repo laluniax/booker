@@ -1,26 +1,23 @@
+import { Session } from '@supabase/supabase-js';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
 import { useRecoilState } from 'recoil';
-import { useCreateOrGetChat, useSendMessage } from '../../../api/chatApi';
+import { useCreateOrGetChat, useSendMessage } from '../../../api/Chat.api';
 import {
   deleteProductHandler,
   deleteProductImgStorage,
   getProductHandler,
   getUserSessionHandler,
   supabase,
-} from '../../../api/supabase.api';
-import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/product.atom';
-
-import { Session } from '@supabase/supabase-js';
-import dayjs from 'dayjs';
-import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
+} from '../../../api/Supabase.api';
 import SliderPrevIcon from '../../../assets/common/slider_left.webp';
 import SliderNextIcon from '../../../assets/common/slider_right.webp';
 import logoImage from '../../../assets/profile/defaultprofileimage.webp';
-import { ProductsTypes } from '../../../types/types';
+import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/Product.atom';
+import { MessageTypes, ProductsTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
-import { MessageType } from '../../chat/ChatModal';
 import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
 import { categoryArr } from '../marketpost/Post';
@@ -36,7 +33,6 @@ const Product = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideLength, setSlideLength] = useState(0);
   const [inputValue, setInputValue] = useState('');
-
   const [productId, setProductId] = useRecoilState(productState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
@@ -45,19 +41,9 @@ const Product = () => {
   const { mutate: createOrGetChat } = useCreateOrGetChat();
   const [chatId, setChatId] = useRecoilState(ChatId);
   const { mutate: sendDirectMessage } = useSendMessage();
-
   const [isAtBottom, setIsAtBottom] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
-
-  // // 스크롤 이벤트 핸들러
-  // const handleScroll = () => {
-  //   const current = chatBodyRef.current;
-  //   if (current) {
-  //     const isAtBottom = current.scrollHeight - current.scrollTop === current.clientHeight;
-  //     setIsAtBottom(isAtBottom);
-  //   }
-  // };
 
   // 최하단으로 스크롤하는 함수
   const scrollToBottom = () => {
@@ -74,36 +60,11 @@ const Product = () => {
     }
   }, [messages, isChatModalOpen, isAtBottom]);
 
-  // // 채팅 컨테이너에 스크롤 이벤트 리스너 추가
-  // useEffect(() => {
-  //   const chatBody = chatBodyRef.current;
-  //   if (chatBody) {
-  //     chatBody.addEventListener('scroll', handleScroll);
-  //     return () => {
-  //       chatBody.removeEventListener('scroll', handleScroll);
-  //     };
-  //   }
-  // }, []);
-
-  // // 채팅 몸체에 스크롤 이벤트 리스너를 추가
-  // useEffect(() => {
-  //   const chatBody = chatBodyRef.current;
-  //   if (chatBody) {
-  //     chatBody.addEventListener('scroll', handleScroll);
-
-  //     // 컴포넌트 언마운트 시 이벤트 리스너 제거
-  //     return () => {
-  //       chatBody.removeEventListener('scroll', handleScroll);
-  //     };
-  //   }
-  // }, []);
-
   // DM 클릭 핸들러
   const DmClickhandler = async (otherUserId: string, productId: number) => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-
     if (user?.id === otherUserId) {
       alert('자신에게 채팅을 보낼 수 없습니다 ');
       return;
@@ -111,7 +72,6 @@ const Product = () => {
       if (user) {
         const userId = user?.id;
         setIsChatModalOpen(true);
-
         createOrGetChat({ userId, otherUserId, productId });
         setProductId(productId);
         setOtherLoginPersonal(otherUserId);
@@ -133,7 +93,6 @@ const Product = () => {
           author_id: LoginPersonal,
           chat_id: chatId,
           item_id: productId,
-          // others_id: otherLoginPersonal,
         });
         setChatId(chatId);
         setInputValue('');
@@ -144,13 +103,11 @@ const Product = () => {
   //보내기 버튼(클릭)
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-
     sendDirectMessage({
       content: inputValue,
       author_id: LoginPersonal,
       chat_id: chatId,
       item_id: productId,
-      // others_id: otherLoginPersonal,
     });
     setChatId(chatId);
     setInputValue('');
@@ -159,26 +116,21 @@ const Product = () => {
   const renderMessages = () => {
     dayjs.locale('ko'); // 한국어 로케일을 기본값으로 설정
     let lastDate: dayjs.Dayjs | null = null;
-
     return (
       <>
-        {/* {renderChatHeader()} */}
-
         {messages
-          .filter((message: MessageType) => message.chat_id === chatId)
-          .sort((a: MessageType, b: MessageType) => a.id - b.id) // 오름차순 정렬
-          .map((message: MessageType) => {
+          .filter((message: MessageTypes) => message.chat_id === chatId)
+          .sort((a: MessageTypes, b: MessageTypes) => a.id - b.id) // 오름차순 정렬
+          .map((message: MessageTypes) => {
             const currentDate = dayjs(message.created_at);
             const formattedTime = currentDate.format('hh:mm A'); // Format time with AM/PM
             const formattedDate = currentDate.format('YYYY-MM-DD dddd'); // Format date with day of the week
             let dateLabel = null;
-
             // Check if the date has changed
             if (lastDate === null || !currentDate.isSame(lastDate, 'day')) {
               dateLabel = <St.DateLabel>{formattedDate}</St.DateLabel>; // Use DateLabel
               lastDate = currentDate;
             }
-
             return (
               <>
                 {dateLabel} {/* Display the date label if the date has changed */}
@@ -198,6 +150,7 @@ const Product = () => {
     setProduct(result[0]);
     setSlideLength(result[0].product_img.length);
   };
+
   const getUserSession = async () => {
     const session = await getUserSessionHandler();
     const newFollowId = product?.user_id + '-' + session.session?.user.id;
@@ -209,6 +162,7 @@ const Product = () => {
       setCurrentSlide((prev) => prev - 1);
     }
   }, [currentSlide]);
+
   const onClickNextBtn = useCallback(() => {
     if (currentSlide < slideLength - 1) {
       setCurrentSlide((prev) => prev + 1);
@@ -254,15 +208,10 @@ const Product = () => {
         {product?.product_img?.length === 0 ? (
           <St.LogoWrapper>
             <img src={logoImage} />
-            {/* <St.LogoImage /> */}
           </St.LogoWrapper>
         ) : (
           <St.SliderWrapper>
-            <St.SliderUl
-              ref={slideRef}
-              // style={{ transform: `translateX(-${currentSlide * 20}rem)` }}
-              $currentSlide={currentSlide}
-              $slideCount={product?.product_img?.length ?? 0}>
+            <St.SliderUl ref={slideRef} $currentSlide={currentSlide} $slideCount={product?.product_img?.length ?? 0}>
               {product?.product_img?.map((img, i) => (
                 <St.SliderLi key={i}>
                   <img src={img} alt={`Product image ${i + 1}`} />
@@ -272,13 +221,11 @@ const Product = () => {
             {currentSlide !== 0 && (
               <St.SliderBtn onClick={onClickPrevBtn} className="prev">
                 <img src={SliderPrevIcon} />
-                {/* <St.SliderPrevBtn /> */}
               </St.SliderBtn>
             )}
             {currentSlide !== slideLength - 1 && (
               <St.SliderBtn onClick={onClickNextBtn} className="next">
                 <img src={SliderNextIcon} />
-                {/* <St.SliderNextBtn /> */}
               </St.SliderBtn>
             )}
           </St.SliderWrapper>
@@ -290,7 +237,6 @@ const Product = () => {
               | {product?.created_at ? formatCreatedAt(product.created_at) : '날짜 정보 없음'}
             </St.ProductDate>
           </St.ProductTitleAndDate>
-
           <St.ProductCategory>
             <span>카테고리 | </span>
             {product?.category}
@@ -306,7 +252,6 @@ const Product = () => {
               1개월 이상 무이자 할부
             </St.ProductGrade>
           </St.ProductCategory>
-          {/* formatCreatedAt */}
           <St.PriceBtnWrapper>
             <St.ProductPrice>
               {product?.price} <span>원</span>
@@ -334,7 +279,6 @@ const Product = () => {
               ) : (
                 <St.ProductSoldOut>판매 완료된 상품입니다.</St.ProductSoldOut>
               )}
-
               {/* 여기에 채팅 모달을 조건부 렌더링합니다. */}
               {isChatModalOpen && (
                 <St.ChatModalWrapper>
@@ -343,11 +287,8 @@ const Product = () => {
                     <St.ChatModalHeader>
                       <St.CloseButton onClick={() => setIsChatModalOpen(false)}>←</St.CloseButton>
                       <St.HeaderChattingModalTitle>채팅</St.HeaderChattingModalTitle>
-                      <div>
-                        {/* <St.HeaderPurchaseConfirmationButton>구매확정</St.HeaderPurchaseConfirmationButton> */}
-                      </div>
+                      <div></div>
                     </St.ChatModalHeader>
-                    {/* {renderChatHeader()} */}
                   </St.ChatModalHeader>
                   <St.ChatModalBody ref={chatBodyRef}>
                     {renderMessages()}

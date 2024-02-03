@@ -1,23 +1,15 @@
 import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { followHandler, followIdListHandler, getUserSessionHandler, unFollowHandler } from '../../../api/supabase.api';
+import { followHandler, followIdListHandler, getUserSessionHandler, unFollowHandler } from '../../../api/Supabase.api';
 import * as St from './Follow.styled';
+import { FollowProps } from './Follow.type';
 
-type FollowProps = {
-  params: string | undefined;
-  usage: string;
-};
 const Follow = ({ params, usage }: FollowProps) => {
   const [followId, setFollowId] = useState('');
   const [following, setFollowing] = useState(false); // 팔로잉:거짓 이 기본
   const [userSession, setUserSession] = useState<Session | null>(null);
-  //   console.log(userSession);
-  // console.log(followId);
-  // console.log(following);
-
   const navigate = useNavigate();
-
   const getUserData = async () => {
     const session = await getUserSessionHandler();
     setUserSession(session.session);
@@ -30,15 +22,13 @@ const Follow = ({ params, usage }: FollowProps) => {
   // 팔로우/언팔로우 판단하기
   const followIdList = async () => {
     const result = await followIdListHandler();
-    // console.log(result);
-    // console.log(followId);
     const filteredResult = result.filter((item) => {
       return item.follow_id === followId;
     });
-    // console.log(filteredResult);
     if (filteredResult.length > 0) setFollowing(true);
     else setFollowing(false);
   };
+
   // 팔로우하기
   const onClickFollowBtn = async () => {
     if (!userSession) {
@@ -51,6 +41,7 @@ const Follow = ({ params, usage }: FollowProps) => {
       followIdList();
     }
   };
+
   // 언팔로우하기
   const onClickUnfollowBtn = async () => {
     const result = await unFollowHandler(followId);
@@ -109,14 +100,12 @@ const Follow = ({ params, usage }: FollowProps) => {
 
   useEffect(() => {
     getUserData();
-    // followIdList();
   }, []);
-  // useEffect(() => {
-  //   getFollowId();
-  // }, [userSession]);
+
   useEffect(() => {
     getFollowId();
   }, [userSession, params]);
+
   useEffect(() => {
     followIdList();
   }, [followId]);

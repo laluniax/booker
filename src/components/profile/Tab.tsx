@@ -8,7 +8,7 @@ import {
   getLikesPostsListHandler,
   getLikesProductsListHandler,
   unFollowHandler,
-} from '../../api/supabase.api';
+} from '../../api/Supabase.api';
 import logoImage from '../../assets/common/bookerchattingicon.webp';
 import { FollowsTypes, PostsLikesTypes, ProductsLikesTypes, Tables } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
@@ -31,9 +31,7 @@ const Tab = ({ userSession, userData }: Props) => {
   const [productsLikes, setProductsLikes] = useState<ProductsLikesTypes[]>([]);
   const [currentPostsPage, setCurrentPostsPage] = useState(1);
   const [currentProductsPage, setCurrentProductsPage] = useState(1);
-
   const params = useParams().id;
-
   const filterPostByUserId = async () => {
     const posts = await filterPostsByUserIdHandler(userData?.id as string);
     const products = await filterProductsByUserIdHandler(userData?.id as string);
@@ -44,6 +42,7 @@ const Tab = ({ userSession, userData }: Props) => {
     setPostsList(posts.sort((a, b) => b.id - a.id));
     setProductsList(products.sort((a, b) => b.id - a.id));
   };
+
   // 팔로우 목록 불러오기
   const getFollowList = async () => {
     const result = await getFollowListHandler(params as string);

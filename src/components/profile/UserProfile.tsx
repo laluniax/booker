@@ -1,7 +1,7 @@
 import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getUserDataHandler, getUserSessionHandler } from '../../api/supabase.api';
+import { getUserDataHandler, getUserSessionHandler } from '../../api/Supabase.api';
 import profileImage from '../../assets/profile/defaultprofileimage.webp';
 import { Tables } from '../../types/types';
 import Follow from '../common/follow/Follow';
@@ -10,15 +10,12 @@ import * as St from './UserProfile.styled';
 
 const UserProfile = () => {
   const params = useParams().id;
-
   const [userSession, setUserSession] = useState<Session | null>(null);
   const [userData, setUserData] = useState<Tables<'users'>>();
   const [nickname, setNickname] = useState('');
-
   const getUserData = async () => {
     const result = await getUserDataHandler(params as string);
     const session = await getUserSessionHandler();
-    // const newFollowId = params + '-' + userSession?.user.id;
     setUserData(result[0]);
     setNickname(result[0].nickname);
     setUserSession(session.session);

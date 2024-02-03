@@ -1,7 +1,7 @@
-import { mapMarkerDataTypes } from '../../../types/types';
+import { MapMarkerDataTypes } from '../KakaoMap.type';
 import * as St from './DetailInfo.styled';
 
-function DetailMapInfo({ markerInfo }: { markerInfo: mapMarkerDataTypes }) {
+function DetailMapInfo({ markerInfo }: { markerInfo: MapMarkerDataTypes }) {
   return (
     <>
       <St.Container>
@@ -15,7 +15,6 @@ function DetailMapInfo({ markerInfo }: { markerInfo: mapMarkerDataTypes }) {
             <St.DetailContent>
               주소 : {markerInfo.address} (우) {markerInfo.postal_code}
             </St.DetailContent>
-
             <St.DetailContent>
               서점 소개 : <St.DetainSpan> {markerInfo.optn_dc}</St.DetainSpan>
             </St.DetailContent>

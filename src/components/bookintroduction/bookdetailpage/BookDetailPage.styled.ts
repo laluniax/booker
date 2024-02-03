@@ -7,10 +7,12 @@ export const Container = styled.div`
   margin: 0 auto;
   font-family: 'GmarketSansMedium';
   line-height: 1.5;
+
   ${({ theme }) => theme.mediaQuery.sm`
   width: 70rem;
   margin-top: 5rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   width: 90rem;
   `};
@@ -24,10 +26,12 @@ export const PrevButton = styled.div`
   border-radius: 2rem;
   cursor: pointer;
   margin-bottom: 1rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
   width: 5rem;
   height: 5rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   width: 6rem;
   height: 6rem;
@@ -45,17 +49,18 @@ export const BookWrapper = styled.div``;
 export const BookTitle = styled.h2`
   font-size: 1.8rem;
   font-weight: bold;
-  /* width: 30rem; */
   margin: 0 auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 3rem;
   font-weight: 100;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 4rem;
   `};
 `;
+
 export const InfoHeader = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,6 +70,7 @@ export const InfoHeader = styled.div`
   width: 70rem;
   flex-direction: row;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   width: 90rem;
   `};
@@ -84,6 +90,7 @@ export const BookImage = styled.div`
       height: 50rem;
     }
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
     & img {
       width: 40rem;
@@ -93,9 +100,6 @@ export const BookImage = styled.div`
 `;
 
 export const BookIntro = styled.div`
-  /* font-size: 1.5rem; */
-  /* display: flex; */
-  /* align-items: center; */
   gap: 4rem;
   padding: 2rem;
 
@@ -120,6 +124,7 @@ export const Bookauthor = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 2rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   `};
 `;
@@ -131,6 +136,7 @@ export const Publisher = styled.div`
   margin-top: 1rem;
   font-size: 2rem;
 `};
+
   ${({ theme }) => theme.mediaQuery.lg`
 `};
 `;
@@ -145,6 +151,7 @@ export const EmphasisDescription = styled.span`
   font-size: 2.3rem;
   margin-top: 1.3rem;
 `};
+
   ${({ theme }) => theme.mediaQuery.lg`
 `};
 `;
@@ -157,6 +164,7 @@ export const Description = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
 font-size: 2rem;
 `};
+
   ${({ theme }) => theme.mediaQuery.lg`
 `};
 `;
@@ -168,6 +176,7 @@ export const DescriptionLi = styled.li`
     font-size: 2rem;
     margin-top: 1rem;
 `};
+
   ${({ theme }) => theme.mediaQuery.lg`
 `};
 `;
@@ -178,8 +187,8 @@ export const PubData = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
 font-size: 2rem;
 margin-top: 1rem;
-
 `};
+
   ${({ theme }) => theme.mediaQuery.lg`
 `};
 `;

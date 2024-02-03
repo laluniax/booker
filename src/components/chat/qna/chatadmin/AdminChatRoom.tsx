@@ -1,22 +1,15 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../../../../api/supabase.api';
+import { supabase } from '../../../../api/Supabase.api';
 import { useAuth } from '../../../../contexts/auth.context';
+import { MessageTypes } from '../../../../types/types';
 import * as St from './AdminchatRoom.styled';
-
-interface Message {
-  created_at: string;
-  content: string;
-  sender_id: string;
-  message_type: string;
-  id: number;
-}
 
 const AdminChat = () => {
   const [qnaRoomIds, setQnaRoomIds] = useState<string[]>([]);
   const [answerMessage, setAnswerMessage] = useState<string>('');
   const [currentQnaRoomId, setCurrentQnaRoomId] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<MessageTypes[]>([]);
   const auth = useAuth();
 
   const getQnaTable = async () => {
@@ -120,7 +113,6 @@ const AdminChat = () => {
           </>
         ) : (
           <>
-            {/* <St.ChatHeader></St.ChatHeader> */}
             <St.ChatBody>
               {qnaRoomIds.map((qnaRoomID) => (
                 <div key={qnaRoomID} onClick={() => handleSenderClick(qnaRoomID)}>

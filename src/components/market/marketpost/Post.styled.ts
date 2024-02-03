@@ -11,7 +11,7 @@ export const Container = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   max-width: 80rem;
   height: 90rem;
-`}
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
     max-width: 120rem;
@@ -34,7 +34,8 @@ export const Title = styled.div`
   max-width:80rem;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-`}
+  `}
+
   ${({ theme }) => theme.mediaQuery.lg`
       font-size: 4rem;
       padding-bottom: 1rem;
@@ -53,7 +54,7 @@ export const Imgupload = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
     font-size: 1.8rem;
     width:80rem;
-`}
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 2rem;
@@ -67,12 +68,14 @@ export const ImgUploadBox = styled.div`
   justify-content: center;
   margin: 0 auto;
   width: 35rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
     font-size: 3rem;
     width:80rem;
-`}
+  `}
+
   ${({ theme }) => theme.mediaQuery.lg`
-    witdh: 120rem;
+  witdh: 120rem;
   `};
 `;
 
@@ -87,24 +90,29 @@ export const PostImgLabel = styled.label`
   border-radius: 2rem;
   font-size: 1.3rem;
   width: 11rem;
+
   &:hover {
     cursor: pointer;
     transition: 0.2s;
     color: #fca311;
     background-color: #14213d;
   }
+
   &:not(:hover) {
     transition: 0.2s;
   }
+
   ${({ theme }) => theme.mediaQuery.sm`
       font-size: 1.8rem;
       width: 13rem;
-`}
+  `}
+
   ${({ theme }) => theme.mediaQuery.lg`
     font-size: 2rem;
       width: 15rem;
   `};
 `;
+
 export const PostImgInput = styled.input`
   display: none;
   background-color: gray;
@@ -119,11 +127,13 @@ export const PostWrapper = styled.div`
   width: 35rem;
   margin-top: 1rem;
   padding-bottom: 4rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
   width: 80rem;
   height: 20rem;
   margin-top:2rem;
-`}
+  `}
+
   ${({ theme }) => theme.mediaQuery.lg`
   width: 120rem;
   height: 33rem;
@@ -141,11 +151,12 @@ export const PostImgWrapper = styled.div<{ height: number }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 80rem;
-    height: 15rem;
-    flex-direction: row;
-`}
+  width: 80rem;
+  height: 15rem;
+  flex-direction: row;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 120rem;
@@ -162,19 +173,21 @@ export const PostImg = styled.img`
   width: 25rem;
   height: 25rem;
   padding: 0.5rem 0;
+
   &:last-child {
     padding-bottom: 0;
   }
-  ${({ theme }) => theme.mediaQuery.sm`
-      width: 16.2rem;
-      height: 15rem;
-      padding: 0;
-      padding-right: 1rem;
 
+  ${({ theme }) => theme.mediaQuery.sm`
+  width: 16.2rem;
+  height: 15rem;
+  padding: 0;
+  padding-right: 1rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-      width: 24.2rem;
-      height: 25rem;
+  width: 24.2rem;
+  height: 25rem;
   `};
 `;
 
@@ -192,9 +205,10 @@ export const DeleteBtn = styled.button`
   justify-content: center;
   align-items: center;
   font-weight: 900;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    top: 0.5rem;
-    right: 1.5rem;
+  top: 0.5rem;
+  right: 1.5rem;
   `};
 `;
 
@@ -209,10 +223,11 @@ export const TotalItemWrapper = styled.div`
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-    gap: 3rem;
-    margin-top: 7rem;
+  gap: 3rem;
+  margin-top: 7rem;
   `};
 `;
+
 export const ItemWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -220,9 +235,9 @@ export const ItemWrapper = styled.div`
   gap: 1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 80rem;
-    gap: 2rem;
-`}
+  width: 80rem;
+  gap: 2rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 120rem;
@@ -237,13 +252,13 @@ export const PostLabel = styled.label`
   width: 8rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-      font-size: 1.8rem;
-      width: 10rem;
+  font-size: 1.8rem;
+  width: 10rem;
 `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-      font-size: 2rem;
-      width: 20rem;
+  font-size: 2rem;
+  width: 20rem;
   `};
 `;
 
@@ -259,18 +274,19 @@ export const PostInput = styled.input`
   &:focus {
     outline: none;
   }
-  ${({ theme }) => theme.mediaQuery.sm`
-    width: 65rem;
-    height: 5rem;
-    font-size: 1.8rem;
-    border-radius: 1.5rem;
-`}
-  ${({ theme }) => theme.mediaQuery.lg`
-    width: 82rem;
-    height: 7rem;
-    font-size: 2rem;
-    border-radius: 2rem;
 
+  ${({ theme }) => theme.mediaQuery.sm`
+  width: 65rem;
+  height: 5rem;
+  font-size: 1.8rem;
+  border-radius: 1.5rem;
+  `}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  width: 82rem;
+  height: 7rem;
+  font-size: 2rem;
+  border-radius: 2rem;
   `};
 `;
 
@@ -282,11 +298,13 @@ export const PostCategory = styled.select`
   width: 12rem;
   height: 3rem;
   border-radius: 1rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 18rem;
-    height: 3.5rem;
+  width: 18rem;
+  height: 3.5rem;
   font-size: 1.6rem;
-`}
+  `}
+
   ${({ theme }) => theme.mediaQuery.lg`          
   font-size: 1.8rem;
   width: 23rem;
@@ -306,12 +324,12 @@ export const PostTextArea = styled.textarea`
   border-radius: 1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 65rem;
-    height: 20rem;
-    padding: 1rem;
-    font-size: 1.8rem;
-    border-radius: 1rem;
-`}
+  width: 65rem;
+  height: 20rem;
+  padding: 1rem;
+  font-size: 1.8rem;
+  border-radius: 1rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`            
   width: 82rem;
@@ -325,6 +343,7 @@ export const PostTextArea = styled.textarea`
 export const PostSubmitBtnBox = styled.div`
   display: flex;
   justify-content: center;
+
   ${({ theme }) => theme.mediaQuery.sm`
   justify-content: right;
   `};
@@ -352,12 +371,12 @@ export const PostSubmitBtn = styled.button`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 12rem;
-    margin-right: 1rem;
-    padding: 0.8rem;
-    border-radius: 1rem;
-    font-size: 1.8rem;
-`}
+  width: 12rem;
+  margin-right: 1rem;
+  padding: 0.8rem;
+  border-radius: 1rem;
+  font-size: 1.8rem;
+  `}
 
   ${({ theme }) => theme.mediaQuery.lg`            
   width: 15rem;

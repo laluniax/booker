@@ -7,12 +7,12 @@ export const Container = styled.section`
   overflow: scroll;
 
   ${({ theme }) => theme.mediaQuery.sm`
-        width: 50rem;
-        height: 65rem;
+  width: 50rem;
+  height: 65rem;
 `};
   ${({ theme }) => theme.mediaQuery.lg`
-        width: 56rem;
-        height: 67rem;
+  width: 56rem;
+  height: 67rem;
 `};
 `;
 
@@ -42,6 +42,7 @@ export const PrevIcon = styled.div`
   width: 3rem;
   height: 3rem;
 `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   width: 3rem;
   height: 3rem;
@@ -52,15 +53,13 @@ export const ChatBody = styled.div`
   display: flex;
   flex-direction: column;
 
-  ${({ theme }) => theme.mediaQuery.sm`
-
-`};
   ${({ theme }) => theme.mediaQuery.lg`
   gap: 12px;
   padding: 8px;
   margin: 0px 16px;
 `};
 `;
+
 export const AdminMessage = styled.div`
   text-align: right;
 `;
@@ -68,15 +67,14 @@ export const AdminMessage = styled.div`
 export const UserMessage = styled.div`
   text-align: left;
 `;
-export const MainMessage = styled.p`
-  ${({ theme }) => theme.mediaQuery.sm`
 
-`};
+export const MainMessage = styled.p`
   ${({ theme }) => theme.mediaQuery.lg`
   width: 45rem;
   height: 30rem;
 `};
 `;
+
 export const ChatInputWrapper = styled.div`
   position: relative;
   display: flex;

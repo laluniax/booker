@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useRecoilState } from 'recoil';
 import { ThemeProvider } from 'styled-components';
-import { supabase } from './api/supabase.api';
+import { supabase } from './api/Supabase.api';
 import {
   ChatId,
-  ChatRoom,
   UnreadCounts,
   chatRoomsState,
   isChatModalOpenState,
   newMessagesCountState,
   person,
   sendMessages,
-} from './atom/product.atom';
+} from './atom/Product.atom';
+import { ChatRoomTypes } from './atom/Product.type';
 import { AuthContextProvider } from './contexts/auth.context';
 import Router from './shared/Router';
 import GlobalStyle from './styles/globalStyle';
@@ -135,7 +135,7 @@ const App = () => {
         // Flatten the array of arrays
         const flatChatRooms = updatedChatRooms.flat();
 
-        setChatRooms(flatChatRooms as ChatRoom[]);
+        setChatRooms(flatChatRooms as ChatRoomTypes[]);
       } catch (error) {
         console.error('채팅방 가져오기 오류:', error);
       }
@@ -154,7 +154,6 @@ const App = () => {
           table: 'messages',
         },
         async (payload) => {
-          console.log('payload', payload);
           setUpdateMesaage(payload as MessagePayload);
           fetchChatRooms();
         },
@@ -212,7 +211,6 @@ const App = () => {
           table: 'messages',
         },
         async (payload) => {
-          console.log('payload', payload);
           fetchMessages();
           setUpdateMesaage(payload as MessagePayload);
         },
@@ -284,10 +282,7 @@ const App = () => {
           table: 'messages',
         },
         async (payload) => {
-          // console.log('payload', payload);
-
           handleNewMessageCount(payload as MessagePayload);
-
           // 새 메시지 카운트를 증가시킬지 결정하는 함수 호출
           handleNewMessage(payload as MessagePayload);
           setUpdateMesaage(payload as MessagePayload);

@@ -5,12 +5,12 @@ export const TabWrapper = styled.div`
   height: 60vh;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    height: 80vh;
+  height: 80vh;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   height: 100vh;
-    `};
+  `};
 `;
 
 export const ProfileTab = styled.div`
@@ -26,6 +26,7 @@ export const ProfileTab = styled.div`
     border-bottom: 0.1rem solid #bcbcbc;
     text-align: center;
     cursor: pointer;
+
     &.active {
       color: black;
       border-bottom: 0.1rem solid #fca311;
@@ -35,10 +36,12 @@ export const ProfileTab = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
     width: 60rem;
     font-size: 1.5rem;
+
     & div {
       padding: 1.3rem;
       width: 100%;
       border-bottom: 0.15rem solid #bcbcbc;
+
       &.active {
         border-bottom: 0.15rem solid #fca311;
       }
@@ -47,10 +50,12 @@ export const ProfileTab = styled.div`
   ${({ theme }) => theme.mediaQuery.lg`
   width: 90rem;
   font-size: 2rem;
+
   & div {
     padding: 1.5rem;
     width: 100%;
     border-bottom: 0.2rem solid #bcbcbc;
+
     &.active {
       border-bottom: 0.2rem solid #fca311;
     }
@@ -76,17 +81,18 @@ export const TabListTitle = styled.div`
   font-size: 1.5rem;
   font-weight: 400;
   margin: 3rem 0 0.5rem 0;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 2rem;
-    font-weight: 500;
-    margin: 4rem 0 1rem 0;
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 4rem 0 1rem 0;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 3rem;
   font-weight: 600;
   margin: 5rem 0 2rem 0;
-    `};
+  `};
 `;
 
 // 구분선
@@ -94,29 +100,31 @@ export const Contour = styled.div`
   border-bottom: 0.1rem solid #000;
   width: 100%;
   margin-top: 1rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    border-bottom: 0.15rem solid #000;
-    width: 100%;
-    margin-top: 2rem;
+  border-bottom: 0.15rem solid #000;
+  width: 100%;
+  margin-top: 2rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   border-bottom: 0.2rem solid #000;
   width: 100%;
   margin-top: 3rem;
-    `};
+  `};
 `;
 
 // 내가 쓴 글
 export const PostWrapper = styled.div`
   height: 15rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    height: 25rem;
+  height: 25rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   height: 35rem;
-    `};
+  `};
 `;
 
 export const Post = styled.div`
@@ -131,7 +139,6 @@ export const Post = styled.div`
     cursor: pointer;
     background-color: #dbdbdb;
     border-radius: 0.6rem;
-
     transition: 0.2s;
   }
 
@@ -155,31 +162,33 @@ export const Post = styled.div`
   &:hover {
     border-radius: 1rem;
   }
-    `};
+  `};
 `;
 
 export const PostTitle = styled.div`
   font-size: 1.2rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.6rem;
+  font-size: 1.6rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.8rem;
-    `};
+  `};
 `;
 
 export const PostDate = styled.div``;
 
 export const ProductWrapper = styled.div`
   height: 30rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    height: 40rem;
+  height: 40rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   height: 50rem;
-    `};
+  `};
 `;
 
 export const Product = styled.div`
@@ -194,7 +203,6 @@ export const Product = styled.div`
     cursor: pointer;
     background-color: #dbdbdb;
     border-radius: 0.6rem;
-
     transition: 0.2s;
   }
 
@@ -217,24 +225,26 @@ export const Product = styled.div`
   &:hover {
     border-radius: 1rem;
   }
-    `};
+  `};
 `;
 export const ProductTitlePrice = styled.div`
   margin-left: 0.9rem;
   width: 10rem;
   line-height: 1.5;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    margin-left: 1.1rem;
-    width: 32rem;
-    line-height: 1.7;
+  margin-left: 1.1rem;
+  width: 32rem;
+  line-height: 1.7;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   margin-left: 1.3rem;
   width: 58rem;
   line-height: 2;
-    `};
+  `};
 `;
+
 export const ProductTitle = styled.div`
   white-space: nowrap;
   overflow: hidden;
@@ -242,12 +252,12 @@ export const ProductTitle = styled.div`
   width: 10rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 30rem;
+  width: 30rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 50rem;
-    `};
+  `};
 `;
 
 export const ProductImg = styled.img`
@@ -258,38 +268,40 @@ export const ProductImg = styled.img`
   height: 5rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    border-radius: 1.5rem;
-    width: 6rem;
-    height: 6rem;
+  border-radius: 1.5rem;
+  width: 6rem;
+  height: 6rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   border-radius: 2rem;
   width: 7rem;
   height: 7rem;
-    `};
+  `};
 `;
 
 export const ProductPrice = styled.div`
   font-size: 1.2rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.5rem;
+  font-size: 1.5rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.8rem;
-    `};
+  `};
 `;
 
 export const ProductDate = styled.div`
   font-size: 1rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.3rem;
+  font-size: 1.3rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.6rem;
-    `};
+  `};
 `;
 
 // 팔로우 목록
@@ -299,14 +311,14 @@ export const FollowWrapper = styled.div`
   width: 30rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    margin-top: 4rem;
-    width: 50rem;
+  margin-top: 4rem;
+  width: 50rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   margin-top: 5rem;
   width: 80rem;
-    `};
+  `};
 `;
 
 export const Follow = styled.div`
@@ -323,7 +335,6 @@ export const Follow = styled.div`
     border-radius: 1rem;
     padding: 0.6rem;
     color: #fff;
-
     transition: 0.3s;
 
     & div {
@@ -336,13 +347,13 @@ export const Follow = styled.div`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.3rem;
-    padding: 1.3rem 0;
+  font-size: 1.3rem;
+  padding: 1.3rem 0;
   
-    &:hover {
-      border-radius: 1.5rem;
-      padding: 0.8rem;
-    }
+  &:hover {
+    border-radius: 1.5rem;
+    padding: 0.8rem;
+  }
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -353,7 +364,7 @@ export const Follow = styled.div`
     border-radius: 2rem;
     padding: 1rem;
   }
-    `};
+  `};
 `;
 
 export const FollowImgAndNickNameBox = styled.div`
@@ -363,12 +374,12 @@ export const FollowImgAndNickNameBox = styled.div`
   gap: 1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    gap: 2rem;
+  gap: 2rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   gap: 3rem;
-    `};
+  `};
 `;
 
 export const FollowImg = styled.img`
@@ -377,29 +388,31 @@ export const FollowImg = styled.img`
   height: 3rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 5rem;
-    height: 5rem;
+  width: 5rem;
+  height: 5rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 7rem;
   height: 7rem;
-    `};
+  `};
 `;
 
 export const FollowNickname = styled.div`
   font-size: 1.2rem;
   width: 15rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.5rem;
-    width: 25rem;
+  font-size: 1.5rem;
+  width: 25rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.8rem;
   width: 30rem;
-    `};
+  `};
 `;
+
 export const UnfollowBtn = styled.button`
   font-family: 'GmarketSansMedium';
   background-color: transparent;
@@ -423,12 +436,13 @@ export const UnfollowBtn = styled.button`
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.6rem;
-    `};
+ `};
 `;
 
 // 프로필 수정하기
 
 export const ProfileEditWrapper = styled.div``;
+
 export const ProfileImgEdit = styled.div`
   display: flex;
   justify-content: space-between;
@@ -436,26 +450,27 @@ export const ProfileImgEdit = styled.div`
   padding: 3rem 0;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    padding: 4rem 0;
+  padding: 4rem 0;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 5rem 0;
-    `};
+  `};
 `;
 
 export const ProfileEditTitle = styled.div`
   font-size: 1.1rem;
   width: 8rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.6rem;
-    width: 11rem;
+  font-size: 1.6rem;
+  width: 11rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.8rem;
   width: 13rem;
-    `};
+  `};
 `;
 
 export const ProfileImgEditBox = styled.div`
@@ -467,16 +482,16 @@ export const ProfileImgEditBox = styled.div`
   width: 22rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    padding: 1.4rem;
-    border-radius: 1.5rem;
-    width: 45rem;
+  padding: 1.4rem;
+  border-radius: 1.5rem;
+  width: 45rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 1.6rem;
   border-radius: 2rem;
   width: 65rem;
-    `};
+  `};
 `;
 
 export const ProfileImgBox = styled.div`
@@ -488,14 +503,14 @@ export const ProfileImgBox = styled.div`
   width: 15rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    gap: 1.5rem;
-    width: 50rem;
+  gap: 1.5rem;
+  width: 50rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   gap: 2rem;
   width: 60rem;
-    `};
+  `};
 `;
 
 export const ProfileImg = styled.img`
@@ -506,14 +521,14 @@ export const ProfileImg = styled.img`
   height: 9rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-      width: 15rem;
-      height: 15rem;
+  width: 15rem;
+  height: 15rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-    width: 20rem;
-    height: 20rem;
-    `};
+  width: 20rem;
+  height: 20rem;
+  `};
 `;
 
 export const ProfileImgUploadFile = styled.div`
@@ -525,16 +540,16 @@ export const ProfileImgUploadFile = styled.div`
   height: 2rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 40rem;
-    gap: 1.5rem;
-    height: 3rem;
+  width: 40rem;
+  gap: 1.5rem;
+  height: 3rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 50rem;
   gap: 2rem;
   height: 4rem;
-    `};
+  `};
 `;
 
 export const ProfileLabelBox = styled.div`
@@ -544,14 +559,14 @@ export const ProfileLabelBox = styled.div`
   border-right: 0.1em solid #fca311;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    height: 2rem;
-    border-right: 0.2em solid #fca311;
+  height: 2rem;
+  border-right: 0.2em solid #fca311;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   height: 2.6rem;
   border-right: 0.2em solid #fca311;
-    `};
+  `};
 `;
 
 export const ProfileLabel = styled.label`
@@ -578,16 +593,16 @@ export const ProfileLabel = styled.label`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.4rem;
-    padding-right: 0.8rem;
-    margin-right: 0.3rem;
+  font-size: 1.4rem;
+  padding-right: 0.8rem;
+  margin-right: 0.3rem;
   
-    &:hover {
-      padding: 0.8rem;
-      border-radius: 1.5rem;
-      margin-right: 0.6rem;
-      font-size: 1.7rem;
-    }
+  &:hover {
+    padding: 0.8rem;
+    border-radius: 1.5rem;
+    margin-right: 0.6rem;
+    font-size: 1.7rem;
+  }
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -601,12 +616,13 @@ export const ProfileLabel = styled.label`
     margin-right: 0.8rem;
     font-size: 2rem;
   }
-    `};
+  `};
 `;
 
 export const ProfileImgInput = styled.input`
   display: none;
 `;
+
 export const ProfileImgUpdate = styled.button`
   all: unset;
   font-family: 'GmarketSansMedium';
@@ -630,14 +646,14 @@ export const ProfileImgUpdate = styled.button`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.3rem;
-    height: 1.8rem;
+  font-size: 1.3rem;
+  height: 1.8rem;
   
-    &:hover {
-      padding: 0.3rem;
-      border-radius: 1.5rem;
-      font-size: 1.7rem;
-    }
+  &:hover {
+    padding: 0.3rem;
+    border-radius: 1.5rem;
+    font-size: 1.7rem;
+  }
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -649,14 +665,16 @@ export const ProfileImgUpdate = styled.button`
     border-radius: 2rem;
     font-size: 2rem;
   }
-    `};
+ `};
 `;
+
 export const ProfileEditBox = styled.div``;
 
 export const ProfileNicknameEdit = styled(ProfileImgEdit)`
   display: flex;
   align-items: center;
 `;
+
 export const ProfileNicknameEditValidation = styled.div`
   width: 30rem;
   height: 3.5rem;
@@ -664,15 +682,16 @@ export const ProfileNicknameEditValidation = styled.div`
   justify-content: space-between;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 45rem;
-    height: 4rem;
+  width: 45rem;
+  height: 4rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 65rem;
   height: 6rem;
-    `};
+  `};
 `;
+
 export const ProfileNicknameInput = styled.input`
   font-family: 'GmarketSansMedium';
   border: none;
@@ -682,28 +701,29 @@ export const ProfileNicknameInput = styled.input`
   width: 11rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.7rem;
-    width: 20rem;
+  font-size: 1.7rem;
+  width: 20rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 2rem;
   width: 25rem;
-    `};
+  `};
 `;
 
 export const ProfileNicknameLength = styled.span`
   font-size: 1rem;
   padding-left: 0.1rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.3rem;
-    padding-left: 0.4rem;
+  font-size: 1.3rem;
+  padding-left: 0.4rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.5rem;
   padding-left: 0.5rem;
-    `};
+  `};
 `;
 
 export const ProfileNicknameValidation = styled.button`
@@ -724,14 +744,14 @@ export const ProfileNicknameValidation = styled.button`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.4rem;
-    padding: 0.8rem;
+  font-size: 1.4rem;
+  padding: 0.8rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.7rem;
   padding: 1rem;
-    `};
+  `};
 `;
 
 export const NicknameValidationTextCorrect = styled.div`
@@ -740,14 +760,14 @@ export const NicknameValidationTextCorrect = styled.div`
   margin-top: 0.1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.2rem;
-    margin-top: 0.8rem;
+  font-size: 1.2rem;
+  margin-top: 0.8rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.5rem;
   margin-top: 1rem;
-    `};
+  `};
 `;
 
 export const NicknameValidationTextError = styled.div`
@@ -756,20 +776,21 @@ export const NicknameValidationTextError = styled.div`
   margin-top: 0.6rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.2rem;
-    margin-top: 0.8rem;
+  font-size: 1.2rem;
+  margin-top: 0.8rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.5rem;
   margin-top: 1rem;
-    `};
+  `};
 `;
 
 export const ProfileIntroTextEdit = styled(ProfileImgEdit)`
   display: flex;
   align-items: center;
 `;
+
 export const ProfileIntroTextWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -777,19 +798,15 @@ export const ProfileIntroTextWrapper = styled.div`
   width: 29rem;
   gap: 0.6rem;
 
-  & span {
-    /* float: right; */
-  }
-
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 45rem;
-    gap: 0.8rem;
+  width: 45rem;
+  gap: 0.8rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 65rem;
   gap: 1rem;
-    `};
+  `};
 `;
 
 export const ProfileIntroTextArea = styled.textarea`
@@ -806,13 +823,12 @@ export const ProfileIntroTextArea = styled.textarea`
   border-radius: 1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.4rem;
-    height: 8rem;
-    line-height: 1;
-    padding: 1.2rem;
-  
-    border: 0.8px solid #14213d;
-    border-radius: 1.5rem;
+  font-size: 1.4rem;
+  height: 8rem;
+  line-height: 1;
+  padding: 1.2rem;
+  border: 0.8px solid #14213d;
+  border-radius: 1.5rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -821,10 +837,9 @@ export const ProfileIntroTextArea = styled.textarea`
   height: 10rem;
   line-height: 1.2;
   padding: 1.4rem;
-
   border: 1px solid #14213d;
   border-radius: 2rem;
-    `};
+  `};
 `;
 
 export const ProfileBtnDiv = styled.div`
@@ -856,11 +871,11 @@ export const ProfileBtn = styled.button`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 13rem;
-    height: 4rem;
-    border-radius: 1.5rem;
-    margin-top: 2rem;
-    font-size: 1.4rem;
+  width: 13rem;
+  height: 4rem;
+  border-radius: 1.5rem;
+  margin-top: 2rem;
+  font-size: 1.4rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -869,5 +884,5 @@ export const ProfileBtn = styled.button`
   border-radius: 2rem;
   margin-top: 3rem;
   font-size: 1.7rem;
-    `};
+  `};
 `;

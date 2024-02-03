@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signinHandler } from '../../api/supabase.api';
+import { signinHandler } from '../../api/Supabase.api';
 import * as St from './Form.styled';
-import ImageSlideshow from './MainImgSlide';
-import { GithubLoginBtn } from './github';
-import { GoogleLoginBtn } from './google';
+import { GithubLoginBtn } from './github/Github';
+import { GoogleLoginBtn } from './google/Google';
+import ImageSlideshow from './slideimage/SlideImage';
 
 const Form = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -32,7 +32,6 @@ const Form = () => {
   // 비밀번호 유효성 검사 함수
   const validatePassword = (password: string) => {
     const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}:<>?])[A-Za-z\d!@#$%^&*()_+{}:<>?]{8,}$/;
-
     if (password === '') {
       setPasswordError('');
     } else if (!regex.test(password)) {
@@ -59,11 +58,9 @@ const Form = () => {
   const signInWithEmail = async () => {
     try {
       const result = await signinHandler(emailRef.current?.value || '', passwordRef.current?.value || '');
-
       if (result.error) {
         console.error('로그인중 오류 발생', result.error);
       } else {
-        console.log('로그인 성공', result.data);
         // 로그인 성공 후 추가 작업 수행
         navigate('/');
       }

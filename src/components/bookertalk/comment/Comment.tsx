@@ -7,17 +7,14 @@ import {
   getUserSessionHandler,
   insertCommentHandler,
   updateCommentHandler,
-} from '../../../api/supabase.api';
+} from '../../../api/Supabase.api';
 import { CommentTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
 import SubComment from '../comment/subcomment/SubComment';
 import * as St from './Comment.styled';
+import { PropsType } from './Comment.type';
 
-type PropsTypes = {
-  setCommentsCount: React.Dispatch<React.SetStateAction<number>>;
-};
-
-const Comment = ({ setCommentsCount }: PropsTypes) => {
+const Comment = ({ setCommentsCount }: PropsType) => {
   const [data, setData] = useState<CommentTypes>();
   const [session, setSession] = useState<string | undefined>('');
   const [metaData, setMetaData] = useState<UserMetadata>();
@@ -47,12 +44,12 @@ const Comment = ({ setCommentsCount }: PropsTypes) => {
 
   const updateComment = async () => {
     const result = await updateCommentHandler(inputComment, commentId as number);
-
     getCommentsInfo();
     setIsEditing(false);
     setCommentId(undefined);
     setInputComment('');
   };
+
   const deleteComment = async (commentId: number) => {
     const result = await deleteCommentHandler(commentId);
     getCommentsInfo();
@@ -62,6 +59,7 @@ const Comment = ({ setCommentsCount }: PropsTypes) => {
     getCommentsInfo();
     getUserSession();
   }, [params]);
+
   return (
     <St.Container>
       {session ? (
@@ -86,7 +84,6 @@ const Comment = ({ setCommentsCount }: PropsTypes) => {
       ) : (
         <></>
       )}
-
       <St.CommentWrapper>
         {data?.comments
           .sort((a, b) => a.id - b.id)
