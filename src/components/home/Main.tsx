@@ -227,6 +227,7 @@ const Main = () => {
                   key={i}
                   onClick={() => {
                     navigate(`/product/${item.id}`);
+                    window.scrollTo(0, 0);
                   }}>
                   <St.MarketProductImage>
                     <img src={(item.product_img && item.product_img[0]) || defaultImg} />

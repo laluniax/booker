@@ -4,13 +4,18 @@ import {
   getSubCommentsInfoHandler,
   insertSubCommentHandler,
   updateSubCommentHandler,
-} from '../../../api/Supabase.api';
-import { SubCommentTypes } from '../../../types/types';
-import { formatCreatedAt } from '../../../utils/date';
-import * as St from './Comment.styled';
-import { PropsType } from './SubComment.type';
+} from '../../../../api/Supabase.api';
+import { SubCommentTypes } from '../../../../types/types';
+import { formatCreatedAt } from '../../../../utils/date';
+import * as St from '../Comment.styled';
 
-const SubComment = ({ commentId, session, setCommentsCount }: PropsType) => {
+type Props = {
+  commentId: number | undefined;
+  session: string | undefined;
+  setCommentsCount: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
   const [toggleOpen, setToggleOpen] = useState(false);
   const [content, setContent] = useState('');
   const [data, setData] = useState<SubCommentTypes>();
@@ -45,7 +50,6 @@ const SubComment = ({ commentId, session, setCommentsCount }: PropsType) => {
   useEffect(() => {
     getSubCommentsInfo();
   }, []);
-
   return (
     <St.SubCommentWrapper>
       {toggleOpen ? (

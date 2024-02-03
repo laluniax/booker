@@ -104,14 +104,24 @@ export const HeaderUl = styled.ul`
   `};
 `;
 
-export const HeaderLi = styled.li`
+export const HeaderLi = styled.li<{ isActive: boolean }>`
   & a {
     text-decoration: none;
-    color: #fff;
+    color: ${(props) => (props.isActive ? '#fca311' : '#fff')};
+    font-weight: ${(props) => (props.isActive ? 'bold' : 'normal')};
+
+    &:active {
+      font-weight: bold;
+    }
 
     &:hover {
       cursor: pointer;
       color: #fca311;
+      transition: 0.3s;
+    }
+
+    &:not(:hover) {
+      transition: 0.3s;
     }
   }
 `;
@@ -162,11 +172,14 @@ export const LoginBtn = styled.div`
 // 검색
 export const SearchBox = styled.form`
   position: absolute; // 절대 위치 설정
-  left: 5rem;
+  left: 4rem;
   top: 0;
-
+  ${({ theme }) => theme.mediaQuery.sm`
+   left: 5.3rem;
+    top: 0.6rem;
+  `};
   ${({ theme }) => theme.mediaQuery.lg`
-  left: 94rem;
+  left: 91rem;
     top: 4.5rem; 
   `};
 `;

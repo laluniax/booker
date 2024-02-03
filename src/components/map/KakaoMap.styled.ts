@@ -1,26 +1,58 @@
 import styled from 'styled-components';
 import mapIndBookStoreImage from '../../assets/indbookstoreimage/mapindbookstoreimage.webp';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  /* max-width: 40rem;
+  margin: 0 auto;
+  ${({ theme }) => theme.mediaQuery.sm`
+max-width: 80rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+max-width: 120rem;
+  `}; */
+`;
 
 export const MapContainer = styled.div`
-  width: 120rem;
+  width: 40rem;
+  margin: 0 auto;
+  ${({ theme }) => theme.mediaQuery.sm`
   display: flex;
+  width: 80rem;
+
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  width: 120rem;
+
+`};
 `;
 
 export const Map = styled.div`
-  width: 60rem;
+  width: 30rem;
   position: relative;
+  margin: 0 auto;
+  ${({ theme }) => theme.mediaQuery.sm`
+  width: 40rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  width: 60rem;
+  `};
 `;
 
 export const Title = styled.h1`
+  font-family: 'GmarketSansMedium';
   width: 58rem;
   height: 4rem;
-  font-size: 4rem;
+  font-size: 2rem;
   margin: 2rem auto;
   color: #14213d;
   font-weight: bold;
   align-items: center;
+  ${({ theme }) => theme.mediaQuery.sm`
+  font-size: 3rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  font-size: 3.8rem;
+  `};
 `;
 
 export const DetailButton = styled.button`
@@ -73,10 +105,18 @@ export const SearchWrapper = styled.div`
   top: 9rem;
   left: 1rem;
   z-index: 9999;
-  width: 23rem;
-  height: 30rem;
+  width: 18rem;
+  height: 20rem;
   background-color: white;
   border-radius: 1rem;
+  ${({ theme }) => theme.mediaQuery.sm`
+    width: 23rem;
+    height: 25rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+    width: 23rem;
+    height: 30rem;
+  `};
 `;
 
 export const SearchForm = styled.form`
@@ -100,18 +140,31 @@ export const SearchBox = styled.div`
 `;
 
 export const SearchResultWrapper = styled.div`
-  margin: 1rem 0;
-  padding: 0 1rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
+  ${({ theme }) => theme.mediaQuery.sm`
+    margin: 1rem 0;
+    padding: 0 1rem;
+  `};
 `;
 
 export const SearchName = styled.p`
-  font-size: 16px;
+  font-size: 1.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  ${({ theme }) => theme.mediaQuery.sm`
+  font-size: 1.4rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  font-size: 1.6rem;
+  `};
 `;
 
 export const SearchList = styled.div`
   height: 82%;
   overflow: scroll;
+  margin-top: 2rem;
 `;
 
 export const SearchInput = styled.input`
@@ -163,4 +216,7 @@ export const StoreInfo = styled.div`
 
 export const SearchAdress = styled.p`
   margin-top: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

@@ -4,7 +4,6 @@ import { MessageProp } from './UserChatRoom.type';
 
 const ChatLog = ({ messages }: MessageProp) => {
   const messageEndRef = useRef<HTMLDivElement | null>(null);
-
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
@@ -31,5 +30,4 @@ const ChatLog = ({ messages }: MessageProp) => {
     </St.Container>
   );
 };
-
 export default ChatLog;

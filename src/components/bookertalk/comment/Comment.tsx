@@ -10,9 +10,9 @@ import {
 } from '../../../api/Supabase.api';
 import { CommentTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
+import SubComment from '../comment/subcomment/SubComment';
 import * as St from './Comment.styled';
 import { PropsType } from './Comment.type';
-import SubComment from './SubComment';
 
 const Comment = ({ setCommentsCount }: PropsType) => {
   const [data, setData] = useState<CommentTypes>();
