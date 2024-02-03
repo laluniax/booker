@@ -10,7 +10,7 @@ import {
   deletePostImgStorageHandler,
   filteredPostId,
   getUserSessionHandler,
-} from '../../api/Supabase1.api';
+} from '../../api/Supabase.api';
 import deleteicon from '../../assets/market/deleteicon.webp';
 import editicon from '../../assets/market/editicon.webp';
 import { formatCreatedAt } from '../../utils/date';

@@ -106,6 +106,18 @@ export const SubCommentContent = styled.div`
   `};
 `;
 
+export const subCommentEditInput = styled.textarea`
+  font-family: 'GmarketSansMedium';
+  resize: none;
+  width: 50rem;
+  height: 6rem;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  outline: none;
+  padding: 1rem 1rem 1.5rem 1.3rem;
+`;
+
 export const SubCommentEditInput = styled.textarea`
   font-family: 'GmarketSansMedium';
   resize: none;

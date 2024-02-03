@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserSessionHandler, signoutHandler } from '../../../api/Supabase1.api';
+import { getUserSessionHandler, signoutHandler } from '../../../api/Supabase.api';
 import logo from '../../../assets/common/logo.webp';
 import { useAuth } from '../../../contexts/auth.context';
 import * as St from './Header.styled';

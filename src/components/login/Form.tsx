@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signinHandler } from '../../api/Supabase1.api';
+import { signinHandler } from '../../api/Supabase.api';
 import * as St from './Form.styled';
 import { GithubLoginBtn } from './github/Github';
 import { GoogleLoginBtn } from './google/Google';

@@ -1,7 +1,7 @@
 import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getCategoryProductListHandler, getProductListHandler, getUserSessionHandler } from '../../api/Supabase1.api';
+import { getCategoryProductListHandler, getProductListHandler, getUserSessionHandler } from '../../api/Supabase.api';
 import { ProductsTypes } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
 import ProductsLike from '../common/like/ProductsLike';

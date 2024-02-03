@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../../../../api/Supabase1.api';
+import { supabase } from '../../../../api/Supabase.api';
 import { useAuth } from '../../../../contexts/auth.context';
 import { MessageTypes } from '../../../../types/types';
-import * as St from './AdminchatRoom.styled';
+import * as St from './AdminChatRoom.styled';
 
 const AdminChat = () => {
   const [qnaRoomIds, setQnaRoomIds] = useState<string[]>([]);

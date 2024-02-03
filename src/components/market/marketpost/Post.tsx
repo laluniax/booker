@@ -8,7 +8,7 @@ import {
   updateProductHandler,
   updateProductImgPublicUrlHandler,
   uploadProductImgStorageUrl,
-} from '../../../api/Supabase1.api';
+} from '../../../api/Supabase.api';
 import * as St from './Post.styled';
 
 export const categoryArr = [
