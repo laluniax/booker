@@ -1,7 +1,7 @@
 import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { filteredCategory, getPostsHandler, getUserSessionHandler } from '../../../api/Supabase.api';
+import { filteredCategory, getPostsHandler, getUserSessionHandler } from '../../../api/Supabase1.api';
 import { formatCreatedAt } from '../../../utils/date';
 import Pagination from '../../common/pagination/Pagination';
 import { categoryUuid } from '../bookertalkpost/Post';

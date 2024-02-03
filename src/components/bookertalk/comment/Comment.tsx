@@ -7,7 +7,7 @@ import {
   getUserSessionHandler,
   insertCommentHandler,
   updateCommentHandler,
-} from '../../../api/Supabase.api';
+} from '../../../api/Supabase1.api';
 import { CommentTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
 import SubComment from '../comment/subcomment/SubComment';

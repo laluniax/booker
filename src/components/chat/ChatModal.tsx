@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useSendMessage } from '../../api/Chat.api';
-import { supabase } from '../../api/Supabase.api';
+import { supabase } from '../../api/Supabase1.api';
 import {
   ChatId,
   UnreadCounts,
@@ -13,7 +13,7 @@ import {
   person,
   productState,
   sendMessages,
-} from '../../atom/Product.atom';
+} from '../../atom/Product1.atom';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기

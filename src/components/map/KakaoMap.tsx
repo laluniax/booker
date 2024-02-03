@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
-import { mapMarkerDataHandler } from '../../api/Supabase.api';
+import { mapMarkerDataHandler } from '../../api/Supabase1.api';
 import * as St from './KakaoMap.styled';
 import { LocationTypes, MapMarkerDataTypes, MarkerTypes, UserLocationStateTypes } from './KakaoMap.type';
 import AboutIndBookStore from './aboutindbookstore/AboutIndBookStore';

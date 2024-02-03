@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../../../../api/Supabase.api';
+import { supabase } from '../../../../api/Supabase1.api';
 import { useAuth } from '../../../../contexts/auth.context';
 import { MessageTypes } from '../../../../types/types';
 import * as St from './AdminchatRoom.styled';

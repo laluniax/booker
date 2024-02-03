@@ -10,7 +10,7 @@ import {
   submitPostListHandler,
   updatePostHandler,
   uploadImageFile,
-} from '../../../api/Supabase.api';
+} from '../../../api/Supabase1.api';
 import * as St from './Post.styled';
 import { CateGenresTypes, CategoriesTypes, HookCallbackType } from './Post.type';
 
