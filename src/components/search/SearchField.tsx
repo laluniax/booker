@@ -128,6 +128,7 @@ const SearchField = () => {
   }, [keyword]);
   return (
     <St.Container>
+      <St.SearchResult>'{keyword}'에 대한 검색 결과입니다.</St.SearchResult>
       <St.SearchWrapper height={20}>
         <St.SearchTitle>북커톡</St.SearchTitle>
         {bookertalkList.length > 0 ? (

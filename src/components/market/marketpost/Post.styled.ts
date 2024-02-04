@@ -10,12 +10,10 @@ export const Container = styled.div`
 
   ${({ theme }) => theme.mediaQuery.sm`
   max-width: 80rem;
-  height: 90rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
     max-width: 120rem;
-    min-height: 170rem;
   `};
 `;
 
@@ -357,7 +355,7 @@ export const PostSubmitBtn = styled.button`
   padding: 1rem 2rem;
   border-radius: 1rem;
   font-size: 1.6rem;
-  margin-top: 2rem;
+  margin: 2rem 0 10rem 0;
 
   &:hover {
     cursor: pointer;

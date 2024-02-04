@@ -1,23 +1,16 @@
-import { Session } from '@supabase/supabase-js';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useCreateOrGetChat, useSendMessage } from '../../../api/Chat.api';
-import {
-  deleteProductHandler,
-  deleteProductImgStorage,
-  getProductHandler,
-  getUserSessionHandler,
-  supabase,
-} from '../../../api/Supabase.api';
+import { deleteProductHandler, deleteProductImgStorage, getProductHandler, supabase } from '../../../api/Supabase.api';
 import SliderPrevIcon from '../../../assets/common/slider_left.webp';
 import SliderNextIcon from '../../../assets/common/slider_right.webp';
 import logoImage from '../../../assets/profile/defaultprofileimage.webp';
 import { ChatId, otherPerson, person, productState, sendMessages } from '../../../state/atom/chatAtom';
+import { userSession } from '../../../state/atom/userSessionAtom';
 import { MessageTypes, ProductsTypes } from '../../../types/types';
-import { formatCreatedAt } from '../../../utils/date';
 import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
 import { categoryArr } from '../marketpost/Post';
@@ -28,10 +21,11 @@ const Product = () => {
   const postId = params ? parseInt(params, 10) : undefined;
   const navigate = useNavigate();
   const slideRef = useRef<HTMLUListElement>(null);
-  const [session, setSession] = useState<Session | null>(null);
   const [product, setProduct] = useState<ProductsTypes>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideLength, setSlideLength] = useState(0);
+  const session = useRecoilValue(userSession);
+
   const [inputValue, setInputValue] = useState('');
   const [productId, setProductId] = useRecoilState(productState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
@@ -151,12 +145,6 @@ const Product = () => {
     setSlideLength(result[0].product_img.length);
   };
 
-  const getUserSession = async () => {
-    const session = await getUserSessionHandler();
-    const newFollowId = product?.user_id + '-' + session.session?.user.id;
-    setSession(session.session);
-  };
-
   const onClickPrevBtn = useCallback(() => {
     if (currentSlide >= 1) {
       setCurrentSlide((prev) => prev - 1);
@@ -185,15 +173,9 @@ const Product = () => {
       : window.confirm('로그인 페이지로 이동하시겠습니까?') && navigate(`/login`);
   };
 
-  const [likes, setLikes] = useState<any[]>([]);
-
   useEffect(() => {
     getProduct();
   }, [params]);
-
-  useEffect(() => {
-    getUserSession();
-  }, [product]);
 
   useEffect(() => {
     if (slideRef.current) slideRef.current.style.marginLeft = `${-currentSlide * 30}rem`;
@@ -234,7 +216,7 @@ const Product = () => {
           <St.ProductTitleAndDate>
             <St.ProductTitle>{product?.title}</St.ProductTitle>
             <St.ProductDate>
-              | {product?.created_at ? formatCreatedAt(product.created_at) : '날짜 정보 없음'}
+              | {product?.created_at ? dayjs(product.created_at).format('MM-DD HH:MM') : '날짜 정보 없음'}
             </St.ProductDate>
           </St.ProductTitleAndDate>
           <St.ProductCategory>
@@ -256,7 +238,7 @@ const Product = () => {
             <St.ProductPrice>
               {product?.price} <span>원</span>
             </St.ProductPrice>
-            {session?.user.id === product?.user_id ? (
+            {session?.id === product?.user_id ? (
               <St.ProductBtn>
                 <St.UpdateBtn onClick={() => navigate(`/marketpost/${product?.id}`)}>
                   <St.EditIcon />
@@ -312,7 +294,7 @@ const Product = () => {
               }}>
               <img src={product?.users.user_img ?? undefined} />
               <div>{product?.users.nickname}</div>
-              {session?.user.id === product?.user_id ? (
+              {session?.id === product?.user_id ? (
                 <St.FollowBtn>내 프로필</St.FollowBtn>
               ) : (
                 product?.user_id && <Follow params={product?.user_id as string} usage="product" />
