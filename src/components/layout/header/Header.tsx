@@ -21,6 +21,14 @@ const Header = () => {
     navigate('/');
   };
 
+  const bookertalkRegex = /^\/bookertalk/;
+  const detailRegex = /^\/detail\/[^/]+$/;
+  const marketRegex = /^\/market/;
+  const productRegex = /^\/product\/[^/]+$/;
+  const marketPostRegex = /^\/marketpost/;
+  const aboutbookRegex = /^\/aboutbook/;
+  const surveyRegex = /^\/survey/;
+
   useEffect(() => {
     setActiveTab(window.location.pathname);
     // const LocationChangehandler = () => {
@@ -50,28 +58,30 @@ const Header = () => {
         <St.ImageWrapper
           onClick={() => {
             setActiveTab('/');
+            setIsDropdownOpen(false);
             navigate('/');
           }}>
           <img src={logo} />
         </St.ImageWrapper>
         <St.HeaderUl>
           {/* <St.HeaderLiBox> */}
-          <St.HeaderLi $isActive={activeTab === '/bookertalk'}>
+          <St.HeaderLi $isActive={bookertalkRegex.test(activeTab) || detailRegex.test(activeTab)}>
             <a href="/bookertalk" onClick={() => setActiveTab('/bookertalk')}>
               북커톡
             </a>
           </St.HeaderLi>
-          <St.HeaderLi $isActive={activeTab === '/aboutbook/bestseller'}>
+          <St.HeaderLi $isActive={aboutbookRegex.test(activeTab)}>
             <a href="/aboutbook/bestseller" onClick={() => setActiveTab('/aboutbook/bestseller')}>
               도서소개
             </a>
           </St.HeaderLi>
-          <St.HeaderLi $isActive={activeTab === '/survey'}>
+          <St.HeaderLi $isActive={surveyRegex.test(activeTab)}>
             <a href="/survey" onClick={() => setActiveTab('/survey')}>
               맞춤추천
             </a>
           </St.HeaderLi>
-          <St.HeaderLi $isActive={activeTab === '/market'}>
+          <St.HeaderLi
+            $isActive={marketRegex.test(activeTab) || marketPostRegex.test(activeTab) || productRegex.test(activeTab)}>
             <a href="/market" onClick={() => setActiveTab('/market')}>
               중고거래
             </a>

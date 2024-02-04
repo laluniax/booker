@@ -6,6 +6,18 @@ export const Container = styled.div`
   min-height: 120rem;
 `;
 
+export const SearchResult = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 1.4rem;
+  ${({ theme }) => theme.mediaQuery.sm`
+  font-size: 1.5rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  font-size: 1.6rem;
+  `};
+`;
+
 type HeightProps = {
   height: number;
 };
