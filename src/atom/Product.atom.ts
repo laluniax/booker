@@ -1,11 +1,6 @@
 import { atom } from 'recoil';
 import { ChatRoomTypes } from './Product.type';
 
-
-
-
-// import { selector } from 'recoil';
-
 export const productState = atom({
   key: 'productState', // 고유한 키
   default: 0, // 기본값
@@ -16,20 +11,11 @@ export const person = atom({
   default: '', // 기본값
 });
 
-export const otherPerson = atom({
-  key: 'otherPerson', // 고유한 키
-  default: '', // 기본값
-});
-
 export const ChatId = atom({
   key: 'ChatId', // 고유한 키
   default: '', // 기본값
 });
 
-// export const chatTypingValue = atom({
-//   key: 'chatTypingValue', // 고유한 키
-//   default: '', // 기본값
-// });
 
 export const mainChatModalOpen = atom({
   key: 'mainChatModalOpen', // 고유한 키

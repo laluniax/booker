@@ -4,7 +4,7 @@ import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { useCreateOrGetChat, useSendMessage } from '../../../api/Chat.api';
+import { useCreateOrGetChat, } from '../../../api/Chat.api';
 import {
   deleteProductHandler,
   deleteProductImgStorage,
@@ -16,7 +16,7 @@ import SliderPrevIcon from '../../../assets/common/slider_left.webp';
 import SliderNextIcon from '../../../assets/common/slider_right.webp';
 import logoImage from '../../../assets/profile/defaultprofileimage.webp';
 
-import { MessageTypes, ProductsTypes } from '../../../types/types';
+import {  ProductsTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
 import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
@@ -25,7 +25,7 @@ import * as St from './Product.styled';
 
 import ChatInpuValuSendHandler from '../../chat/market/ChatInpuValuSendHandler';
 import ChatMessages from '../../chat/market/ChatMessages';
-import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/Product.atom';
+import {  person, productState, sendMessages } from '../../../atom/Product.atom';
 // import { MessageType } from '../../chat/market/ChatMarket';
 dayjs.locale('ko'); // 한국어 로케일을 기본값으로 설정
 
@@ -38,15 +38,12 @@ const Product = () => {
   const [product, setProduct] = useState<ProductsTypes>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideLength, setSlideLength] = useState(0);
-  const [inputValue, setInputValue] = useState('');
   const [productId, setProductId] = useRecoilState(productState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [messages, setMessages] = useRecoilState(sendMessages);
-  const [otherLoginPersonal, setOtherLoginPersonal] = useRecoilState(otherPerson);
+  // const [otherLoginPersonal, setOtherLoginPersonal] = useRecoilState(otherPerson);
   const { mutate: createOrGetChat } = useCreateOrGetChat();
-  const [chatId, setChatId] = useRecoilState(ChatId);
-  const { mutate: sendDirectMessage } = useSendMessage();
   const [isAtBottom, setIsAtBottom] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
@@ -113,7 +110,7 @@ const Product = () => {
         setIsChatModalOpen(true);
         createOrGetChat({ userId, otherUserId, productId });
         setProductId(productId);
-        setOtherLoginPersonal(otherUserId);
+        // setOtherLoginPersonal(otherUserId);
         setLoginPersonal(userId);
       }
     }

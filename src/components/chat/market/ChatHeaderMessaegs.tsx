@@ -18,8 +18,6 @@ const ChatHeaderMessaegs = () => { //props 못 내림.
   const [otherUserDetails, setOtherUserDetails] = useRecoilState(otherUserDetail);
   const [newMessagesCount, setNewMessagesCount] = useRecoilState(newMessagesCountState);
   const [updateMesaage, setUpdateMesaage] = useRecoilState(updateMesaages);
-  const [chatId, setChatId] = useRecoilState(ChatId);
-  const [productId, setProductId] = useRecoilState(productState);
 
   // useNavigate 훅으로부터 navigate 함수를 얻음
   const navigate = useNavigate();

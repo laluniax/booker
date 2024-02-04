@@ -1,24 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { useSendMessage } from '../../api/Chat.api';
-
-
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import { useAuth } from '../../contexts/auth.context';
-import { MessageTypes } from '../../types/types';
 import * as St from './ChatModal.styled';
 import ChatHeaderMessaegs from './market/ChatHeaderMessaegs';
 import ChatInpuValuSendHandler from './market/ChatInpuValuSendHandler';
 import ChatMessages from './market/ChatMessages';
 import ChatRoomList from './market/ChatRoomList';
 import TotalChatUnreadCounts from './market/TotalChatUnreadCounts';
-import { MessageListTypes, OtherUserDetailTypes, ProductDetailTypes } from './ChatModal.type';
+import { MessageListTypes } from './ChatModal.type';
 import AdminChat from './qna/chatadmin/AdminChatRoom';
 import ChatLog from './qna/chatuser/UserChatRoom';
-import { UnreadCounts, firstChatModalOpenState, globalModalSwitch, mainChatModalOpen, person, sendMessages } from '../../atom/Product.atom';
+import { UnreadCounts, globalModalSwitch, mainChatModalOpen, person, sendMessages } from '../../atom/Product.atom';
 import { supabase } from '../../api/Supabase.api';
 
 dayjs.extend(relativeTime); // relativeTime 플러그인 활성화
@@ -34,7 +30,6 @@ const Chat = () => {
   const [ischatRoomModalOpen, setIschatRoomModalOpen] = useRecoilState(mainChatModalOpen);
   const [ChatBtnOpen, setChatBtnOpen] = useState(false);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
-
   const [messages, setMessages] = useRecoilState(sendMessages);
   const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);
   const [isAtBottom, setIsAtBottom] = useState(true);
@@ -174,6 +169,7 @@ const Chat = () => {
         isOpen && <AdminChat />
       ) : (
         <St.Container>
+          {/* 채팅모달부분 */}
           {ischatRoomModalOpen && (
             <St.ChatModalWrapper>
                  <St.ChatModalHeader>
