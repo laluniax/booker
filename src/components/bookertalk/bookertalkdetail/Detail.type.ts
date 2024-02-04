@@ -1,4 +1,4 @@
-import { Tables } from '../../types/types';
+import { Tables } from '../../../types/types';
 
 export type PostsTypes = {
   content: string | null;
