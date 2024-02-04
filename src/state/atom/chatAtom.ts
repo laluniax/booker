@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
-import { UnreadCount } from '../App';
-import { MessageTypes } from '../types/types';
-import { ChatRoomTypes } from './Product.type';
+import { UnreadCount } from '../../App';
+import { MessageTypes } from '../../types/types';
+import { ChatRoomTypes } from './Chat.type';
 
 export const productState = atom({
   key: 'productState', // 고유한 키

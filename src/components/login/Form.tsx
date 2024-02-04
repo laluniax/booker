@@ -1,6 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signinHandler } from '../../api/Supabase.api';
+import { useRecoilState } from 'recoil';
+import { getUserSessionHandler, signinHandler } from '../../api/Supabase.api';
+import { userSession } from '../../state/atom/userSessionAtom';
 import * as St from './Form.styled';
 import { GithubLoginBtn } from './github/Github';
 import { GoogleLoginBtn } from './google/Google';
@@ -12,6 +14,7 @@ const Form = () => {
   const navigate = useNavigate();
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [session, setSession] = useRecoilState(userSession);
 
   // 이메일 유효성 검사 함수
   const validateEmail = (email: string): boolean => {
@@ -62,12 +65,23 @@ const Form = () => {
         console.error('로그인중 오류 발생', result.error);
       } else {
         // 로그인 성공 후 추가 작업 수행
+        getUserSession();
         navigate('/');
       }
     } catch (error) {
       console.error('로그인중 오류 발생', error);
     }
   };
+
+  const getUserSession = async () => {
+    const data = await getUserSessionHandler();
+    // console.log('login user session data => ', data);
+    setSession(data.session?.user);
+  };
+
+  useEffect(() => {
+    console.log(session);
+  }, [session]);
 
   return (
     <St.Container>

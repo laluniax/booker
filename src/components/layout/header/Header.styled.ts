@@ -104,11 +104,11 @@ export const HeaderUl = styled.ul`
   `};
 `;
 
-export const HeaderLi = styled.li<{ isActive: boolean }>`
+export const HeaderLi = styled.li<{ $isActive: boolean }>`
   & a {
     text-decoration: none;
-    color: ${(props) => (props.isActive ? '#fca311' : '#fff')};
-    font-weight: ${(props) => (props.isActive ? 'bold' : 'normal')};
+    color: ${(props) => (props.$isActive ? '#fca311' : '#fff')};
+    font-weight: ${(props) => (props.$isActive ? 'bold' : 'normal')};
 
     &:active {
       font-weight: bold;

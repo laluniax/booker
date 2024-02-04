@@ -15,7 +15,7 @@ import {
 import SliderPrevIcon from '../../../assets/common/slider_left.webp';
 import SliderNextIcon from '../../../assets/common/slider_right.webp';
 import logoImage from '../../../assets/profile/defaultprofileimage.webp';
-import { ChatId, otherPerson, person, productState, sendMessages } from '../../../atom/Product.atom';
+import { ChatId, otherPerson, person, productState, sendMessages } from '../../../state/atom/chatAtom';
 import { MessageTypes, ProductsTypes } from '../../../types/types';
 import { formatCreatedAt } from '../../../utils/date';
 import Follow from '../../common/follow/Follow';

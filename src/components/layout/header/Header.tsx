@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { getUserSessionHandler, signoutHandler } from '../../../api/Supabase.api';
 import logo from '../../../assets/common/logo.webp';
 import { useAuth } from '../../../contexts/auth.context';
+import { userSession } from '../../../state/atom/userSessionAtom';
 import * as St from './Header.styled';
 import SearchArea from './SearchArea';
 
@@ -12,6 +14,7 @@ const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [nickname, setNickname] = useState('');
   const [activeTab, setActiveTab] = useState(window.location.pathname);
+  const [session, setSession] = useRecoilState(userSession);
 
   useEffect(() => {
     const LocationChangehandler = () => {
@@ -38,8 +41,13 @@ const Header = () => {
 
   const onClickSignoutHandler = async () => {
     await signoutHandler();
+    setSession(undefined);
     navigate('/');
   };
+
+  useEffect(() => {
+    console.log(session);
+  }, [session]);
 
   return (
     <St.Container>
@@ -53,27 +61,27 @@ const Header = () => {
         </St.ImageWrapper>
         <St.HeaderUl>
           {/* <St.HeaderLiBox> */}
-          <St.HeaderLi isActive={activeTab === '/bookertalk'}>
+          <St.HeaderLi $isActive={activeTab === '/bookertalk'}>
             <a href="/bookertalk" onClick={() => setActiveTab('/bookertalk')}>
               북커톡
             </a>
           </St.HeaderLi>
-          <St.HeaderLi isActive={activeTab === '/aboutbook/bestseller'}>
+          <St.HeaderLi $isActive={activeTab === '/aboutbook/bestseller'}>
             <a href="/aboutbook/bestseller" onClick={() => setActiveTab('/aboutbook/bestseller')}>
               도서소개
             </a>
           </St.HeaderLi>
-          <St.HeaderLi isActive={activeTab === '/survey'}>
+          <St.HeaderLi $isActive={activeTab === '/survey'}>
             <a href="/survey" onClick={() => setActiveTab('/survey')}>
               맞춤추천
             </a>
           </St.HeaderLi>
-          <St.HeaderLi isActive={activeTab === '/market'}>
+          <St.HeaderLi $isActive={activeTab === '/market'}>
             <a href="/market" onClick={() => setActiveTab('/market')}>
               중고거래
             </a>
           </St.HeaderLi>
-          <St.HeaderLi isActive={activeTab === '/indBookStores'}>
+          <St.HeaderLi $isActive={activeTab === '/indBookStores'}>
             <a href="/indBookStores" onClick={() => setActiveTab('/indBookStores')}>
               독립서점
             </a>
