@@ -3,14 +3,10 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import 'tui-color-picker/dist/tui-color-picker.css';
-import {
-  filteredPostId,
-  getUserSessionHandler,
-  submitPostListHandler,
-  updatePostHandler,
-  uploadImageFile,
-} from '../../../api/Supabase.api';
+import { filteredPostId, submitPostListHandler, updatePostHandler, uploadImageFile } from '../../../api/Supabase.api';
+import { userSession } from '../../../state/atom/userSessionAtom';
 import * as St from './Post.styled';
 import { CateGenresTypes, CategoriesTypes, HookCallbackType } from './Post.type';
 
@@ -42,6 +38,8 @@ const Post = () => {
   const [tagList, setTagList] = useState<string[]>([]);
   const [userId, setUserId] = useState('');
   const [postImg, setPostImg] = useState<string[]>([]);
+  const session = useRecoilValue(userSession);
+
   const params = useParams().id;
 
   // 토스트 에디터
@@ -51,12 +49,6 @@ const Post = () => {
   const categories = {
     자유수다: ['인문', '경제 • 경영', '자기계발', '정치 • 사회', '역사 • 문화', '과학', '소설', '시 • 에세이'],
     도서추천: ['인문', '경제 • 경영', '자기계발', '정치 • 사회', '역사 • 문화', '과학', '소설', '시 • 에세이'],
-  };
-
-  // 유저 세션 가져오기
-  const getUserSession = async () => {
-    const result = await getUserSessionHandler();
-    setUserId(result.session?.user.id as string);
   };
 
   const getPost = async () => {
@@ -85,8 +77,10 @@ const Post = () => {
   const onKeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     if (target.value.length !== 0 && e.key === 'Enter') {
-      e.preventDefault();
-      submitTagItem();
+      if (e.nativeEvent.isComposing === false) {
+        e.preventDefault();
+        submitTagItem();
+      }
     }
   };
 
@@ -145,7 +139,7 @@ const Post = () => {
   };
 
   useEffect(() => {
-    getUserSession();
+    session && setUserId(session?.id as string);
     params && getPost();
   }, [params]);
 
@@ -192,7 +186,7 @@ const Post = () => {
                 type="text"
                 autoComplete="off"
                 tabIndex={2}
-                onKeyPress={onKeyPressHandler}
+                onKeyDown={onKeyPressHandler}
               />
             </St.TagInputBox>
           </St.TagWrapper>

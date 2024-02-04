@@ -1,21 +1,22 @@
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import {
   deleteSubCommentHandler,
   getSubCommentsInfoHandler,
   insertSubCommentHandler,
   updateSubCommentHandler,
 } from '../../../../api/Supabase.api';
+import { userSession } from '../../../../state/atom/userSessionAtom';
 import { SubCommentTypes } from '../../../../types/types';
-import { formatCreatedAt } from '../../../../utils/date';
 import * as St from './SubComment.styled';
 
 type Props = {
   commentId: number | undefined;
-  session: string | undefined;
   setCommentsCount: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
+const SubComment = ({ commentId, setCommentsCount }: Props) => {
   const [toggleOpen, setToggleOpen] = useState(false);
   const [content, setContent] = useState('');
   const [data, setData] = useState<SubCommentTypes>();
@@ -23,13 +24,15 @@ const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
   const [inputSubComment, setInputSubComment] = useState('');
   const [subCommentId, setSubCommentId] = useState<number>();
 
+  const session = useRecoilValue(userSession);
+
   const getSubCommentsInfo = async () => {
     const result = await getSubCommentsInfoHandler(commentId as number);
     setData(result[0]);
   };
 
   const insertSubComment = async () => {
-    const result = await insertSubCommentHandler(commentId as number, session as string, content);
+    const result = await insertSubCommentHandler(commentId as number, session?.id as string, content);
     getSubCommentsInfo();
     setContent('');
   };
@@ -72,9 +75,9 @@ const SubComment = ({ commentId, session, setCommentsCount }: Props) => {
                         <St.SubCommentUser>
                           <St.SubCommentImg src={item.users.user_img ?? undefined} />
                           <St.SubCommentNickname>{item.users.nickname} | </St.SubCommentNickname>
-                          <St.SubCommentDate>{formatCreatedAt(item.created_at)}</St.SubCommentDate>
+                          <St.SubCommentDate>{dayjs(item.created_at).format('MM-DD')}</St.SubCommentDate>
                         </St.SubCommentUser>
-                        {session === item.user_id ? (
+                        {session?.id === item.user_id ? (
                           <St.CommentBtnDiv>
                             {isEditing ? (
                               <St.CommentEditSubmitBtnBox>
