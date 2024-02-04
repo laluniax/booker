@@ -1,43 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { getUserSessionHandler, signoutHandler } from '../../../api/Supabase.api';
+import { signoutHandler } from '../../../api/Supabase.api';
 import logo from '../../../assets/common/logo.webp';
-import { useAuth } from '../../../contexts/auth.context';
 import { userSession } from '../../../state/atom/userSessionAtom';
 import * as St from './Header.styled';
 import SearchArea from './SearchArea';
 
 const Header = () => {
-  const navigate = useNavigate();
-  const auth = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [nickname, setNickname] = useState('');
   const [activeTab, setActiveTab] = useState(window.location.pathname);
   const [session, setSession] = useRecoilState(userSession);
 
-  useEffect(() => {
-    const LocationChangehandler = () => {
-      setActiveTab(window.location.pathname);
-    };
-
-    // URL이 변경될 때마다 handleLocationChange를 호출합니다.
-    window.addEventListener('popstate', LocationChangehandler);
-
-    return () => {
-      window.removeEventListener('popstate', LocationChangehandler);
-    };
-  }, []);
-
-  const getUserSession = async () => {
-    const result = await getUserSessionHandler();
-    setNickname(
-      result.session?.user.user_metadata.full_name ||
-        result.session?.user.user_metadata.preferred_name ||
-        result.session?.user.user_metadata.user_name ||
-        result.session?.user.user_metadata.name,
-    );
-  };
+  const navigate = useNavigate();
 
   const onClickSignoutHandler = async () => {
     await signoutHandler();
@@ -46,7 +22,26 @@ const Header = () => {
   };
 
   useEffect(() => {
-    console.log(session);
+    setActiveTab(window.location.pathname);
+    // const LocationChangehandler = () => {
+    //   setActiveTab(window.location.pathname);
+    // };
+
+    // // URL이 변경될 때마다 handleLocationChange를 호출합니다.
+    // window.addEventListener('popstate', LocationChangehandler);
+
+    // return () => {
+    //   window.removeEventListener('popstate', LocationChangehandler);
+    // };
+  }, [window.location.pathname]);
+
+  useEffect(() => {
+    setNickname(
+      session?.user_metadata.full_name ||
+        session?.user_metadata.preferred_name ||
+        session?.user_metadata.user_name ||
+        session?.user_metadata.name,
+    );
   }, [session]);
 
   return (
@@ -90,15 +85,13 @@ const Header = () => {
         <St.HeaderSearchMypage>
           <SearchArea />
 
-          {auth.session ? (
+          {session ? (
             <St.HeaderBtn onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
               <St.ProfileIconImage />
               <div>{nickname ? <span>{nickname}</span> : null}</div>
               {isDropdownOpen && (
                 <St.Dropdown>
-                  <St.DropdownItem onClick={() => navigate(`/profile/${auth.session?.user.id}`)}>
-                    마이페이지
-                  </St.DropdownItem>
+                  <St.DropdownItem onClick={() => navigate(`/profile/${session?.id}`)}>마이페이지</St.DropdownItem>
                   <St.DropdownItem onClick={onClickSignoutHandler}>로그아웃</St.DropdownItem>
                 </St.Dropdown>
               )}
