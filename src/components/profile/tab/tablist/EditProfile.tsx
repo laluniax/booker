@@ -11,10 +11,10 @@ import {
   updateUserAuthUserImgHandler,
   updateUserIntroTextHandler,
   uploadUserImgHandler,
-} from '../../api/Supabase.api';
-import profileImage from '../../assets/profile/defaultprofileimage.webp';
-import { Tables } from '../../types/types';
-import * as St from './Tab.styled';
+} from '../../../../api/Supabase.api';
+import profileImage from '../../../../assets/profile/defaultprofileimage.webp';
+import { Tables } from '../../../../types/types';
+import * as St from './EditProfile.styled';
 
 const EditProfile = () => {
   const [userSession, setUserSession] = useState<Session | null>(null);

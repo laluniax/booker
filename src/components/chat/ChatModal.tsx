@@ -13,7 +13,7 @@ import {
   person,
   productState,
   sendMessages,
-} from '../../atom/Product.atom';
+} from '../../state/atom/chatAtom';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기

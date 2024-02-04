@@ -1,4 +1,4 @@
-import { UnreadCount } from '../App';
+import { UnreadCount } from '../../App';
 
 export type ProductImageType = string | null;
 

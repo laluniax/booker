@@ -3,6 +3,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { useRecoilState } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 import { supabase } from './api/Supabase.api';
+import { AuthContextProvider } from './contexts/auth.context';
+import Router from './shared/Router';
+import { ChatRoomTypes } from './state/atom/Chat.type';
 import {
   ChatId,
   UnreadCounts,
@@ -11,10 +14,7 @@ import {
   newMessagesCountState,
   person,
   sendMessages,
-} from './atom/Product.atom';
-import { ChatRoomTypes } from './atom/Product.type';
-import { AuthContextProvider } from './contexts/auth.context';
-import Router from './shared/Router';
+} from './state/atom/chatAtom';
 import GlobalStyle from './styles/globalStyle';
 import theme from './styles/theme';
 type Message = {
