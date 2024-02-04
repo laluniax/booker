@@ -1,3 +1,5 @@
+import { MessageTypes } from '../../types/types';
+
 // 위치 정보 타입 정의
 export type LocationTypes = {
   latitude: number | null;
@@ -73,4 +75,12 @@ export type searchProps = {
   map: kakao.maps.Map | null;
   aroundStore: MapMarkerDataTypes[];
   updateMapCenter: (latitude: number, longitude: number) => void;
+};
+export type AdminChatBodyProps = {
+  messages: MessageTypes[];
+};
+
+export type AdminChatIdProps = {
+  qnaRoomIds: string[]; // qnaRoomIds는 문자열 배열
+  handleSenderClick: (qnaRoomID: string) => void; // handleSenderClick은 문자열을 매개변수로 받고 반환 값이 없는 함수
 };
