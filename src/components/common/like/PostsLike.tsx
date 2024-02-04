@@ -9,7 +9,6 @@ import { LikeProps } from './Like.type';
 
 const PostsLike = ({ postId }: LikeProps) => {
   const [likes, setLikes] = useState<any[]>([]);
-  // const auth = useAuth();
   const session = useRecoilValue(userSession);
   const currentUserId = session?.id;
 

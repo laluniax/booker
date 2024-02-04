@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Productlike, getLikeCountP, supabase } from '../../../api/Supabase.api';
 import coloredheart from '../../../assets/common/heavy_black_heart.webp';
 import heartbold from '../../../assets/common/icon-_heart_white.webp';
-import { useAuth } from '../../../contexts/auth.context';
+import { userSession } from '../../../state/atom/userSessionAtom';
 import * as St from './Like.styled';
 import { LikeProps } from './Like.type';
 
 const ProductsLike = ({ postId, count }: LikeProps) => {
   const [likes, setLikes] = useState<any[]>([]);
-  const auth = useAuth();
-  const currentUserId = auth.session?.profile.id;
+  // const auth = useAuth();
+  const session = useRecoilValue(userSession);
+  const currentUserId = session?.id;
   const getLikeCounts = useCallback(async () => {
     try {
       const likesData = await getLikeCountP(postId);
@@ -20,7 +22,7 @@ const ProductsLike = ({ postId, count }: LikeProps) => {
   }, [postId]);
 
   const toggleLike = async () => {
-    if (!auth.session) return;
+    if (!session) return;
     const existingLike = likes.find((like) => like.user_id === currentUserId);
     try {
       if (existingLike) {
