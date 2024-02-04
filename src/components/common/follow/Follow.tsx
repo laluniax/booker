@@ -1,21 +1,20 @@
-import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { followHandler, followIdListHandler, getUserSessionHandler, unFollowHandler } from '../../../api/Supabase.api';
+import { useRecoilValue } from 'recoil';
+import { followHandler, followIdListHandler, unFollowHandler } from '../../../api/Supabase.api';
+import { userSession } from '../../../state/atom/userSessionAtom';
 import * as St from './Follow.styled';
 import { FollowProps } from './Follow.type';
 
 const Follow = ({ params, usage }: FollowProps) => {
   const [followId, setFollowId] = useState('');
   const [following, setFollowing] = useState(false); // 팔로잉:거짓 이 기본
-  const [userSession, setUserSession] = useState<Session | null>(null);
+  const session = useRecoilValue(userSession);
+
   const navigate = useNavigate();
-  const getUserData = async () => {
-    const session = await getUserSessionHandler();
-    setUserSession(session.session);
-  };
+
   const getFollowId = () => {
-    const newFollowId = params + '-' + userSession?.user.id;
+    const newFollowId = params + '-' + session?.id;
     setFollowId(newFollowId);
   };
 
@@ -31,13 +30,13 @@ const Follow = ({ params, usage }: FollowProps) => {
 
   // 팔로우하기
   const onClickFollowBtn = async () => {
-    if (!userSession) {
+    if (!session) {
       if (window.confirm('로그인 페이지로 이동하시겠습니까?')) {
         navigate(`/login`);
         return;
       } else return;
     } else {
-      const result = await followHandler(followId, params as string, userSession?.user.id as string);
+      const result = await followHandler(followId, params as string, session?.id as string);
       followIdList();
     }
   };
@@ -99,12 +98,8 @@ const Follow = ({ params, usage }: FollowProps) => {
   };
 
   useEffect(() => {
-    getUserData();
-  }, []);
-
-  useEffect(() => {
     getFollowId();
-  }, [userSession, params]);
+  }, [session, params]);
 
   useEffect(() => {
     followIdList();
