@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import * as St from '../market/ChatMessages.styled';
 
@@ -61,7 +61,6 @@ const ChatMessages = () => {
           table: 'messages',
         },
         async (payload) => {
-
           setUpdateMesaage(payload as MessagePayload);
         },
       )
@@ -97,7 +96,9 @@ const ChatMessages = () => {
               <div key={message.id}>
                 {dateLabel} {/* Display the date label if the date has changed */}
                 {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
-               <St.MessageComponent key={message.id} isoutgoing={message.author_id === LoginPersonal ? "true" : undefined}>
+                <St.MessageComponent
+                  key={message.id}
+                  isoutgoing={message.author_id === LoginPersonal ? 'true' : undefined}>
                   {message.content} {formattedTime}
                 </St.MessageComponent>
               </div>
