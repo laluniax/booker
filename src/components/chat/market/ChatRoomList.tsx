@@ -170,43 +170,48 @@ const ChatRoomList = () => {
     }
   };
 
-  //채팅리스트 보여주기
+  // 채팅리스트 보여주기
   const RenderChatRoomsList = () => {
-    return chatRooms
-      .filter((chatRoom) => chatRoom.user_id === LoginPersonal)
-      .map((chatRoom) => {
-        // 해당 채팅방에 대한 읽지 않은 메시지 수를 찾음
-        const unreadInfo = unreadCounts.find((uc) => uc.chat_id === chatRoom.chat_id);
+    const filteredChatRooms = chatRooms.filter((chatRoom) => chatRoom.user_id === LoginPersonal);
 
-        const lastMessageTimeAgo = chatRoom.created_at ? getTimeDifference(chatRoom.created_at) : 'No messages yet.';
-        return (
-          <St.UserItem
-            key={chatRoom.chat_id}
-            onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id, chatRoom.author_id)}>
-            <St.AlarmUserWrapper>
-              {unreadInfo && unreadInfo.unread_count > 0 && <St.AlarmDetail>{unreadInfo.unread_count}</St.AlarmDetail>}
-              <St.UserImage
-                src={chatRoom?.user_img ? chatRoom.user_img : defaultImage}
-                onError={(e) => (e.currentTarget.src = defaultImage)}
-              />
-            </St.AlarmUserWrapper>
+    // 채팅 내역이 없을 경우 표시할 메시지
+    if (filteredChatRooms.length === 0) {
+      return <St.NoChatMessage>채팅 내역이 없습니다.</St.NoChatMessage>;
+    }
 
-            <St.UserInfo>
-              <St.NicknameMessageTimeWrapper>
-                <St.ChatListUserNickname>{chatRoom.sendNickname}</St.ChatListUserNickname>
-                <St.MessageTime>{lastMessageTimeAgo}</St.MessageTime>
-              </St.NicknameMessageTimeWrapper>
-              {/* 해당 채팅방의 읽지 않은 메시지 수가 있으면 알림 배지 표시 */}
-
-              <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
-            </St.UserInfo>
-            <St.ProductImage
-              src={chatRoom.product_img || defaultImage}
+    // 채팅 내역이 있을 경우, 리스트를 렌더링
+    return filteredChatRooms.map((chatRoom) => {
+      // 해당 채팅방에 대한 읽지 않은 메시지 수를 찾음
+      const unreadInfo = unreadCounts.find((uc) => uc.chat_id === chatRoom.chat_id);
+      const lastMessageTimeAgo = chatRoom.created_at ? getTimeDifference(chatRoom.created_at) : 'No messages yet.';
+      return (
+        <St.UserItem
+          key={chatRoom.chat_id}
+          onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id, chatRoom.author_id)}>
+          <St.AlarmUserWrapper>
+            {unreadInfo && unreadInfo.unread_count > 0 && <St.AlarmDetail>{unreadInfo.unread_count}</St.AlarmDetail>}
+            <St.UserImage
+              src={chatRoom?.user_img ? chatRoom.user_img : defaultImage}
               onError={(e) => (e.currentTarget.src = defaultImage)}
             />
-          </St.UserItem>
-        );
-      });
+          </St.AlarmUserWrapper>
+
+          <St.UserInfo>
+            <St.NicknameMessageTimeWrapper>
+              <St.ChatListUserNickname>{chatRoom.sendNickname}</St.ChatListUserNickname>
+              <St.MessageTime>{lastMessageTimeAgo}</St.MessageTime>
+            </St.NicknameMessageTimeWrapper>
+            {/* 해당 채팅방의 읽지 않은 메시지 수가 있으면 알림 배지 표시 */}
+
+            <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
+          </St.UserInfo>
+          <St.ProductImage
+            src={chatRoom.product_img || defaultImage}
+            onError={(e) => (e.currentTarget.src = defaultImage)}
+          />
+        </St.UserItem>
+      );
+    });
   };
 
   const DmClickhandler = async (item_id: number, chat_id: string, author_id: string) => {
