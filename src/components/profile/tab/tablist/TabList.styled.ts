@@ -22,12 +22,12 @@ export const TabListTitle = styled.div`
 export const Contour = styled.div`
   border-bottom: 0.1rem solid #000;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 9rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
   border-bottom: 0.15rem solid #000;
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 4rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -92,11 +92,11 @@ export const PostTitle = styled.div`
   font-size: 1.2rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  font-size: 1.8rem;
+  font-size: 2rem;
   `};
 `;
 

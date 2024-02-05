@@ -69,6 +69,9 @@ export type KakaoProps = {
   };
   markerData: MapMarkerDataTypes[];
 };
+export type DetailMapInfoProps = {
+  markerInfo: MapMarkerDataTypes;
+};
 
 export type searchProps = {
   fetchBookstoresNearby: (latitude: number, longitude: number) => void;

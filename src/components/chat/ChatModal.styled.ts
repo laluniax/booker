@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import bookerChattingIcon from '../../assets/common/bookerchattingicon.webp';
 import prevIcon from '../../assets/common/prevbutton1.webp';
 
@@ -30,17 +30,61 @@ export const ChatWrapper = styled.div`
   ${({ theme }) => theme.mediaQuery.lg`
   width: 50rem;
   height: 60rem;
-  bottom: 14rem;
+  bottom: 18rem;
   right: 1.5rem;
   border-radius: 2rem;
   padding: 0.8rem;
   `};
 `;
 
-export const LogoWrapper = styled.div``;
+export const LogoWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+`;
 
 export const PrevBtn = styled.div`
   cursor: pointer;
+`;
+
+const bounceAnimation = keyframes`
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  10% {
+    transform: translateY(-10%);
+  }
+  30% {
+    transform: translateY(-5%);
+  }
+  40% {
+    transform: translateY(-15%);
+  }
+  60% {
+    transform: translateY(-7%);
+  }
+  70% {
+    transform: translateY(-12%);
+  }
+  90% {
+    transform: translateY(-9%);
+  }
+`;
+
+export const QnaIcon = styled.img`
+  width: 3rem;
+  height: 3rem;
+  margin: auto;
+  animation: ${bounceAnimation} 6s infinite;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+    width: 4rem;
+    height: 4rem;
+    `}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+      width: 5rem;
+      height: 5rem;
+  `};
 `;
 
 export const ChatHeader = styled.div`
@@ -76,23 +120,20 @@ export const ChatTopBox = styled.div`
   align-items: center;
   justify-content: space-evenly;
   margin: 0 auto;
-  height: 5rem;
+  height: 8.5rem;
   width: 25rem;
-  margin-top: 1.5rem;
+  margin-top: 0rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  height: 9rem;
-  height: 9rem;
+  height: 10rem;
   width: 40rem;
-  margin-top:2rem;
+  margin-top:0rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  height: 13rem;
-  height: 13rem;
+  height: 11.5rem;
   width: 40rem;
-  margin-top:1rem;
-  margin-top:1rem;
+  margin-top:0rem;
   `};
 `;
 export const MainMessage = styled.div`
@@ -132,10 +173,9 @@ export const AskButton = styled.button`
   color: #fca311;
   font-weight: bold;
   margin-top: 1rem;
-  width: 8rem;
-  width: 8rem;
-  height: 4rem;
-  font-size: 1.2rem;
+  width: 10rem;
+  height: 6rem;
+  font-size: 1.4rem;
   padding: 0.5rem;
 
   &:hover {
@@ -143,54 +183,44 @@ export const AskButton = styled.button`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-  margin-top: 1rem;
-  width: 9rem;
-  height: 2.5rem;
-  font-size: 1.2rem;
-  width: 9rem;
-  height: 2.5rem;
-  font-size: 1.2rem;
+  margin-top: 2rem;
+  width: 10rem;
+  height: 3.5rem;
+  font-size: 1.4rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   margin-top: 2rem;
   width: 12rem;
-  height: 2.6rem;
-  font-size: 1.4rem;
-  width: 12rem;
-  height: 2.6rem;
-  font-size: 1.4rem;
+  height: 4rem;
+  font-size: 1.6rem;
   `};
 `;
 
 export const Contour = styled.div`
-  border-bottom: 3px solid #000;
-  width: 35rem;
   display: flex;
   justify-content: center;
-  width: 25rem;
+  width: 22rem;
   border-bottom: 2px solid #000;
-  margin: 2.5rem auto;
+  margin: 1.5rem auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  width : 30rem;
+  width : 35rem;
   border-bottom: 2px solid #000;
-  margin : 2rem auto;
+  margin : 1.5rem auto;
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
-    margin-top : 1rem;
-    width : 40rem;
-    height: 3rem;
+  margin-top : -0.5rem;
+  width : 40rem;
+  height: 3rem;
   `};
 `;
-
 export const ChatInputWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0.1rem auto;
   margin: 0.1rem auto;
   margin-left: -0.5rem;
   z-index: 999;
@@ -203,7 +233,6 @@ export const ChatInputWrapper = styled.div`
   width:39.5rem;
   height:5rem;
   margin-left: 0.5rem;
-  margin-top: -0.3rem;
   margin-top: -0.3rem;
   `}
 
@@ -252,7 +281,6 @@ export const QnaSendButton = styled.button`
   cursor: pointer;
   font-weight: bold;
   height: 3rem;
-  width: 5rem;
   width: 5rem;
   border-radius: 1rem;
   font-size: 1rem;
@@ -350,7 +378,6 @@ export const UserEmail = styled.div`
   font-size: 1.3rem;
   `};
 `;
-
 
 export const DMButton = styled.button`
   border: none;
@@ -479,7 +506,6 @@ export const ChatModalBody = styled.div`
   `};
 `;
 
-
 export const MessageContentTime = styled.div`
   margin-right: auto;
   font-size: 0.8rem;
@@ -536,26 +562,26 @@ export const ChatModalFooter = styled.div`
   `};
 `;
 
-
 export const PrevIcon = styled.div`
   background: url(${prevIcon});
   background-size: contain;
-  width: 2rem;
-  height: 2rem;
-  margin-bottom: -1rem;
-
-  ${({ theme }) => theme.mediaQuery.sm`
   width: 2.5rem;
   height: 2.5rem;
+  margin-bottom: -0.5rem;
+  margin-right: -1.5rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  width: 3rem;
+  height: 3rem;
   margin-bottom:-2rem;
   margin-top:1rem;
-  margin-top:1rem;
+  margin-right: -1.5rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  width: 3rem;
-  height: 3rem;
-  margin-bottom:-1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom:-3rem;
   `};
 `;
 
@@ -582,7 +608,6 @@ export const BookerChattingIcon = styled.div`
   `};
 `;
 
-
 export const UserImageNickName = styled.div`
   display: flex;
   flex-direction: column;
@@ -590,13 +615,6 @@ export const UserImageNickName = styled.div`
   align-items: center;
   margin: 0 auto;
 `;
-
-
-
-
-
-
-
 
 // 제품 상세 정보에 대한 스타일드 컴포넌트를 정의합니다
 export const ProductInfo = styled.div`
@@ -619,7 +637,6 @@ export const ProductTitleProduct = styled.div`
   margin-left: 2rem;
   `};
 `;
-
 
 export const UserSection = styled.div`
   display: flex;
@@ -646,7 +663,6 @@ export const ProductDetail = styled.div`
   flex-direction: column;
   align-items: flex-start;
 `;
-
 
 export const ChatModalHeader = styled.div`
   display: flex;

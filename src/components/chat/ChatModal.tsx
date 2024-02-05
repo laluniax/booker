@@ -4,14 +4,15 @@ import { useRecoilState } from 'recoil';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import relativeTime from 'dayjs/plugin/relativeTime.js';
+import qnaIcon from '../../assets/qna/qnaicon.webp';
 import { useAuth } from '../../contexts/auth.context';
 import * as St from './ChatModal.styled';
+import { MessageListTypes } from './ChatModal.type';
 import ChatHeaderMessaegs from './market/ChatHeaderMessaegs';
 import ChatInpuValuSendHandler from './market/ChatInpuValuSendHandler';
 import ChatMessages from './market/ChatMessages';
 import ChatRoomList from './market/ChatRoomList';
 import TotalChatUnreadCounts from './market/TotalChatUnreadCounts';
-import { MessageListTypes } from './ChatModal.type';
 import AdminChat from './qna/chatadmin/AdminChatRoom';
 import ChatLog from './qna/chatuser/UserChatRoom';
 
@@ -39,7 +40,6 @@ const Chat = () => {
   const chatBodyRef = useRef<HTMLDivElement>(null);
   const [Usermessages, setUserMessages] = useState<MessageListTypes[]>([]);
 
-
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
     const current = chatBodyRef.current;
@@ -56,7 +56,6 @@ const Chat = () => {
     }
   };
 
-  
   // 채팅 모달이 열리거나 메시지 목록이 변경될 때 스크롤
   useEffect(() => {
     if (ischatRoomModalOpen && isAtBottom) {
@@ -162,7 +161,6 @@ const Chat = () => {
   //토글 열닫
   const toggleChatModal = () => {
     setChatBtnOpen((prevState) => !prevState);
-    
   };
 
   return (
@@ -174,7 +172,7 @@ const Chat = () => {
           {/* 채팅모달부분 */}
           {ischatRoomModalOpen && (
             <St.ChatModalWrapper>
-                 <St.ChatModalHeader>
+              <St.ChatModalHeader>
                 <ChatHeaderMessaegs />
               </St.ChatModalHeader>
               <St.ChatModalBody ref={chatBodyRef}>
@@ -195,7 +193,8 @@ const Chat = () => {
                   <St.PrevBtn onClick={prevHandler}>
                     <St.PrevIcon />
                   </St.PrevBtn>
-                  <St.ChatHeader></St.ChatHeader>
+                  {/* <St.ChatHeader></St.ChatHeader> */}
+                  <St.QnaIcon src={qnaIcon} />
                 </St.LogoWrapper>
               ) : (
                 <St.ChatHeader></St.ChatHeader>
@@ -231,7 +230,7 @@ const Chat = () => {
         </St.Container>
       )}
       <St.TalkButtonWrapper>
-      <TotalChatUnreadCounts  ChatBtnOpen={ChatBtnOpen}/>
+        <TotalChatUnreadCounts ChatBtnOpen={ChatBtnOpen} />
         <St.BookerChattingIcon
           onClick={() => {
             setIsOpen(!isOpen);
@@ -239,7 +238,6 @@ const Chat = () => {
             toggleChatModal();
           }}
         />
-
       </St.TalkButtonWrapper>
     </>
   );

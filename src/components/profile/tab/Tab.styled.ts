@@ -23,6 +23,7 @@ export const ProfileTab = styled.div`
 
   & div {
     width: 100%;
+    padding-bottom: 1rem;
     border-bottom: 0.1rem solid #bcbcbc;
     text-align: center;
     cursor: pointer;
@@ -62,7 +63,16 @@ export const ProfileTab = styled.div`
     `};
 `;
 
-export const TabMenu = styled.div``;
+export const TabMenu = styled.div`
+  font-size: 1.1rem;
+  ${({ theme }) => theme.mediaQuery.sm`
+  font-size: 1.7rem;
+  `}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  font-size: 2.5rem;
+    `};
+`;
 
 export const ProfileContent = styled.div`
   margin: 0 auto;
