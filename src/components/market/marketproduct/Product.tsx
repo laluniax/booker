@@ -10,7 +10,7 @@ import SliderNextIcon from '../../../assets/common/slider_right.webp';
 import logoImage from '../../../assets/profile/defaultprofileimage.webp';
 
 import { userSession } from '../../../state/atom/userSessionAtom';
-import { MessageTypes, ProductsTypes } from '../../../types/types';
+import { ProductsTypes } from '../../../types/types';
 import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
 import { categoryArr } from '../marketpost/Post';
@@ -94,57 +94,32 @@ const Product = () => {
     }
   }, []);
 
-  // // DM 클릭 핸들러
-  // const DmClickhandler = async (otherUserId: string, productId: number) => {
-  //   const {
-  //     data: { user },
-  //   } = await supabase.auth.getUser();
-  //   if (user?.id === otherUserId) {
-  //     alert('자신에게 채팅을 보낼 수 없습니다 ');
-  //     return;
-  //   } else {
-  //     if (user) {
-  //       const userId = user?.id;
-  //       setIsChatModalOpen(true);
-  //       createOrGetChat({ userId, otherUserId, productId });
-  //       setProductId(productId);
-  //       // setOtherLoginPersonal(otherUserId);
-  //       setLoginPersonal(userId);
-  //     }
-  //   }
-  // };
-
-
   // DM 클릭 핸들러
-const DmClickhandler = async (otherUserId: string, productId: number) => {
-  const { data: { user } } = await supabase.auth.getUser();
-  
-  if (user?.id === otherUserId) {
-    alert('자신에게 채팅을 보낼 수 없습니다');
-    return;
-  } else if (user) {
-    const userId = user.id;
-    setIsChatModalOpen(true);
+  const DmClickhandler = async (otherUserId: string, productId: number) => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    try {
-      // createOrGetChat 함수를 호출하고 결과를 기다립니다.
-      const chatResult = await createOrGetChat({ userId, otherUserId, productId });
-      
-      // 성공적으로 채팅방이 생성되거나 가져온 후, 필요한 상태를 업데이트합니다.
-      // 예: 채팅방 ID를 상태에 저장합니다.
-      // chatResult에서 반환된 채팅방 ID를 사용해 상태를 업데이트할 수 있습니다.
-      // 예를 들어, chatResult.chat_id를 사용하여 상태를 설정합니다.
-      setChatId(chatResult?.chat_id); // chatResult가 채팅방 ID를 반환한다고 가정합니다.
-      
-      setProductId(productId);
-      setLoginPersonal(userId);
-    } catch (error) {
-      console.error('채팅방 생성 또는 가져오기 실패', error);
+    if (user?.id === otherUserId) {
+      alert('자신에게 채팅을 보낼 수 없습니다');
+      return;
+    } else if (user) {
+      const userId = user.id;
+      setIsChatModalOpen(true);
+
+      try {
+        // createOrGetChat 함수를 호출하고 결과를 기다립니다.
+        const chatResult = await createOrGetChat({ userId, otherUserId, productId });
+
+        setChatId(chatResult?.chat_id); // chatResult가 채팅방 ID를 반환한다고 가정합니다.
+
+        setProductId(productId);
+        setLoginPersonal(userId);
+      } catch (error) {
+        console.error('채팅방 생성 또는 가져오기 실패', error);
+      }
     }
-  }
-};
-
-
+  };
 
   const getProduct = async () => {
     const result = await getProductHandler(params as string);
@@ -276,15 +251,14 @@ const DmClickhandler = async (otherUserId: string, productId: number) => {
                     <St.ChatModalHeader>
                       <St.CloseButton onClick={() => setIsChatModalOpen(false)}>←</St.CloseButton>
                       <St.HeaderChattingModalTitle>채팅</St.HeaderChattingModalTitle>
-                 
                     </St.ChatModalHeader>
                   </St.ChatModalHeader>
                   <St.ChatModalBody ref={chatBodyRef}>
-                   <ChatMessages/>
+                    <ChatMessages />
                     <div ref={messagesEndRef} />
                   </St.ChatModalBody>
                   <St.ChatModalFooter>
-          <ChatInpuValuSendHandler/>
+                    <ChatInpuValuSendHandler />
                   </St.ChatModalFooter>
                 </St.ChatModalWrapper>
               )}
