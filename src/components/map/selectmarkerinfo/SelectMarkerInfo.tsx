@@ -15,6 +15,7 @@ const SelectMarkerInfo = ({ position, markerData }: KakaoProps) => {
 
   const selectMarkerInfoHandler = (markerId: number) => {
     const clickedMarkerInfo = markerData?.find((marker) => marker.id === markerId);
+
     setSelectedMarkerInfo(clickedMarkerInfo ? [clickedMarkerInfo] : []);
   };
 

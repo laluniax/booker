@@ -1,62 +1,44 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { useSendMessage } from '../../api/Chat.api';
-import { supabase } from '../../api/Supabase.api';
-import {
-  ChatId,
-  UnreadCounts,
-  chatRoomsState,
-  globalModalSwitch,
-  isChatModalOpenState,
-  newMessagesCountState,
-  otherPerson,
-  person,
-  productState,
-  sendMessages,
-} from '../../state/atom/chatAtom';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import relativeTime from 'dayjs/plugin/relativeTime.js';
-import { useNavigate } from 'react-router';
-import OutButton from '../../assets/common/slider_left.webp';
-import defaultImage from '../../assets/profile/defaultprofileimage.webp';
 import { useAuth } from '../../contexts/auth.context';
-import { MessageTypes } from '../../types/types';
 import * as St from './ChatModal.styled';
-import { MessageListTypes, OtherUserDetailTypes, ProductDetailTypes } from './ChatModal.type';
+import ChatHeaderMessaegs from './market/ChatHeaderMessaegs';
+import ChatInpuValuSendHandler from './market/ChatInpuValuSendHandler';
+import ChatMessages from './market/ChatMessages';
+import ChatRoomList from './market/ChatRoomList';
+import TotalChatUnreadCounts from './market/TotalChatUnreadCounts';
+import { MessageListTypes } from './ChatModal.type';
 import AdminChat from './qna/chatadmin/AdminChatRoom';
 import ChatLog from './qna/chatuser/UserChatRoom';
+
+import { supabase } from '../../api/Supabase.api';
+import { UnreadCounts, globalModalSwitch, mainChatModalOpen, person, sendMessages } from '../../state/atom/chatAtom';
+
 dayjs.extend(relativeTime); // relativeTime 플러그인 활성화
 dayjs.locale('ko'); // 한국어 로케일 설정
 
 const Chat = () => {
   const [isOpen, setIsOpen] = useRecoilState(globalModalSwitch);
+
   //모달창을 열고 닫는 state
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
   const [isAsk, setIsAsk] = useState<boolean>(false);
   //메세지 저장 state
   const [askMessage, setAskMessage] = useState<string>('');
-  const [inputValue, setInputValue] = useState('');
-  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
+  const [ischatRoomModalOpen, setIschatRoomModalOpen] = useRecoilState(mainChatModalOpen);
+  const [ChatBtnOpen, setChatBtnOpen] = useState(false);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
-  const [otherLoginPersonal, setOtherLoginPersonal] = useRecoilState(otherPerson);
   const [messages, setMessages] = useRecoilState(sendMessages);
-  const [chatId, setChatId] = useRecoilState(ChatId);
-  const { mutate: sendDirectMessage } = useSendMessage();
-  const [productId, setProductId] = useRecoilState(productState);
-  const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
-  const [newMessagesCount, setNewMessagesCount] = useRecoilState(newMessagesCountState);
-  const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(isChatModalOpenState);
-  // const [totalUnreadCount, setTotalUnreadCount] = useState<number>(0);
   const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);
-  // 상대방 사용자의 상세 정보와 제품 상세 정보를 위한 상태(state)를 가정합니다
-  const [otherUserDetails, setOtherUserDetails] = useState<OtherUserDetailTypes>();
-  const [productDetails, setProductDetails] = useState<ProductDetailTypes>();
   const [isAtBottom, setIsAtBottom] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
   const [Usermessages, setUserMessages] = useState<MessageListTypes[]>([]);
+
 
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
@@ -74,13 +56,14 @@ const Chat = () => {
     }
   };
 
+  
   // 채팅 모달이 열리거나 메시지 목록이 변경될 때 스크롤
   useEffect(() => {
-    if (isChatModalOpen && isAtBottom) {
+    if (ischatRoomModalOpen && isAtBottom) {
       // 비동기적으로 스크롤 함수 실행하여 모든 DOM 업데이트 후 스크롤되도록 함
       setTimeout(scrollToBottom, 0);
     }
-  }, [messages, isChatModalOpen, isAtBottom]);
+  }, [messages, ischatRoomModalOpen, isAtBottom]);
 
   // 채팅 컨테이너에 스크롤 이벤트 리스너 추가
   useEffect(() => {
@@ -122,186 +105,9 @@ const Chat = () => {
         console.error('Error fetching logged in user:', error);
       }
     }
+
     fetchLoggedInUser();
   }, [unreadCounts]);
-
-  //입력값 가져오기
-  const InputChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const DmClickhandler = async (item_id: number, chat_id: string, author_id: string) => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (user && user.email) {
-      try {
-        markChatAsRead(chat_id, user.id);
-        setChatId(chat_id);
-        setLoginPersonal(user.id);
-        setProductId(item_id);
-        // 현재 채팅방의 사용자들을 조회합니다.
-        const { data: chatUsers, error: chatUsersError } = await supabase
-          .from('chats_users')
-          .select('user_id')
-          .eq('chat_id', chat_id);
-        if (chatUsersError) {
-          console.error('Chat users fetching error:', chatUsersError);
-          return;
-        }
-        // 현재 로그인한 사용자가 아닌 다른 사용자의 ID를 찾습니다.
-        const otherUserId = chatUsers.find((chatUser) => chatUser.user_id !== user.id)?.user_id;
-        if (!otherUserId) {
-          console.error('No other user found in this chat');
-          return;
-        }
-        // 찾은 다른 사용자의 ID로 사용자 정보를 조회합니다.
-        const { data: userData, error: userError } = await supabase
-          .from('users')
-          .select('nickname, user_img')
-          .eq('id', otherUserId)
-          .single();
-        if (userError) {
-          console.error('Error fetching other user data:', userError);
-          return;
-        }
-        // products 테이블에서 제품 정보를 가져옵니다.
-        const { data: productData } = await supabase
-          .from('products')
-          .select('title, price, product_img,id')
-          .eq('id', item_id)
-          .single();
-        if (userData) {
-          setOtherUserDetails({
-            nickname: userData.nickname,
-            user_img: userData.user_img,
-          });
-        }
-        if (productData) {
-          setProductDetails({
-            image: productData.product_img,
-            title: productData.title,
-            price: productData.price,
-            id: productData.id,
-          });
-        }
-        setIsChatModalOpen(true);
-      } catch (error) {
-        console.error('Error fetching user or product details:', error);
-      }
-    }
-  };
-
-  //모달 창 뜨고 메시지 보내는 핸들러들
-  // 메시지 전송 핸들러
-  const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && inputValue.trim()) {
-      if (event.nativeEvent.isComposing === false) {
-        event.preventDefault(); // 폼 제출 방지
-        sendDirectMessage({
-          content: inputValue,
-          author_id: LoginPersonal,
-          chat_id: chatId,
-          item_id: productId,
-          // others_id: otherLoginPersonal,
-        });
-        setInputValue('');
-      }
-    }
-  };
-
-  //dm메시지 전송
-  const sendDmMessage = async () => {
-    if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-    sendDirectMessage({
-      content: inputValue,
-      author_id: LoginPersonal,
-      chat_id: chatId,
-      item_id: productId,
-      // others_id: otherLoginPersonal,
-    });
-    setInputValue('');
-  };
-
-  //알람 읽음처리
-  async function markChatAsRead(chatId: string, userId: string) {
-    const p_chat_id = chatId;
-    const p_user_id = userId;
-    const { data, error } = await supabase.rpc('mark_messages_as_read', { p_chat_id, p_user_id });
-    if (error) {
-      console.error('Error marking messages as read:', error);
-    }
-  }
-  const navigate = useNavigate();
-  // // 채팅 헤더를 렌더링하는 함수입니다
-
-  const renderChatHeader = () => {
-    // useNavigate 훅으로부터 navigate 함수를 얻음
-    // 제품 상세 페이지로 이동하는 함수
-    const navigateToProductPage = () => {
-      const productId = productDetails?.id; // productDetails로부터 제품의 ID를 얻음
-      if (productId) {
-        navigate(`/product/${productId}`); // 제품 ID를 사용하여 경로를 생성하고, 해당 경로로 이동
-      }
-    };
-
-    return (
-      <St.ChatModalHeader>
-        <St.UserInfoSection>
-          <St.CloseButton onClick={() => setIsChatModalOpen(false)}>
-            <img src={OutButton} />
-          </St.CloseButton>
-          <St.UserImageNickName>
-            <St.UserImage src={otherUserDetails?.user_img} alt="user" />
-            <St.ChatRoomUserNickname>{otherUserDetails?.nickname}</St.ChatRoomUserNickname>
-          </St.UserImageNickName>
-        </St.UserInfoSection>
-        <St.ProductInfoSection onClick={navigateToProductPage}>
-          <St.ProductImage src={productDetails?.image} alt="product" />
-          <St.ProductTitleProduct>
-            <St.ProductTitle>제목 : {productDetails?.title}</St.ProductTitle>
-            <St.ProductPrice>가격 : {productDetails?.price}</St.ProductPrice>
-          </St.ProductTitleProduct>
-        </St.ProductInfoSection>
-      </St.ChatModalHeader>
-    );
-  };
-
-  //채팅창 메시지 보여주기
-  const renderMessages = () => {
-    let lastDate: dayjs.Dayjs | null = null;
-
-    return (
-      <>
-        {messages
-          .filter((message: MessageTypes) => message.chat_id === chatId)
-          .sort((a: MessageTypes, b: MessageTypes) => a.id - b.id) // 오름차순 정렬
-          .map((message: MessageTypes) => {
-            const currentDate = dayjs(message.created_at);
-            const formattedTime = currentDate.format('hh:mm A'); // Format time with AM/PM
-            const formattedDate = currentDate.format('YYYY-MM-DD dddd'); // Format date with day of the week
-            let dateLabel = null;
-
-            // Check if the date has changed
-            if (lastDate === null || !currentDate.isSame(lastDate, 'day')) {
-              dateLabel = <St.DateLabel>{formattedDate}</St.DateLabel>; // Use DateLabel
-              lastDate = currentDate;
-            }
-
-            return (
-              <>
-                {dateLabel} {/* Display the date label if the date has changed */}
-                {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
-                <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-                  <St.MessageContentTime>{formattedTime}</St.MessageContentTime>
-                  <St.MessageContentText>{message.content} </St.MessageContentText>
-                </St.MessageComponent>
-              </>
-            );
-          })}
-      </>
-    );
-  };
 
   const auth = useAuth();
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -353,71 +159,10 @@ const Chat = () => {
     setIsAsk(false);
   };
 
-  //지금을 기점으로 초분시일달년
-  const getTimeDifference = (date: string) => {
-    const now = dayjs();
-    const messageDate = dayjs(date);
-    const minutesDiff = now.diff(messageDate, 'minute');
-    const hoursDiff = now.diff(messageDate, 'hour');
-    const daysDiff = now.diff(messageDate, 'day');
-    const monthsDiff = now.diff(messageDate, 'month');
-
-    if (monthsDiff > 0) {
-      return `${monthsDiff}달 전`;
-    } else if (daysDiff > 0) {
-      return `${daysDiff}일 전`;
-    } else if (hoursDiff > 0) {
-      return `${hoursDiff}시간 전`;
-    } else if (minutesDiff > 0) {
-      return `${minutesDiff}분 전`;
-    } else {
-      return '방금 전';
-    }
-  };
-
-  //채팅리스트 보여주기
-  const renderChatRoomsList = () => {
-    return chatRooms
-      .filter((chatRoom) => chatRoom.user_id === LoginPersonal)
-      .map((chatRoom) => {
-        // 해당 채팅방에 대한 읽지 않은 메시지 수를 찾음
-        const unreadInfo = unreadCounts.find((uc) => uc.chat_id === chatRoom.chat_id);
-        const lastMessageTimeAgo = chatRoom.created_at ? getTimeDifference(chatRoom.created_at) : 'No messages yet.';
-        return (
-          <St.UserItem
-            key={chatRoom.chat_id}
-            onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id, chatRoom.author_id)}>
-            {/* <St.NicknameToTimeWrapper> */}
-            <St.AlarmUserWrapper>
-              {unreadInfo && unreadInfo.unread_count > 0 && <St.AlarmDetail>{unreadInfo.unread_count}</St.AlarmDetail>}
-              <St.UserImage src={chatRoom?.user_img || defaultImage} />
-            </St.AlarmUserWrapper>
-            <St.UserInfo>
-              <St.NicknameMessageTimeWrapper>
-                <St.ChatListUserNickname>{chatRoom.sendNickname}</St.ChatListUserNickname>
-                <St.MessageTime>{lastMessageTimeAgo}</St.MessageTime>
-              </St.NicknameMessageTimeWrapper>
-              {/* 해당 채팅방의 읽지 않은 메시지 수가 있으면 알림 배지 표시 */}
-              <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
-            </St.UserInfo>
-            {/* </St.NicknameToTimeWrapper> */}
-            <St.ProductImage src={chatRoom.product_img || defaultImage} />
-          </St.UserItem>
-        );
-      });
-  };
-
-  //총 안읽은 메시지
-  const totalUnreadCount = chatRooms
-    .filter((chatRoom) => chatRoom.user_id === LoginPersonal) // 현재 사용자가 포함된 채팅방만 필터링
-    .reduce((total, chatRoom) => {
-      const unreadInfo = unreadCounts.find((uc) => uc.chat_id === chatRoom.chat_id);
-      return total + (unreadInfo ? unreadInfo.unread_count : 0);
-    }, 0);
-
   //토글 열닫
   const toggleChatModal = () => {
     setChatBtnOpen((prevState) => !prevState);
+    
   };
 
   return (
@@ -426,26 +171,24 @@ const Chat = () => {
         isOpen && <AdminChat />
       ) : (
         <St.Container>
-          {isChatModalOpen && (
+          {/* 채팅모달부분 */}
+          {ischatRoomModalOpen && (
             <St.ChatModalWrapper>
-              <St.ChatModalHeader> {renderChatHeader()} </St.ChatModalHeader>
+                 <St.ChatModalHeader>
+                <ChatHeaderMessaegs />
+              </St.ChatModalHeader>
               <St.ChatModalBody ref={chatBodyRef}>
-                {renderMessages()}
+                <ChatMessages />
                 <div ref={messagesEndRef} />
               </St.ChatModalBody>
               <St.ChatModalFooter>
-                <St.InputField
-                  value={inputValue}
-                  onChange={InputChanger}
-                  onKeyDown={KeyPresshandler}
-                  placeholder="메세지를 입력해주세요"
-                />
-                <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
+                <ChatInpuValuSendHandler />
               </St.ChatModalFooter>
             </St.ChatModalWrapper>
           )}
+
           {/* 채팅 UI가 모달 UI 위에 올라가지 않도록 조건부 렌더링을 적용합니다. */}
-          {isSwitch && !isChatModalOpen && (
+          {isSwitch && !ischatRoomModalOpen && (
             <St.ChatWrapper>
               {isAsk ? (
                 <St.LogoWrapper>
@@ -480,12 +223,7 @@ const Chat = () => {
                 </>
               ) : (
                 <>
-                  {/* Chats 컴포넌트의 UI 추가 */}
-                  <St.ChatContentWrapper>
-                    <St.ChatContentTitle>중고거래 전용 채팅 리스트</St.ChatContentTitle>
-                    <St.ChatContent>(중고거래에서 채팅을 시작하세요!)</St.ChatContent>
-                  </St.ChatContentWrapper>
-                  <St.ChatListWrapper>{renderChatRoomsList()}</St.ChatListWrapper>
+                  <ChatRoomList />
                 </>
               )}
             </St.ChatWrapper>
@@ -493,7 +231,7 @@ const Chat = () => {
         </St.Container>
       )}
       <St.TalkButtonWrapper>
-        {!ChatBtnOpen && totalUnreadCount > 0 && <St.NotificationBadge>{totalUnreadCount}</St.NotificationBadge>}
+      <TotalChatUnreadCounts  ChatBtnOpen={ChatBtnOpen}/>
         <St.BookerChattingIcon
           onClick={() => {
             setIsOpen(!isOpen);
@@ -501,6 +239,7 @@ const Chat = () => {
             toggleChatModal();
           }}
         />
+
       </St.TalkButtonWrapper>
     </>
   );

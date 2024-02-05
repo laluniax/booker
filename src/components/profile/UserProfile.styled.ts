@@ -186,13 +186,14 @@ export const ProfileIntroText = styled.div`
   color: #fff;
   display: flex;
   justify-content: start;
-  font-size: 0.8rem;
+  font-size: 1rem;
   padding-left: 0.2rem;
+  height: 3rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
     font-size: 1.4rem;
     padding-left: 0.3rem;
-    height: 10rem;
+    height: 9rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -222,16 +223,17 @@ export const ProfileUserName = styled.span`
 // 타겟 유저 프로필
 export const TargetProfileInfo = styled.div`
   text-align: start;
-  line-height: 1;
+  line-height: 1.4;
   display: flex;
   flex-direction: column;
   width: 13rem;
+  gap: 0.3rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
    display: flex;
    flex-direction: column;
     line-height: 1.5;
-    width: 40rem;
+    width: 39rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`

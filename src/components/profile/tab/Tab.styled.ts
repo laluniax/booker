@@ -23,6 +23,7 @@ export const ProfileTab = styled.div`
 
   & div {
     width: 100%;
+    padding-bottom: 1rem;
     border-bottom: 0.1rem solid #bcbcbc;
     text-align: center;
     cursor: pointer;

@@ -14,6 +14,7 @@ export const ProfileBtn = styled.button`
   cursor: pointer;
   color: #000;
   font-size: 1.4rem;
+  padding: 0.6rem;
   &:hover {
     cursor: pointer;
     transform: scale(1);
