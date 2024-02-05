@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { MessageProps } from '../../../state/atom/Chat.type';
 import { MessageComponentProps } from './ChatMessages.type';
 
 export const DateLabel = styled.div`
@@ -35,27 +34,27 @@ export const DateLabel = styled.div`
   `};
 `;
 
-  export const MessageComponent = styled.div<MessageComponentProps>`
-    display: flex;
-    flex-direction: column;
-    justify-content: ${props => props.isoutgoing === "true" ? 'flex-end' : 'flex-start'};
-    word-wrap: break-word;
-    background-color: ${(props) => (props.isoutgoing ? '#FCA311' : '#14213D')}; /* 배경 색상을 변경합니다. */
-    color: ${(props) => (props.isoutgoing ? '#fff' : '#fff')}; /* 텍스트 색상을 변경합니다. */
-    align-self: ${(props) => (props.isoutgoing ? 'flex-end' : 'flex-start')};
-    /* 추가: 메시지 버블 안에 텍스트가 중앙에 오도록 만듭니다. */
-    align-items: ${(props) => (props.isoutgoing ? 'flex-end' : 'flex-start')};
-    font-weight: bold;
-    text-align: ${(props) => (props.isoutgoing ? 'right' : 'left')};
-    text-align: right;
-    padding: 0.6rem;
-    margin: 0.3rem;
-    border-radius: 1rem;
-    max-width: 10rem;
-    width: auto; /* 메시지의 최대 너비를 설정합니다. */
-    height: auto;
-  
-    ${({ theme }) => theme.mediaQuery.sm`
+export const MessageComponent = styled.div<MessageComponentProps>`
+  display: flex;
+  flex-direction: column;
+  justify-content: ${(props) => (props.isoutgoing === 'true' ? 'flex-end' : 'flex-start')};
+  word-wrap: break-word;
+  background-color: ${(props) => (props.isoutgoing ? '#FCA311' : '#14213D')}; /* 배경 색상을 변경합니다. */
+  color: ${(props) => (props.isoutgoing ? '#fff' : '#fff')}; /* 텍스트 색상을 변경합니다. */
+  align-self: ${(props) => (props.isoutgoing ? 'flex-end' : 'flex-start')};
+  /* 추가: 메시지 버블 안에 텍스트가 중앙에 오도록 만듭니다. */
+  align-items: ${(props) => (props.isoutgoing ? 'flex-end' : 'flex-start')};
+  font-weight: bold;
+  text-align: ${(props) => (props.isoutgoing ? 'right' : 'left')};
+  text-align: right;
+  padding: 0.6rem;
+  margin: 0.3rem;
+  border-radius: 1rem;
+  max-width: 10rem;
+  width: auto; /* 메시지의 최대 너비를 설정합니다. */
+  height: auto;
+
+  ${({ theme }) => theme.mediaQuery.sm`
     padding: 0.8rem;
     margin: 0.5rem ;
     border-radius: 1rem;
@@ -63,8 +62,8 @@ export const DateLabel = styled.div`
     width: auto; /* 메시지의 최대 너비를 설정합니다. */
     height:auto;g
     `}
-  
-    ${({ theme }) => theme.mediaQuery.lg`
+
+  ${({ theme }) => theme.mediaQuery.lg`
     padding: 1rem;
     margin-top: 0.5rem;
     border-radius: 1rem;
@@ -72,7 +71,7 @@ export const DateLabel = styled.div`
     width: auto; /* 메시지의 최대 너비를 설정합니다. */
     height:auto;
     `};
-  `;
+`;
 
 export const NicknameLabel = styled.div`
   color: black; // 닉네임 라벨 텍스트 색상

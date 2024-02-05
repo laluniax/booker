@@ -193,7 +193,6 @@ const Chat = () => {
                   <St.PrevBtn onClick={prevHandler}>
                     <St.PrevIcon />
                   </St.PrevBtn>
-                  {/* <St.ChatHeader></St.ChatHeader> */}
                   <St.QnaIcon src={qnaIcon} />
                 </St.LogoWrapper>
               ) : (

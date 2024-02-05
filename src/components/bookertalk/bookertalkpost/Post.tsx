@@ -32,7 +32,7 @@ export const categoryUuid: CateGenresTypes = {
 const Post = () => {
   const navigation = useNavigate();
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState<string>('');
+  const [category, setCategory] = useState('');
   const [genres, setGenres] = useState('');
   const [tagItem, setTagItem] = useState('');
   const [tagList, setTagList] = useState<string[]>([]);

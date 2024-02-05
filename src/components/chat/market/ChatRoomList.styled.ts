@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 //고객센터 채팅내역
 export const UserItem = styled.div`
@@ -49,7 +49,6 @@ export const AlarmUserWrapper = styled.div`
   height: 4rem;
   `};
 `;
-
 
 export const UserInfo = styled.div`
   display: flex;
@@ -104,7 +103,6 @@ export const MessageTime = styled.div`
   `};
 `;
 
-
 export const UserLastMessage = styled.div`
   color: #000;
   white-space: nowrap;
@@ -144,12 +142,10 @@ export const UserImage = styled.img`
   `};
 `;
 
-
 export const ProductImage = styled.img`
   width: 4.5rem; // 물품 이미지 크기 조절
   height: 4.5rem;
   margin-left: 0.5rem;
-  border: 1px solid gray;
 
   ${({ theme }) => theme.mediaQuery.sm`
   width: 5rem; // 물품 이미지 크기 조절
@@ -165,24 +161,23 @@ export const ProductImage = styled.img`
   `};
 `;
 
-
 //중고거래 문구
 export const ChatContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -1rem;
-  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
   margin-bottom: -1rem;
+  margin-top: 1rem;
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
+  margin-top: 2rem;
   `};
 `;
-
-
 
 export const ChatContentTitle = styled.div`
   text-align: center;
@@ -271,7 +266,6 @@ export const AlarmDetail = styled.span`
   top:0.3rem;
   `};
 `;
-
 
 // 채팅 리스트
 export const ChatListWrapper = styled.div`

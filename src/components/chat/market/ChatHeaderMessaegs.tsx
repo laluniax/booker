@@ -1,11 +1,19 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-
+import prevBtn from '../../../assets/common/slider_left.webp';
+import defaultImage from '../../../assets/profile/defaultprofileimage.webp';
+import {
+  mainChatModalOpen,
+  newMessagesCountState,
+  otherUserDetail,
+  productDetail,
+  updateMesaages,
+} from '../../../state/atom/chatAtom';
 import * as St from '../market/ChatHeaderMessaegs.styled';
-import { mainChatModalOpen, newMessagesCountState, otherUserDetail, productDetail, updateMesaages } from '../../../state/atom/chatAtom';
 
-const ChatHeaderMessaegs = () => { //props 못 내림.
+const ChatHeaderMessaegs = () => {
+  //props 못 내림.
   const [productDetails, setProductDetails] = useRecoilState(productDetail);
   const [isChatModalOpen, setIsChatModalOpen] = useRecoilState(mainChatModalOpen);
   const [otherUserDetails, setOtherUserDetails] = useRecoilState(otherUserDetail);
@@ -32,18 +40,25 @@ const ChatHeaderMessaegs = () => { //props 못 내림.
     return (
       <St.ChatModalHeader>
         <St.UserInfoSection>
-          <St.CloseButton onClick={() => setIsChatModalOpen(false)}>←</St.CloseButton>
-          <St.UserImage src={otherUserDetails?.user_img} alt="user" />
-
-          <St.ChatRoomUserNickname>{otherUserDetails?.nickname}</St.ChatRoomUserNickname>
+          <St.CloseButton onClick={() => setIsChatModalOpen(false)}>
+            <St.PrevIcon src={prevBtn} />
+          </St.CloseButton>
+          <St.ImgNicknameWrapper>
+            <St.UserImage src={otherUserDetails?.user_img} alt="user" />
+            <St.ChatRoomUserNickname>{otherUserDetails?.nickname}</St.ChatRoomUserNickname>
+          </St.ImgNicknameWrapper>
         </St.UserInfoSection>
         <St.ProductInfoSection>
-          <St.ProductImage onClick={() => navigateToProductPage()} src={productDetails?.image} alt="product" />
+          <St.ProductImage
+            onClick={() => navigateToProductPage()}
+            src={productDetails?.image}
+            onError={(e) => (e.currentTarget.src = defaultImage)}
+          />
 
-          <div>
+          <St.ProductTitleProduct>
             <St.ProductTitle>제목:{productDetails?.title}</St.ProductTitle>
             <St.ProductPrice>가격:{productDetails?.price}</St.ProductPrice>
-          </div>
+          </St.ProductTitleProduct>
         </St.ProductInfoSection>
       </St.ChatModalHeader>
     );
