@@ -32,6 +32,7 @@ export const Title = styled.div`
     font-weight: 600;
     width: 70rem;
     padding-bottom: 0.4rem;
+
     border-bottom: 0.15rem solid black;
   `}
 
@@ -51,7 +52,7 @@ export const ProfileWrapper = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #14213d;
-  width: 30rem;
+  width: 33rem;
   height: 12rem;
   margin-bottom: 4rem;
   padding: 2rem 0;
@@ -138,6 +139,7 @@ export const ProfileNicknameEmail = styled.div`
    gap: 2rem;
    min-height: 10rem;
    height: 23rem;
+   width: 50rem;
     `};
 `;
 
@@ -221,15 +223,20 @@ export const ProfileUserName = styled.span`
 export const TargetProfileInfo = styled.div`
   text-align: start;
   line-height: 1;
+  display: flex;
+  flex-direction: column;
+  width: 13rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
+   display: flex;
+   flex-direction: column;
     line-height: 1.5;
+    width: 40rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   display: flex;
   flex-direction: column;
-  gap: 5rem;
   width: 54rem;
   line-height: 2;
     `};

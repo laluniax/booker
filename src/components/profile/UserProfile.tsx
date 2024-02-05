@@ -3,24 +3,32 @@ import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { getUserDataHandler } from '../../api/Supabase.api';
 import profileImage from '../../assets/profile/defaultprofileimage.webp';
+import { useUserDataQuery } from '../../hooks/users/useUserData';
 import { userSession } from '../../state/atom/userSessionAtom';
 import { Tables } from '../../types/types';
 import Follow from '../common/follow/Follow';
 import * as St from './UserProfile.styled';
 import Tab from './tab/Tab';
+
 const UserProfile = () => {
   const params = useParams().id;
   const [userData, setUserData] = useState<Tables<'users'>>();
   const [nickname, setNickname] = useState('');
   const session = useRecoilValue(userSession);
+
+  const data = useUserDataQuery(params as string);
+  // console.log(data);
+
   const getUserData = async () => {
     const result = await getUserDataHandler(params as string);
     setUserData(result[0]);
     setNickname(result[0].nickname);
   };
+
   useEffect(() => {
     getUserData();
   }, [params]);
+
   return (
     <St.Container>
       <St.Title>프로필</St.Title>
@@ -50,4 +58,5 @@ const UserProfile = () => {
     </St.Container>
   );
 };
+
 export default UserProfile;

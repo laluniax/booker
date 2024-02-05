@@ -13,7 +13,7 @@ export const ProfileBtn = styled.button`
   font-weight: bold;
   cursor: pointer;
   color: #000;
-
+  font-size: 1.4rem;
   &:hover {
     cursor: pointer;
     transform: scale(1);
@@ -26,6 +26,10 @@ export const ProfileBtn = styled.button`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
+    padding: 1rem;
+    text-align: center;
+    font-weight: bold;
+      font-size: 1.7rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -33,6 +37,7 @@ export const ProfileBtn = styled.button`
   text-align: center;
   font-weight: bold;
   font-size: 2rem;
+  margin-top: 2.5rem;
 
     `};
 `;

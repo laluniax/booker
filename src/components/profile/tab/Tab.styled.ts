@@ -62,7 +62,16 @@ export const ProfileTab = styled.div`
     `};
 `;
 
-export const TabMenu = styled.div``;
+export const TabMenu = styled.div`
+  font-size: 1.1rem;
+  ${({ theme }) => theme.mediaQuery.sm`
+  font-size: 1.7rem;
+  `}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  font-size: 2.5rem;
+    `};
+`;
 
 export const ProfileContent = styled.div`
   margin: 0 auto;

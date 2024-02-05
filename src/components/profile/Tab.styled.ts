@@ -100,7 +100,7 @@ export const Contour = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
     border-bottom: 0.15rem solid #000;
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 5rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
