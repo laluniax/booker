@@ -14,14 +14,16 @@ import TotalChatUnreadCounts from './market/TotalChatUnreadCounts';
 import { MessageListTypes } from './ChatModal.type';
 import AdminChat from './qna/chatadmin/AdminChatRoom';
 import ChatLog from './qna/chatuser/UserChatRoom';
-import { UnreadCounts, globalModalSwitch, mainChatModalOpen, person, sendMessages } from '../../atom/Product.atom';
+
 import { supabase } from '../../api/Supabase.api';
+import { UnreadCounts, globalModalSwitch, mainChatModalOpen, person, sendMessages } from '../../state/atom/chatAtom';
 
 dayjs.extend(relativeTime); // relativeTime 플러그인 활성화
 dayjs.locale('ko'); // 한국어 로케일 설정
 
 const Chat = () => {
   const [isOpen, setIsOpen] = useRecoilState(globalModalSwitch);
+
   //모달창을 열고 닫는 state
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
   const [isAsk, setIsAsk] = useState<boolean>(false);

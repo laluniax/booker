@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { getLikeCount, like, supabase } from '../../../api/Supabase.api';
 import coloredheart from '../../../assets/common/heavy_black_heart.webp';
 import heartbold from '../../../assets/common/icon_heart.webp';
-import { useAuth } from '../../../contexts/auth.context';
-import * as St from './Like.styled'
+import { userSession } from '../../../state/atom/userSessionAtom';
+import * as St from './Like.styled';
 import { LikeProps } from './Like.type';
 
 const PostsLike = ({ postId }: LikeProps) => {
   const [likes, setLikes] = useState<any[]>([]);
-  const auth = useAuth();
-  const currentUserId = auth.session?.profile.id;
+  const session = useRecoilValue(userSession);
+  const currentUserId = session?.id;
+
   // 좋아요 수를 불러오는 함수
 
   const getLikeCounts = useCallback(async () => {
@@ -22,8 +24,9 @@ const PostsLike = ({ postId }: LikeProps) => {
   }, [postId]); // postId를 의존성으로 추가
 
   const toggleLike = async () => {
-    if (!auth.session) return;
+    if (!session) return;
     const existingLike = likes.find((like) => like.user_id === currentUserId);
+    console.log(existingLike);
     try {
       if (existingLike) {
         // 이미 좋아요한 경우, 좋아요 제거

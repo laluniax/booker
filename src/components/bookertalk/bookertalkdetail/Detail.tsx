@@ -2,6 +2,7 @@ import { Session } from '@supabase/supabase-js';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Viewer } from '@toast-ui/react-editor';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import 'tui-color-picker/dist/tui-color-picker.css';
@@ -10,13 +11,12 @@ import {
   deletePostImgStorageHandler,
   filteredPostId,
   getUserSessionHandler,
-} from '../../api/Supabase.api';
-import deleteicon from '../../assets/market/deleteicon.webp';
-import editicon from '../../assets/market/editicon.webp';
-import { formatCreatedAt } from '../../utils/date';
-import Comment from '../bookertalk/comment/Comment';
-import Follow from '../common/follow/Follow';
-import PostsLike from '../common/like/PostsLike';
+} from '../../../api/Supabase.api';
+import deleteicon from '../../../assets/market/deleteicon.webp';
+import editicon from '../../../assets/market/editicon.webp';
+import Follow from '../../common/follow/Follow';
+import PostsLike from '../../common/like/PostsLike';
+import Comment from '../comment/Comment';
 import * as St from './Detail.styled';
 import { PostsTypes } from './Detail.type';
 
@@ -86,7 +86,7 @@ const Detail = () => {
               <St.PostUserNickname onClick={() => navigation(`/profile/${post?.user_id}`)}>
                 {post?.users.nickname} |
               </St.PostUserNickname>
-              <St.PostDate>{formatCreatedAt(post?.created_at as string)}</St.PostDate>
+              <St.PostDate>{dayjs(post?.created_at as string).format('YYYY-MM-DD | HH:MM')}</St.PostDate>
             </St.PostImgNickNameDate>
             {userSession?.user.id === post?.user_id ? (
               <St.PostBtnWrapper>

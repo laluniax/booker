@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import prev from '../../assets/common/prevbutton2.webp';
+import prev from '../../../assets/common/prevbutton2.webp';
 
 export const Container = styled.div`
   height: auto;

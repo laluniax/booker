@@ -1,23 +1,16 @@
-import { Session } from '@supabase/supabase-js';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { useCreateOrGetChat, } from '../../../api/Chat.api';
-import {
-  deleteProductHandler,
-  deleteProductImgStorage,
-  getProductHandler,
-  getUserSessionHandler,
-  supabase,
-} from '../../../api/Supabase.api';
+import { useRecoilState, useRecoilValue } from 'recoil';
+
+import { deleteProductHandler, deleteProductImgStorage, getProductHandler, supabase } from '../../../api/Supabase.api';
 import SliderPrevIcon from '../../../assets/common/slider_left.webp';
 import SliderNextIcon from '../../../assets/common/slider_right.webp';
 import logoImage from '../../../assets/profile/defaultprofileimage.webp';
 
-import {  ProductsTypes } from '../../../types/types';
-import { formatCreatedAt } from '../../../utils/date';
+import { userSession } from '../../../state/atom/userSessionAtom';
+import { MessageTypes, ProductsTypes } from '../../../types/types';
 import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
 import { categoryArr } from '../marketpost/Post';
@@ -25,7 +18,9 @@ import * as St from './Product.styled';
 
 import ChatInpuValuSendHandler from '../../chat/market/ChatInpuValuSendHandler';
 import ChatMessages from '../../chat/market/ChatMessages';
-import {  person, productState, sendMessages } from '../../../atom/Product.atom';
+import { ChatId, person, productState, sendMessages } from '../../../state/atom/chatAtom';
+import { createOrGetChat } from '../../../api/Chat.api';
+
 // import { MessageType } from '../../chat/market/ChatMarket';
 dayjs.locale('ko'); // 한국어 로케일을 기본값으로 설정
 
@@ -34,16 +29,19 @@ const Product = () => {
   const postId = params ? parseInt(params, 10) : undefined;
   const navigate = useNavigate();
   const slideRef = useRef<HTMLUListElement>(null);
-  const [session, setSession] = useState<Session | null>(null);
   const [product, setProduct] = useState<ProductsTypes>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideLength, setSlideLength] = useState(0);
+  const session = useRecoilValue(userSession);
+
+  const [inputValue, setInputValue] = useState('');
   const [productId, setProductId] = useRecoilState(productState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [messages, setMessages] = useRecoilState(sendMessages);
+  const [chatId, setChatId] = useRecoilState(ChatId);
   // const [otherLoginPersonal, setOtherLoginPersonal] = useRecoilState(otherPerson);
-  const { mutate: createOrGetChat } = useCreateOrGetChat();
+
   const [isAtBottom, setIsAtBottom] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
@@ -96,25 +94,55 @@ const Product = () => {
     }
   }, []);
 
+  // // DM 클릭 핸들러
+  // const DmClickhandler = async (otherUserId: string, productId: number) => {
+  //   const {
+  //     data: { user },
+  //   } = await supabase.auth.getUser();
+  //   if (user?.id === otherUserId) {
+  //     alert('자신에게 채팅을 보낼 수 없습니다 ');
+  //     return;
+  //   } else {
+  //     if (user) {
+  //       const userId = user?.id;
+  //       setIsChatModalOpen(true);
+  //       createOrGetChat({ userId, otherUserId, productId });
+  //       setProductId(productId);
+  //       // setOtherLoginPersonal(otherUserId);
+  //       setLoginPersonal(userId);
+  //     }
+  //   }
+  // };
+
+
   // DM 클릭 핸들러
-  const DmClickhandler = async (otherUserId: string, productId: number) => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (user?.id === otherUserId) {
-      alert('자신에게 채팅을 보낼 수 없습니다 ');
-      return;
-    } else {
-      if (user) {
-        const userId = user?.id;
-        setIsChatModalOpen(true);
-        createOrGetChat({ userId, otherUserId, productId });
-        setProductId(productId);
-        // setOtherLoginPersonal(otherUserId);
-        setLoginPersonal(userId);
-      }
+const DmClickhandler = async (otherUserId: string, productId: number) => {
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  if (user?.id === otherUserId) {
+    alert('자신에게 채팅을 보낼 수 없습니다');
+    return;
+  } else if (user) {
+    const userId = user.id;
+    setIsChatModalOpen(true);
+
+    try {
+      // createOrGetChat 함수를 호출하고 결과를 기다립니다.
+      const chatResult = await createOrGetChat({ userId, otherUserId, productId });
+      
+      // 성공적으로 채팅방이 생성되거나 가져온 후, 필요한 상태를 업데이트합니다.
+      // 예: 채팅방 ID를 상태에 저장합니다.
+      // chatResult에서 반환된 채팅방 ID를 사용해 상태를 업데이트할 수 있습니다.
+      // 예를 들어, chatResult.chat_id를 사용하여 상태를 설정합니다.
+      setChatId(chatResult?.chat_id); // chatResult가 채팅방 ID를 반환한다고 가정합니다.
+      
+      setProductId(productId);
+      setLoginPersonal(userId);
+    } catch (error) {
+      console.error('채팅방 생성 또는 가져오기 실패', error);
     }
-  };
+  }
+};
 
 
 
@@ -122,12 +150,6 @@ const Product = () => {
     const result = await getProductHandler(params as string);
     setProduct(result[0]);
     setSlideLength(result[0].product_img.length);
-  };
-
-  const getUserSession = async () => {
-    const session = await getUserSessionHandler();
-    const newFollowId = product?.user_id + '-' + session.session?.user.id;
-    setSession(session.session);
   };
 
   const onClickPrevBtn = useCallback(() => {
@@ -158,14 +180,9 @@ const Product = () => {
       : window.confirm('로그인 페이지로 이동하시겠습니까?') && navigate(`/login`);
   };
 
-  const [likes, setLikes] = useState<any[]>([]);
-
   useEffect(() => {
     getProduct();
   }, [params]);
-  useEffect(() => {
-    getUserSession();
-  }, [product]);
 
   useEffect(() => {
     if (slideRef.current) slideRef.current.style.marginLeft = `${-currentSlide * 30}rem`;
@@ -206,7 +223,7 @@ const Product = () => {
           <St.ProductTitleAndDate>
             <St.ProductTitle>{product?.title}</St.ProductTitle>
             <St.ProductDate>
-              | {product?.created_at ? formatCreatedAt(product.created_at) : '날짜 정보 없음'}
+              | {product?.created_at ? dayjs(product.created_at).format('MM-DD HH:MM') : '날짜 정보 없음'}
             </St.ProductDate>
           </St.ProductTitleAndDate>
           <St.ProductCategory>
@@ -228,7 +245,7 @@ const Product = () => {
             <St.ProductPrice>
               {product?.price} <span>원</span>
             </St.ProductPrice>
-            {session?.user.id === product?.user_id ? (
+            {session?.id === product?.user_id ? (
               <St.ProductBtn>
                 <St.UpdateBtn onClick={() => navigate(`/marketpost/${product?.id}`)}>
                   <St.EditIcon />
@@ -278,7 +295,7 @@ const Product = () => {
               }}>
               <img src={product?.users.user_img ?? undefined} />
               <div>{product?.users.nickname}</div>
-              {session?.user.id === product?.user_id ? (
+              {session?.id === product?.user_id ? (
                 <St.FollowBtn>내 프로필</St.FollowBtn>
               ) : (
                 product?.user_id && <Follow params={product?.user_id as string} usage="product" />

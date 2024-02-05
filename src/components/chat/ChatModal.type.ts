@@ -22,6 +22,17 @@ export type OtherUserDetailTypes = {
   user_img: string;
 };
 
+export type QnaMessageType = {
+  id: number;
+  message: string;
+  room_id: string;
+};
+
+export type AdminChatInputProps = {
+  messageTable: () => Promise<void>;
+  currentQnaRoomId: string;
+};
+
 // export type MessageTypes = {
 //   id: number;
 //   content: string;

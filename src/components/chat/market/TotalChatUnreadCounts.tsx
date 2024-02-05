@@ -1,28 +1,15 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-
-import {
-  ChatId,
-  MessagePayload,
-  UnreadCounts,
-  chatRoomsState,
-  
-  firstChatModalOpenState,
-  
-  newMessagesCountState,
-  person,
-  updateMesaages,
-} from '../../../atom/Product.atom';
-import * as St from '../ChatModal.styled';
+import * as St from '../market/TotalChatUnreadCounts.styled';
 import { supabase } from '../../../api/Supabase.api';
+import { ChatId, MessagePayload, UnreadCounts, chatRoomsState, newMessagesCountState, person, updateMesaages } from '../../../state/atom/chatAtom';
+import { TotalChatUnreadCountsProps } from './TotalChatUnreadCounts.type';
 
-type TotalChatUnreadCountsProps = {
-  ChatBtnOpen: boolean;
-};
 
 
 const TotalChatUnreadCounts =({ ChatBtnOpen }: TotalChatUnreadCountsProps) => {
   const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
+
   // const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(firstChatModalOpenState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);

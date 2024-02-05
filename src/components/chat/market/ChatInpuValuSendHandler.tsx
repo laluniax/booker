@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { ChatId, person, productState } from '../../../atom/Product.atom';
-import * as St from '../ChatModal.styled';
-import { useSendMessage } from '../../../api/Chat.api';
+
+import * as St from '../market/ChatInpuValuSendHandler.styled';
+
+import { ChatId, person, productState } from '../../../state/atom/chatAtom';
+import { sendMessage } from '../../../api/Chat.api';
 
 
 const ChatInpuValuSendHandler = () => {
   const [inputValue, setInputValue] = useState('');
-  const { mutate: sendDirectMessage } = useSendMessage();
+
   const [chatId, setChatId] = useRecoilState(ChatId);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [productId, setProductId] = useRecoilState(productState);
@@ -19,7 +21,7 @@ const ChatInpuValuSendHandler = () => {
     if (event.key === 'Enter' && inputValue.trim()) {
       if (event.nativeEvent.isComposing === false) {
         event.preventDefault(); // 폼 제출 방지
-        sendDirectMessage({
+        sendMessage({
           content: inputValue,
           author_id: LoginPersonal,
           chat_id: chatId,
@@ -35,7 +37,7 @@ const ChatInpuValuSendHandler = () => {
   const SendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
 
-    sendDirectMessage({
+    sendMessage({
       content: inputValue,
       author_id: LoginPersonal,
       chat_id: chatId,

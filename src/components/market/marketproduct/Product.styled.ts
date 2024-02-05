@@ -12,6 +12,7 @@ export const Container = styled.div`
 
   ${({ theme }) => theme.mediaQuery.sm`
   max-width: 70rem;
+
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -21,8 +22,8 @@ export const Container = styled.div`
 
 export const PrevButton = styled.div`
   position: absolute;
-  left: 0rem;
-  top: -6rem;
+  left: -3rem;
+  top: -1rem;
   background: url(${prev});
   background-size: contain;
   width: 5rem;
@@ -42,6 +43,7 @@ export const Title = styled.div`
   max-width: 35rem;
   font-family: 'GmarketSansMedium';
   margin: 5rem auto;
+  margin-bottom: 5rem;
   padding-bottom: 0.5rem;
   border-bottom: 0.2rem solid black;
   font-size: 2rem;

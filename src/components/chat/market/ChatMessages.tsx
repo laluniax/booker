@@ -2,9 +2,10 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import * as St from '../ChatModal.styled';
-import { ChatId, MessagePayload, MessageType, mainChatModalOpen, person, sendMessages, updateMesaages } from '../../../atom/Product.atom';
+import * as St from '../market/ChatMessages.styled';
+
 import { supabase } from '../../../api/Supabase.api';
+import { ChatId, MessagePayload, MessageType, person, sendMessages, updateMesaages } from '../../../state/atom/chatAtom';
 
 
 

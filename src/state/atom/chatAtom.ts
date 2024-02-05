@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { ChatRoomTypes } from './Product.type';
+import { ChatRoomTypes, UnreadCount } from './Chat.type';
 
 export const productState = atom({
   key: 'productState', // 고유한 키
@@ -72,22 +72,6 @@ export const chatRoomsState = atom<ChatRoomTypes[]>({
   default: [], // 초기값은 빈 배열
 });
 
-export type ChatRoom = {
-  author_id: string;
-  chat_id: string;
-  user_id: string;
-  item_id: number;
-  lastMessage: string;
-  sendNickname: string;
-  product_img: string;
-  unread_count: UnreadCount;
-  created_at: string;
-  user_img: string;
-};
-export type UnreadCount = {
-  chat_id: string;
-  unread_count: number;
-};
 
 
 export const firstChatModalOpenState = atom({

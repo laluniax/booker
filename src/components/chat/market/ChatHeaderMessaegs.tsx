@@ -1,16 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import {
-  ChatId,
-  mainChatModalOpen,
-  newMessagesCountState,
-  otherUserDetail,
-  productDetail,
-  productState,
-  updateMesaages,
-} from '../../../atom/Product.atom';
-import * as St from '../ChatModal.styled';
+
+import * as St from '../market/ChatHeaderMessaegs.styled';
+import { mainChatModalOpen, newMessagesCountState, otherUserDetail, productDetail, updateMesaages } from '../../../state/atom/chatAtom';
 
 const ChatHeaderMessaegs = () => { //props 못 내림.
   const [productDetails, setProductDetails] = useRecoilState(productDetail);

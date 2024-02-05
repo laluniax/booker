@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   deleteXbuttonStorage,
   getProductHandler,
-  getUserSessionHandler,
   sumbitProductHandler,
   updateProductHandler,
   updateProductImgPublicUrlHandler,
@@ -54,13 +53,10 @@ const Post = () => {
   const [productImg, setProductImg] = useState<File[]>([]);
   const [tempImg, setTempImg] = useState<string[]>([]);
   const [deleteImg, setDeleteImg] = useState<string[]>([]);
+
   const navigate = useNavigate();
   const params = useParams().id;
   const gradeArr = ['최상', '상', '중', '하', '최하'];
-  const getUserSession = async () => {
-    const result = await getUserSessionHandler();
-    setUserId(result.session?.user.id as string);
-  };
 
   const getProduct = async () => {
     const result = await getProductHandler(params as string);
@@ -146,8 +142,9 @@ const Post = () => {
     }
   };
 
+  const numberFormat = () => {};
+
   useEffect(() => {
-    getUserSession();
     params && getProduct();
   }, []);
 
@@ -188,12 +185,13 @@ const Post = () => {
         <St.ItemWrapper>
           <St.PostLabel>가격</St.PostLabel>
           <St.PostInput
-            type="number"
+            type="text"
             placeholder="가격을 입력해주세요"
             value={price}
             onChange={(e) => {
-              if (e.target.value.length > 8) return;
-              setPrice(e.target.value);
+              const regexValue = e.target.value.replace(/[^0-9]/g, '');
+              if (regexValue.length > 8) return;
+              setPrice(regexValue);
             }}
           />
         </St.ItemWrapper>

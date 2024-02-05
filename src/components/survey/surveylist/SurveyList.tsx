@@ -1,32 +1,24 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserSessionHandler } from '../../../api/Supabase.api';
+import { useRecoilValue } from 'recoil';
+import { userSession } from '../../../state/atom/userSessionAtom';
 import * as St from './SurveyList.styled';
 
 const SurveyList = () => {
-  const [nickname, setNickname] = useState('');
+  const session = useRecoilValue(userSession);
   const navigate = useNavigate();
-  const getUserSession = async () => {
-    const result = await getUserSessionHandler();
-    setNickname(
-      result.session?.user.user_metadata.full_name ||
-        result.session?.user.user_metadata.preferred_name ||
-        result.session?.user.user_metadata.user_name ||
-        result.session?.user.user_metadata.name,
-    );
-  };
-
-  useEffect(() => {
-    getUserSession();
-  }, []);
 
   return (
     <St.Container>
       <St.TitleWrapper>
         <St.Title>
-          {nickname ? (
+          {session ? (
             <>
-              <St.NickName>{nickname}</St.NickName>
+              <St.NickName>
+                {session?.user_metadata.full_name ||
+                  session?.user_metadata.preferred_name ||
+                  session?.user_metadata.user_name ||
+                  session?.user_metadata.name}
+              </St.NickName>
               <span>님이 </span>
             </>
           ) : null}

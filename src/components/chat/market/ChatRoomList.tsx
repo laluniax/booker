@@ -4,21 +4,11 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
 import defaultImage from '../../../assets/profile/defaultprofileimage.webp';
-import {
-  ChatId,
-  ChatRoom,
-  MessagePayload,
-  UnreadCounts,
-  chatRoomsState,
-  mainChatModalOpen,
-  otherUserDetail,
-  person,
-  productDetail,
-  productState,
-  updateMesaages,
-} from '../../../atom/Product.atom';
-import * as St from '../ChatModal.styled';
+
+import * as St from '../market/ChatRoomList.styled';
 import { supabase } from '../../../api/Supabase.api';
+import { ChatId, MessagePayload, UnreadCounts, chatRoomsState, mainChatModalOpen, otherUserDetail, person, productDetail, productState, updateMesaages } from '../../../state/atom/chatAtom';
+import { ChatRoom } from '../../../state/atom/Chat.type';
 
 const ChatRoomList = () => {
   const [chatId, setChatId] = useRecoilState(ChatId);
