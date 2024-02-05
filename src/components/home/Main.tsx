@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getLatestProductListHandler, getPostsLikesListHandler } from '../../api/Supabase.api';
+import { useRecoilState } from 'recoil';
+import { getLatestProductListHandler, getPostsLikesListHandler, getUserSessionHandler } from '../../api/Supabase.api';
 import bookerTalkImage1 from '../../assets/mainimage/bookertalkimage1.webp';
 import bookerTalkImage2 from '../../assets/mainimage/bookertalkimage2.webp';
 import bookerTalkImage3 from '../../assets/mainimage/bookertalkimage3.webp';
 import bookerTalkImage4 from '../../assets/mainimage/bookertalkimage4.webp';
 import defaultImg from '../../assets/profile/defaultprofileimage.webp';
+import { userSession } from '../../state/atom/userSessionAtom';
 import { ProductsTypes } from '../../types/types';
 import Loading from '../common/loading/Loading';
 import * as St from './Main.styled';
@@ -26,6 +28,8 @@ const Main = () => {
   const [loading4, setLoading4] = useState(false);
   const [productsList, setProductsList] = useState<ProductsTypes[]>([]);
   const bookerTalkImages = [bookerTalkImage1, bookerTalkImage2, bookerTalkImage3, bookerTalkImage4];
+  const [session, setSession] = useRecoilState(userSession);
+
   const getPostsList = async () => {
     const posts = await getPostsLikesListHandler();
     setPostsList(posts.sort((a, b) => b.post_likes.length - a.post_likes.length).slice(0, 4));
@@ -79,6 +83,15 @@ const Main = () => {
     getPostsList();
     getBookIntroduction();
     getProductList();
+  }, []);
+
+  useEffect(() => {
+    const getUserSession = async () => {
+      const data = await getUserSessionHandler();
+      // console.log('login user session data => ', data);
+      setSession(data.session?.user);
+    };
+    getUserSession();
   }, []);
 
   return (
