@@ -142,8 +142,6 @@ const Post = () => {
     }
   };
 
-  const numberFormat = () => {};
-
   useEffect(() => {
     params && getProduct();
   }, []);
@@ -163,7 +161,7 @@ const Post = () => {
               .filter((temp) => !deleteImg.includes(temp))
               .map((item, i) => (
                 <St.PostImgCard key={i}>
-                  <St.PostImg src={item} alt={item} />
+                  <St.PostImg src={item} alt={item} loading="lazy" />
                   <St.DeleteBtn onClick={() => onClickDeleteBtn(item)}>X</St.DeleteBtn>
                 </St.PostImgCard>
               ))}

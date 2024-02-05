@@ -150,7 +150,7 @@ const Main = () => {
                 }}>
                 {loading1 ? <Loading /> : null}
                 <St.BookImage>
-                  <img src={bestSeller?.cover} />
+                  <img src={bestSeller?.cover} alt="bestseller" loading="lazy" />
                 </St.BookImage>
                 <St.BookIntroTitleAndContent>
                   <St.BookIntroCardTitle>{bestSeller?.title}</St.BookIntroCardTitle>
@@ -168,7 +168,7 @@ const Main = () => {
                 }}>
                 {loading2 ? <Loading /> : null}
                 <St.BookImage>
-                  <img src={newbook?.cover} />
+                  <img src={newbook?.cover} alt="newbook" loading="lazy" />
                 </St.BookImage>
                 <St.BookIntroTitleAndContent>
                   <St.BookIntroCardTitle>{newbook?.title}</St.BookIntroCardTitle>
@@ -186,7 +186,7 @@ const Main = () => {
                 }}>
                 {loading3 ? <Loading /> : null}
                 <St.BookImage>
-                  <img src={bookSpecial?.cover} />
+                  <img src={bookSpecial?.cover} alt="bookspecial" loading="lazy" />
                 </St.BookImage>
                 <St.BookIntroTitleAndContent>
                   <St.BookIntroCardTitle>{bookSpecial?.title}</St.BookIntroCardTitle>
@@ -204,7 +204,7 @@ const Main = () => {
                 }}>
                 {loading4 ? <Loading /> : null}
                 <St.BookImage>
-                  <img src={bookerPick?.cover} />
+                  <img src={bookerPick?.cover} alt="bookerpick" loading="lazy" />
                 </St.BookImage>
                 <St.BookIntroTitleAndContent>
                   <St.BookIntroCardTitle>{bookerPick?.title}</St.BookIntroCardTitle>
@@ -230,7 +230,11 @@ const Main = () => {
                     window.scrollTo(0, 0);
                   }}>
                   <St.MarketProductImage>
-                    <img src={(item.product_img && item.product_img[0]) || defaultImg} />
+                    <img
+                      src={(item.product_img && item.product_img[0]) || defaultImg}
+                      loading="lazy"
+                      alt="상품이미지"
+                    />
                   </St.MarketProductImage>
                   <St.ProductContentBox>
                     <St.ProductTitle>{item.title}</St.ProductTitle>

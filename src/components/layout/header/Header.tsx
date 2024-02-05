@@ -61,7 +61,7 @@ const Header = () => {
             setIsDropdownOpen(false);
             navigate('/');
           }}>
-          <img src={logo} />
+          <img src={logo} alt="logo" loading="lazy" />
         </St.ImageWrapper>
         <St.HeaderUl>
           {/* <St.HeaderLiBox> */}

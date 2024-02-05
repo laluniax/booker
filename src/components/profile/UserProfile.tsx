@@ -29,7 +29,7 @@ const UserProfile = () => {
     <St.Container>
       <St.Title>프로필</St.Title>
       <St.ProfileWrapper>
-        <St.ProfileImg src={userData?.user_img || profileImage} />
+        <St.ProfileImg src={userData?.user_img || profileImage} loading="lazy" />
         {session?.id === params ? (
           // 마이 프로필
           <St.ProfileInfo>

@@ -249,7 +249,7 @@ const Chat = () => {
       <St.ChatModalHeader>
         <St.UserInfoSection>
           <St.CloseButton onClick={() => setIsChatModalOpen(false)}>
-            <img src={OutButton} />
+            <img src={OutButton} alt="outbutton" loading="lazy" />
           </St.CloseButton>
           <St.UserImageNickName>
             <St.UserImage src={otherUserDetails?.user_img} alt="user" />
@@ -257,7 +257,7 @@ const Chat = () => {
           </St.UserImageNickName>
         </St.UserInfoSection>
         <St.ProductInfoSection onClick={navigateToProductPage}>
-          <St.ProductImage src={productDetails?.image} alt="product" />
+          <St.ProductImage src={productDetails?.image} alt="product" loading="lazy" />
           <St.ProductTitleProduct>
             <St.ProductTitle>제목 : {productDetails?.title}</St.ProductTitle>
             <St.ProductPrice>가격 : {productDetails?.price}</St.ProductPrice>
@@ -390,7 +390,7 @@ const Chat = () => {
             {/* <St.NicknameToTimeWrapper> */}
             <St.AlarmUserWrapper>
               {unreadInfo && unreadInfo.unread_count > 0 && <St.AlarmDetail>{unreadInfo.unread_count}</St.AlarmDetail>}
-              <St.UserImage src={chatRoom?.user_img || defaultImage} />
+              <St.UserImage src={chatRoom?.user_img || defaultImage} loading="lazy" />
             </St.AlarmUserWrapper>
             <St.UserInfo>
               <St.NicknameMessageTimeWrapper>
@@ -401,7 +401,7 @@ const Chat = () => {
               <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
             </St.UserInfo>
             {/* </St.NicknameToTimeWrapper> */}
-            <St.ProductImage src={chatRoom.product_img || defaultImage} />
+            <St.ProductImage src={chatRoom.product_img || defaultImage} loading="lazy" />
           </St.UserItem>
         );
       });
