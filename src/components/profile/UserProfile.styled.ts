@@ -6,9 +6,9 @@ export const Container = styled.div`
   height: 100rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  height: 160rem;
-  width:70rem;
-  `}
+    height: 160rem;
+    width:70rem;
+`}
 
   ${({ theme }) => theme.mediaQuery.lg`
   min-height: 180rem;
@@ -27,12 +27,13 @@ export const Title = styled.div`
   border-bottom: 0.1rem solid black;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  margin-bottom: 4rem;
-  font-size: 3rem;
-  font-weight: 550;
-  width: 70rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 0.15rem solid black;
+    margin-bottom: 4rem;
+    font-size: 3rem;
+    font-weight: 600;
+    width: 70rem;
+    padding-bottom: 0.4rem;
+
+    border-bottom: 0.15rem solid black;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -42,7 +43,7 @@ export const Title = styled.div`
   width: 90rem;
   padding-bottom: 0.5rem;
   border-bottom: 0.2rem solid black;
-  `};
+    `};
 `;
 
 export const ProfileWrapper = styled.div`
@@ -51,7 +52,7 @@ export const ProfileWrapper = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #14213d;
-  width: 30rem;
+  width: 33rem;
   height: 12rem;
   margin-bottom: 4rem;
   padding: 2rem 0;
@@ -59,12 +60,12 @@ export const ProfileWrapper = styled.div`
   border-radius: 2rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  width: 70rem;
-  height: 20rem;
-  margin-bottom: 5rem;
-  padding: 2.5rem 0;
-  gap: 2.5rem;
-  border-radius: 2.5rem;
+    width: 70rem;
+    height: 20rem;
+    margin-bottom: 5rem;
+    padding: 2.5rem 0;
+    gap: 2.5rem;
+    border-radius: 2.5rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -74,7 +75,7 @@ export const ProfileWrapper = styled.div`
   padding: 3rem 0;
   gap: 3rem;
   border-radius: 3rem;
-  `};
+    `};
 `;
 
 export const ProfileImgWrapper = styled.div`
@@ -90,32 +91,38 @@ export const ProfileImg = styled.img`
   margin-left: -1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  width: 15rem;
-  height: 15rem;
-  margin-left: 0;
+    width: 15rem;
+    height: 15rem;
+    margin-left: 0;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 20rem;
   height: 20rem;
-  `};
+    `};
 `;
 
 export const ProfileInfo = styled.div`
+  /* text-align: start; */
   display: flex;
   justify-content: center;
   width: 17rem;
   line-height: 2;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  width: 30rem;
-  line-height: 2;
+    width: 30rem;
+    line-height: 2;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 40rem;
   line-height: 2;
-  `};
+    `};
+`;
+
+export const NicknameAndIntrotext = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ProfileNicknameEmail = styled.div`
@@ -124,12 +131,16 @@ export const ProfileNicknameEmail = styled.div`
   gap: 1.1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  gap: 1.6rem;
+    gap: 1rem;
+    height: 16rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  gap: 2rem;
-  `};
+   gap: 2rem;
+   min-height: 10rem;
+   height: 23rem;
+   width: 50rem;
+    `};
 `;
 
 export const ProfileNickname = styled.div`
@@ -139,26 +150,35 @@ export const ProfileNickname = styled.div`
   font-weight: 500;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  font-size: 2rem;
-  font-weight: 600;
+    font-size: 2rem;
+    font-weight: 600;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 2.5rem;
   font-weight: 700;
-  `};
+    `};
 `;
 
 export const ProfileEmail = styled.div`
   font-size: 1rem;
-
   ${({ theme }) => theme.mediaQuery.sm`
-  font-size: 1.3rem;
+    font-size: 1.3rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.5rem;
-  `};
+    `};
+`;
+
+export const NicknameAndText = styled.div`
+  ${({ theme }) => theme.mediaQuery.sm`
+  `}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  margin-left: 1rem;
+  height: 14.5rem;
+    `};
 `;
 
 export const ProfileIntroText = styled.div`
@@ -166,18 +186,21 @@ export const ProfileIntroText = styled.div`
   color: #fff;
   display: flex;
   justify-content: start;
-  font-size: 0.8rem;
+  font-size: 1rem;
   padding-left: 0.2rem;
+  height: 3rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  font-size: 1.6rem;
-  padding-left: 0.3rem;
+    font-size: 1.4rem;
+    padding-left: 0.3rem;
+    height: 9rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 2rem;
   padding-left: 0.4rem;
-  `};
+  height: 11rem;
+    `};
 `;
 
 export const ProfileUserName = styled.span`
@@ -187,26 +210,36 @@ export const ProfileUserName = styled.span`
   font-weight: 600;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  font-size: 2rem;
-  font-weight: 600;
+    font-size: 2rem;
+    font-weight: 600;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 2.5rem;
   font-weight: 700;
-  `};
+    `};
 `;
 
 // 타겟 유저 프로필
 export const TargetProfileInfo = styled.div`
   text-align: start;
-  line-height: 1;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  width: 13rem;
+  gap: 0.3rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  line-height: 1.5;
+   display: flex;
+   flex-direction: column;
+    line-height: 1.5;
+    width: 39rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
+  display: flex;
+  flex-direction: column;
+  width: 54rem;
   line-height: 2;
-  `};
+    `};
 `;

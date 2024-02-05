@@ -275,3 +275,30 @@ export const DropdownItem = styled.a`
     background-color: #f1f1f1;
   }
 `;
+
+// 헤더 닉네임
+export const NickNameAndIconBox = styled.div`
+  font-family: 'GmarketSansMedium';
+  position: absolute;
+
+  top: 90%;
+  right: -1%;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+
+top: 92%;
+right: -1%;
+  `};
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  top: 77%;
+  right: 0.6%;
+  `};
+`;
+
+export const NickName = styled.span`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-right: 2rem;
+`;

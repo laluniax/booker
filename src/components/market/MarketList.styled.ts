@@ -4,6 +4,7 @@ import defaultImg from '../../assets/profile/defaultprofileimage.webp';
 export const Container = styled.div`
   max-width: 35rem;
   margin: 0 auto;
+  /* height: 100rem; */
 
   ${({ theme }) => theme.mediaQuery.sm`
   display: flex;
@@ -104,6 +105,7 @@ export const ContentsWrapper = styled.div`
 
   ${({ theme }) => theme.mediaQuery.lg`
   max-width: 90rem;
+  min-width: 40rem;
   `};
 `;
 
@@ -129,7 +131,7 @@ export const PostButton = styled.button`
   border-radius: 1rem;
   background-color: #fca311;
   color: #000;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   display: none;
 
   &:hover {
