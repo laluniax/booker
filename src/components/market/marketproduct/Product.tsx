@@ -95,17 +95,16 @@ const Product = () => {
   };
 
   //보내기 버튼(클릭)
-  const sendDmMessage = async () => {
-    if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
+  const sendDmMessage = useCallback(async () => {
+    if (!inputValue.trim()) return;
     sendDirectMessage({
       content: inputValue,
       author_id: LoginPersonal,
       chat_id: chatId,
       item_id: productId,
     });
-    setChatId(chatId);
     setInputValue('');
-  };
+  }, [inputValue, LoginPersonal, chatId, productId, sendDirectMessage]);
 
   const renderMessages = () => {
     dayjs.locale('ko'); // 한국어 로케일을 기본값으로 설정

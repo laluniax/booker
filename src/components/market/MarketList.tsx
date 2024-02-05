@@ -93,7 +93,13 @@ const MarketList = () => {
                   <St.LogoImage />
                 ) : (
                   <St.ProductImg>
-                    <img src={(item.product_img && item.product_img[0]) ?? undefined} loading="lazy" alt="상품이미지" />
+                    <img
+                      src={(item.product_img && item.product_img[0]) ?? undefined}
+                      width={200}
+                      height={260}
+                      loading="lazy"
+                      alt="상품이미지"
+                    />
                   </St.ProductImg>
                 )}
                 <St.CardTitleAndContentBox>

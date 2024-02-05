@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import LazyLoad from 'react-lazyload';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   deleteXbuttonStorage,
@@ -69,7 +70,7 @@ const Post = () => {
     setTempImg(result[0].product_img);
   };
 
-  const onSubmitProduct = async () => {
+  const onSubmitProduct = useCallback(async () => {
     if (title === '' || content === '' || price === '') {
       alert('입력되지 않은 항목이 있습니다.');
       return;
@@ -110,7 +111,7 @@ const Post = () => {
       alert('등록 불가');
       console.log('‼️', error);
     }
-  };
+  }, [title, content, price, params, navigate, deleteImg, category, productGrade, onSale, productImg, userId]);
 
   const multipleImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (tempImg.filter((temp) => !deleteImg.includes(temp)).length > 4) {
@@ -160,10 +161,12 @@ const Post = () => {
             tempImg
               .filter((temp) => !deleteImg.includes(temp))
               .map((item, i) => (
-                <St.PostImgCard key={i}>
-                  <St.PostImg src={item} alt={item} loading="lazy" />
-                  <St.DeleteBtn onClick={() => onClickDeleteBtn(item)}>X</St.DeleteBtn>
-                </St.PostImgCard>
+                <LazyLoad key={i} height={200} offset={100} once>
+                  <St.PostImgCard>
+                    <St.PostImg src={item} alt={`Uploaded image ${i}`} />
+                    <St.DeleteBtn onClick={() => onClickDeleteBtn(item)}>X</St.DeleteBtn>
+                  </St.PostImgCard>
+                </LazyLoad>
               ))}
         </St.PostImgWrapper>
       </St.PostWrapper>
@@ -214,7 +217,7 @@ const Post = () => {
             })}
           </St.PostCategory>
         </St.ItemWrapper>
-        {params ? (
+        {params && (
           <St.ItemWrapper>
             <St.PostLabel>판매 상태</St.PostLabel>
             <St.PostCategory value={onSale.toString()} onChange={(e) => setOnSale(e.target.value === 'true')}>
@@ -222,9 +225,8 @@ const Post = () => {
               <option value="false">판매 완료</option>
             </St.PostCategory>
           </St.ItemWrapper>
-        ) : (
-          <></>
         )}
+
         <br />
         <St.ItemWrapper>
           <St.PostLabel>상품 설명</St.PostLabel>
