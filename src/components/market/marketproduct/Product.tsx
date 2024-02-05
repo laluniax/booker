@@ -3,18 +3,26 @@ import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { useCreateOrGetChat, useSendMessage } from '../../../api/Chat.api';
+
 import { deleteProductHandler, deleteProductImgStorage, getProductHandler, supabase } from '../../../api/Supabase.api';
 import SliderPrevIcon from '../../../assets/common/slider_left.webp';
 import SliderNextIcon from '../../../assets/common/slider_right.webp';
 import logoImage from '../../../assets/profile/defaultprofileimage.webp';
-import { ChatId, otherPerson, person, productState, sendMessages } from '../../../state/atom/chatAtom';
+
 import { userSession } from '../../../state/atom/userSessionAtom';
-import { MessageTypes, ProductsTypes } from '../../../types/types';
+import { ProductsTypes } from '../../../types/types';
 import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
 import { categoryArr } from '../marketpost/Post';
 import * as St from './Product.styled';
+
+import ChatInpuValuSendHandler from '../../chat/market/ChatInpuValuSendHandler';
+import ChatMessages from '../../chat/market/ChatMessages';
+import { ChatId, person, productState, sendMessages } from '../../../state/atom/chatAtom';
+import { createOrGetChat } from '../../../api/Chat.api';
+
+// import { MessageType } from '../../chat/market/ChatMarket';
+dayjs.locale('ko'); // 한국어 로케일을 기본값으로 설정
 
 const Product = () => {
   const params = useParams().id;
@@ -31,13 +39,21 @@ const Product = () => {
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [messages, setMessages] = useRecoilState(sendMessages);
-  const [otherLoginPersonal, setOtherLoginPersonal] = useRecoilState(otherPerson);
-  const { mutate: createOrGetChat } = useCreateOrGetChat();
   const [chatId, setChatId] = useRecoilState(ChatId);
-  const { mutate: sendDirectMessage } = useSendMessage();
+  // const [otherLoginPersonal, setOtherLoginPersonal] = useRecoilState(otherPerson);
+
   const [isAtBottom, setIsAtBottom] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
+
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    const current = chatBodyRef.current;
+    if (current) {
+      const isAtBottom = current.scrollHeight - current.scrollTop === current.clientHeight;
+      setIsAtBottom(isAtBottom);
+    }
+  };
 
   // 최하단으로 스크롤하는 함수
   const scrollToBottom = () => {
@@ -54,89 +70,55 @@ const Product = () => {
     }
   }, [messages, isChatModalOpen, isAtBottom]);
 
+  // 채팅 컨테이너에 스크롤 이벤트 리스너 추가
+  useEffect(() => {
+    const chatBody = chatBodyRef.current;
+    if (chatBody) {
+      chatBody.addEventListener('scroll', handleScroll);
+      return () => {
+        chatBody.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
+
+  // 채팅 몸체에 스크롤 이벤트 리스너를 추가
+  useEffect(() => {
+    const chatBody = chatBodyRef.current;
+    if (chatBody) {
+      chatBody.addEventListener('scroll', handleScroll);
+
+      // 컴포넌트 언마운트 시 이벤트 리스너 제거
+      return () => {
+        chatBody.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
+
   // DM 클릭 핸들러
   const DmClickhandler = async (otherUserId: string, productId: number) => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
+
     if (user?.id === otherUserId) {
-      alert('자신에게 채팅을 보낼 수 없습니다 ');
+      alert('자신에게 채팅을 보낼 수 없습니다');
       return;
-    } else {
-      if (user) {
-        const userId = user?.id;
-        setIsChatModalOpen(true);
-        createOrGetChat({ userId, otherUserId, productId });
+    } else if (user) {
+      const userId = user.id;
+      setIsChatModalOpen(true);
+
+      try {
+        // createOrGetChat 함수를 호출하고 결과를 기다립니다.
+        const chatResult = await createOrGetChat({ userId, otherUserId, productId });
+
+        setChatId(chatResult?.chat_id); // chatResult가 채팅방 ID를 반환한다고 가정합니다.
+
         setProductId(productId);
-        setOtherLoginPersonal(otherUserId);
         setLoginPersonal(userId);
+      } catch (error) {
+        console.error('채팅방 생성 또는 가져오기 실패', error);
       }
     }
-  };
-
-  const InputChanger = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  // 메시지 전송 핸들러(엔터)
-  const KeyPresshandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && inputValue.trim()) {
-      if (event.nativeEvent.isComposing === false) {
-        sendDirectMessage({
-          content: inputValue,
-          author_id: LoginPersonal,
-          chat_id: chatId,
-          item_id: productId,
-        });
-        setChatId(chatId);
-        setInputValue('');
-      }
-    }
-  };
-
-  //보내기 버튼(클릭)
-  const sendDmMessage = async () => {
-    if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-    sendDirectMessage({
-      content: inputValue,
-      author_id: LoginPersonal,
-      chat_id: chatId,
-      item_id: productId,
-    });
-    setChatId(chatId);
-    setInputValue('');
-  };
-
-  const renderMessages = () => {
-    dayjs.locale('ko'); // 한국어 로케일을 기본값으로 설정
-    let lastDate: dayjs.Dayjs | null = null;
-    return (
-      <>
-        {messages
-          .filter((message: MessageTypes) => message.chat_id === chatId)
-          .sort((a: MessageTypes, b: MessageTypes) => a.id - b.id) // 오름차순 정렬
-          .map((message: MessageTypes) => {
-            const currentDate = dayjs(message.created_at);
-            const formattedTime = currentDate.format('hh:mm A'); // Format time with AM/PM
-            const formattedDate = currentDate.format('YYYY-MM-DD dddd'); // Format date with day of the week
-            let dateLabel = null;
-            // Check if the date has changed
-            if (lastDate === null || !currentDate.isSame(lastDate, 'day')) {
-              dateLabel = <St.DateLabel>{formattedDate}</St.DateLabel>; // Use DateLabel
-              lastDate = currentDate;
-            }
-            return (
-              <>
-                {dateLabel} {/* Display the date label if the date has changed */}
-                {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
-                <St.MessageComponent key={message.id} isOutgoing={message.author_id === LoginPersonal}>
-                  {message.content} {formattedTime}
-                </St.MessageComponent>
-              </>
-            );
-          })}
-      </>
-    );
   };
 
   const getProduct = async () => {
@@ -269,21 +251,14 @@ const Product = () => {
                     <St.ChatModalHeader>
                       <St.CloseButton onClick={() => setIsChatModalOpen(false)}>←</St.CloseButton>
                       <St.HeaderChattingModalTitle>채팅</St.HeaderChattingModalTitle>
-                      <div></div>
                     </St.ChatModalHeader>
                   </St.ChatModalHeader>
                   <St.ChatModalBody ref={chatBodyRef}>
-                    {renderMessages()}
+                    <ChatMessages />
                     <div ref={messagesEndRef} />
                   </St.ChatModalBody>
                   <St.ChatModalFooter>
-                    <St.InputField
-                      value={inputValue}
-                      onChange={InputChanger}
-                      onKeyDown={KeyPresshandler}
-                      placeholder="메세지를 입력해주세요"
-                    />
-                    <St.SendButton onClick={sendDmMessage}>전송</St.SendButton>
+                    <ChatInpuValuSendHandler />
                   </St.ChatModalFooter>
                 </St.ChatModalWrapper>
               )}

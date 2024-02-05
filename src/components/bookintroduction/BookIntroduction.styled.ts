@@ -239,10 +239,16 @@ export const BookCardWrapper = styled.div`
   width: 17rem;
   height: 27rem;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     cursor: pointer;
-    padding: 1.5rem;
+    background-color: #14213d;
+    border: 0.1rem solid #fff;
+    color: #fca311;
     transition: all 0.3s ease 0s;
   }
 
@@ -269,7 +275,7 @@ export const BookCardWrapper = styled.div`
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 5rem;
   width: 31rem;
-  height: 44rem;
+  height: 47rem;
 
   &:hover {
     cursor: pointer;
@@ -338,16 +344,17 @@ export const BookIntro = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   gap: 0.3rem;
-  margin-top: 0.5rem;
+  margin-top: 0.8rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    margin-top: 1.3rem;
+    margin-top: 1.5rem;
       gap: 0.5rem;
+      margin-left: 1.5rem;
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
-  margin-top: 1rem;
     gap: 1rem;
+    margin-left: 1rem;
   `};
 `;
 
