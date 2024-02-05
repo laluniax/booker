@@ -29,7 +29,7 @@ export const Title = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
     margin-bottom: 4rem;
     font-size: 3rem;
-    font-weight: 550;
+    font-weight: 600;
     width: 70rem;
     padding-bottom: 0.4rem;
     border-bottom: 0.15rem solid black;
@@ -118,17 +118,33 @@ export const ProfileInfo = styled.div`
   line-height: 2;
     `};
 `;
+
+export const NicknameAndIntrotext = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  margin-top: 0.9rem;
+  `}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  margin: 0 auto;
+    `};
+`;
+
 export const ProfileNicknameEmail = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    gap: 1.6rem;
+    gap: 1rem;
+    height: 16rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  gap: 2rem;
+   gap: 2rem;
+   height: 16rem;
     `};
 `;
 
@@ -160,6 +176,16 @@ export const ProfileEmail = styled.div`
     `};
 `;
 
+export const NicknameAndText = styled.div`
+  ${({ theme }) => theme.mediaQuery.sm`
+  `}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  margin-left: 1rem;
+  height: 14.5rem;
+    `};
+`;
+
 export const ProfileIntroText = styled.div`
   font-family: 'GmarketSansMedium';
   color: #fff;
@@ -169,13 +195,15 @@ export const ProfileIntroText = styled.div`
   padding-left: 0.2rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     padding-left: 0.3rem;
+    height: 10rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 2rem;
   padding-left: 0.4rem;
+  width: 30ch;
     `};
 `;
 
@@ -203,9 +231,14 @@ export const TargetProfileInfo = styled.div`
 
   ${({ theme }) => theme.mediaQuery.sm`
     line-height: 1.5;
+    
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  width: 54rem;
   line-height: 2;
     `};
 `;

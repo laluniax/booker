@@ -2,14 +2,15 @@ import styled from 'styled-components';
 import prev from '../../../assets/common/prevbutton2.webp';
 
 export const Container = styled.div`
+  position: relative;
   width: 30rem;
-  height: 130rem;
+  height: 100rem;
   margin: 0 auto;
   font-family: 'GmarketSansMedium';
   line-height: 1.5;
   ${({ theme }) => theme.mediaQuery.sm`
   width: 70rem;
-  margin-top: 5rem;
+  margin-top: 8rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
   width: 90rem;
@@ -25,12 +26,15 @@ export const PrevButton = styled.div`
   cursor: pointer;
   margin-bottom: 1rem;
   ${({ theme }) => theme.mediaQuery.sm`
-  width: 5rem;
-  height: 5rem;
-  `};
-  ${({ theme }) => theme.mediaQuery.lg`
   width: 6rem;
   height: 6rem;
+  `};
+  ${({ theme }) => theme.mediaQuery.lg`
+  position: absolute;
+  width: 7rem;
+  height: 7rem;
+  left: -10%;
+  top: -0.6%;
   `};
 `;
 

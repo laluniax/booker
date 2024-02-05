@@ -19,28 +19,31 @@ export const ProfileTab = styled.div`
   justify-content: center;
   color: #bcbcbc;
   width: 33rem;
-  font-size: 1rem;
+  font-size: 1.1rem;
 
   & div {
     width: 100%;
     border-bottom: 0.1rem solid #bcbcbc;
+    padding-bottom: 0.5rem;
     text-align: center;
     cursor: pointer;
     &.active {
       color: black;
       border-bottom: 0.1rem solid #fca311;
+      font-weight: bold;
     }
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
     width: 60rem;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     & div {
-      padding: 1.3rem;
+      padding: 1rem;
       width: 100%;
       border-bottom: 0.15rem solid #bcbcbc;
       &.active {
         border-bottom: 0.15rem solid #fca311;
+        font-weight: bold;
       }
   `}
 
@@ -74,11 +77,11 @@ export const ProfileContent = styled.div`
 
 export const TabListTitle = styled.div`
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 500;
   margin: 3rem 0 0.5rem 0;
   ${({ theme }) => theme.mediaQuery.sm`
     font-size: 2rem;
-    font-weight: 500;
+    font-weight: 600;
     margin: 4rem 0 1rem 0;
   `}
 
@@ -109,9 +112,9 @@ export const Contour = styled.div`
 
 // 내가 쓴 글
 export const PostWrapper = styled.div`
-  height: 15rem;
+  height: 24rem;
   ${({ theme }) => theme.mediaQuery.sm`
-    height: 25rem;
+    height: 29rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`

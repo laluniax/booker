@@ -6,12 +6,14 @@ import defaultImg from '../../assets/profile/defaultprofileimage.webp';
 export const Container = styled.div`
   max-width: 35rem;
   margin: 0 auto;
+  /* height: 100rem; */
 
   ${({ theme }) => theme.mediaQuery.sm`
     display: flex;
     justify-content: space-between;
     max-width: 85rem;
-    gap: 1rem;
+    gap: 5rem;
+
     `}
   ${({ theme }) => theme.mediaQuery.lg`
     max-width: 120rem;
@@ -99,11 +101,15 @@ export const CategoryBtn = styled.button`
 export const ContentsWrapper = styled.div`
   max-width: 35rem;
   margin: 0 auto;
+  min-height: 145rem;
   ${({ theme }) => theme.mediaQuery.sm`
   max-width: 62rem;
+  min-width: 62rem;
+  min-height: 145rem;
     `}
   ${({ theme }) => theme.mediaQuery.lg`
   max-width: 90rem;
+  min-width: 40rem;
   `};
 `;
 
@@ -138,7 +144,7 @@ export const PostButton = styled.button`
   border-radius: 1rem;
   background-color: #fca311;
   color: #000;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   display: none;
   &:hover {
     cursor: pointer;
@@ -152,7 +158,7 @@ export const PostButton = styled.button`
   ${({ theme }) => theme.mediaQuery.sm`
    display: block;
    font-size: 1.5rem;
-   padding: 0.5rem 1rem;
+   padding: 0.7rem 1.1rem;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -196,7 +202,7 @@ export const MobilePostButton = styled.div`
   border-radius: 1rem;
   background-color: #fca311;
   color: #000;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   &:hover {
     cursor: pointer;
     background-color: #14213d;
@@ -218,7 +224,9 @@ export const ProductsWrapper = styled.div`
     gap: 1rem;
 `}
   ${({ theme }) => theme.mediaQuery.lg`
-    grid-template-columns: 24% 24% 24% 24%;
+  width: 103%;
+  display:flex;
+  flex-wrap: wrap;
     gap: 1.5rem;
 `};
 `;

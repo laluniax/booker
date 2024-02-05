@@ -37,21 +37,28 @@ const UserProfile = () => {
           // 마이 프로필
           <St.ProfileInfo>
             <St.ProfileNicknameEmail>
-              <St.ProfileNickname>
-                안녕하세요!{' '}
-                <St.ProfileUserName>
-                  {nickname || userSession?.user.user_metadata.preferred_username}
-                </St.ProfileUserName>
-                님
-              </St.ProfileNickname>
-              <St.ProfileIntroText>{userData?.intro_text}</St.ProfileIntroText>
+              <St.NicknameAndIntrotext>
+                <St.ProfileNickname>
+                  안녕하세요!{' '}
+                  <St.ProfileUserName>
+                    {nickname || userSession?.user.user_metadata.preferred_username}
+                  </St.ProfileUserName>
+                  님
+                </St.ProfileNickname>
+                <St.ProfileIntroText>{userData?.intro_text}</St.ProfileIntroText>
+              </St.NicknameAndIntrotext>
             </St.ProfileNicknameEmail>
           </St.ProfileInfo>
         ) : (
           // 타겟 유저 프로필
           <St.TargetProfileInfo>
-            <St.ProfileNickname>{nickname}</St.ProfileNickname>
-            <St.ProfileIntroText>{userData?.intro_text}</St.ProfileIntroText>
+            <St.NicknameAndText>
+              <St.ProfileNickname>
+                <St.ProfileUserName>{nickname}</St.ProfileUserName>님
+              </St.ProfileNickname>
+              <St.ProfileIntroText>{userData?.intro_text}</St.ProfileIntroText>
+            </St.NicknameAndText>
+
             {params && <Follow params={params} usage="userprofile" />}
           </St.TargetProfileInfo>
         )}
