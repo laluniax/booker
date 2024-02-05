@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import LazyLoad from 'react-lazyload';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import {
   deleteXbuttonStorage,
   getProductHandler,
@@ -9,6 +10,7 @@ import {
   updateProductImgPublicUrlHandler,
   uploadProductImgStorageUrl,
 } from '../../../api/Supabase.api';
+import { userSession } from '../../../state/atom/userSessionAtom';
 import * as St from './Post.styled';
 
 export const categoryArr = [
@@ -54,6 +56,7 @@ const Post = () => {
   const [productImg, setProductImg] = useState<File[]>([]);
   const [tempImg, setTempImg] = useState<string[]>([]);
   const [deleteImg, setDeleteImg] = useState<string[]>([]);
+  const session = useRecoilValue(userSession);
 
   const navigate = useNavigate();
   const params = useParams().id;
@@ -145,6 +148,7 @@ const Post = () => {
 
   useEffect(() => {
     params && getProduct();
+    setUserId(session?.id as string);
   }, []);
 
   return (
