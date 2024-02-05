@@ -21,6 +21,7 @@ import relativeTime from 'dayjs/plugin/relativeTime.js';
 import { useNavigate } from 'react-router';
 import OutButton from '../../assets/common/slider_left.webp';
 import defaultImage from '../../assets/profile/defaultprofileimage.webp';
+import qnaIcon from '../../assets/qna/qnaicon.webp';
 import { useAuth } from '../../contexts/auth.context';
 import { MessageTypes } from '../../types/types';
 import * as St from './ChatModal.styled';
@@ -257,7 +258,12 @@ const Chat = () => {
           </St.UserImageNickName>
         </St.UserInfoSection>
         <St.ProductInfoSection onClick={navigateToProductPage}>
-          <St.ProductImage src={productDetails?.image} alt="product" />
+          <St.ProductImage
+            src={productDetails?.image ? productDetails.image : defaultImage}
+            onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+              e.currentTarget.src = defaultImage;
+            }}
+          />
           <St.ProductTitleProduct>
             <St.ProductTitle>제목 : {productDetails?.title}</St.ProductTitle>
             <St.ProductPrice>가격 : {productDetails?.price}</St.ProductPrice>
@@ -387,10 +393,14 @@ const Chat = () => {
           <St.UserItem
             key={chatRoom.chat_id}
             onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id, chatRoom.author_id)}>
-            {/* <St.NicknameToTimeWrapper> */}
             <St.AlarmUserWrapper>
               {unreadInfo && unreadInfo.unread_count > 0 && <St.AlarmDetail>{unreadInfo.unread_count}</St.AlarmDetail>}
-              <St.UserImage src={chatRoom?.user_img || defaultImage} />
+              <St.UserImage
+                src={chatRoom?.user_img ? chatRoom.user_img : defaultImage}
+                onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                  e.currentTarget.src = defaultImage;
+                }}
+              />
             </St.AlarmUserWrapper>
             <St.UserInfo>
               <St.NicknameMessageTimeWrapper>
@@ -400,8 +410,12 @@ const Chat = () => {
               {/* 해당 채팅방의 읽지 않은 메시지 수가 있으면 알림 배지 표시 */}
               <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
             </St.UserInfo>
-            {/* </St.NicknameToTimeWrapper> */}
-            <St.ProductImage src={chatRoom.product_img || defaultImage} />
+            <St.ProductImage
+              src={chatRoom?.product_img ? chatRoom.product_img : defaultImage}
+              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                e.currentTarget.src = defaultImage;
+              }}
+            />
           </St.UserItem>
         );
       });
@@ -452,7 +466,8 @@ const Chat = () => {
                   <St.PrevBtn onClick={prevHandler}>
                     <St.PrevIcon />
                   </St.PrevBtn>
-                  <St.ChatHeader></St.ChatHeader>
+                  {/* <St.ChatHeader></St.ChatHeader> */}
+                  <St.QnaIcon src={qnaIcon} />
                 </St.LogoWrapper>
               ) : (
                 <St.ChatHeader></St.ChatHeader>

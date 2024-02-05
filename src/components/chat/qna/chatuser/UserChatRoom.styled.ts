@@ -7,23 +7,22 @@ export const Container = styled.section`
   background: linear-gradient(92.34deg, rgba(239, 240, 240, 0.8) 95.04%, rgba(247, 247, 248, 0.8) 100%);
   margin: 0 auto;
   padding: 1rem;
-  margin-top: -1rem;
+  margin-top: 1rem;
   width: 25rem;
-  height: 23.5rem;
+  height: 20rem;
   border-radius: 1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
   padding: 1rem;
-  margin-top: 0rem;
   width:38rem;
-  height:29rem;
+  height:26rem;
+  margin-top: 1.5rem;
 `};
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 1rem;
-  // margin-top: 1rem;
   width:45rem;
-  height:33rem;
+  height:32rem;
 `};
 `;
 
