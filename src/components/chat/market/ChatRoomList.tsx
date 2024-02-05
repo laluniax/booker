@@ -5,10 +5,21 @@ import { useRecoilState } from 'recoil';
 
 import defaultImage from '../../../assets/profile/defaultprofileimage.webp';
 
-import * as St from '../market/ChatRoomList.styled';
 import { supabase } from '../../../api/Supabase.api';
-import { ChatId, MessagePayload, UnreadCounts, chatRoomsState, mainChatModalOpen, otherUserDetail, person, productDetail, productState, updateMesaages } from '../../../state/atom/chatAtom';
 import { ChatRoom } from '../../../state/atom/Chat.type';
+import {
+  ChatId,
+  MessagePayload,
+  UnreadCounts,
+  chatRoomsState,
+  mainChatModalOpen,
+  otherUserDetail,
+  person,
+  productDetail,
+  productState,
+  updateMesaages,
+} from '../../../state/atom/chatAtom';
+import * as St from '../market/ChatRoomList.styled';
 
 const ChatRoomList = () => {
   const [chatId, setChatId] = useRecoilState(ChatId);
@@ -18,7 +29,7 @@ const ChatRoomList = () => {
   const [otherUserDetails, setOtherUserDetails] = useRecoilState(otherUserDetail);
   const [productDetails, setProductDetails] = useRecoilState(productDetail);
   const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
-  const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);//프롭스가 위로는 못가는데?
+  const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts); //프롭스가 위로는 못가는데?
   const [updateMesaage, setUpdateMesaage] = useRecoilState(updateMesaages);
 
   //챗룸 리스트
@@ -172,10 +183,12 @@ const ChatRoomList = () => {
           <St.UserItem
             key={chatRoom.chat_id}
             onClick={() => DmClickhandler(chatRoom.item_id, chatRoom.chat_id, chatRoom.author_id)}>
-            {/* <St.NicknameToTimeWrapper> */}
             <St.AlarmUserWrapper>
               {unreadInfo && unreadInfo.unread_count > 0 && <St.AlarmDetail>{unreadInfo.unread_count}</St.AlarmDetail>}
-              <St.UserImage src={chatRoom?.user_img || defaultImage} />
+              <St.UserImage
+                src={chatRoom?.user_img ? chatRoom.user_img : defaultImage}
+                onError={(e) => (e.currentTarget.src = defaultImage)}
+              />
             </St.AlarmUserWrapper>
 
             <St.UserInfo>
@@ -187,14 +200,14 @@ const ChatRoomList = () => {
 
               <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
             </St.UserInfo>
-            {/* </St.NicknameToTimeWrapper> */}
-            <St.ProductImage src={chatRoom.product_img || defaultImage} />
+            <St.ProductImage
+              src={chatRoom.product_img || defaultImage}
+              onError={(e) => (e.currentTarget.src = defaultImage)}
+            />
           </St.UserItem>
         );
       });
   };
-
-
 
   const DmClickhandler = async (item_id: number, chat_id: string, author_id: string) => {
     const {

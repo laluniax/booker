@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 // 입력 필드 및 전송 버튼
 export const InputField = styled.input`
@@ -30,7 +30,6 @@ export const InputField = styled.input`
   font-size: 1.5rem;
   `};
 `;
-
 
 export const SendButton = styled.button`
   background-color: #000;

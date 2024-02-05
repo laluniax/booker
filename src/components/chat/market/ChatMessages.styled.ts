@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { MessageProps } from "../ChatModal.styled";
+import styled from 'styled-components';
+import { MessageProps } from '../ChatModal.styled';
 
 export const DateLabel = styled.div`
   background-color: #f0f0f0; // 배경색
@@ -33,7 +33,6 @@ export const DateLabel = styled.div`
   margin-right: auto; // 오른쪽 자동 마진
   `};
 `;
-
 
 export const MessageComponent = styled.div<MessageProps>`
   display: flex;
@@ -73,7 +72,6 @@ export const MessageComponent = styled.div<MessageProps>`
   height:auto;
   `};
 `;
-
 
 export const NicknameLabel = styled.div`
   color: black; // 닉네임 라벨 텍스트 색상
