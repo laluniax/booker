@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useRecoilState } from 'recoil';
 import { mapMarkerDataHandler } from '../../api/Supabase.api';
-import { MarkerKakaoState } from '../../state/atom/kakaoMapAtom';
+import { MarkerKakaoState, selectedMarkerInfoState } from '../../state/atom/kakaoMapAtom';
 import * as St from './KakaoMap.styled';
 import { LocationTypes, MapMarkerDataTypes, MarkerTypes, UserLocationStateTypes } from './KakaoMap.type';
 import AboutIndBookStore from './aboutindbookstore/AboutIndBookStore';
@@ -18,7 +18,7 @@ function KakaoMap() {
   const [markers, setMarkers] = useRecoilState<MarkerTypes[]>(MarkerKakaoState);
   const [aroundStore, setAroundStore] = useState<MapMarkerDataTypes[]>([]);
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
-  const [selectedMarkerInfo, setSelectedMarkerInfo] = useState<MapMarkerDataTypes | null>(null);
+  const [selectedMarkerInfo, setSelectedMarkerInfo] = useRecoilState(selectedMarkerInfoState);
   const [currentPosition, setCurrentPosition] = useState<UserLocationStateTypes>({
     lat: 37.50231497199725,
     lng: 127.04484141806945,
@@ -176,7 +176,7 @@ function KakaoMap() {
           <></>
         ) : (
           <>
-            <DetailMapInfo markerInfo={selectedMarkerInfo} />
+            <DetailMapInfo markerInfo={selectedMarkerInfo[0]} />
           </>
         )}
       </St.MapContainer>
