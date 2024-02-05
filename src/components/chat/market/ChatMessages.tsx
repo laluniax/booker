@@ -93,7 +93,7 @@ const ChatMessages = () => {
             }
 
             return (
-              <div key={message.id}>
+              <St.MessageWrapper key={message.id} isOutgoing={message.author_id === LoginPersonal}>
                 {dateLabel} {/* Display the date label if the date has changed */}
                 {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
                 <St.MessageComponent
@@ -101,7 +101,7 @@ const ChatMessages = () => {
                   isoutgoing={message.author_id === LoginPersonal ? 'true' : undefined}>
                   {message.content} {formattedTime}
                 </St.MessageComponent>
-              </div>
+              </St.MessageWrapper>
             );
           })}
       </>
