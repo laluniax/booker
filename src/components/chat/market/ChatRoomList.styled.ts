@@ -298,3 +298,10 @@ export const ChatListWrapper = styled.div`
   height:auto;
   `};
 `;
+
+// Add this to your styled components file (e.g., ChatRoomList.styled.js)
+export const NoChatMessage = styled.div`
+  padding: 20px;
+  text-align: center;
+  color: #666;
+`;
