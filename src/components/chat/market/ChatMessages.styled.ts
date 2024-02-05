@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MessageComponentProps } from './ChatMessages.type';
+import { MessageComponentProps, MessageProps } from './ChatMessages.type';
 
 export const DateLabel = styled.div`
   background-color: #f0f0f0; // 배경색
@@ -33,11 +33,15 @@ export const DateLabel = styled.div`
   margin-right: auto; // 오른쪽 자동 마진
   `};
 `;
+export const MessageWrapper = styled.div<MessageProps>`
+  display: flex;
+  flex-direction: column;
+  align-items: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
+`;
 
 export const MessageComponent = styled.div<MessageComponentProps>`
   display: flex;
   flex-direction: column;
-  justify-content: ${(props) => (props.isoutgoing === 'true' ? 'flex-end' : 'flex-start')};
   word-wrap: break-word;
   background-color: ${(props) => (props.isoutgoing ? '#FCA311' : '#14213D')}; /* 배경 색상을 변경합니다. */
   color: ${(props) => (props.isoutgoing ? '#fff' : '#fff')}; /* 텍스트 색상을 변경합니다. */
