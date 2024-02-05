@@ -1,22 +1,21 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { getPostsHandler, getProductListHandler } from '../../api/supabase.api';
-import { Bestseller, BooksInfoTypes, PostsTypes, ProductsTypes } from '../../types/types';
+import { getPostsHandler, getProductListHandler } from '../../api/Supabase.api';
+import { ProductsTypes } from '../../types/types';
 import { formatCreatedAt } from '../../utils/date';
-
 import Loading from '../common/loading/Loading';
 import Pagination from '../common/pagination/Pagination';
 import * as St from './SearchField.styled';
+import { BestsellerTypes, BooksInfoTypes, PostsTypes } from './SearchField.type';
 
 const SearchField = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get('search');
   const navigate = useNavigate();
-
   const [bookertalkList, setBookertalkList] = useState<PostsTypes[]>([]);
   const [marketList, setMarketList] = useState<ProductsTypes[]>([]);
-  const [bestSellerList, setBestSellerList] = useState<Bestseller[]>([]);
+  const [bestSellerList, setBestSellerList] = useState<BestsellerTypes[]>([]);
   const [newBook, setNewBook] = useState<BooksInfoTypes[]>([]);
   const [bookSpecial, setBookSpecial] = useState<BooksInfoTypes[]>([]);
   const [bookerPick, setBookerPick] = useState<BooksInfoTypes[]>([]);
@@ -25,7 +24,6 @@ const SearchField = () => {
   const [loading3, setLoading3] = useState(false);
   const [loading4, setLoading4] = useState(false);
   const [currentPostsPage, setCurrentPostsPage] = useState(1);
-  const [currentProductsPage, setCurrentProductsPage] = useState(1);
 
   const getPost = async () => {
     try {
@@ -47,7 +45,7 @@ const SearchField = () => {
     try {
       setLoading1(true);
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller`);
-      const filteredBestSellers = response.data.item.filter((item: Bestseller) => {
+      const filteredBestSellers = response.data.item.filter((item: BestsellerTypes) => {
         return (
           item.title.toLowerCase().includes(keyword?.toLowerCase() as string) ||
           item.author.toLowerCase().includes(keyword?.toLowerCase() as string) ||
@@ -62,7 +60,6 @@ const SearchField = () => {
     }
     try {
       setLoading2(true);
-
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/BlogBest`);
       const filteredBookerPick = response.data.item.filter((item: BooksInfoTypes) => {
         return (
@@ -78,7 +75,6 @@ const SearchField = () => {
     }
     try {
       setLoading3(true);
-
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/special`);
       const filteredBookSpecial = response.data.item.filter((item: BooksInfoTypes) => {
         return (
@@ -94,7 +90,6 @@ const SearchField = () => {
     }
     try {
       setLoading4(true);
-
       const response = await axios.get(`https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/newbooks`);
       const filteredNewBooks = response.data.item.filter((item: BooksInfoTypes) => {
         return (
@@ -133,6 +128,7 @@ const SearchField = () => {
   }, [keyword]);
   return (
     <St.Container>
+      <St.SearchResult>'{keyword}'에 대한 검색 결과입니다.</St.SearchResult>
       <St.SearchWrapper height={20}>
         <St.SearchTitle>북커톡</St.SearchTitle>
         {bookertalkList.length > 0 ? (
@@ -159,7 +155,6 @@ const SearchField = () => {
       </St.SearchWrapper>
       <St.SearchBookWrapper>
         <St.SearchTitle>도서 소개</St.SearchTitle>
-
         {bestSellerList.length > 0 ? (
           <>
             <St.BookListCategory>베스트 셀러</St.BookListCategory>

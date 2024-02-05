@@ -1,30 +1,28 @@
-import { UserMetadata } from '@supabase/supabase-js';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import {
   deleteCommentHandler,
   getCommentsInfoHandler,
-  getUserSessionHandler,
   insertCommentHandler,
   updateCommentHandler,
-} from '../../../api/supabase.api';
+} from '../../../api/Supabase.api';
+import { userSession } from '../../../state/atom/userSessionAtom';
 import { CommentTypes } from '../../../types/types';
-import { formatCreatedAt } from '../../../utils/date';
+import SubComment from '../comment/subcomment/SubComment';
 import * as St from './Comment.styled';
-import SubComment from './SubComment';
+import { PropsType } from './Comment.type';
 
-type PropsTypes = {
-  setCommentsCount: React.Dispatch<React.SetStateAction<number>>;
-};
-
-const Comment = ({ setCommentsCount }: PropsTypes) => {
+const Comment = ({ setCommentsCount }: PropsType) => {
   const [data, setData] = useState<CommentTypes>();
-  const [session, setSession] = useState<string | undefined>('');
-  const [metaData, setMetaData] = useState<UserMetadata>();
   const [content, setContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [commentId, setCommentId] = useState<number>();
   const [inputComment, setInputComment] = useState('');
+
+  const session = useRecoilValue(userSession);
+
   const params = Number(useParams().id);
 
   const getCommentsInfo = async () => {
@@ -33,26 +31,20 @@ const Comment = ({ setCommentsCount }: PropsTypes) => {
     setCommentsCount(result[0].comments.length);
   };
 
-  const getUserSession = async () => {
-    const session = await getUserSessionHandler();
-    setSession(session.session?.user.id);
-    setMetaData(session.session?.user.user_metadata);
-  };
-
   const insertComment = async () => {
-    const result = await insertCommentHandler(params, session as string, content);
+    const result = await insertCommentHandler(params, session?.id as string, content);
     getCommentsInfo();
     setContent('');
   };
 
   const updateComment = async () => {
     const result = await updateCommentHandler(inputComment, commentId as number);
-
     getCommentsInfo();
     setIsEditing(false);
     setCommentId(undefined);
     setInputComment('');
   };
+
   const deleteComment = async (commentId: number) => {
     const result = await deleteCommentHandler(commentId);
     getCommentsInfo();
@@ -60,16 +52,19 @@ const Comment = ({ setCommentsCount }: PropsTypes) => {
 
   useEffect(() => {
     getCommentsInfo();
-    getUserSession();
   }, [params]);
+
   return (
     <St.Container>
       {session ? (
         <St.CommentForm>
           <St.FormUserData>
-            <St.UserImg src={metaData?.user_img || metaData?.avatar_url} />
+            <St.UserImg src={session?.user_metadata.user_img || session?.user_metadata.avatar_url} />
             <St.CommentNickname>
-              {metaData?.full_name || metaData?.preferred_username || metaData?.user_name || metaData?.name}
+              {session?.user_metadata.full_name ||
+                session?.user_metadata.preferred_username ||
+                session?.user_metadata.user_name ||
+                session?.user_metadata.name}
             </St.CommentNickname>
           </St.FormUserData>
           <St.CommentTextArea
@@ -86,7 +81,6 @@ const Comment = ({ setCommentsCount }: PropsTypes) => {
       ) : (
         <></>
       )}
-
       <St.CommentWrapper>
         {data?.comments
           .sort((a, b) => a.id - b.id)
@@ -99,10 +93,10 @@ const Comment = ({ setCommentsCount }: PropsTypes) => {
                     <St.UserImg src={item.users.user_img ?? undefined} />
                     <St.CommentNicknameCreatedAt>
                       <St.CommentNickname>{item.users.nickname}</St.CommentNickname>
-                      <St.CommentCreatedAt>{formatCreatedAt(item.created_at)}</St.CommentCreatedAt>
+                      <St.CommentCreatedAt>{dayjs(item.created_at).format('MM-DD')}</St.CommentCreatedAt>
                     </St.CommentNicknameCreatedAt>
                   </St.UserImgNicknameCreatedAt>
-                  {session === item.user_id ? (
+                  {session?.id === item.user_id ? (
                     <St.CommentBtnDiv>
                       {isEditing ? (
                         <>
@@ -158,7 +152,7 @@ const Comment = ({ setCommentsCount }: PropsTypes) => {
                     item.content
                   )}
                 </St.CommentContent>
-                <SubComment commentId={item.id} session={session} setCommentsCount={setCommentsCount} />
+                <SubComment commentId={item.id} setCommentsCount={setCommentsCount} />
               </St.Comment>
             );
           })}

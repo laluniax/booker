@@ -3,39 +3,39 @@ import prev from '../../../assets/common/prevbutton2.webp';
 import deleteIcon from '../../../assets/market/deleteicon.webp';
 import editIcon from '../../../assets/market/editicon.webp';
 import { MessageProps } from '../../chat/ChatModal.styled';
-// import Prev from '../../styles/assets/buttonimages/prev2.png';
 
 export const Container = styled.div`
   position: relative;
   max-width: 40rem;
   min-height: 120rem;
   margin: 0 auto;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    max-width: 70rem;
+  max-width: 70rem;
 
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-    max-width: 90rem;
+  max-width: 90rem;
   `};
 `;
 
 export const PrevButton = styled.div`
   position: absolute;
-  left: 0rem;
-  top: -6rem;
+  left: -3rem;
+  top: -1rem;
   background: url(${prev});
   background-size: contain;
   width: 5rem;
   height: 5rem;
   border-radius: 2rem;
   cursor: pointer;
+
   ${({ theme }) => theme.mediaQuery.sm`
-    left: -10rem;
-    top: -1rem;
-    width: 6rem;
-    height: 6rem;
-  `};
-  ${({ theme }) => theme.mediaQuery.lg`
+  left: -10rem;
+  top: -1rem;
+  width: 6rem;
+  height: 6rem;
   `};
 `;
 
@@ -43,19 +43,23 @@ export const Title = styled.div`
   max-width: 35rem;
   font-family: 'GmarketSansMedium';
   margin: 5rem auto;
+  margin-bottom: 5rem;
   padding-bottom: 0.5rem;
   border-bottom: 0.2rem solid black;
   font-size: 2rem;
   font-weight: 600;
+
   ${({ theme }) => theme.mediaQuery.sm`
- max-width: 70rem;
+  max-width: 70rem;
   font-size: 3rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
- max-width: 90rem;
+  max-width: 90rem;
   font-size: 4rem;
   `};
 `;
+
 export const ProductWrapper = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   display: flex;
@@ -63,46 +67,45 @@ export const ProductWrapper = styled.div`
   gap: 3rem;
   `};
 `;
+
 export const LogoWrapper = styled.div`
   width: 30rem;
   height: 40rem;
+
   & img {
     width: 30rem;
     height: 40rem;
     object-fit: cover;
   }
-  ${({ theme }) => theme.mediaQuery.sm`
-  `};
+
   ${({ theme }) => theme.mediaQuery.lg`
+  width: 50rem;
+  height: 50rem;
+
+  & img {
     width: 50rem;
     height: 50rem;
-    & img {
-      width: 50rem;
-      height: 50rem;
-      object-fit: cover;
-    }
+    object-fit: cover;
+  }
   `};
 `;
-// export const LogoImage = styled.img`
-//   background: url(${logoImage});
-//   background-size: contain;
-//   /* max-width: 25rem; */
-//   /* max-height: 4.3766rem; */
-// `;
+
 export const SliderWrapper = styled.div`
   position: relative;
   width: 40rem;
   height: 40rem;
   overflow: hidden;
   margin-bottom: 3rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
   margin-bottom: 0rem;
-    width: 40rem;
-    height: 50rem;
+  width: 40rem;
+  height: 50rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-    width: 50rem;
-    height: 50rem;
+  width: 50rem;
+  height: 50rem;
   `};
 `;
 
@@ -116,37 +119,41 @@ export const SliderUl = styled.ul<SliderUlProps>`
   width: calc(40rem * ${(props) => props.$slideCount});
   transition: transform 0.5s ease-in-out;
   transform: translateX(-${(props) => props.$currentSlide * 10}rem);
-  ${({ theme }) => theme.mediaQuery.sm`
-  `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   transform: translateX(-${(props: SliderUlProps) => props.$currentSlide * 20}rem);
-    width: calc(50rem * ${(props: SliderUlProps) => props.$slideCount});
+  width: calc(50rem * ${(props: SliderUlProps) => props.$slideCount});
   `};
 `;
 
 export const SliderLi = styled.li`
   width: 40rem;
   height: 40rem;
+
   & img {
     width: 40rem;
     height: 40rem;
     object-fit: cover;
   }
+
   ${({ theme }) => theme.mediaQuery.sm`
+  width: 40rem;
+  height: 50rem;
+  
+  & img {
     width: 40rem;
     height: 50rem;
-    & img {
-      width: 40rem;
-      height: 50rem;
-    }
+  }
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
+  width: 50rem;
+  height: 50rem;
+  
+  & img {
     width: 50rem;
     height: 50rem;
-    & img {
-      width: 50rem;
-      height: 50rem;
-    }
+  }
   `};
 `;
 
@@ -166,37 +173,21 @@ export const SliderBtn = styled.button`
   &.prev {
     left: 1rem;
   }
+
   &.next {
     right: 1rem;
   }
+
   & img {
     width: 1.2rem;
     opacity: 0.6;
   }
+
   ${({ theme }) => theme.mediaQuery.sm`
     width: 3.5rem;
     height: 3.5rem;
   `}
 `;
-
-// export const SliderPrevBtn = styled.div`
-//   background: url(${SliderPrevIcon});
-//   background-size: contain;
-//   background-repeat: no-repeat;
-//   background-position: center;
-//   width: 1.3rem;
-//   height: 2rem;
-// `;
-
-// export const SliderNextBtn = styled.div`
-//   background: url(${SliderNextIcon});
-//   margin-left: 0.4rem;
-//   background-size: contain;
-//   background-repeat: no-repeat;
-//   background-position: center;
-//   width: 1.2rem;
-//   height: 2rem;
-// `;
 
 export const ProductInfo = styled.div`
   width: 35rem;
@@ -205,9 +196,11 @@ export const ProductInfo = styled.div`
   flex-direction: column;
   justify-content: end;
   gap: 3.8rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
   width: 30rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   width: 40rem;
   `};
@@ -227,10 +220,12 @@ export const ProductTitle = styled.div`
   width: 35rem;
   text-overflow: ellipsis;
   overflow: hidden;
+
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 2rem;
   width: 30rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 3rem;
   width: 40rem;
@@ -239,9 +234,11 @@ export const ProductTitle = styled.div`
 
 export const ProductDate = styled.div`
   font-size: 1.6rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 1.4rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.6rem;
   `};
@@ -250,33 +247,35 @@ export const ProductDate = styled.div`
 export const ProductCategory = styled.div`
   font-size: 1.5rem;
   font-weight: 600;
-  /* line-height: 1.5; */
+
   & span {
     font-weight: 400;
   }
-  ${({ theme }) => theme.mediaQuery.sm`
-  `};
+
   ${({ theme }) => theme.mediaQuery.lg`
     font-size: 1.7rem;
     font-weight: 600;
+
     & span {
       font-weight: 400;
     }
   `};
 `;
+
 export const ProductGrade = styled.div`
   font-size: 1.5rem;
   margin-top: 1rem;
   font-weight: 600;
+
   & span {
     font-weight: 400;
   }
-  ${({ theme }) => theme.mediaQuery.sm`
-  `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.7rem;
   margin-top: 1rem;
   font-weight: 600;
+
   & span {
     font-weight: 400;
   }
@@ -293,6 +292,7 @@ export const ProductPrice = styled.div`
   font-family: 'Pretendard-Regular';
   font-size: 2rem;
   font-weight: 600;
+
   & span {
     font-size: 1.5rem;
   }
@@ -321,9 +321,11 @@ export const ProductLikes = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
   ${({ theme }) => theme.mediaQuery.sm`
   width: 14rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   width: 18.5rem;
   `};
@@ -331,10 +333,6 @@ export const ProductLikes = styled.div`
 
 export const ProductsLikesWrapper = styled(ProductLikes)`
   cursor: default;
-  ${({ theme }) => theme.mediaQuery.sm`
-  `};
-  ${({ theme }) => theme.mediaQuery.lg`
-  `};
 `;
 
 export const StartChat = styled.div`
@@ -358,9 +356,11 @@ export const StartChat = styled.div`
   &:not(:hover) {
     transition: 0.2s;
   }
+
   ${({ theme }) => theme.mediaQuery.sm`
   width: 14rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 2rem;
   width: 18.5rem;
@@ -389,6 +389,7 @@ export const ProductUser = styled.div`
   border-radius: 0.7rem;
   font-size: 1.8rem;
   cursor: pointer;
+
   & img {
     width: 4rem;
     height: 4rem;
@@ -396,26 +397,31 @@ export const ProductUser = styled.div`
     background-color: #fff;
     object-fit: cover;
   }
+
   & div {
     width: 16rem;
   }
+
   ${({ theme }) => theme.mediaQuery.sm`
-    & div {
-      width: 11rem;
-    }
+  & div {
+    width: 11rem;
+  }
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-    & img {
-      width: 4rem;
-      height: 4rem;
-      border-radius: 30%;
+  & img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 30%;
     object-fit: cover;
-    }
-    & div {
-      width: 21rem;
-    }
+  }
+  
+  & div {
+    width: 21rem;
+  }
   `};
 `;
+
 export const FollowBtn = styled.button`
   font-family: 'GmarketSansMedium';
   border: none;
@@ -435,6 +441,7 @@ export const FollowBtn = styled.button`
     transform: scale(0.9);
     transition: 0.1s;
   }
+
   &:not(:hover) {
     transition: 0.1s;
   }
@@ -456,7 +463,6 @@ export const ChatModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
-
   bottom: 0;
   right: 0;
   width: 48rem;
@@ -617,6 +623,7 @@ export const HeaderPurchaseConfirmationButton = styled.button`
   font-size: 1.5rem;
   color: #fff;
   font-weight: bold;
+
   &:hover {
     cursor: pointer;
     color: #fca311;
@@ -638,6 +645,7 @@ export const CloseButton = styled.button`
   font-size: 1.6rem;
   margin-right: 1rem;
   font-weight: bold;
+
   &:hover {
     cursor: pointer;
     color: #fca311;

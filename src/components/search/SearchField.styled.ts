@@ -4,15 +4,24 @@ import logoImage from '../../assets/common/logo.webp';
 export const Container = styled.div`
   font-family: 'GmarketSansMedium';
   min-height: 120rem;
+`;
 
+export const SearchResult = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 1.4rem;
   ${({ theme }) => theme.mediaQuery.sm`
+  font-size: 1.5rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
+  font-size: 1.6rem;
   `};
 `;
+
 type HeightProps = {
   height: number;
 };
+
 export const SearchWrapper = styled.div<HeightProps>`
   height: ${(props) => props.height}rem;
   margin: 5rem auto;
@@ -20,11 +29,13 @@ export const SearchWrapper = styled.div<HeightProps>`
   height: auto;
   white-space: nowrap;
   width: 80%;
+
   ${({ theme }) => theme.mediaQuery.sm`
   max-width: 70rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-   max-width: 80rem;
+  max-width: 80rem;
   `};
 `;
 
@@ -38,6 +49,7 @@ export const SearchBookWrapper = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   max-width: 70rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
    max-width: 80rem;
   `};
@@ -73,9 +85,11 @@ export const PostList = styled.div`
     transition: 0.2s;
   }
 `;
+
 type WidthProps = {
   width: number;
 };
+
 export const Post = styled.div<WidthProps>`
   width: ${(props) => props.width}rem;
   white-space: nowrap;
@@ -101,6 +115,7 @@ export const BookList = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   width: 80rem;
   display: flex;
@@ -121,14 +136,15 @@ export const Book = styled.div`
   cursor: pointer;
 
   ${({ theme }) => theme.mediaQuery.sm`
-   max-width: 70rem;
-   width: 20rem;
-   height: 32rem;
+  max-width: 70rem;
+  width: 20rem;
+  height: 32rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-    max-width: 80rem;
-    width: 24rem;
-    height: 35rem;
+  max-width: 80rem;
+  width: 24rem;
+  height: 35rem;
   `};
 
   &:hover {
@@ -142,6 +158,7 @@ export const Book = styled.div`
     transition: 0.3s;
   }
 `;
+
 export const BookImg = styled.div`
   margin: 0 auto;
   margin-bottom: 1rem;
@@ -157,21 +174,24 @@ export const BookImg = styled.div`
     height: 13rem;
 
     ${({ theme }) => theme.mediaQuery.sm`
-   width: 15rem;
-   height: 22rem;
-  `};
+    width: 15rem;
+    height: 22rem;
+    `};
+
     ${({ theme }) => theme.mediaQuery.lg`
     width: 18rem;
     height: 26rem;
-  `};
+    `};
   }
+
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 15rem;
-    height: 23.2rem;
+  width: 15rem;
+  height: 23.2rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-     width: 18rem;
-     height: 27rem;
+  width: 18rem;
+  height: 27rem;
   `};
 `;
 
@@ -183,8 +203,9 @@ export const BookAuthor = styled.div`
   font-size: 1.1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-   font-size: 1.3rem;
+  font-size: 1.3rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.5rem;
   `};
@@ -207,9 +228,10 @@ export const ProductList = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-    width: 100%;
-    display: flex;
+  width: 100%;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   `};
@@ -223,10 +245,12 @@ export const Product = styled.div`
   margin: 1rem;
   border-radius: 2rem;
   line-height: 2;
+
   ${({ theme }) => theme.mediaQuery.sm`
   width: 18rem;
   height: 28rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   width: 19rem;
   height: 28rem;
@@ -256,9 +280,10 @@ export const TitleAndPriceBox = styled.div`
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
-    height: 4.4rem;
+  height: 4.4rem;
   `};
 `;
+
 export const ProductTitle = styled.div`
   font-size: 1.3rem;
   white-space: nowrap;
@@ -271,9 +296,10 @@ export const ProductTitle = styled.div`
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
-    font-size: 1.7rem;
+  font-size: 1.7rem;
   `};
 `;
+
 export const ProductPrice = styled.div`
   font-size: 1.5rem;
   height: 2rem;
@@ -283,7 +309,7 @@ export const ProductPrice = styled.div`
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
-    font-size: 1.7rem;
+  font-size: 1.7rem;
   `};
 `;
 
@@ -293,31 +319,34 @@ export const ProductImg = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   & img {
     width: 12rem;
     height: 15rem;
     object-fit: cover;
 
     ${({ theme }) => theme.mediaQuery.sm`
-      width: 16rem;
-      height: 20rem;
-  `};
+    width: 16rem;
+    height: 20rem;
+    `};
 
     ${({ theme }) => theme.mediaQuery.lg`
-     width: 17rem;
-     height: 20rem;
+    width: 17rem;
+    height: 20rem;
   `};
   }
+
   ${({ theme }) => theme.mediaQuery.sm`
-   width : 16rem;
-   height: 20rem;
+  width : 16rem;
+  height: 20rem;
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
-   width: 17rem;
-   height: 20rem;
+  width: 17rem;
+  height: 20rem;
   `};
 `;
+
 export const LogoImg = styled.div`
   background: url(${logoImage});
   background-size: contain;
@@ -329,13 +358,13 @@ export const LogoImg = styled.div`
   align-items: center;
 
   ${({ theme }) => theme.mediaQuery.sm`
-      width: 16rem;
-      height: 20rem;
+  width: 16rem;
+  height: 20rem;
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
-     width: 17rem;
-     height: 20rem;
+  width: 17rem;
+  height: 20rem;
   `};
 `;
 

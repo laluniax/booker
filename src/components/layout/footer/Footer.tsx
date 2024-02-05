@@ -1,10 +1,9 @@
-import * as St from './FooterStyle';
+import * as St from './Footer.styled';
 
 const Footer = () => {
   return (
     <St.Container>
       <St.FooterWrapper>
-        {/* <St.FooterBox> */}
         <St.FooterContentwrapper>
           <St.LogoImage />
           <St.FooterContentBox>
@@ -17,10 +16,7 @@ const Footer = () => {
               team member : 시병택 | Designer : 팽건우
             </St.FooterContent>
           </St.FooterContentBox>
-
-          {/* <St.Copyrightcontent>ⓒ 2024 Until 6 final project All rights reserved</St.Copyrightcontent> */}
         </St.FooterContentwrapper>
-        {/* </St.FooterBox> */}
       </St.FooterWrapper>
     </St.Container>
   );

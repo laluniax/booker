@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as St from './Header.styled';
 
 const SearchArea = () => {
@@ -7,6 +7,7 @@ const SearchArea = () => {
   const [input, setInput] = useState('');
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -14,18 +15,12 @@ const SearchArea = () => {
       alert('검색어를 입력해주세요.');
       return;
     }
-
     setInput('');
     navigate(`/search?search=${input}`);
   };
-
-  const onClickSearchIcon = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    if (searchBarOpen === false) {
-      setSearchBarOpen(!searchBarOpen);
-      return;
-    }
-  };
+  useEffect(() => {
+    setSearchBarOpen(false);
+  }, [location]);
 
   return (
     <>

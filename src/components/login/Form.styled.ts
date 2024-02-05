@@ -10,21 +10,21 @@ export const Container = styled.div`
     align-items: center;
     height: 74rem;
   }
+
   ${({ theme }) => theme.mediaQuery.sm`
   display: flex;
   justify-content: center;
   align-items: center;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   display: flex;
   justify-content: center;
   margin-left: 25rem;
-
   `};
 `;
 
 export const FormAndImageSlideWrapper = styled.div`
-  // background-color: yellow;
   display: grid;
   grid-template-columns: 1fr 1fr; // 두 열로 나눕니다
   width: 150rem;
@@ -36,13 +36,6 @@ export const FormAndImageSlideWrapper = styled.div`
     width: 50rem;
     height: 80rem;
   }
-
-  ${({ theme }) => theme.mediaQuery.sm`
-  
-  `};
-  ${({ theme }) => theme.mediaQuery.lg`
-
-  `};
 `;
 
 //로그인 컨테이너
@@ -50,12 +43,8 @@ export const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  /* align-items: flex-start; // 왼쪽 정렬 */
   padding: 2rem;
-  //   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // 그림자 효과
   width: 40rem; // 너비 설정
-
   border-radius: 4px; // 모서리 둥글게
   font-size: 1.5rem;
   margin-left: 2rem;
@@ -63,7 +52,6 @@ export const LoginContainer = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   `};
   ${({ theme }) => theme.mediaQuery.lg`
-
   `};
 `;
 
@@ -119,6 +107,7 @@ export const Button = styled.button`
   border-radius: 2rem;
   font-size: 1.7rem;
   cursor: pointer;
+
   &:hover {
     background-color: #fca311; // 호버 색상
   }
@@ -132,6 +121,7 @@ export const SignUpLink = styled.div`
   cursor: pointer;
   padding-bottom: 1rem;
   color: #4a90e2;
+
   &:hover {
     text-decoration: underline;
   }

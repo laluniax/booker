@@ -122,14 +122,6 @@ export const ProfileInfo = styled.div`
 export const NicknameAndIntrotext = styled.div`
   display: flex;
   flex-direction: column;
-
-  ${({ theme }) => theme.mediaQuery.sm`
-  margin-top: 0.9rem;
-  `}
-
-  ${({ theme }) => theme.mediaQuery.lg`
-  margin: 0 auto;
-    `};
 `;
 
 export const ProfileNicknameEmail = styled.div`
@@ -144,7 +136,8 @@ export const ProfileNicknameEmail = styled.div`
 
   ${({ theme }) => theme.mediaQuery.lg`
    gap: 2rem;
-   height: 16rem;
+   min-height: 10rem;
+   height: 23rem;
     `};
 `;
 
@@ -203,7 +196,7 @@ export const ProfileIntroText = styled.div`
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 2rem;
   padding-left: 0.4rem;
-  width: 30ch;
+  height: 11rem;
     `};
 `;
 
@@ -231,7 +224,6 @@ export const TargetProfileInfo = styled.div`
 
   ${({ theme }) => theme.mediaQuery.sm`
     line-height: 1.5;
-    
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`

@@ -1,29 +1,22 @@
-import { Session } from '@supabase/supabase-js';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { filteredCategory, getPostsHandler, getUserSessionHandler } from '../../../api/supabase.api';
-import { PostsTypes } from '../../../types/types';
-import { formatCreatedAt } from '../../../utils/date';
+import { useRecoilValue } from 'recoil';
+import { filteredCategory, getPostsHandler } from '../../../api/Supabase.api';
+import { userSession } from '../../../state/atom/userSessionAtom';
 import Pagination from '../../common/pagination/Pagination';
-import { CateGenresTypes, categoryUuid } from '../bookertalkpost/Post';
+import { categoryUuid } from '../bookertalkpost/Post';
 import * as St from './BookerTalkMain.styled';
+import { CateGenresTypes, PostsTypes } from './BookerTalkMain.type';
 
 const BookerTalkMain = () => {
   const navigation = useNavigate();
   const params = useParams().id;
-
   const [data, setData] = useState<PostsTypes[]>();
-  const [session, setSession] = useState<Session | null>();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const postsPerPage = 10;
 
-  // 장르 버튼을 눌렀을 때 색을 변경하기 위한 상태 입니다.
-  const [selectedGenre, setSelectedGenre] = useState<null | string>(null);
-
-  const getUserSession = async () => {
-    const result = await getUserSessionHandler();
-    setSession(result.session);
-  };
+  const session = useRecoilValue(userSession);
 
   const getPosts = async () => {
     if (params) {
@@ -43,7 +36,6 @@ const BookerTalkMain = () => {
           key={genre}
           className={categoryUuid[genre] === params ? 'active' : ''}
           onClick={() => {
-            setSelectedGenre(genre); // 선택된 장르 상태를 업데이트해서 색 변경
             navigation(`/bookertalk/${categoryUuid[genre]}`);
           }}>
           {genre.slice(7)}
@@ -58,7 +50,6 @@ const BookerTalkMain = () => {
           className={categoryUuid[genre] === params ? 'active' : ''}
           key={genre}
           onClick={() => {
-            setSelectedGenre(genre); // 선택된 장르 상태를 업데이트해서 색 변경
             navigation(`/bookertalk/${categoryUuid[genre]}`);
           }}>
           {genre.slice(7)}
@@ -84,7 +75,6 @@ const BookerTalkMain = () => {
   };
 
   useEffect(() => {
-    getUserSession();
     getPosts();
   }, [params]);
 
@@ -104,7 +94,6 @@ const BookerTalkMain = () => {
           </St.CategoryTopTitle>
           <St.BookRecommendBox>
             <St.CategoryTitle>도서추천</St.CategoryTitle>
-
             <St.GenreButtonbox>{recommendButtonHandler()}</St.GenreButtonbox>
           </St.BookRecommendBox>
           <St.FreeTalkBox>
@@ -113,7 +102,6 @@ const BookerTalkMain = () => {
           </St.FreeTalkBox>
         </St.CategoryBox>
       </St.CategoryWrapper>
-
       <St.ContentWrapper>
         <St.Title>
           {params ? findKeyByValue(categoryUuid, params as string) : '북커톡'}
@@ -140,7 +128,7 @@ const BookerTalkMain = () => {
                 <St.PostTitle>{item.title}</St.PostTitle>
                 <St.PostNicknameDate>
                   <St.PostNickName>{item.users.nickname}</St.PostNickName>
-                  <St.PostDate>{formatCreatedAt(item.created_at)}</St.PostDate>
+                  <St.PostDate>{dayjs(item.created_at).format('MM-DD')}</St.PostDate>
                 </St.PostNicknameDate>
               </St.PostListBox>
             );

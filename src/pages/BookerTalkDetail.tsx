@@ -1,11 +1,7 @@
-import Detail from '../components/bookertalkdetail/Detail';
+import Detail from '../components/bookertalk/bookertalkdetail/Detail';
 
 const BookerTalkDetail = () => {
-  return (
-    <>
-      <Detail />
-    </>
-  );
+  return <Detail />;
 };
 
 export default BookerTalkDetail;

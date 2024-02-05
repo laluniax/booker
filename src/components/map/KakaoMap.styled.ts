@@ -63,7 +63,6 @@ export const DetailButton = styled.button`
   text-align: center;
   border-radius: 1rem;
   padding: 0.4rem;
-
   margin-top: 10rem;
 
   &:hover {
@@ -72,15 +71,18 @@ export const DetailButton = styled.button`
     background-color: #000;
     transition: 0.2s;
   }
+
   &:not(:hover) {
     transition: 0.5s;
   }
 `;
+
 export const BodyWrapper = styled.div`
   position: relative;
   display: flex;
   background-color: white;
 `;
+
 export const ImgWrapper = styled.div`
   position: relative;
 `;
@@ -116,6 +118,7 @@ export const SearchWrapper = styled.div`
     height: 30rem;
   `};
 `;
+
 export const SearchForm = styled.form`
   height: 5rem;
   width: 100%;
@@ -123,9 +126,11 @@ export const SearchForm = styled.form`
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
 `;
+
 export const SearchFormWrapper = styled.div`
   height: 17%;
 `;
+
 export const SearchBox = styled.div`
   width: 100%;
   height: 100%;
@@ -133,6 +138,7 @@ export const SearchBox = styled.div`
   justify-content: space-around;
   align-items: center;
 `;
+
 export const SearchResultWrapper = styled.div`
   padding: 0.5rem 1rem;
   cursor: pointer;
@@ -141,6 +147,7 @@ export const SearchResultWrapper = styled.div`
     padding: 0 1rem;
   `};
 `;
+
 export const SearchName = styled.p`
   font-size: 1.4rem;
   white-space: nowrap;
@@ -153,11 +160,13 @@ export const SearchName = styled.p`
   font-size: 1.6rem;
   `};
 `;
+
 export const SearchList = styled.div`
   height: 82%;
   overflow: scroll;
   margin-top: 2rem;
 `;
+
 export const SearchInput = styled.input`
   border: none;
   width: 75%;
@@ -172,14 +181,14 @@ export const SearchButton = styled.button`
   border: none;
   background-color: transparent;
   color: white;
-
   font-weight: bold;
 `;
+
 export const InfoWrapper = styled.div`
   position: relative;
-
   z-index: 9999;
 `;
+
 export const Info = styled.div`
   position: absolute;
   z-index: 9999;
@@ -188,16 +197,15 @@ export const Info = styled.div`
   left: -5rem;
   border: 3px solid #14213d;
 `;
+
 export const InfoTitle = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
   background-color: #14213d;
   color: white;
-
   z-index: 999;
   padding: 0.6rem 1.2rem;
-
   font-size: 1.2rem;
   font-weight: bold;
 `;

@@ -2,23 +2,13 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as St from './BookDetailPage.styled';
-
-interface BookData {
-  title: string;
-  categoryName: string;
-  author: string;
-  cover: string;
-  description: string;
-  pubDate: string;
-  publisher: string;
-  isbn13: string;
-}
+import { BookDataTypes } from './BookDetailPage.type';
 
 const BookDetailPage = () => {
   const params = useParams();
   const itemId = params.itemid;
   const navigate = useNavigate();
-  const [detailData, setDetailData] = useState<BookData | null>(null);
+  const [detailData, setDetailData] = useState<BookDataTypes | null>(null);
 
   useEffect(() => {
     getBooks();

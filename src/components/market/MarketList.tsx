@@ -1,30 +1,30 @@
-import { Session } from '@supabase/supabase-js';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getCategoryProductListHandler, getProductListHandler, getUserSessionHandler } from '../../api/supabase.api';
+import { useRecoilValue } from 'recoil';
+import { getCategoryProductListHandler, getProductListHandler } from '../../api/Supabase.api';
+import { userSession } from '../../state/atom/userSessionAtom';
 import { ProductsTypes } from '../../types/types';
-import { formatCreatedAt } from '../../utils/date';
 import ProductsLike from '../common/like/ProductsLike';
 import Pagination from '../common/pagination/Pagination';
 import * as St from './MarketList.styled';
 import { categoryArr } from './marketpost/Post';
 
 const MarketList = () => {
-  const [session, setSession] = useState<Session | null>(null);
   const [list, setList] = useState<ProductsTypes[]>([]);
+  //페이지네이션 state
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 12;
+
+  const session = useRecoilValue(userSession);
 
   const navigate = useNavigate();
   const params = useParams().id;
   const category = categoryArr[Number(params)];
 
-  //페이지네이션 state
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(12);
-
-  const getUserSession = async () => {
-    const result = await getUserSessionHandler();
-    setSession(result.session);
-  };
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  const currentPosts = list?.slice(indexOfFirst, indexOfLast);
 
   const getProductList = async () => {
     if (params) {
@@ -42,13 +42,8 @@ const MarketList = () => {
   };
 
   useEffect(() => {
-    getUserSession();
     getProductList();
   }, [params]);
-
-  const indexOfLast = currentPage * postsPerPage;
-  const indexOfFirst = indexOfLast - postsPerPage;
-  const currentPosts = list?.slice(indexOfFirst, indexOfLast);
 
   return (
     <St.Container>
@@ -59,7 +54,6 @@ const MarketList = () => {
           }}>
           카테고리
         </St.CategoryTitle>
-
         <St.CategoryBtnBox>
           {categoryArr.map((item, i) => (
             <St.CategoryBtn
@@ -72,12 +66,10 @@ const MarketList = () => {
         </St.CategoryBtnBox>
       </St.CategoryWrapper>{' '}
       <St.ContentsWrapper>
-        {/* <St.TitlePostButtonWrapper> */}
         <St.Title>
           {category ? category : '중고거래'}
           <St.PostButton onClick={onClickPostBtn}>글쓰기</St.PostButton>
         </St.Title>
-        {/* </St.TitlePostButtonWrapper> */}
         <St.Contour />
         <St.MobileCategory>
           <select>
@@ -109,13 +101,11 @@ const MarketList = () => {
                     <St.ProductTitle>{item.title}</St.ProductTitle>
                     <ProductsLike postId={item.id} count={false} />
                   </St.TitleLikes>
-
                   <St.ProductInfo>
                     <St.ProductPrice>{item.price} 원</St.ProductPrice>
-                    <St.ProductCreatedAt>{formatCreatedAt(item.created_at)}</St.ProductCreatedAt>
+                    <St.ProductCreatedAt>{dayjs(item.created_at).format('MM-DD')}</St.ProductCreatedAt>
                   </St.ProductInfo>
                 </St.CardTitleAndContentBox>
-
                 {item.onsale ? null : <St.Onsale>판매 완료</St.Onsale>}
               </St.ProductCard>
             );

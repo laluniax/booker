@@ -67,13 +67,13 @@ export const SlideshowImage = styled.img`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-       width: 52.7rem;
-       height:37rem;
+  width: 52.7rem;
+  height:37rem;
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
-    width: 85rem;
-    height: 51rem;
+  width: 85rem;
+  height: 51rem;
   `};
 `;
 
@@ -88,12 +88,6 @@ export const PrevButton = styled.button`
   font-size: 18px;
   cursor: pointer;
   z-index: 2;
-
-  ${({ theme }) => theme.mediaQuery.sm`
-  `};
-
-  ${({ theme }) => theme.mediaQuery.lg`
-  `};
 `;
 
 export const NextButton = styled.button`
@@ -114,12 +108,6 @@ export const NextButton = styled.button`
     transform: scale(1) translateX(0) rotate(0);
     animation: ${slideInLeft} 0.7s ease-in-out;
   }
-
-  ${({ theme }) => theme.mediaQuery.sm`
-  `};
-
-  ${({ theme }) => theme.mediaQuery.lg`
-  `};
 `;
 
 export const LeftIcon = styled.span`
@@ -136,14 +124,14 @@ export const LeftIcon = styled.span`
   background-size: 20px 37px;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 40px;
-    height: 40px;
-    margin-left: -10px;
-    margin-top: -17px;
-    background-size: 40px 60px;
-    top: 42%;
-    left: 50%;
-    text-indent: -9999px;
+  width: 40px;
+  height: 40px;
+  margin-left: -10px;
+  margin-top: -17px;
+  background-size: 40px 60px;
+  top: 42%;
+  left: 50%;
+  text-indent: -9999px;
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -173,30 +161,30 @@ export const RightIcon = styled.span`
   background-size: 20px 37px;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 40px;
-    height: 40px;
-    top: 42%;
-    left: 50%;
-    margin-left: -30px;
-    margin-top: -17px;
-    width: 50px;
-    height: 40px;
-    text-indent: -9999px;
-    font-size: 0;
-    background-size: 40px 60px;
+  width: 40px;
+  height: 40px;
+  top: 42%;
+  left: 50%;
+  margin-left: -30px;
+  margin-top: -17px;
+  width: 50px;
+  height: 40px;
+  text-indent: -9999px;
+  font-size: 0;
+  background-size: 40px 60px;
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
-   width: 50px;
-   height: 40px;
-   top: 42%;
-   left: 50%;
-   margin-left: -30px;
-   margin-top: -17px;
-   width: 50px;
-   height: 40px;
-   text-indent: -9999px;
-   font-size: 0;
-   background-size: 40px 60px;
+  width: 50px;
+  height: 40px;
+  top: 42%;
+  left: 50%;
+  margin-left: -30px;
+  margin-top: -17px;
+  width: 50px;
+  height: 40px;
+  text-indent: -9999px;
+  font-size: 0;
+  background-size: 40px 60px;
   `};
 `;

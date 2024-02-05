@@ -1,11 +1,6 @@
 import { useMemo, useState } from 'react';
 import * as St from './Pagination.styled';
-
-type PaginationProps = {
-  postsPerPage: number;
-  totalPosts: number;
-  paginate: (pageNumber: number) => void;
-};
+import { PaginationProps } from './Pagination.type';
 
 const Pagination = ({ postsPerPage, totalPosts, paginate }: PaginationProps) => {
   const [selectedPage, setSelectedPage] = useState(1); // 선택된 페이지 번호 상태추가

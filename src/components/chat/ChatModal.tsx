@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { useSendMessage } from '../../api/chatApi';
-import { supabase } from '../../api/supabase.api';
+import { useSendMessage } from '../../api/Chat.api';
+import { supabase } from '../../api/Supabase.api';
 import {
   ChatId,
   UnreadCounts,
@@ -13,7 +13,7 @@ import {
   person,
   productState,
   sendMessages,
-} from '../../atom/product.atom';
+} from '../../state/atom/chatAtom';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
@@ -22,44 +22,13 @@ import { useNavigate } from 'react-router';
 import OutButton from '../../assets/common/slider_left.webp';
 import defaultImage from '../../assets/profile/defaultprofileimage.webp';
 import { useAuth } from '../../contexts/auth.context';
-import { MessageList } from '../../types/types';
+import { MessageTypes } from '../../types/types';
 import * as St from './ChatModal.styled';
+import { MessageListTypes, OtherUserDetailTypes, ProductDetailTypes } from './ChatModal.type';
 import AdminChat from './qna/chatadmin/AdminChatRoom';
 import ChatLog from './qna/chatuser/UserChatRoom';
 dayjs.extend(relativeTime); // relativeTime 플러그인 활성화
 dayjs.locale('ko'); // 한국어 로케일 설정
-
-export type MessageType = {
-  id: number;
-  content: string;
-  author_id: string;
-  chat_id: string;
-  item_id: number;
-  others_id: string;
-  users?: UserType; // 사용자 닉네임을 포함할 수 있는 옵셔널 프로퍼티
-  created_at: number;
-};
-
-export type UserType = {
-  id: string;
-  email: string;
-  lastMessage?: string; // lastMessage 속성 추가 (옵셔널로 처리)
-  nickname: string;
-};
-export type ChatData = {
-  id: string;
-};
-
-type productDetails = {
-  image: string;
-  title: string;
-  price: number;
-  id: number;
-};
-type otherUserDetails = {
-  nickname: string;
-  user_img: string;
-};
 
 const Chat = () => {
   const [isOpen, setIsOpen] = useRecoilState(globalModalSwitch);
@@ -82,14 +51,12 @@ const Chat = () => {
   // const [totalUnreadCount, setTotalUnreadCount] = useState<number>(0);
   const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);
   // 상대방 사용자의 상세 정보와 제품 상세 정보를 위한 상태(state)를 가정합니다
-  const [otherUserDetails, setOtherUserDetails] = useState<otherUserDetails>();
-
-  const [productDetails, setProductDetails] = useState<productDetails>();
-
+  const [otherUserDetails, setOtherUserDetails] = useState<OtherUserDetailTypes>();
+  const [productDetails, setProductDetails] = useState<ProductDetailTypes>();
   const [isAtBottom, setIsAtBottom] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
-  const [Usermessages, setUserMessages] = useState<MessageList[]>([]);
+  const [Usermessages, setUserMessages] = useState<MessageListTypes[]>([]);
 
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
@@ -131,7 +98,6 @@ const Chat = () => {
     const chatBody = chatBodyRef.current;
     if (chatBody) {
       chatBody.addEventListener('scroll', handleScroll);
-
       // 컴포넌트 언마운트 시 이벤트 리스너 제거
       return () => {
         chatBody.removeEventListener('scroll', handleScroll);
@@ -156,7 +122,6 @@ const Chat = () => {
         console.error('Error fetching logged in user:', error);
       }
     }
-
     fetchLoggedInUser();
   }, [unreadCounts]);
 
@@ -165,60 +130,64 @@ const Chat = () => {
     setInputValue(event.target.value);
   };
 
-  // DM 클릭 핸들러
   const DmClickhandler = async (item_id: number, chat_id: string, author_id: string) => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-
     if (user && user.email) {
-      if (user) {
+      try {
         markChatAsRead(chat_id, user.id);
         setChatId(chat_id);
         setLoginPersonal(user.id);
-        // setOtherLoginPersonal(otherUserId);
         setProductId(item_id);
-
-        try {
-          markChatAsRead(chat_id, user.id);
-          setChatId(chat_id);
-          setLoginPersonal(user.id);
-          setProductId(item_id);
-
-          // 'users' 테이블에서 'author_id'를 사용하여 다른 사용자의 정보를 가져옵니다.
-          const { data: userData, error: userError } = await supabase
-            .from('users')
-            .select('nickname, user_img')
-            .eq('id', author_id)
-            .single();
-
-          // products 테이블에서 제품 정보를 가져옵니다.
-          const { data: productData } = await supabase
-            .from('products')
-            .select('title, price, product_img,id')
-            .eq('id', item_id)
-            .single();
-
-          if (userData) {
-            setOtherUserDetails({
-              nickname: userData.nickname,
-              user_img: userData.user_img,
-            });
-          }
-
-          if (productData) {
-            setProductDetails({
-              image: productData.product_img,
-              title: productData.title,
-              price: productData.price,
-              id: productData.id,
-            });
-          }
-
-          setIsChatModalOpen(true);
-        } catch (error) {
-          console.error('Error fetching user or product details:', error);
+        // 현재 채팅방의 사용자들을 조회합니다.
+        const { data: chatUsers, error: chatUsersError } = await supabase
+          .from('chats_users')
+          .select('user_id')
+          .eq('chat_id', chat_id);
+        if (chatUsersError) {
+          console.error('Chat users fetching error:', chatUsersError);
+          return;
         }
+        // 현재 로그인한 사용자가 아닌 다른 사용자의 ID를 찾습니다.
+        const otherUserId = chatUsers.find((chatUser) => chatUser.user_id !== user.id)?.user_id;
+        if (!otherUserId) {
+          console.error('No other user found in this chat');
+          return;
+        }
+        // 찾은 다른 사용자의 ID로 사용자 정보를 조회합니다.
+        const { data: userData, error: userError } = await supabase
+          .from('users')
+          .select('nickname, user_img')
+          .eq('id', otherUserId)
+          .single();
+        if (userError) {
+          console.error('Error fetching other user data:', userError);
+          return;
+        }
+        // products 테이블에서 제품 정보를 가져옵니다.
+        const { data: productData } = await supabase
+          .from('products')
+          .select('title, price, product_img,id')
+          .eq('id', item_id)
+          .single();
+        if (userData) {
+          setOtherUserDetails({
+            nickname: userData.nickname,
+            user_img: userData.user_img,
+          });
+        }
+        if (productData) {
+          setProductDetails({
+            image: productData.product_img,
+            title: productData.title,
+            price: productData.price,
+            id: productData.id,
+          });
+        }
+        setIsChatModalOpen(true);
+      } catch (error) {
+        console.error('Error fetching user or product details:', error);
       }
     }
   };
@@ -244,7 +213,6 @@ const Chat = () => {
   //dm메시지 전송
   const sendDmMessage = async () => {
     if (!inputValue.trim()) return; // 메시지가 비어있지 않은지 확인
-
     sendDirectMessage({
       content: inputValue,
       author_id: LoginPersonal,
@@ -252,7 +220,6 @@ const Chat = () => {
       item_id: productId,
       // others_id: otherLoginPersonal,
     });
-
     setInputValue('');
   };
 
@@ -261,8 +228,6 @@ const Chat = () => {
     const p_chat_id = chatId;
     const p_user_id = userId;
     const { data, error } = await supabase.rpc('mark_messages_as_read', { p_chat_id, p_user_id });
-
-    console.log('null이면 읽기완료', error);
     if (error) {
       console.error('Error marking messages as read:', error);
     }
@@ -272,16 +237,14 @@ const Chat = () => {
 
   const renderChatHeader = () => {
     // useNavigate 훅으로부터 navigate 함수를 얻음
-
     // 제품 상세 페이지로 이동하는 함수
     const navigateToProductPage = () => {
       const productId = productDetails?.id; // productDetails로부터 제품의 ID를 얻음
-      console.log(productId);
       if (productId) {
         navigate(`/product/${productId}`); // 제품 ID를 사용하여 경로를 생성하고, 해당 경로로 이동
       }
     };
-    // console.log('productId',productId)
+
     return (
       <St.ChatModalHeader>
         <St.UserInfoSection>
@@ -311,9 +274,9 @@ const Chat = () => {
     return (
       <>
         {messages
-          .filter((message: MessageType) => message.chat_id === chatId)
-          .sort((a: MessageType, b: MessageType) => a.id - b.id) // 오름차순 정렬
-          .map((message: MessageType) => {
+          .filter((message: MessageTypes) => message.chat_id === chatId)
+          .sort((a: MessageTypes, b: MessageTypes) => a.id - b.id) // 오름차순 정렬
+          .map((message: MessageTypes) => {
             const currentDate = dayjs(message.created_at);
             const formattedTime = currentDate.format('hh:mm A'); // Format time with AM/PM
             const formattedDate = currentDate.format('YYYY-MM-DD dddd'); // Format date with day of the week
@@ -344,10 +307,12 @@ const Chat = () => {
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
   };
+
   useEffect(() => {
     if (!auth.session) return;
     getQnaLog(auth.session.user.id);
   }, []);
+
   useEffect(() => {}, [messages]);
   //qna table 가져오는 함수
   const getQnaLog = async (roomId: string) => {
@@ -374,12 +339,14 @@ const Chat = () => {
     setAskMessage(''); // 메시지 전송 후 입력 필드 초기화
     getQnaLog(auth.session.user.id);
   };
+
   const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault(); // 폼 제출 방지
       sendMessage();
     }
   };
+
   if (!auth.session) return null;
 
   const prevHandler = () => {
@@ -390,7 +357,6 @@ const Chat = () => {
   const getTimeDifference = (date: string) => {
     const now = dayjs();
     const messageDate = dayjs(date);
-
     const minutesDiff = now.diff(messageDate, 'minute');
     const hoursDiff = now.diff(messageDate, 'hour');
     const daysDiff = now.diff(messageDate, 'day');
@@ -416,7 +382,6 @@ const Chat = () => {
       .map((chatRoom) => {
         // 해당 채팅방에 대한 읽지 않은 메시지 수를 찾음
         const unreadInfo = unreadCounts.find((uc) => uc.chat_id === chatRoom.chat_id);
-
         const lastMessageTimeAgo = chatRoom.created_at ? getTimeDifference(chatRoom.created_at) : 'No messages yet.';
         return (
           <St.UserItem
@@ -427,14 +392,12 @@ const Chat = () => {
               {unreadInfo && unreadInfo.unread_count > 0 && <St.AlarmDetail>{unreadInfo.unread_count}</St.AlarmDetail>}
               <St.UserImage src={chatRoom?.user_img || defaultImage} />
             </St.AlarmUserWrapper>
-
             <St.UserInfo>
               <St.NicknameMessageTimeWrapper>
                 <St.ChatListUserNickname>{chatRoom.sendNickname}</St.ChatListUserNickname>
                 <St.MessageTime>{lastMessageTimeAgo}</St.MessageTime>
               </St.NicknameMessageTimeWrapper>
               {/* 해당 채팅방의 읽지 않은 메시지 수가 있으면 알림 배지 표시 */}
-
               <St.UserLastMessage>{chatRoom.lastMessage || 'No messages yet.'}</St.UserLastMessage>
             </St.UserInfo>
             {/* </St.NicknameToTimeWrapper> */}
@@ -497,7 +460,6 @@ const Chat = () => {
               <St.ChatTopBox>
                 <St.MainMessage>안녕하세요 ! 책에 대한 모든 것을 담는 북커입니다 ⸜๑•⌔•๑ ⸝</St.MainMessage>
                 <St.MainMessage>궁금한 점이 있으신가요?</St.MainMessage>
-
                 <St.AskButton style={isAsk ? { display: 'none' } : { display: 'block' }} onClick={() => setIsAsk(true)}>
                   문의하기
                 </St.AskButton>
@@ -531,12 +493,7 @@ const Chat = () => {
         </St.Container>
       )}
       <St.TalkButtonWrapper>
-        {!ChatBtnOpen && totalUnreadCount > 0 && (
-          <St.NotificationBadge>
-            {totalUnreadCount}
-            {/* {newMessagesCount} */}
-          </St.NotificationBadge>
-        )}
+        {!ChatBtnOpen && totalUnreadCount > 0 && <St.NotificationBadge>{totalUnreadCount}</St.NotificationBadge>}
         <St.BookerChattingIcon
           onClick={() => {
             setIsOpen(!isOpen);

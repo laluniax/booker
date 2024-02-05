@@ -1,4 +1,4 @@
-import SurveyList from '../components/survey/SurveyList';
+import SurveyList from '../components/survey/surveylist/SurveyList';
 
 const Survey = () => {
   return <SurveyList />;

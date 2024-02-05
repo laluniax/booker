@@ -27,12 +27,15 @@ export const Container = styled.div`
 
   `};
 `;
+
 export const MarketNameAndImage = styled.div`
   height: 33rem;
 `;
+
 export const MarkerDataDetail = styled.div`
   font-size: 1.5rem;
 `;
+
 export const MarketName = styled.h1`
   margin: 2rem 0 2rem 0;
   margin-top: 5rem;

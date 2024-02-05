@@ -1,20 +1,19 @@
 import { useEffect, useState } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { useRecoilState } from 'recoil';
 import { ThemeProvider } from 'styled-components';
-import { supabase } from './api/supabase.api';
+import { supabase } from './api/Supabase.api';
+import { AuthContextProvider } from './contexts/auth.context';
+import Router from './shared/Router';
+import { ChatRoomTypes } from './state/atom/Chat.type';
 import {
   ChatId,
-  ChatRoom,
   UnreadCounts,
   chatRoomsState,
   isChatModalOpenState,
   newMessagesCountState,
   person,
   sendMessages,
-} from './atom/product.atom';
-import { AuthContextProvider } from './contexts/auth.context';
-import Router from './shared/Router';
+} from './state/atom/chatAtom';
 import GlobalStyle from './styles/globalStyle';
 import theme from './styles/theme';
 type Message = {
@@ -42,8 +41,6 @@ export type UnreadCount = {
   chat_id: string;
   unread_count: number;
 };
-
-const queryClient = new QueryClient();
 
 const App = () => {
   const [chatId, setChatId] = useRecoilState(ChatId);
@@ -135,7 +132,7 @@ const App = () => {
         // Flatten the array of arrays
         const flatChatRooms = updatedChatRooms.flat();
 
-        setChatRooms(flatChatRooms as ChatRoom[]);
+        setChatRooms(flatChatRooms as ChatRoomTypes[]);
       } catch (error) {
         console.error('채팅방 가져오기 오류:', error);
       }
@@ -154,7 +151,6 @@ const App = () => {
           table: 'messages',
         },
         async (payload) => {
-          console.log('payload', payload);
           setUpdateMesaage(payload as MessagePayload);
           fetchChatRooms();
         },
@@ -212,7 +208,6 @@ const App = () => {
           table: 'messages',
         },
         async (payload) => {
-          console.log('payload', payload);
           fetchMessages();
           setUpdateMesaage(payload as MessagePayload);
         },
@@ -284,10 +279,7 @@ const App = () => {
           table: 'messages',
         },
         async (payload) => {
-          // console.log('payload', payload);
-
           handleNewMessageCount(payload as MessagePayload);
-
           // 새 메시지 카운트를 증가시킬지 결정하는 함수 호출
           handleNewMessage(payload as MessagePayload);
           setUpdateMesaage(payload as MessagePayload);
@@ -310,14 +302,12 @@ const App = () => {
   }, [chatId, updateMesaage]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthContextProvider>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <Router />
-        </ThemeProvider>
-      </AuthContextProvider>
-    </QueryClientProvider>
+    <AuthContextProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Router />
+      </ThemeProvider>
+    </AuthContextProvider>
   );
 };
 

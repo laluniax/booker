@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
 import {
   deleteXbuttonStorage,
   getProductHandler,
-  getUserSessionHandler,
   sumbitProductHandler,
   updateProductHandler,
   updateProductImgPublicUrlHandler,
   uploadProductImgStorageUrl,
-} from '../../../api/supabase.api';
+} from '../../../api/Supabase.api';
 import * as St from './Post.styled';
 
 export const categoryArr = [
@@ -58,13 +56,7 @@ const Post = () => {
 
   const navigate = useNavigate();
   const params = useParams().id;
-
   const gradeArr = ['최상', '상', '중', '하', '최하'];
-
-  const getUserSession = async () => {
-    const result = await getUserSessionHandler();
-    setUserId(result.session?.user.id as string);
-  };
 
   const getProduct = async () => {
     const result = await getProductHandler(params as string);
@@ -75,7 +67,6 @@ const Post = () => {
     setCategory(result[0].category);
     setProductGrade(result[0].product_grade);
     setTempImg(result[0].product_img);
-    // const imgFiles = await
   };
 
   const onSubmitProduct = async () => {
@@ -89,12 +80,10 @@ const Post = () => {
           { userId, title, content, price, category, productGrade, onSale },
           params as string,
         );
-
         const imgUrls = await uploadProductImgStorageUrl(result[0].id, productImg);
         // deleteImg에 있는 url제외하고 product table에 넣어주기
         const updateImgUrls = result[0].product_img.concat(imgUrls).filter((item: string) => !deleteImg.includes(item));
         await updateProductImgPublicUrlHandler(updateImgUrls, result[0].id);
-
         // 기존 이미지 x버튼 눌러서 삭제한 것들 storage에서 지우기
         const deleteUrls = deleteImg.map((url) => {
           const seperate = url.split('/');
@@ -116,7 +105,6 @@ const Post = () => {
         await updateProductImgPublicUrlHandler(imgUrls, result[0].id);
         navigate(`/product/${result[0].id}`);
       }
-
       setDeleteImg([]);
     } catch (error) {
       alert('등록 불가');
@@ -129,7 +117,6 @@ const Post = () => {
       alert('이미지는 5개까지 등록 가능합니다.');
       return;
     }
-
     if (e.target.files) {
       const imgList = Array.from(e.target.files);
       setProductImg((prevImgList) => [...prevImgList, ...imgList]);
@@ -144,9 +131,9 @@ const Post = () => {
       }
     }
   };
+
   const onClickDeleteBtn = (item: string) => {
     setDeleteImg((prev) => [...prev, item]);
-
     const newImgs = tempImg.filter((url) => url.startsWith('data:image'));
     const deletedIndex = newImgs.findIndex((url) => url === item);
     if (deletedIndex !== -1) {
@@ -155,8 +142,9 @@ const Post = () => {
     }
   };
 
+  const numberFormat = () => {};
+
   useEffect(() => {
-    getUserSession();
     params && getProduct();
   }, []);
 
@@ -164,12 +152,10 @@ const Post = () => {
     <St.Container>
       <St.Title>상품등록</St.Title>
       <St.Imgupload>상품 이미지는 5개까지 가능합니다.</St.Imgupload>
-
       <St.ImgUploadBox>
         <St.PostImgLabel htmlFor="img">이미지 업로드</St.PostImgLabel>
         <St.PostImgInput id="img" type="file" multiple accept="image/*" onChange={multipleImgHandler} />
       </St.ImgUploadBox>
-
       <St.PostWrapper>
         <St.PostImgWrapper height={tempImg.filter((temp) => !deleteImg.includes(temp)).length * 25}>
           {tempImg &&
@@ -183,7 +169,6 @@ const Post = () => {
               ))}
         </St.PostImgWrapper>
       </St.PostWrapper>
-      {/* <br /> */}
       <St.TotalItemWrapper>
         <St.ItemWrapper>
           <St.PostLabel>상품명</St.PostLabel>
@@ -197,20 +182,19 @@ const Post = () => {
             }}
           />
         </St.ItemWrapper>
-
         <St.ItemWrapper>
           <St.PostLabel>가격</St.PostLabel>
           <St.PostInput
-            type="number"
+            type="text"
             placeholder="가격을 입력해주세요"
             value={price}
             onChange={(e) => {
-              if (e.target.value.length > 8) return;
-              setPrice(e.target.value);
+              const regexValue = e.target.value.replace(/[^0-9]/g, '');
+              if (regexValue.length > 8) return;
+              setPrice(regexValue);
             }}
           />
         </St.ItemWrapper>
-
         <St.ItemWrapper>
           <St.PostLabel>카테고리</St.PostLabel>
           <St.PostCategory
@@ -222,7 +206,6 @@ const Post = () => {
               return <option key={i}>{item}</option>;
             })}
           </St.PostCategory>
-
           <St.PostCategory
             value={productGrade}
             onChange={(e) => {
