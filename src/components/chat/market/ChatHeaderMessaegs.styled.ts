@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ChatModalHeader = styled.div`
   display: flex;
@@ -24,12 +24,11 @@ export const UserInfoSection = styled.div`
   `};
 `;
 
-
 // 개인 채팅 모달 닫기 버튼
 export const CloseButton = styled.button`
   all: unset;
   color: white;
-
+  margin-left: 0.5rem;
   & img {
     width: 1.1rem;
     height: 1.8rem;
@@ -54,6 +53,24 @@ export const CloseButton = styled.button`
   }
   `};
 `;
+
+export const PrevIcon = styled.img`
+  width: 5rem;
+  height: 5rem;
+`;
+
+export const ImgNicknameWrapper = styled.div`
+  margin-left: 11rem;
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  margin-left: 18rem;
+  `}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  margin-left: 20rem;
+  `};
+`;
+
 export const UserImage = styled.img`
   border-radius: 50%; // 원형으로 만들기
   object-fit: cover; // 이미지 비율 유지
@@ -72,12 +89,10 @@ export const UserImage = styled.img`
   `};
 `;
 
-
 export const ProductImage = styled.img`
   width: 4.5rem; // 물품 이미지 크기 조절
   height: 4.5rem;
   margin-left: 0.5rem;
-  border: 1px solid gray;
 
   ${({ theme }) => theme.mediaQuery.sm`
   width: 5rem; // 물품 이미지 크기 조절
@@ -92,8 +107,6 @@ export const ProductImage = styled.img`
   border-radius:1rem;
   `};
 `;
-
-
 
 export const ChatRoomUserNickname = styled.div`
   font-weight: bold;
@@ -110,8 +123,6 @@ export const ChatRoomUserNickname = styled.div`
   margin-top:0.5rem;
   `};
 `;
-
-
 
 export const ProductInfoSection = styled.div`
   display: flex;
@@ -137,6 +148,12 @@ export const ProductInfoSection = styled.div`
   `};
 `;
 
+export const ProductTitleProduct = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-family: 'GmarketSansMedium';
+  margin-left: 1rem;
+`;
 
 export const ProductTitle = styled.span`
   // 제품 제목을 위한 스타일 추가
@@ -153,7 +170,7 @@ export const ProductTitle = styled.span`
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.5rem;
-  width: 35rem;
+  width:35rem;
   `};
 `;
 
