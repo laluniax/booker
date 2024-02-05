@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import * as St from './SlideImage.stlyed';
+import * as St from './SlideImage.styled';
 
 // 명화
 import loginImage1 from '../../../assets/loginimage/loginimage1.webp';

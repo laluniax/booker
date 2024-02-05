@@ -47,7 +47,7 @@ const SurveyList = () => {
               navigate('/survey/genre');
               window.scrollTo(0, 0);
             }}>
-            요즘 인기있는 책을 &nbsp;
+            요즘 인기 있는 책을 &nbsp;
             <St.BreakPoint>
               <br />
             </St.BreakPoint>
