@@ -119,25 +119,24 @@ const Post = () => {
   }, [title, content, price, params, navigate, deleteImg, category, productGrade, onSale, productImg, userId]);
 
   const multipleImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (tempImg.filter((temp) => !deleteImg.includes(temp)).length > 4) {
-      alert('이미지는 5개까지 등록 가능합니다.');
-      return;
-    }
     if (e.target.files) {
-      const imgList = Array.from(e.target.files);
-      setProductImg((prevImgList) => [...prevImgList, ...imgList]);
-      const imgUrl: string[] = [];
-      for (let i = 0; i < imgList.length; i++) {
+      const files = Array.from(e.target.files) as File[];
+      const updatedImgList = files.map((file) => {
         const reader = new FileReader();
-        reader.readAsDataURL(imgList[i]);
-        reader.onloadend = () => {
-          imgUrl[i] = reader.result as string;
-          setTempImg((prevImgUrl) => [...prevImgUrl, ...imgUrl]);
-        };
-      }
+        reader.readAsDataURL(file);
+        return new Promise<string>((resolve) => {
+          reader.onload = () => {
+            resolve(reader.result as string);
+          };
+        });
+      });
+
+      Promise.all(updatedImgList).then((images) => {
+        setTempImg([...tempImg, ...images]); // 미리보기 이미지 상태 업데이트
+        setProductImg([...productImg, ...files]); // 실제 업로드할 이미지 파일 상태 업데이트
+      });
     }
   };
-
   const onClickDeleteBtn = (item: string) => {
     setDeleteImg((prev) => [...prev, item]);
     const newImgs = tempImg.filter((url) => url.startsWith('data:image'));

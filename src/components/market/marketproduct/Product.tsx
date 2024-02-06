@@ -169,25 +169,25 @@ const Product = () => {
       <St.ProductWrapper>
         {product?.product_img?.length === 0 ? (
           <St.LogoWrapper>
-            <img src={logoImage} alt="" loading="lazy" />
+            <img src={logoImage} alt="" />
           </St.LogoWrapper>
         ) : (
           <St.SliderWrapper>
             <St.SliderUl ref={slideRef} $currentSlide={currentSlide} $slideCount={product?.product_img?.length ?? 0}>
               {product?.product_img?.map((img, i) => (
                 <St.SliderLi key={i}>
-                  <img src={img} alt={`Product image ${i + 1}`} loading="lazy" />
+                  <img src={img} alt={`Product image ${i + 1}`} />
                 </St.SliderLi>
               ))}
             </St.SliderUl>
             {currentSlide !== 0 && (
               <St.SliderBtn onClick={onClickPrevBtn} className="prev">
-                <img src={SliderPrevIcon} alt="" loading="lazy" />
+                <img src={SliderPrevIcon} alt="" />
               </St.SliderBtn>
             )}
             {currentSlide !== slideLength - 1 && (
               <St.SliderBtn onClick={onClickNextBtn} className="next">
-                <img src={SliderNextIcon} alt="" loading="lazy" />
+                <img src={SliderNextIcon} alt="" />
               </St.SliderBtn>
             )}
           </St.SliderWrapper>
@@ -265,7 +265,7 @@ const Product = () => {
               onClick={() => {
                 navigate(`/profile/${product?.user_id}`);
               }}>
-              <img src={product?.users.user_img ?? undefined} loading="lazy" alt="product img" />
+              <img src={product?.users.user_img ?? undefined} alt="product img" />
               <div>{product?.users.nickname}</div>
               {session?.id === product?.user_id ? (
                 <St.FollowBtn>내 프로필</St.FollowBtn>
