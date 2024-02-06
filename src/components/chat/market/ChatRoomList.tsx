@@ -5,12 +5,11 @@ import { useRecoilState } from 'recoil';
 
 import defaultImage from '../../../assets/profile/defaultprofileimage.webp';
 
-import { fetchAllChatRooms, markChatAsRead } from '../../../api/Chat.api';
+import { markChatAsRead } from '../../../api/Chat.api';
 import { supabase } from '../../../api/Supabase.api';
-import { ChatRoom } from '../../../state/atom/Chat.type';
+import { MessagePayload } from '../../../state/atom/Chat.type';
 import {
   ChatId,
-  MessagePayload,
   UnreadCounts,
   chatRoomsState,
   mainChatModalOpen,
@@ -33,15 +32,8 @@ const ChatRoomList = () => {
   const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts); //프롭스가 위로는 못가는데?
   const [updateMesaage, setUpdateMesaage] = useRecoilState(updateMesaages);
 
-  console.log('chatroom', chatRooms);
 
   useEffect(() => {
-    const fetchAndSetChatRooms = async () => {
-      const chatRooms = await fetchAllChatRooms(LoginPersonal); // 채팅방 정보 가져오기
-      setChatRooms(chatRooms as ChatRoom[]); // 상태 업데이트
-    };
-
-    fetchAndSetChatRooms();
     RenderChatRoomsList();
   }, [chatId, updateMesaage]);
 

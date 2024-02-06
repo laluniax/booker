@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { filterPostsByUserIdHandler, filterProductsByUserIdHandler } from '../../../../api/Supabase.api';
+import { Tables } from '../../../../api/Supabase.type';
 import logoImage from '../../../../assets/common/bookerchattingicon.webp';
-import { Tables } from '../../../../types/types';
 import Pagination from '../../../common/pagination/Pagination';
 import * as St from './TabList.styled';
 

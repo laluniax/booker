@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import prev from '../../../assets/common/prevbutton2.webp';
 import deleteIcon from '../../../assets/market/deleteicon.webp';
 import editIcon from '../../../assets/market/editicon.webp';
-import { MessageProps } from '../../../state/atom/Chat.type';
-
 
 export const Container = styled.div`
   position: relative;
@@ -561,24 +559,6 @@ export const SendButton = styled.button`
     background-color: #262626;
   }
 `;
-
-// export const MessageComponent = styled.div<MessageProps>`
-//   display: flex;
-//   justify-content: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
-//   padding: 1rem 2rem;
-//   margin: 0.5rem;
-//   border-radius: 20px;
-//   font-size: 1.5rem;
-//   max-width: 40%; /* 메시지의 최대 너비를 설정합니다. */
-//   word-wrap: break-word;
-//   background-color: ${(props) => (props.isOutgoing ? '#14213D' : '#FCA311')}; /* 배경 색상을 변경합니다. */
-//   color: ${(props) => (props.isOutgoing ? '#fff' : '#fff')}; /* 텍스트 색상을 변경합니다. */
-//   align-self: ${(props) => (props.isOutgoing ? 'flex-end' : 'flex-start')};
-//   /* 추가: 메시지 버블 안에 텍스트가 중앙에 오도록 만듭니다. */
-//   align-items: center;
-//   font-weight: bold;
-//   text-align: ${(props) => (props.isOutgoing ? 'right' : 'left')};
-// `;
 
 export const EditIcon = styled.div`
   background: url(${editIcon});

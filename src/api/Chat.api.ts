@@ -1,8 +1,6 @@
 import { supabase } from './Supabase.api';
 import { CreateOrGetChatTypes, SendDirectMessageTypes } from './Api.type';
-import { useRecoilState } from 'recoil';
-import { person } from '../state/atom/chatAtom';
-
+import { MessageType } from '../state/atom/Chat.type';
 
 //채팅방 확인 및 생성
 const createOrGetChat = async ({ userId, otherUserId, productId }: CreateOrGetChatTypes) => {
@@ -46,9 +44,8 @@ const sendMessage = async ({ content, author_id, chat_id, item_id }: SendDirectM
   if (error) throw new Error('메시지 삽입 중 오류가 발생했습니다');
 };
 
-
 //해당 유저의 모든 채팅방과 상세 정보 가져오기
-const fetchAllChatRooms = async (userId:string) => {
+const fetchAllChatRooms = async (userId: string) => {
   try {
     // 사용자 ID로 채팅방 ID 조회
     const { data: userChatRooms, error: userChatRoomsError } = await supabase
@@ -59,10 +56,12 @@ const fetchAllChatRooms = async (userId:string) => {
     if (userChatRoomsError) throw userChatRoomsError;
 
     // 해당 채팅방 ID에 대한 상세 정보 조회
-    const updatedChatRooms = await Promise.all(userChatRooms.map(async ({ chat_id }) => {
-      // 각 채팅방에 대한 상세 정보 가져오기
-      return fetchLastMessageAndUserInfo(chat_id);
-    }));
+    const updatedChatRooms = await Promise.all(
+      userChatRooms.map(async ({ chat_id }) => {
+        // 각 채팅방에 대한 상세 정보 가져오기
+        return fetchLastMessageAndUserInfo(chat_id);
+      }),
+    );
 
     // 결과 배열을 평탄화하고 반환
     return updatedChatRooms.flat();
@@ -73,7 +72,7 @@ const fetchAllChatRooms = async (userId:string) => {
 };
 
 //채팅리스트 정보
-const fetchLastMessageAndUserInfo = async (chatRoomId:string) => {
+const fetchLastMessageAndUserInfo = async (chatRoomId: string) => {
   try {
     // 마지막 메시지 조회
     const { data: lastMessageData, error: lastMessageError } = await supabase
@@ -95,50 +94,52 @@ const fetchLastMessageAndUserInfo = async (chatRoomId:string) => {
     if (chatUsersError) throw chatUsersError;
 
     // 비동기적으로 각 사용자 및 제품 정보 조회
-    const updatedChatUsersData = await Promise.all(chatUsersData.map(async (chatUser) => {
-      let sendNickname = 'Unknown';
-      let user_img = 'Unknown';
-      let product_img = 'Unknown';
+    const updatedChatUsersData = await Promise.all(
+      chatUsersData.map(async (chatUser) => {
+        let sendNickname = 'Unknown';
+        let user_img = 'Unknown';
+        let product_img = 'Unknown';
 
-      // 사용자 정보 조회
-      if (lastMessageData && lastMessageData.author_id) {
-        const { data: userData, error: userError } = await supabase
-          .from('users')
-          .select('nickname, user_img')
-          .eq('id', lastMessageData.author_id)
-          .maybeSingle();
+        // 사용자 정보 조회
+        if (lastMessageData && lastMessageData.author_id) {
+          const { data: userData, error: userError } = await supabase
+            .from('users')
+            .select('nickname, user_img')
+            .eq('id', lastMessageData.author_id)
+            .maybeSingle();
 
-        if (!userError && userData) {
-          sendNickname = userData.nickname;
-          user_img = userData.user_img;
+          if (!userError && userData) {
+            sendNickname = userData.nickname;
+            user_img = userData.user_img;
+          }
         }
-      }
 
-      // 제품 정보 조회
-      if (lastMessageData && lastMessageData.item_id) {
-        const { data: productData, error: productError } = await supabase
-          .from('products')
-          .select('product_img')
-          .eq('id', lastMessageData.item_id)
-          .maybeSingle();
+        // 제품 정보 조회
+        if (lastMessageData && lastMessageData.item_id) {
+          const { data: productData, error: productError } = await supabase
+            .from('products')
+            .select('product_img')
+            .eq('id', lastMessageData.item_id)
+            .maybeSingle();
 
-        if (!productError && productData) {
-          product_img = productData.product_img;
+          if (!productError && productData) {
+            product_img = productData.product_img;
+          }
         }
-      }
 
-      return {
-        chat_id: chatRoomId,
-        user_id: chatUser.user_id || 'Unknown',
-        item_id: chatUser.item_id || 'Unknown',
-        lastMessage: lastMessageData ? lastMessageData.content : 'No message',
-        sendNickname,
-        user_img,
-        product_img,
-        author_id: lastMessageData ? lastMessageData.author_id : 'Unknown',
-        created_at: lastMessageData ? lastMessageData.created_at : 'No message',
-      };
-    }));
+        return {
+          chat_id: chatRoomId,
+          user_id: chatUser.user_id || 'Unknown',
+          item_id: chatUser.item_id || 'Unknown',
+          lastMessage: lastMessageData ? lastMessageData.content : 'No message',
+          sendNickname,
+          user_img,
+          product_img,
+          author_id: lastMessageData ? lastMessageData.author_id : 'Unknown',
+          created_at: lastMessageData ? lastMessageData.created_at : 'No message',
+        };
+      }),
+    );
 
     return updatedChatUsersData;
   } catch (error) {
@@ -147,17 +148,30 @@ const fetchLastMessageAndUserInfo = async (chatRoomId:string) => {
   }
 };
 
+//알람 읽음처리
+const markChatAsRead = async (chatId: string, userId: string) => {
+  const p_chat_id = chatId;
+  const p_user_id = userId;
+  const { data, error } = await supabase.rpc('mark_messages_as_read', { p_chat_id, p_user_id });
 
-  //알람 읽음처리
-  const  markChatAsRead = async(chatId: string, userId: string)=> {
-    const p_chat_id = chatId;
-    const p_user_id = userId;
-    const { data, error } = await supabase.rpc('mark_messages_as_read', { p_chat_id, p_user_id });
+  if (error) {
+    console.error('Error marking messages as read:', error);
+  }
+};
 
-    if (error) {
-      console.error('Error marking messages as read:', error);
-    }
+// 채팅방 메시지 가져오기 함수 수정
+const fetchMessages = async (chatId: string) => {
+  if (!chatId) {
+    throw new Error('Chat ID is required');
+  }
+  let { data: messagesData, error } = await supabase.from('messages').select('*, users(*)').eq('chat_id', chatId);
+
+  if (error) {
+    console.error('메시지를 가져오는 중 오류가 발생했습니다:', error);
+    throw error;
   }
 
+  return messagesData;
+};
 
-export { createOrGetChat, sendMessage,fetchAllChatRooms,fetchLastMessageAndUserInfo,markChatAsRead };
+export { fetchMessages, createOrGetChat, sendMessage, fetchAllChatRooms, fetchLastMessageAndUserInfo, markChatAsRead };
