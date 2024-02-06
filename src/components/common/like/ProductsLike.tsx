@@ -22,7 +22,10 @@ const ProductsLike = ({ postId, count }: LikeProps) => {
   }, [postId]);
 
   const toggleLike = async () => {
-    if (!session) return;
+    if (!session) {
+      alert('로그인이 필요한 서비스입니다.');
+      return;
+    }
     const existingLike = likes.find((like) => like.user_id === currentUserId);
     try {
       if (existingLike) {

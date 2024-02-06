@@ -12,8 +12,8 @@ import {
   updateUserIntroTextHandler,
   uploadUserImgHandler,
 } from '../../../../api/Supabase.api';
+import { Tables } from '../../../../api/Supabase.type';
 import profileImage from '../../../../assets/profile/defaultprofileimage.webp';
-import { Tables } from '../../../../types/types';
 import * as St from './EditProfile.styled';
 
 const EditProfile = () => {

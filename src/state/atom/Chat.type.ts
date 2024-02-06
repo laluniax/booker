@@ -1,6 +1,3 @@
-
-
-
 export type ProductImageType = string | null;
 
 export type ChatRoomTypes = {
@@ -34,5 +31,5 @@ export type UnreadCount = {
 };
 
 export type MessageProps = {
-  isoutgoing: boolean;
+  $isoutgoing: boolean;
 };

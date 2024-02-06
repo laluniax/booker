@@ -1,9 +1,9 @@
 import axios from 'axios';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getPostsHandler, getProductListHandler } from '../../api/Supabase.api';
 import { ProductsTypes } from '../../types/types';
-import { formatCreatedAt } from '../../utils/date';
 import Loading from '../common/loading/Loading';
 import Pagination from '../common/pagination/Pagination';
 import * as St from './SearchField.styled';
@@ -140,7 +140,7 @@ const SearchField = () => {
                     <St.Post width={13}>{item.title}</St.Post>
                     <St.Post width={50}>{item.content}</St.Post>
                     <St.Post width={15}>
-                      {item.users.nickname} | {formatCreatedAt(item.created_at)}
+                      {item.users.nickname} | {dayjs(item.created_at).format('MM-DD')}
                     </St.Post>
                   </St.PostList>
                 </St.PostListBox>
