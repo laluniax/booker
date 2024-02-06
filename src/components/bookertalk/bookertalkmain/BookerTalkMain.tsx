@@ -13,7 +13,7 @@ const BookerTalkMain = () => {
   const navigation = useNavigate();
   const params = useParams().id;
   const [data, setData] = useState<PostsTypes[]>();
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 10;
 
   const session = useRecoilValue(userSession);
