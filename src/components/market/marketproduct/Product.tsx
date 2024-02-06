@@ -33,7 +33,7 @@ const Product = () => {
   const [slideLength, setSlideLength] = useState(0);
   const session = useRecoilValue(userSession);
 
-  const [inputValue, setInputValue] = useState('');
+
   const [productId, setProductId] = useRecoilState(productState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);

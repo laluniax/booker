@@ -4,49 +4,32 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import * as St from '../market/ChatMessages.styled';
 
+import { fetchMessages } from '../../../api/Chat.api';
 import { supabase } from '../../../api/Supabase.api';
-import {
-  ChatId,
-  MessagePayload,
-  MessageType,
-  person,
-  sendMessages,
-  updateMesaages,
-} from '../../../state/atom/chatAtom';
+import { MessagePayload, MessageType } from '../../../state/atom/Chat.type';
+import { ChatId, person, sendMessages, updateMesaages } from '../../../state/atom/chatAtom';
 
 const ChatMessages = () => {
   const [messages, setMessages] = useRecoilState(sendMessages);
   const [chatId, setChatId] = useRecoilState(ChatId);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [updateMesaage, setUpdateMesaage] = useRecoilState(updateMesaages);
-  // const [ischatRoomModalOpen, setIschatRoomModalOpen] = useRecoilState(mainChatModalOpen);
 
-  //챗방 메시지 가져오기
-  const fetchMessages = async () => {
-    if (chatId) {
-      // Fetch all messages for the chatId
-      let { data: messagesData, error: messagesError } = await supabase
-        .from('messages')
-        .select('*,users(*)')
-        .eq('chat_id', chatId);
-
-      if (messagesError) {
-        console.error('메시지를 가져오는 중 오류가 발생했습니다:', messagesError);
-        return;
-      }
-
-      if (!messagesData) {
-        setMessages([]);
-        return;
-      }
-
-      setMessages(messagesData);
-    }
-  };
-
-  //챗메시지 가져오기
   useEffect(() => {
-    fetchMessages();
+    const fetchAndSetMessages = async () => {
+      if (chatId) {
+        try {
+          const messages = await fetchMessages(chatId);
+          setMessages(messages || []);
+        } catch (error) {
+          console.error('Failed to fetch messages:', error);
+          // Handle the error appropriately
+          setMessages([]); // Optionally reset messages or handle differently
+        }
+      }
+    };
+
+    fetchAndSetMessages();
   }, [chatId, updateMesaage]);
 
   useEffect(() => {
