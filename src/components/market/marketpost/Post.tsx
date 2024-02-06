@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import LazyLoad from 'react-lazyload';
-=======
-import { useEffect, useRef, useState } from 'react';
->>>>>>> 319bcd5e37d06484c4104fa1860e480d35ce7c68
+
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import {
