@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { ChatRoomTypes, UnreadCount } from './Chat.type';
+import { ChatRoomTypes, MessagePayload, MessageType, UnreadCount } from './Chat.type';
 
 export const productState = atom({
   key: 'productState', // 고유한 키
@@ -43,23 +43,6 @@ export const productDetail = atom<productDetails | null>({
   default: null, // Now null is a valid default value
 });
 
-export type MessageType = {
-  id: number;
-  content: string;
-  author_id: string;
-  chat_id: string;
-  item_id: number;
-  others_id: string;
-  users?: UserType; // 사용자 닉네임을 포함할 수 있는 옵셔널 프로퍼티
-  created_at: number;
-};
-
-export type UserType = {
-  id: string;
-  email: string;
-  lastMessage?: string; // lastMessage 속성 추가 (옵셔널로 처리)
-  nickname: string;
-};
 
 
 export const sendMessages = atom<MessageType[]>({
@@ -132,24 +115,6 @@ export const updateMesaages = atom<MessagePayload>({
   }
    
 });
-export type MessagePayload = {
-  commit_timestamp: string;
-  errors: null | any; // Replace 'any' with a more specific type if possible
-  eventType: string;
-  new: {
-    author_id: string;
-    chat_id: string;
-    content: string;
-    created_at: string;
-    id: number;
-    item_id: number;
-    others_id: string | null;
-  };
-  
-  old?: any; // Replace 'any' with a more specific type if possible
-  schema: string;
-  table: string;
-};
 
 
 

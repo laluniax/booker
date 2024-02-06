@@ -1,4 +1,4 @@
-import { Tables } from '../../types/types';
+import { Tables } from '../../api/Supabase.type';
 
 export type PostsTypes = {
   content: string | null;

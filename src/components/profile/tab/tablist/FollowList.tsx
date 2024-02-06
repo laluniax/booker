@@ -36,7 +36,7 @@ const FollowList = () => {
                 window.scrollTo(0, 0);
               }}>
               <St.FollowImgAndNickNameBox>
-                <St.FollowImg src={(item.users.user_img || logoImage) ?? undefined} alt="profile" />
+                <St.FollowImg src={(item.users.user_img || logoImage) ?? undefined} alt="profile" loading="lazy" />
                 <St.FollowNickname>{item.users.nickname}</St.FollowNickname>
               </St.FollowImgAndNickNameBox>
               {params === session?.id ? (

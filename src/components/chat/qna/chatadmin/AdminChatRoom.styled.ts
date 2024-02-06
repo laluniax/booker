@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import prevIcon from '../../../../assets/common/prevbutton1.webp';
 
 export const Container = styled.section`
-  width: 35rem;
-  height: 55rem;
   overflow: scroll;
 
   ${({ theme }) => theme.mediaQuery.sm`
@@ -52,6 +50,11 @@ export const PrevIcon = styled.div`
 export const ChatBody = styled.div`
   display: flex;
   flex-direction: column;
+  width: 43rem;
+  bottom: 13rem;
+  right: 1.5rem;
+  border-radius: 2rem;
+  padding: 0.8rem;
 
   ${({ theme }) => theme.mediaQuery.lg`
   gap: 12px;

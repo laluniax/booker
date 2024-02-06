@@ -33,6 +33,24 @@ export type AdminChatInputProps = {
   currentQnaRoomId: string;
 };
 
+export type adminCHatMessages = {
+  content: string;
+  created_at: string;
+  id: number;
+  message_type: string;
+  nickname: string;
+  room_id: string;
+  sender_id: string;
+};
+
+export type AdminChatBodyProps = {
+  messages: adminCHatMessages[];
+  messageTable: () => Promise<void>;
+};
+export type QnaTableRow = {
+  nickname: string;
+  room_id: string;
+};
 // export type MessageTypes = {
 //   id: number;
 //   content: string;

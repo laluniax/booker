@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import LazyLoad from 'react-lazyload';
+
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import {
   deleteXbuttonStorage,
   getProductHandler,
-  sumbitProductHandler,
+  submitProductHandler,
   updateProductHandler,
   updateProductImgPublicUrlHandler,
   uploadProductImgStorageUrl,
@@ -55,6 +57,7 @@ const Post = () => {
   const [productImg, setProductImg] = useState<File[]>([]);
   const [tempImg, setTempImg] = useState<string[]>([]);
   const [deleteImg, setDeleteImg] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
   const session = useRecoilValue(userSession);
 
   const navigate = useNavigate();
@@ -72,7 +75,7 @@ const Post = () => {
     setTempImg(result[0].product_img);
   };
 
-  const onSubmitProduct = async () => {
+  const onSubmitProduct = useCallback(async () => {
     if (title === '' || content === '' || price === '') {
       alert('입력되지 않은 항목이 있습니다.');
       return;
@@ -95,7 +98,7 @@ const Post = () => {
         await deleteXbuttonStorage(params, deleteUrls);
         navigate(`/product/${params}`);
       } else {
-        const result = await sumbitProductHandler({
+        const result = await submitProductHandler({
           userId,
           title,
           content,
@@ -111,30 +114,29 @@ const Post = () => {
       setDeleteImg([]);
     } catch (error) {
       alert('등록 불가');
-      console.log('‼️', error);
+      console.error('‼️', error);
     }
-  };
+  }, [title, content, price, params, navigate, deleteImg, category, productGrade, onSale, productImg, userId]);
 
   const multipleImgHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (tempImg.filter((temp) => !deleteImg.includes(temp)).length > 4) {
-      alert('이미지는 5개까지 등록 가능합니다.');
-      return;
-    }
     if (e.target.files) {
-      const imgList = Array.from(e.target.files);
-      setProductImg((prevImgList) => [...prevImgList, ...imgList]);
-      const imgUrl: string[] = [];
-      for (let i = 0; i < imgList.length; i++) {
+      const files = Array.from(e.target.files) as File[];
+      const updatedImgList = files.map((file) => {
         const reader = new FileReader();
-        reader.readAsDataURL(imgList[i]);
-        reader.onloadend = () => {
-          imgUrl[i] = reader.result as string;
-          setTempImg((prevImgUrl) => [...prevImgUrl, ...imgUrl]);
-        };
-      }
+        reader.readAsDataURL(file);
+        return new Promise<string>((resolve) => {
+          reader.onload = () => {
+            resolve(reader.result as string);
+          };
+        });
+      });
+
+      Promise.all(updatedImgList).then((images) => {
+        setTempImg([...tempImg, ...images]); // 미리보기 이미지 상태 업데이트
+        setProductImg([...productImg, ...files]); // 실제 업로드할 이미지 파일 상태 업데이트
+      });
     }
   };
-
   const onClickDeleteBtn = (item: string) => {
     setDeleteImg((prev) => [...prev, item]);
     const newImgs = tempImg.filter((url) => url.startsWith('data:image'));
@@ -145,9 +147,19 @@ const Post = () => {
     }
   };
 
+  const sessionHandler = () => {
+    if (!session) {
+      alert('로그아웃 상태입니다.');
+      navigate('/');
+      return;
+    }
+  };
   useEffect(() => {
     params && getProduct();
     setUserId(session?.id as string);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   }, []);
 
   return (
@@ -164,10 +176,12 @@ const Post = () => {
             tempImg
               .filter((temp) => !deleteImg.includes(temp))
               .map((item, i) => (
-                <St.PostImgCard key={i}>
-                  <St.PostImg src={item} alt={item} />
-                  <St.DeleteBtn onClick={() => onClickDeleteBtn(item)}>X</St.DeleteBtn>
-                </St.PostImgCard>
+                <LazyLoad key={i} height={200} offset={100} once>
+                  <St.PostImgCard>
+                    <St.PostImg src={item} alt={`Uploaded image ${i}`} />
+                    <St.DeleteBtn onClick={() => onClickDeleteBtn(item)}>X</St.DeleteBtn>
+                  </St.PostImgCard>
+                </LazyLoad>
               ))}
         </St.PostImgWrapper>
       </St.PostWrapper>
@@ -175,10 +189,12 @@ const Post = () => {
         <St.ItemWrapper>
           <St.PostLabel>상품명</St.PostLabel>
           <St.PostInput
+            ref={inputRef}
             type="text"
             placeholder="상품명을 입력해주세요"
             maxLength={50}
             value={title}
+            onFocus={sessionHandler}
             onChange={(e) => {
               setTitle(e.target.value);
             }}
@@ -218,7 +234,7 @@ const Post = () => {
             })}
           </St.PostCategory>
         </St.ItemWrapper>
-        {params ? (
+        {params && (
           <St.ItemWrapper>
             <St.PostLabel>판매 상태</St.PostLabel>
             <St.PostCategory value={onSale.toString()} onChange={(e) => setOnSale(e.target.value === 'true')}>
@@ -226,9 +242,8 @@ const Post = () => {
               <option value="false">판매 완료</option>
             </St.PostCategory>
           </St.ItemWrapper>
-        ) : (
-          <></>
         )}
+
         <br />
         <St.ItemWrapper>
           <St.PostLabel>상품 설명</St.PostLabel>

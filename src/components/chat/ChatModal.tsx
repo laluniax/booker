@@ -17,7 +17,7 @@ import AdminChat from './qna/chatadmin/AdminChatRoom';
 import ChatLog from './qna/chatuser/UserChatRoom';
 
 import { supabase } from '../../api/Supabase.api';
-import { UnreadCounts, globalModalSwitch, mainChatModalOpen, person, sendMessages } from '../../state/atom/chatAtom';
+import { firstChatModalOpenState, globalModalSwitch, mainChatModalOpen, sendMessages } from '../../state/atom/chatAtom';
 
 dayjs.extend(relativeTime); // relativeTime 플러그인 활성화
 dayjs.locale('ko'); // 한국어 로케일 설정
@@ -26,19 +26,29 @@ const Chat = () => {
   const [isOpen, setIsOpen] = useRecoilState(globalModalSwitch);
 
   //모달창을 열고 닫는 state
-  const [isSwitch, setIsSwitch] = useState<boolean>(false);
-  const [isAsk, setIsAsk] = useState<boolean>(false);
+  const [isSwitch, setIsSwitch] = useState(false);
+  const [isAsk, setIsAsk] = useState(false);
   //메세지 저장 state
   const [askMessage, setAskMessage] = useState<string>('');
+  const [nickname, setNickname] = useState('');
   const [ischatRoomModalOpen, setIschatRoomModalOpen] = useRecoilState(mainChatModalOpen);
-  const [ChatBtnOpen, setChatBtnOpen] = useState(false);
-  const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
+  const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(firstChatModalOpenState);
   const [messages, setMessages] = useRecoilState(sendMessages);
-  const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);
   const [isAtBottom, setIsAtBottom] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
   const [Usermessages, setUserMessages] = useState<MessageListTypes[]>([]);
+  const auth = useAuth();
+
+  const getUserNickname = () => {
+    if (auth.session) {
+      setNickname(auth.session.profile.nickname);
+    } else {
+      // `auth.session`이 `null`일 때의 처리
+      console.error('세션이 존재하지 않습니다.');
+      setNickname('기본값');
+    }
+  };
 
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
@@ -87,32 +97,15 @@ const Chat = () => {
     }
   }, []);
 
-  //로그인 유저 가져오기
-  useEffect(() => {
-    async function fetchLoggedInUser() {
-      try {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
 
-        if (user?.id) {
-          setLoginPersonal(user.id);
-        } else {
-          setLoginPersonal('');
-        }
-      } catch (error) {
-        console.error('Error fetching logged in user:', error);
-      }
-    }
 
-    fetchLoggedInUser();
-  }, [unreadCounts]);
-
-  const auth = useAuth();
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
   };
 
+  useEffect(() => {
+    getUserNickname();
+  }, []);
   useEffect(() => {
     if (!auth.session) return;
     getQnaLog(auth.session.user.id);
@@ -140,6 +133,7 @@ const Chat = () => {
       sender_id: auth.session.user.id,
       content: askMessage,
       message_type: 'question',
+      nickname: nickname,
     });
     setAskMessage(''); // 메시지 전송 후 입력 필드 초기화
     getQnaLog(auth.session.user.id);
@@ -229,7 +223,7 @@ const Chat = () => {
         </St.Container>
       )}
       <St.TalkButtonWrapper>
-        <TotalChatUnreadCounts ChatBtnOpen={ChatBtnOpen} />
+        <TotalChatUnreadCounts />
         <St.BookerChattingIcon
           onClick={() => {
             setIsOpen(!isOpen);

@@ -184,7 +184,7 @@ export const followIdListHandler = async () => {
 };
 
 // 상품 등록하기
-export const sumbitProductHandler = async ({ userId, title, content, price, category, productGrade }: ProductTypes) => {
+export const submitProductHandler = async ({ userId, title, content, price, category, productGrade }: ProductTypes) => {
   const { data, error } = await supabase
     .from('products')
     .insert([{ user_id: userId, title, content, price, category, product_grade: productGrade }])
@@ -500,5 +500,3 @@ export const getLikesProductsListHandler = async (userId: string) => {
   if (error) throw error;
   return data;
 };
-
-

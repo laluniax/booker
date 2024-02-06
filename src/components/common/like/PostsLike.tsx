@@ -24,7 +24,10 @@ const PostsLike = ({ postId }: LikeProps) => {
   }, [postId]); // postId를 의존성으로 추가
 
   const toggleLike = async () => {
-    if (!session) return;
+    if (!session) {
+      alert('로그인이 필요한 서비스입니다.');
+      return;
+    }
     const existingLike = likes.find((like) => like.user_id === currentUserId);
     console.log(existingLike);
     try {
@@ -50,7 +53,11 @@ const PostsLike = ({ postId }: LikeProps) => {
   return (
     <St.Container>
       <St.HeartButton onClick={toggleLike}>
-        {likes.some((like) => like.user_id === currentUserId) ? <img src={coloredheart} /> : <img src={heartbold} />}
+        {likes.some((like) => like.user_id === currentUserId) ? (
+          <img src={coloredheart} loading="lazy" alt="coloredheart" />
+        ) : (
+          <img src={heartbold} loading="lazy" alt="heartbold" />
+        )}
       </St.HeartButton>
       <St.CountLike>
         {likes.length} <span>명이 좋아합니다.</span>
