@@ -481,7 +481,7 @@ export const getLikeCountP = async (postId: number | undefined) => {
 };
 
 //상품: 좋아요 하지 않은 경우, 좋아요 추가
-export const Productlike = async (postId: number | undefined, currentUserId: string | undefined) => {
+export const productlike = async (postId: number | undefined, currentUserId: string | undefined) => {
   const { data, error } = await supabase.from('product_likes').insert([{ post_id: postId, user_id: currentUserId }]);
   if (error) throw error;
   return data;

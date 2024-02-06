@@ -168,7 +168,7 @@ function KakaoMap() {
                 zIndex: 1,
               }}></MapMarker>
             {markerData?.map((position, index) => {
-              return <SelectMarkerInfo position={position} markerData={markerData} />;
+              return <SelectMarkerInfo key={index} position={position} markerData={markerData} />;
             })}
           </Map>
         </St.Map>

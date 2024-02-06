@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { Productlike, getLikeCountP, supabase } from '../../../api/Supabase.api';
+import { getLikeCountP, productlike, supabase } from '../../../api/Supabase.api';
 import coloredheart from '../../../assets/common/heavy_black_heart.webp';
 import heartbold from '../../../assets/common/icon-_heart_white.webp';
 import { userSession } from '../../../state/atom/userSessionAtom';
 import * as St from './Like.styled';
-import { LikeProps } from './Like.type';
+import { LikeProps, LikesTypes } from './Like.type';
 
 const ProductsLike = ({ postId, count }: LikeProps) => {
-  const [likes, setLikes] = useState<any[]>([]);
+  const [likes, setLikes] = useState<LikesTypes[]>([]);
   // const auth = useAuth();
   const session = useRecoilValue(userSession);
   const currentUserId = session?.id;
@@ -34,7 +34,7 @@ const ProductsLike = ({ postId, count }: LikeProps) => {
         setLikes(likes.filter((like) => like.id !== existingLike.id));
       } else {
         // 새로운 좋아요 추가
-        const userLike = await Productlike(postId, currentUserId);
+        const userLike = await productlike(postId, currentUserId);
         if (userLike) {
           setLikes([...likes, ...userLike]);
         }

@@ -29,7 +29,7 @@ const Chat = () => {
   const [isSwitch, setIsSwitch] = useState(false);
   const [isAsk, setIsAsk] = useState(false);
   //메세지 저장 state
-  const [askMessage, setAskMessage] = useState<string>('');
+  const [askMessage, setAskMessage] = useState('');
   const [nickname, setNickname] = useState('');
   const [ischatRoomModalOpen, setIschatRoomModalOpen] = useRecoilState(mainChatModalOpen);
   const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(firstChatModalOpenState);
@@ -96,8 +96,6 @@ const Chat = () => {
       };
     }
   }, []);
-
-
 
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
