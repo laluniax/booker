@@ -9,7 +9,7 @@ import * as St from './MarketList.styled';
 import { categoryArr } from './marketpost/Post';
 
 const CategoryButton = lazy(() => import('./categorybutton/CategoryButton'));
-const MarketProductsCard = lazy(() => import('./marketproductscard/MarketProductsCard'));
+const MarketProductsCard = React.memo(lazy(() => import('./marketproductscard/MarketProductsCard')));
 const MobileCategory = lazy(() => import('./mobileCategory/MobileCategory'));
 
 const MarketList = () => {
@@ -23,18 +23,18 @@ const MarketList = () => {
   const category = categoryArr[Number(params)];
 
   const getProductList = useCallback(async () => {
-    let result = [];
+    let result: ProductsTypes[] = [];
     if (params) {
       result = await getCategoryProductListHandler(category);
     } else {
       result = await getProductListHandler();
     }
-    // 상태 업데이트 시 불변성 유지 및 불필요한 업데이트 방지
-    if (JSON.stringify(list) !== JSON.stringify(result.sort((a, b) => b.id - a.id))) {
-      setList(result.sort((a, b) => b.id - a.id));
-    }
-  }, [category, params, list]);
-
+    // 불변성 유지 및 불필요한 업데이트 방지
+    setList((prevList) => {
+      const sortedResult = result.sort((a, b) => b.id - a.id);
+      return JSON.stringify(prevList) !== JSON.stringify(sortedResult) ? sortedResult : prevList;
+    });
+  }, [category, params]);
   const onClickPostBtn = useCallback(() => {
     if (session) {
       navigate('/marketpost');

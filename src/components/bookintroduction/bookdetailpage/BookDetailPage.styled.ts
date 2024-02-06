@@ -4,7 +4,7 @@ import prev from '../../../assets/common/prevbutton2.webp';
 export const Container = styled.div`
   position: relative;
   width: 30rem;
-  height: 100rem;
+  height: 120rem;
   margin: 0 auto;
   font-family: 'GmarketSansMedium';
   line-height: 1.5;
@@ -16,6 +16,7 @@ export const Container = styled.div`
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 90rem;
+  height: 100rem;
   `};
 `;
 
@@ -29,11 +30,6 @@ export const PrevButton = styled.div`
   margin-bottom: 1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-  width: 5rem;
-  height: 5rem;
-  `};
-
-  ${({ theme }) => theme.mediaQuery.lg`
   width: 6rem;
   height: 6rem;
   `};

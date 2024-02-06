@@ -13,7 +13,6 @@ export const Container = styled.div`
   max-width: 40rem;
   background-color: #000;
   min-height: 310rem;
-  border-bottom: 2px solid #fff;
   margin-top: 5rem;
   margin: 0 auto;
   ${({ theme }) => theme.mediaQuery.sm`

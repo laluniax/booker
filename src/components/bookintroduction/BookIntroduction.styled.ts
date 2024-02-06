@@ -212,20 +212,19 @@ export const Body = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
   width: 35rem;
-  margin: 2rem auto;
+  margin: 3rem auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
     width: 50rem;
     margin-top: 2.4rem;
   grid-gap: 3rem;
-  margin: 1rem auto;
+  margin: 3rem auto;
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 80rem;
-  margin-top: 4rem;
   grid-gap: 3rem;
-  margin: 1rem auto;
+  margin: 4.5rem auto;
   `};
 `;
 
