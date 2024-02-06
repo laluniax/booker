@@ -3,25 +3,21 @@ import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-
-import { deleteProductHandler, deleteProductImgStorage, getProductHandler, supabase } from '../../../api/Supabase.api';
+import { createOrGetChat } from '../../../api/Chat.api';
+import { getProductHandler, supabase } from '../../../api/Supabase.api';
 import SliderPrevIcon from '../../../assets/common/slider_left.webp';
 import SliderNextIcon from '../../../assets/common/slider_right.webp';
 import logoImage from '../../../assets/profile/defaultprofileimage.webp';
-
+import { ChatId, person, productState, sendMessages } from '../../../state/atom/chatAtom';
 import { userSession } from '../../../state/atom/userSessionAtom';
 import { ProductsTypes } from '../../../types/types';
+import ChatInpuValuSendHandler from '../../chat/market/ChatInpuValuSendHandler';
+import ChatMessages from '../../chat/market/ChatMessages';
 import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
 import { categoryArr } from '../marketpost/Post';
 import * as St from './Product.styled';
 
-import ChatInpuValuSendHandler from '../../chat/market/ChatInpuValuSendHandler';
-import ChatMessages from '../../chat/market/ChatMessages';
-import { ChatId, person, productState, sendMessages } from '../../../state/atom/chatAtom';
-import { createOrGetChat } from '../../../api/Chat.api';
-
-// import { MessageType } from '../../chat/market/ChatMarket';
 dayjs.locale('ko'); // 한국어 로케일을 기본값으로 설정
 
 const Product = () => {
@@ -34,26 +30,26 @@ const Product = () => {
   const [slideLength, setSlideLength] = useState(0);
   const session = useRecoilValue(userSession);
 
-  const [inputValue, setInputValue] = useState('');
   const [productId, setProductId] = useRecoilState(productState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [messages, setMessages] = useRecoilState(sendMessages);
   const [chatId, setChatId] = useRecoilState(ChatId);
-  // const [otherLoginPersonal, setOtherLoginPersonal] = useRecoilState(otherPerson);
 
   const [isAtBottom, setIsAtBottom] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
 
   // 스크롤 이벤트 핸들러
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const current = chatBodyRef.current;
     if (current) {
-      const isAtBottom = current.scrollHeight - current.scrollTop === current.clientHeight;
-      setIsAtBottom(isAtBottom);
+      const newIsAtBottom = current.scrollHeight - current.scrollTop === current.clientHeight;
+      if (newIsAtBottom !== isAtBottom) {
+        setIsAtBottom(newIsAtBottom);
+      }
     }
-  };
+  }, [isAtBottom]);
 
   // 최하단으로 스크롤하는 함수
   const scrollToBottom = () => {
@@ -141,19 +137,17 @@ const Product = () => {
 
   const onClickDeleteButton = async () => {
     if (window.confirm('삭제하시겠습니까?')) {
-      const result = await deleteProductHandler(params as string);
-      const resultStorage = await deleteProductImgStorage(params as string);
       navigate(`/market`);
     } else {
       return false;
     }
   };
 
-  const onClickDMButton = () => {
+  const onClickDMButton = useCallback(() => {
     session
       ? product?.user_id && DmClickhandler(product.user_id, product.id)
       : window.confirm('로그인 페이지로 이동하시겠습니까?') && navigate(`/login`);
-  };
+  }, [session, product, navigate]);
 
   useEffect(() => {
     getProduct();
@@ -171,25 +165,25 @@ const Product = () => {
       <St.ProductWrapper>
         {product?.product_img?.length === 0 ? (
           <St.LogoWrapper>
-            <img src={logoImage} />
+            <img src={logoImage} alt="" loading="lazy" />
           </St.LogoWrapper>
         ) : (
           <St.SliderWrapper>
             <St.SliderUl ref={slideRef} $currentSlide={currentSlide} $slideCount={product?.product_img?.length ?? 0}>
               {product?.product_img?.map((img, i) => (
                 <St.SliderLi key={i}>
-                  <img src={img} alt={`Product image ${i + 1}`} />
+                  <img src={img} alt={`Product image ${i + 1}`} loading="lazy" />
                 </St.SliderLi>
               ))}
             </St.SliderUl>
             {currentSlide !== 0 && (
               <St.SliderBtn onClick={onClickPrevBtn} className="prev">
-                <img src={SliderPrevIcon} />
+                <img src={SliderPrevIcon} alt="" loading="lazy" />
               </St.SliderBtn>
             )}
             {currentSlide !== slideLength - 1 && (
               <St.SliderBtn onClick={onClickNextBtn} className="next">
-                <img src={SliderNextIcon} />
+                <img src={SliderNextIcon} alt="" loading="lazy" />
               </St.SliderBtn>
             )}
           </St.SliderWrapper>
@@ -267,7 +261,7 @@ const Product = () => {
               onClick={() => {
                 navigate(`/profile/${product?.user_id}`);
               }}>
-              <img src={product?.users.user_img ?? undefined} />
+              <img src={product?.users.user_img ?? undefined} loading="lazy" alt="product img" />
               <div>{product?.users.nickname}</div>
               {session?.id === product?.user_id ? (
                 <St.FollowBtn>내 프로필</St.FollowBtn>

@@ -4,7 +4,6 @@ import defaultImg from '../../assets/profile/defaultprofileimage.webp';
 export const Container = styled.div`
   max-width: 35rem;
   margin: 0 auto;
-  /* height: 100rem; */
 
   ${({ theme }) => theme.mediaQuery.sm`
   display: flex;

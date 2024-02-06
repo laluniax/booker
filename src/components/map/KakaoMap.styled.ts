@@ -1,16 +1,7 @@
 import styled from 'styled-components';
 import mapIndBookStoreImage from '../../assets/indbookstoreimage/mapindbookstoreimage.webp';
 
-export const Container = styled.div`
-  /* max-width: 40rem;
-  margin: 0 auto;
-  ${({ theme }) => theme.mediaQuery.sm`
-max-width: 80rem;
-  `};
-  ${({ theme }) => theme.mediaQuery.lg`
-max-width: 120rem;
-  `}; */
-`;
+export const Container = styled.div``;
 
 export const MapContainer = styled.div`
   width: 40rem;
@@ -18,8 +9,8 @@ export const MapContainer = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   display: flex;
   width: 80rem;
-
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   width: 120rem;
 

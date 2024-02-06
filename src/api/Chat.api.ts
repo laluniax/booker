@@ -158,4 +158,19 @@ const markChatAsRead = async (chatId: string, userId: string) => {
   }
 };
 
-export { createOrGetChat, fetchAllChatRooms, fetchLastMessageAndUserInfo, markChatAsRead, sendMessage };
+// 채팅방 메시지 가져오기 함수 수정
+const fetchMessages = async (chatId: string) => {
+  if (!chatId) {
+    throw new Error('Chat ID is required');
+  }
+  let { data: messagesData, error } = await supabase.from('messages').select('*, users(*)').eq('chat_id', chatId);
+
+  if (error) {
+    console.error('메시지를 가져오는 중 오류가 발생했습니다:', error);
+    throw error;
+  }
+
+  return messagesData;
+};
+
+export { createOrGetChat, fetchAllChatRooms, fetchLastMessageAndUserInfo, fetchMessages, markChatAsRead, sendMessage };

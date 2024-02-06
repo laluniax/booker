@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-import * as St from './SlideImage.styled';
-
-// 명화
 import loginImage1 from '../../../assets/loginimage/loginimage1.webp';
 import loginImage2 from '../../../assets/loginimage/loginimage2.webp';
 import loginImage3 from '../../../assets/loginimage/loginimage3.webp';
 import loginImage4 from '../../../assets/loginimage/loginimage4.webp';
+import * as St from './SlideImage.styled';
 
 const images = [
   { image: loginImage1, alt: 'loginimage1' },
@@ -16,10 +14,6 @@ const images = [
 
 const ImageSlideshow = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const handlePrevClick = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : images.length - 1));
-  };
 
   const handleNextClick = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex < images.length - 1 ? prevIndex + 1 : 0));

@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
-
-
-import * as St from '../market/ChatInpuValuSendHandler.styled';
-
-import { ChatId, person, productState } from '../../../state/atom/chatAtom';
 import { sendMessage } from '../../../api/Chat.api';
-
+import { ChatId, person, productState } from '../../../state/atom/chatAtom';
+import * as St from '../market/ChatInpuValuSendHandler.styled';
 
 const ChatInpuValuSendHandler = () => {
   const [inputValue, setInputValue] = useState('');
@@ -26,7 +22,6 @@ const ChatInpuValuSendHandler = () => {
           author_id: LoginPersonal,
           chat_id: chatId,
           item_id: productId,
-          // others_id: otherLoginPersonal,
         });
         setInputValue('');
       }
@@ -42,7 +37,6 @@ const ChatInpuValuSendHandler = () => {
       author_id: LoginPersonal,
       chat_id: chatId,
       item_id: productId,
-      // others_id: otherLoginPersonal,
     });
 
     setInputValue('');

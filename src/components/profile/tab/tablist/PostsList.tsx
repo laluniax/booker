@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { filterPostsByUserIdHandler, filterProductsByUserIdHandler } from '../../../../api/Supabase.api';
+import { Tables } from '../../../../api/Supabase.type';
 import logoImage from '../../../../assets/common/bookerchattingicon.webp';
-import { Tables } from '../../../../types/types';
 import Pagination from '../../../common/pagination/Pagination';
 import * as St from './TabList.styled';
 
@@ -47,7 +47,7 @@ const PostsList = () => {
         {productsList?.slice((currentProductsPage - 1) * 5, currentProductsPage * 5)?.map((item, i) => {
           return (
             <St.Product key={i} onClick={() => navigate(`/product/${item.id}`)}>
-              {item.product_img && <St.ProductImg src={item.product_img[0] || logoImage} />}
+              {item.product_img && <St.ProductImg src={item.product_img[0] || logoImage} loading="lazy" />}
               <St.ProductTitlePrice>
                 <St.ProductTitle>{item.title}</St.ProductTitle>
                 <St.ProductPrice>{item.price} 원</St.ProductPrice>

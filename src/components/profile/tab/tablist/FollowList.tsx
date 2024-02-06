@@ -10,7 +10,6 @@ import * as St from './TabList.styled';
 const FollowList = () => {
   const [followList, setFollowList] = useState<FollowsTypes[]>([]);
   const session = useRecoilValue(userSession);
-  console.log(followList);
   const params = useParams().id;
   const navigate = useNavigate();
 
@@ -36,7 +35,7 @@ const FollowList = () => {
                 window.scrollTo(0, 0);
               }}>
               <St.FollowImgAndNickNameBox>
-                <St.FollowImg src={(item.users.user_img || logoImage) ?? undefined} alt="profile" />
+                <St.FollowImg src={(item.users.user_img || logoImage) ?? undefined} alt="profile" loading="lazy" />
                 <St.FollowNickname>{item.users.nickname}</St.FollowNickname>
               </St.FollowImgAndNickNameBox>
               {params === session?.id ? (

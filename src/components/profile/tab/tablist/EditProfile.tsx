@@ -12,8 +12,8 @@ import {
   updateUserIntroTextHandler,
   uploadUserImgHandler,
 } from '../../../../api/Supabase.api';
+import { Tables } from '../../../../api/Supabase.type';
 import profileImage from '../../../../assets/profile/defaultprofileimage.webp';
-import { Tables } from '../../../../types/types';
 import * as St from './EditProfile.styled';
 
 const EditProfile = () => {
@@ -57,7 +57,7 @@ const EditProfile = () => {
       const url = getPublicUrlHandler(params as string);
       await updateUserAuthUserImgHandler(url.publicUrl);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -131,7 +131,7 @@ const EditProfile = () => {
         <St.ProfileEditTitle>프로필 이미지</St.ProfileEditTitle>
         <St.ProfileImgEditBox>
           <St.ProfileImgBox>
-            <St.ProfileImg src={tempImg || userSession?.user.user_metadata.avatar_url || profileImage} />{' '}
+            <St.ProfileImg src={tempImg || userSession?.user.user_metadata.avatar_url || profileImage} loading="lazy" />{' '}
             <St.ProfileImgUploadFile>
               <St.ProfileLabelBox>
                 <St.ProfileLabel htmlFor="imgInput">이미지 선택하기</St.ProfileLabel>

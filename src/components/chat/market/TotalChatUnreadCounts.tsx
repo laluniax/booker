@@ -1,16 +1,21 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import * as St from '../market/TotalChatUnreadCounts.styled';
 import { supabase } from '../../../api/Supabase.api';
-import { ChatId, MessagePayload, UnreadCounts, chatRoomsState, newMessagesCountState, person, updateMesaages } from '../../../state/atom/chatAtom';
-import { TotalChatUnreadCountsProps } from './TotalChatUnreadCounts.type';
+import { MessagePayload } from '../../../state/atom/Chat.type';
+import {
+  ChatId,
+  UnreadCounts,
+  chatRoomsState,
+  firstChatModalOpenState,
+  newMessagesCountState,
+  person,
+  updateMesaages,
+} from '../../../state/atom/chatAtom';
+import * as St from '../market/TotalChatUnreadCounts.styled';
 
-
-
-const TotalChatUnreadCounts =({ ChatBtnOpen }: TotalChatUnreadCountsProps) => {
+const TotalChatUnreadCounts = () => {
   const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
-
-  // const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(firstChatModalOpenState);
+  const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(firstChatModalOpenState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);
   const [chatId, setChatId] = useRecoilState(ChatId);
@@ -19,13 +24,12 @@ const TotalChatUnreadCounts =({ ChatBtnOpen }: TotalChatUnreadCountsProps) => {
 
   //총 안읽은 메시지
   const totalUnreadCount = chatRooms
-    .filter((chatRoom) => chatRoom.user_id === LoginPersonal) // 현재 사용자가 포함된 채팅방만 필터링
+    ?.filter((chatRoom) => chatRoom.user_id === LoginPersonal) // 현재 사용자가 포함된 채팅방만 필터링
     .reduce((total, chatRoom) => {
       const unreadInfo = unreadCounts.find((uc) => uc.chat_id === chatRoom.chat_id);
       return total + (unreadInfo ? unreadInfo.unread_count : 0);
     }, 0);
   //메시지 카운팅
-
 
   //읽지않음 카운팅
   async function updateUnreadCount() {
@@ -40,7 +44,7 @@ const TotalChatUnreadCounts =({ ChatBtnOpen }: TotalChatUnreadCountsProps) => {
     const { data, error } = await supabase.rpc('count_unread_messages', { user_id });
 
     if (error) {
-      console.log('읽지 않은 수 업데이트 오류:', error);
+      console.error('읽지 않은 수 업데이트 오류:', error);
     } else {
       setUnreadCounts(data);
     }
@@ -81,14 +85,10 @@ const TotalChatUnreadCounts =({ ChatBtnOpen }: TotalChatUnreadCountsProps) => {
           table: 'messages',
         },
         async (payload) => {
-          console.log('payload', payload);
-
           setNewMessagesCount((prev) => prev + 1);
-
 
           // 새 메시지 카운트를 증가시킬지 결정하는 함수 호출
           handleNewMessage(payload as MessagePayload);
-
         },
       )
       .subscribe();
@@ -96,9 +96,7 @@ const TotalChatUnreadCounts =({ ChatBtnOpen }: TotalChatUnreadCountsProps) => {
     // 채팅방 변경사항을 감지할 채널 구독
     const chatChannel = supabase
       .channel('chat-channel')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {
-        // fetchChatRooms();
-      })
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {})
       .subscribe();
 
     return () => {
@@ -107,16 +105,7 @@ const TotalChatUnreadCounts =({ ChatBtnOpen }: TotalChatUnreadCountsProps) => {
     };
   }, []);
 
- 
-  return (
-    <>
-      {!ChatBtnOpen && totalUnreadCount > 0 && (
-        <St.NotificationBadge>
-          {totalUnreadCount}
-        </St.NotificationBadge>
-      )}
-    </>
-  );
+  return <>{!ChatBtnOpen && totalUnreadCount > 0 && <St.NotificationBadge>{totalUnreadCount}</St.NotificationBadge>}</>;
 };
 
 export default TotalChatUnreadCounts;

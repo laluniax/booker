@@ -6,7 +6,6 @@ import { MarkerTypes, searchProps } from '../KakaoMap.type';
 const MapSearchInput = ({ map, fetchBookstoresNearby, aroundStore, updateMapCenter }: searchProps) => {
   const [searchPlace, setSearchPlace] = useRecoilState<string>(SearchKakaoState);
   const [markers, setMarkers] = useRecoilState<MarkerTypes[]>(MarkerKakaoState);
-
   const onSearchChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchPlace(e.target.value);
   };

@@ -781,7 +781,6 @@ export const ProfileIntroTextWrapper = styled.div`
   gap: 0.6rem;
 
   & span {
-    /* float: right; */
   }
 
   ${({ theme }) => theme.mediaQuery.sm`

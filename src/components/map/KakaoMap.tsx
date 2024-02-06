@@ -129,7 +129,7 @@ function KakaoMap() {
       const result = await mapMarkerDataHandler();
       setMarkerData(result as any[]);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

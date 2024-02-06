@@ -25,8 +25,6 @@ export const Container = styled.div`
 `;
 
 export const FormAndImageSlideWrapper = styled.div`
-  /* display: grid; */
-  /* grid-template-columns: 1fr 1fr; // 두 열로 나눕니다 */
   display: flex;
   width: 150rem;
   height: 100vh; // 전체 뷰포트 높이를 차지하도록 설정합니다 (선택 사항)

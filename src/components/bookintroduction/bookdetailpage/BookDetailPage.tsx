@@ -43,7 +43,7 @@ const BookDetailPage = () => {
       <St.BookWrapper>
         <St.InfoHeader>
           <St.BookImage>
-            <img src={detailData.cover} width={400} height={600} alt={detailData.title} />
+            <img src={detailData.cover} width={400} height={600} alt={detailData.title} loading="lazy" />
           </St.BookImage>
           <St.BookIntro>
             <St.BookDetailBox>

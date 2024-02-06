@@ -371,9 +371,6 @@ export type MessageProps = {
 export const UserEmail = styled.div`
   font-weight: bold;
 
-  ${({ theme }) => theme.mediaQuery.sm`
-  `}
-
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.3rem;
   `};
@@ -438,9 +435,6 @@ export const ChatModalWrapper = styled.div`
 export const ChatModalTitle = styled.p`
   color: #fff;
 
-  ${({ theme }) => theme.mediaQuery.sm`
-  `}
-
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.5rem;
   margin-left: 0.4rem;
@@ -456,9 +450,6 @@ export const ChatModalCloseButton = styled.button`
     color: #fca311;
   }
 
-  ${({ theme }) => theme.mediaQuery.sm`
-  `}
-
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 2.6rem;
   `};
@@ -468,9 +459,6 @@ export const ChatModalCloseButton = styled.button`
 export const HeaderChattingModalTitle = styled.p`
   color: #fca311;
   font-weight: bold;
-
-  ${({ theme }) => theme.mediaQuery.sm`
-  `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 1.5rem;
@@ -496,10 +484,7 @@ export const ChatModalBody = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 200px); //채팅창의 높이를 화면에 맞게 조정
-
-  ${({ theme }) => theme.mediaQuery.sm`
-    `}
+  height: calc(100vh - 200px);
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding: 1rem;

@@ -1,9 +1,9 @@
 import axios from 'axios';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getPostsHandler, getProductListHandler } from '../../api/Supabase.api';
 import { ProductsTypes } from '../../types/types';
-import { formatCreatedAt } from '../../utils/date';
 import Loading from '../common/loading/Loading';
 import Pagination from '../common/pagination/Pagination';
 import * as St from './SearchField.styled';
@@ -37,7 +37,7 @@ const SearchField = () => {
       });
       setBookertalkList(filteredPosts.sort((a, b) => b.id - a.id));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -56,7 +56,7 @@ const SearchField = () => {
       setBestSellerList(filteredBestSellers);
       setLoading1(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     try {
       setLoading2(true);
@@ -71,7 +71,7 @@ const SearchField = () => {
       setBookerPick(filteredBookerPick);
       setLoading2(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     try {
       setLoading3(true);
@@ -86,7 +86,7 @@ const SearchField = () => {
       setBookSpecial(filteredBookSpecial);
       setLoading3(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     try {
       setLoading4(true);
@@ -101,7 +101,7 @@ const SearchField = () => {
       setNewBook(filteredNewBooks);
       setLoading4(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -116,7 +116,7 @@ const SearchField = () => {
       });
       setMarketList(filteredProducts.sort((a, b) => b.id - a.id));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   useEffect(() => {
@@ -140,7 +140,7 @@ const SearchField = () => {
                     <St.Post width={13}>{item.title}</St.Post>
                     <St.Post width={50}>{item.content}</St.Post>
                     <St.Post width={15}>
-                      {item.users.nickname} | {formatCreatedAt(item.created_at)}
+                      {item.users.nickname} | {dayjs(item.created_at).format('MM-DD')}
                     </St.Post>
                   </St.PostList>
                 </St.PostListBox>
@@ -168,7 +168,7 @@ const SearchField = () => {
                       navigate(`/aboutBook/${item.isbn}`);
                     }}>
                     <St.BookImg>
-                      <img src={item.cover} />
+                      <img src={item.cover} loading="lazy" alt="bookimg" />
                     </St.BookImg>
                     <St.BookAuthor>{item.author}</St.BookAuthor>
                     <St.BookAuthor>{item.publisher}</St.BookAuthor>
@@ -193,7 +193,7 @@ const SearchField = () => {
                       navigate(`/aboutBook/${item.isbn13}`);
                     }}>
                     <St.BookImg>
-                      <img src={item.cover} />
+                      <img src={item.cover} loading="lazy" alt="bookimg" />
                     </St.BookImg>
                     <St.BookAuthor>{item.author}</St.BookAuthor>
                     <St.BookAuthor>{item.publisher}</St.BookAuthor>
@@ -218,7 +218,7 @@ const SearchField = () => {
                       navigate(`/aboutBook/${item.isbn13}`);
                     }}>
                     <St.BookImg>
-                      <img src={item.cover} />
+                      <img src={item.cover} alt="bookimg" loading="lazy" />
                     </St.BookImg>
                     <St.BookAuthor>{item.author}</St.BookAuthor>
                     <St.BookAuthor>{item.publisher}</St.BookAuthor>
@@ -243,7 +243,7 @@ const SearchField = () => {
                       navigate(`/aboutBook/${item.isbn13}`);
                     }}>
                     <St.BookImg>
-                      <img src={item.cover} />
+                      <img src={item.cover} alt="bookimg" loading="lazy" />
                     </St.BookImg>
                     <St.BookAuthor>{item.author}</St.BookAuthor>
                     <St.BookAuthor>{item.publisher}</St.BookAuthor>
@@ -267,7 +267,11 @@ const SearchField = () => {
                     <St.LogoImg />
                   ) : (
                     <St.ProductImg>
-                      <img src={(item.product_img && item.product_img[0]) ?? undefined} alt="검색결과상품이미지" />
+                      <img
+                        src={(item.product_img && item.product_img[0]) ?? undefined}
+                        alt="검색결과상품이미지"
+                        loading="lazy"
+                      />
                     </St.ProductImg>
                   )}
                   <St.TitleAndPriceBox>

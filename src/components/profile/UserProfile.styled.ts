@@ -103,7 +103,6 @@ export const ProfileImg = styled.img`
 `;
 
 export const ProfileInfo = styled.div`
-  /* text-align: start; */
   display: flex;
   justify-content: center;
   width: 17rem;

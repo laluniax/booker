@@ -5,9 +5,8 @@ import { AdminChatInputProps } from '../../ChatModal.type';
 import * as St from '../chatadmin/AdminChatRoom.styled';
 
 const AdminChatInput = ({ messageTable, currentQnaRoomId }: AdminChatInputProps) => {
-  const [answerMessage, setAnswerMessage] = useState<string>('');
+  const [answerMessage, setAnswerMessage] = useState('');
   const auth = useAuth();
-
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAnswerMessage(e.target.value);
   };
@@ -21,6 +20,7 @@ const AdminChatInput = ({ messageTable, currentQnaRoomId }: AdminChatInputProps)
       sender_id: auth.session.user.id,
       content: answerMessage,
       message_type: 'answer',
+      nickname: '관리자',
     });
     setAnswerMessage(''); // 메시지 전송 후 입력 필드 초기화
     await messageTable(); // 메시지 목록 새로고침

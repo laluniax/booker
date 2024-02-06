@@ -8,7 +8,6 @@ import { KakaoProps } from '../KakaoMap.type';
 const SelectMarkerInfo = ({ position, markerData }: KakaoProps) => {
   const [selectedMarkerId, setSelectedMarkerId] = useState<number | null>(null);
   const [selectedMarkerInfo, setSelectedMarkerInfo] = useRecoilState(selectedMarkerInfoState);
-
   const markerClickHandler = (markerId: number) => {
     setSelectedMarkerId((prev) => (prev === markerId ? null : markerId));
   };

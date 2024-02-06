@@ -32,13 +32,13 @@ const Comment = ({ setCommentsCount }: PropsType) => {
   };
 
   const insertComment = async () => {
-    const result = await insertCommentHandler(params, session?.id as string, content);
+    await insertCommentHandler(params, session?.id as string, content);
     getCommentsInfo();
     setContent('');
   };
 
   const updateComment = async () => {
-    const result = await updateCommentHandler(inputComment, commentId as number);
+    await updateCommentHandler(inputComment, commentId as number);
     getCommentsInfo();
     setIsEditing(false);
     setCommentId(undefined);
@@ -46,7 +46,7 @@ const Comment = ({ setCommentsCount }: PropsType) => {
   };
 
   const deleteComment = async (commentId: number) => {
-    const result = await deleteCommentHandler(commentId);
+    await deleteCommentHandler(commentId);
     getCommentsInfo();
   };
 
@@ -59,7 +59,7 @@ const Comment = ({ setCommentsCount }: PropsType) => {
       {session ? (
         <St.CommentForm>
           <St.FormUserData>
-            <St.UserImg src={session?.user_metadata.user_img || session?.user_metadata.avatar_url} />
+            <St.UserImg src={session?.user_metadata.user_img || session?.user_metadata.avatar_url} loading="lazy" />
             <St.CommentNickname>
               {session?.user_metadata.full_name ||
                 session?.user_metadata.preferred_username ||
@@ -90,7 +90,7 @@ const Comment = ({ setCommentsCount }: PropsType) => {
                 <St.CommentUser>
                   {' '}
                   <St.UserImgNicknameCreatedAt>
-                    <St.UserImg src={item.users.user_img ?? undefined} />
+                    <St.UserImg src={item.users.user_img ?? undefined} loading="lazy" />
                     <St.CommentNicknameCreatedAt>
                       <St.CommentNickname>{item.users.nickname}</St.CommentNickname>
                       <St.CommentCreatedAt>{dayjs(item.created_at).format('MM-DD')}</St.CommentCreatedAt>

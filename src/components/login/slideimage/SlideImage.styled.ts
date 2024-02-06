@@ -24,12 +24,13 @@ export const SlideshowContainer = styled.div`
   }
 
   ${({ theme }) => theme.mediaQuery.sm`
-  width: 43rem;
-  height: 50rem;
+  height: 80vh;
+  width: 70vh;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   height: 80vh;
+  width: 80vh;
   `};
 `;
 

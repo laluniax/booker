@@ -81,7 +81,7 @@ const Detail = () => {
           <St.PostUserInfo>
             <St.PostImgNickNameDate>
               <St.PostUserImg onClick={() => navigation(`/profile/${post?.user_id}`)}>
-                <img src={post?.users.user_img ?? undefined} />
+                <img src={post?.users.user_img ?? undefined} alt="img" loading="lazy" />
               </St.PostUserImg>
               <St.PostUserNickname onClick={() => navigation(`/profile/${post?.user_id}`)}>
                 {post?.users.nickname} |

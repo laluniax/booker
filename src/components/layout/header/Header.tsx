@@ -31,16 +31,6 @@ const Header = () => {
 
   useEffect(() => {
     setActiveTab(window.location.pathname);
-    // const LocationChangehandler = () => {
-    //   setActiveTab(window.location.pathname);
-    // };
-
-    // // URL이 변경될 때마다 handleLocationChange를 호출합니다.
-    // window.addEventListener('popstate', LocationChangehandler);
-
-    // return () => {
-    //   window.removeEventListener('popstate', LocationChangehandler);
-    // };
   }, [window.location.pathname]);
 
   useEffect(() => {
@@ -61,7 +51,7 @@ const Header = () => {
             setIsDropdownOpen(false);
             navigate('/');
           }}>
-          <img src={logo} />
+          <img src={logo} alt="logo" loading="lazy" />
         </St.ImageWrapper>
         <St.HeaderUl>
           {/* <St.HeaderLiBox> */}

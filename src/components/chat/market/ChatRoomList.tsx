@@ -2,14 +2,12 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-
-import defaultImage from '../../../assets/profile/defaultprofileimage.webp';
-
+import { markChatAsRead } from '../../../api/Chat.api';
 import { supabase } from '../../../api/Supabase.api';
-import { ChatRoom } from '../../../state/atom/Chat.type';
+import defaultImage from '../../../assets/profile/defaultprofileimage.webp';
+import { MessagePayload } from '../../../state/atom/Chat.type';
 import {
   ChatId,
-  MessagePayload,
   UnreadCounts,
   chatRoomsState,
   mainChatModalOpen,
@@ -20,7 +18,6 @@ import {
   updateMesaages,
 } from '../../../state/atom/chatAtom';
 import * as St from '../market/ChatRoomList.styled';
-import { fetchAllChatRooms, markChatAsRead } from '../../../api/Chat.api';
 
 const ChatRoomList = () => {
   const [chatId, setChatId] = useRecoilState(ChatId);
@@ -33,103 +30,7 @@ const ChatRoomList = () => {
   const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts); //프롭스가 위로는 못가는데?
   const [updateMesaage, setUpdateMesaage] = useRecoilState(updateMesaages);
 
-  //챗룸 리스트
-
-  // const fetchChatRooms = async () => {
-  //   try {
-  //     // 채팅방 ID 가져오기
-  //     const { data: chatRoomsData, error: chatRoomsError } = await supabase.from('chats').select('*');
-
-  //     if (chatRoomsError) throw chatRoomsError;
-
-  //     // 각 채팅방에 대해 사용자의 닉네임과 마지막 메시지를 가져오기
-  //     const updatedChatRooms = await Promise.all(
-  //       chatRoomsData.map(async (chatRoom) => {
-  //         const { data: chatUser, error: chatUserError } = await supabase
-  //           .from('chats_users')
-  //           .select('*')
-  //           .eq('chat_id', chatRoom.id);
-
-  //         if (chatUserError) throw chatUserError;
-
-  //         //챗방 마지막 메시지
-  //         const { data: lastMessageData, error: lastMessageError } = await supabase
-  //           .from('messages')
-  //           .select(`content, users(nickname), author_id,item_id,created_at`)
-  //           .eq('chat_id', chatRoom.id)
-  //           .order('created_at', { ascending: false })
-  //           .limit(1)
-  //           .maybeSingle();
-
-  //         let sendNickname = '알 수 없음';
-  //         let user_img = '알 수 없음';
-  //         let product_img = '알 수 없음';
-  //         // let unread_count = 0;
-  //         const author_id = lastMessageData ? lastMessageData.author_id : '알 수 없음';
-
-  //         if (lastMessageData) {
-  //           // lastMessageData가 있는 경우에만 sendNickname과 user_img 설정
-  //           if (lastMessageData.author_id) {
-  //             const { data: userData, error: userError } = await supabase
-  //               .from('users')
-  //               .select('*')
-  //               .eq('id', lastMessageData.author_id)
-  //               .single();
-
-  //             if (userError) throw userError;
-  //             if (userData) {
-  //               sendNickname = userData.nickname;
-  //               user_img = userData.user_img;
-  //             }
-  //           }
-
-  //           // lastMessageData가 있는 경우에만 product_img 설정
-  //           if (lastMessageData.item_id) {
-  //             const { data: productData, error: productError } = await supabase
-  //               .from('products')
-  //               .select('product_img')
-  //               .eq('id', lastMessageData.item_id)
-  //               .maybeSingle();
-
-  //             if (productError) throw productError;
-  //             if (productData) {
-  //               product_img = productData.product_img;
-  //             }
-  //           }
-  //         }
-
-  //         return chatUser.map((chatUser) => ({
-  //           author_id: author_id,
-  //           chat_id: chatRoom.id,
-  //           user_id: chatUser.user_id || '알 수 없음',
-  //           item_id: chatUser.item_id || '알 수 없음',
-  //           lastMessage: lastMessageData ? lastMessageData.content : '메시지가 없습니다.',
-  //           sendNickname: sendNickname,
-  //           user_img: user_img,
-  //           created_at: lastMessageData ? lastMessageData.created_at : '메시지가 없습니다.',
-  //           product_img: product_img,
-  //         }));
-  //       }),
-  //     );
-  //     // Flatten the array of arrays
-  //     const flatChatRooms = updatedChatRooms.flat();
-
-  //     setChatRooms(flatChatRooms as ChatRoom[]);
-  //   } catch (error) {
-  //     console.error('채팅방 가져오기 오류:', error);
-  //   }
-  // };
-
-console.log('chatroom',chatRooms)  
-
   useEffect(() => {
-    const fetchAndSetChatRooms = async () => {
-   
-      const chatRooms = await fetchAllChatRooms(LoginPersonal); // 채팅방 정보 가져오기
-      setChatRooms(chatRooms as ChatRoom[]); // 상태 업데이트
-    };
-  
-    fetchAndSetChatRooms();
     RenderChatRoomsList();
   }, [chatId, updateMesaage]);
 
@@ -145,7 +46,6 @@ console.log('chatroom',chatRooms)
           table: 'messages',
         },
         async (payload) => {
-          console.log('payload', payload);
           setUpdateMesaage(payload as MessagePayload);
         },
       )
@@ -295,7 +195,6 @@ console.log('chatroom',chatRooms)
       }
     }
   };
-
 
   return (
     <>

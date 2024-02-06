@@ -9,7 +9,6 @@ import { LikeProps } from './Like.type';
 
 const ProductsLike = ({ postId, count }: LikeProps) => {
   const [likes, setLikes] = useState<any[]>([]);
-  // const auth = useAuth();
   const session = useRecoilValue(userSession);
   const currentUserId = session?.id;
   const getLikeCounts = useCallback(async () => {
@@ -17,12 +16,15 @@ const ProductsLike = ({ postId, count }: LikeProps) => {
       const likesData = await getLikeCountP(postId);
       setLikes(likesData || []);
     } catch (error) {
-      console.log(error, 'error');
+      console.error(error, 'error');
     }
   }, [postId]);
 
   const toggleLike = async () => {
-    if (!session) return;
+    if (!session) {
+      alert('로그인이 필요한 서비스입니다.');
+      return;
+    }
     const existingLike = likes.find((like) => like.user_id === currentUserId);
     try {
       if (existingLike) {
@@ -53,7 +55,11 @@ const ProductsLike = ({ postId, count }: LikeProps) => {
           e.stopPropagation();
           toggleLike();
         }}>
-        {likes.some((like) => like.user_id === currentUserId) ? <img src={coloredheart} /> : <img src={heartbold} />}
+        {likes.some((like) => like.user_id === currentUserId) ? (
+          <img src={coloredheart} loading="lazy" alt="coloredheart" />
+        ) : (
+          <img src={heartbold} loading="lazy" alt="heartbold" />
+        )}
       </St.HeartButton>
       {count ? <St.CountLike>{likes.length}</St.CountLike> : null}
     </St.Container>
