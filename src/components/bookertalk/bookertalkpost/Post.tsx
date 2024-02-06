@@ -75,6 +75,7 @@ const Post = () => {
 
   // 엔터키를 눌렀을 때 태그 제출
   const onKeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    sessionHandler();
     const target = e.target as HTMLInputElement;
     if (target.value.length !== 0 && e.key === 'Enter') {
       if (e.nativeEvent.isComposing === false) {
@@ -137,7 +138,13 @@ const Post = () => {
       setTagList([]);
     } else return;
   };
-
+  const sessionHandler = () => {
+    if (!session) {
+      alert('로그아웃 상태입니다.');
+      navigation('/');
+      return;
+    }
+  };
   useEffect(() => {
     session && setUserId(session?.id as string);
     params && getPost();
@@ -153,7 +160,9 @@ const Post = () => {
           <St.TitleInputBox>
             <St.TitleInput
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
               placeholder="제목을 입력해주세요"
               autoComplete="off"
               id="title"
@@ -219,6 +228,7 @@ const Post = () => {
               useCommandShortcut={false}
               language="ko-KR"
               ref={toastRef}
+              onFocus={sessionHandler}
               hooks={{
                 addImageBlobHook: onUploadImage,
               }}

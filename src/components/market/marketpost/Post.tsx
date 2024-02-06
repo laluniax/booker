@@ -1,11 +1,15 @@
+<<<<<<< HEAD
 import { useCallback, useEffect, useState } from 'react';
 import LazyLoad from 'react-lazyload';
+=======
+import { useEffect, useRef, useState } from 'react';
+>>>>>>> 319bcd5e37d06484c4104fa1860e480d35ce7c68
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import {
   deleteXbuttonStorage,
   getProductHandler,
-  sumbitProductHandler,
+  submitProductHandler,
   updateProductHandler,
   updateProductImgPublicUrlHandler,
   uploadProductImgStorageUrl,
@@ -56,6 +60,7 @@ const Post = () => {
   const [productImg, setProductImg] = useState<File[]>([]);
   const [tempImg, setTempImg] = useState<string[]>([]);
   const [deleteImg, setDeleteImg] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
   const session = useRecoilValue(userSession);
 
   const navigate = useNavigate();
@@ -96,7 +101,7 @@ const Post = () => {
         await deleteXbuttonStorage(params, deleteUrls);
         navigate(`/product/${params}`);
       } else {
-        const result = await sumbitProductHandler({
+        const result = await submitProductHandler({
           userId,
           title,
           content,
@@ -146,9 +151,19 @@ const Post = () => {
     }
   };
 
+  const sessionHandler = () => {
+    if (!session) {
+      alert('로그아웃 상태입니다.');
+      navigate('/');
+      return;
+    }
+  };
   useEffect(() => {
     params && getProduct();
     setUserId(session?.id as string);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   }, []);
 
   return (
@@ -178,10 +193,12 @@ const Post = () => {
         <St.ItemWrapper>
           <St.PostLabel>상품명</St.PostLabel>
           <St.PostInput
+            ref={inputRef}
             type="text"
             placeholder="상품명을 입력해주세요"
             maxLength={50}
             value={title}
+            onFocus={sessionHandler}
             onChange={(e) => {
               setTitle(e.target.value);
             }}
