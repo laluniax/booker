@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import relativeTime from 'dayjs/plugin/relativeTime.js';
+import qnaIcon from '../../assets/qna/qnaicon.webp';
 import { useAuth } from '../../contexts/auth.context';
 import * as St from './ChatModal.styled';
 import { MessageListTypes } from './ChatModal.type';
@@ -29,6 +30,7 @@ const Chat = () => {
   const [isAsk, setIsAsk] = useState<boolean>(false);
   //메세지 저장 state
   const [askMessage, setAskMessage] = useState<string>('');
+  const [nickname, setNickname] = useState('');
   const [ischatRoomModalOpen, setIschatRoomModalOpen] = useRecoilState(mainChatModalOpen);
   const [ChatBtnOpen, setChatBtnOpen] = useState(false);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
@@ -38,6 +40,17 @@ const Chat = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
   const [Usermessages, setUserMessages] = useState<MessageListTypes[]>([]);
+  const auth = useAuth();
+
+  const getUserNickname = () => {
+    if (auth.session) {
+      setNickname(auth.session.profile.nickname);
+    } else {
+      // `auth.session`이 `null`일 때의 처리
+      console.error('세션이 존재하지 않습니다.');
+      setNickname('기본값');
+    }
+  };
 
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
@@ -107,11 +120,13 @@ const Chat = () => {
     fetchLoggedInUser();
   }, [unreadCounts]);
 
-  const auth = useAuth();
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAskMessage(e.target.value);
   };
 
+  useEffect(() => {
+    getUserNickname();
+  }, []);
   useEffect(() => {
     if (!auth.session) return;
     getQnaLog(auth.session.user.id);
@@ -139,6 +154,7 @@ const Chat = () => {
       sender_id: auth.session.user.id,
       content: askMessage,
       message_type: 'question',
+      nickname: nickname,
     });
     setAskMessage(''); // 메시지 전송 후 입력 필드 초기화
     getQnaLog(auth.session.user.id);
@@ -192,7 +208,7 @@ const Chat = () => {
                   <St.PrevBtn onClick={prevHandler}>
                     <St.PrevIcon />
                   </St.PrevBtn>
-                  <St.ChatHeader></St.ChatHeader>
+                  <St.QnaIcon src={qnaIcon} />
                 </St.LogoWrapper>
               ) : (
                 <St.ChatHeader></St.ChatHeader>

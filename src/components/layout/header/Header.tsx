@@ -98,7 +98,9 @@ const Header = () => {
           {session ? (
             <St.HeaderBtn onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
               <St.ProfileIconImage />
-              <div>{nickname ? <span>{nickname}</span> : null}</div>
+              <St.NickNameAndIconBox>
+                {nickname ? <St.NickName>{nickname} 님</St.NickName> : null}
+              </St.NickNameAndIconBox>
               {isDropdownOpen && (
                 <St.Dropdown>
                   <St.DropdownItem onClick={() => navigate(`/profile/${session?.id}`)}>마이페이지</St.DropdownItem>

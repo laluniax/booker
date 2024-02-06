@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { nicknameValidationHandler, signupHandler, supabase } from '../../api/Supabase.api';
-import * as St from './Register.style';
+import * as St from './Register.styled';
 
 const Form = () => {
   const navigate = useNavigate();

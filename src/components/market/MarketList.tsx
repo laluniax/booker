@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
+import React, { Suspense, lazy, useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { getCategoryProductListHandler, getProductListHandler } from '../../api/Supabase.api';
@@ -8,44 +8,52 @@ import Pagination from '../common/pagination/Pagination';
 import * as St from './MarketList.styled';
 import { categoryArr } from './marketpost/Post';
 
+const CategoryButton = lazy(() => import('./categorybutton/CategoryButton'));
+const MarketProductsCard = lazy(() => import('./marketproductscard/MarketProductsCard'));
+const MobileCategory = lazy(() => import('./mobileCategory/MobileCategory'));
+
 const MarketList = () => {
   const [list, setList] = useState<ProductsTypes[]>([]);
-  //페이지네이션 state
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 12;
 
   const session = useRecoilValue(userSession);
-
   const navigate = useNavigate();
   const params = useParams().id;
   const category = categoryArr[Number(params)];
 
-  const indexOfLast = currentPage * postsPerPage;
-  const indexOfFirst = indexOfLast - postsPerPage;
-  const currentPosts = list?.slice(indexOfFirst, indexOfLast);
-
-  const CategoryButton = lazy(() => import('./categorybutton/CategoryButton'));
-  const MarketProductsCard = lazy(() => import('./marketproductscard/MarketProductsCard'));
-  const MobileCategory = lazy(() => import('./mobileCategory/MobileCategory'));
-
   const getProductList = useCallback(async () => {
+    let result = [];
     if (params) {
-      const result = await getCategoryProductListHandler(category);
-      setList(result.sort((a, b) => b.id - a.id));
+      result = await getCategoryProductListHandler(category);
     } else {
-      const result = await getProductListHandler();
+      result = await getProductListHandler();
+    }
+    // 상태 업데이트 시 불변성 유지 및 불필요한 업데이트 방지
+    if (JSON.stringify(list) !== JSON.stringify(result.sort((a, b) => b.id - a.id))) {
       setList(result.sort((a, b) => b.id - a.id));
     }
-  }, [category, params]);
+  }, [category, params, list]);
 
   const onClickPostBtn = useCallback(() => {
-    session ? navigate('/marketpost') : window.confirm('로그인 페이지로 이동하시겠습니까?') && navigate(`/login`);
+    if (session) {
+      navigate('/marketpost');
+    } else if (window.confirm('로그인 페이지로 이동하시겠습니까?')) {
+      navigate(`/login`);
+    }
     window.scrollTo(0, 0);
   }, [navigate, session]);
 
   useEffect(() => {
     getProductList();
-  }, [params]);
+  }, [getProductList]);
+
+  // useMemo를 사용하여 현재 페이지의 게시물 계산 최적화
+  const currentPosts = useMemo(() => {
+    const indexOfLast = currentPage * postsPerPage;
+    const indexOfFirst = indexOfLast - postsPerPage;
+    return list.slice(indexOfFirst, indexOfLast);
+  }, [list, currentPage, postsPerPage]);
 
   return (
     <St.Container>
@@ -74,4 +82,5 @@ const MarketList = () => {
     </St.Container>
   );
 };
-export default MarketList;
+
+export default React.memo(MarketList);

@@ -112,7 +112,7 @@ const Post = () => {
       setDeleteImg([]);
     } catch (error) {
       alert('등록 불가');
-      console.log('‼️', error);
+      console.error('‼️', error);
     }
   }, [title, content, price, params, navigate, deleteImg, category, productGrade, onSale, productImg, userId]);
 

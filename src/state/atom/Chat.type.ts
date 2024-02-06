@@ -32,3 +32,7 @@ export type UnreadCount = {
   chat_id: string;
   unread_count: number;
 };
+
+export type MessageProps = {
+  isoutgoing: boolean;
+};
