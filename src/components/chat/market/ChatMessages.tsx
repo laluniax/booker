@@ -19,7 +19,6 @@ const ChatMessages = () => {
   const [chatId, setChatId] = useRecoilState(ChatId);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [updateMesaage, setUpdateMesaage] = useRecoilState(updateMesaages);
-  // const [ischatRoomModalOpen, setIschatRoomModalOpen] = useRecoilState(mainChatModalOpen);
 
   //챗방 메시지 가져오기
   const fetchMessages = async () => {
@@ -93,7 +92,7 @@ const ChatMessages = () => {
             }
 
             return (
-              <St.MessageWrapper key={message.id} isOutgoing={message.author_id === LoginPersonal}>
+              <div key={message.id}>
                 {dateLabel} {/* Display the date label if the date has changed */}
                 {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
                 <St.MessageComponent
@@ -101,7 +100,7 @@ const ChatMessages = () => {
                   isoutgoing={message.author_id === LoginPersonal ? 'true' : undefined}>
                   {message.content} {formattedTime}
                 </St.MessageComponent>
-              </St.MessageWrapper>
+              </div>
             );
           })}
       </>
