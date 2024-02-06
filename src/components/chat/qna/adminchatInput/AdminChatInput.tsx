@@ -6,7 +6,6 @@ import * as St from '../chatadmin/AdminChatRoom.styled';
 
 const AdminChatInput = ({ messageTable, currentQnaRoomId }: AdminChatInputProps) => {
   const [answerMessage, setAnswerMessage] = useState('');
-
   const auth = useAuth();
   const onChangeMessageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAnswerMessage(e.target.value);

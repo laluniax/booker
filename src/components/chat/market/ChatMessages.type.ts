@@ -4,6 +4,5 @@ export type MessageComponentProps = {
 };
 
 export type MessageProps = {
-  // isoutgoing: boolean;
   $isoutgoing: string;
 };

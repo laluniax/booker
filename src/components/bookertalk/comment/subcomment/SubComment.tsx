@@ -32,13 +32,13 @@ const SubComment = ({ commentId, setCommentsCount }: Props) => {
   };
 
   const insertSubComment = async () => {
-    const result = await insertSubCommentHandler(commentId as number, session?.id as string, content);
+    await insertSubCommentHandler(commentId as number, session?.id as string, content);
     getSubCommentsInfo();
     setContent('');
   };
 
   const updateSubComment = async () => {
-    const result = await updateSubCommentHandler(inputSubComment, subCommentId as number);
+    await updateSubCommentHandler(inputSubComment, subCommentId as number);
     getSubCommentsInfo();
     setIsEditing(false);
     setSubCommentId(undefined);
@@ -46,7 +46,7 @@ const SubComment = ({ commentId, setCommentsCount }: Props) => {
   };
 
   const deleteSubComment = async (subCommentId: number) => {
-    const result = await deleteSubCommentHandler(subCommentId);
+    await deleteSubCommentHandler(subCommentId);
     getSubCommentsInfo();
   };
 

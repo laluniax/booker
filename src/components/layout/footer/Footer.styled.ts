@@ -3,9 +3,7 @@ import logo from '../../../assets/common/logo.webp';
 
 export const Container = styled.div`
   width: 100%;
-
   position: relative;
-  /* min-height: 100vh; 화면 높이에 맞춤 */
 `;
 
 export const FooterWrapper = styled.div`

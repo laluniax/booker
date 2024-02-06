@@ -285,9 +285,8 @@ export const NickNameAndIconBox = styled.div`
   right: -1%;
 
   ${({ theme }) => theme.mediaQuery.sm`
-
-top: 92%;
-right: -1%;
+  top: 92%;
+  right: -1%;
   `};
 
   ${({ theme }) => theme.mediaQuery.lg`

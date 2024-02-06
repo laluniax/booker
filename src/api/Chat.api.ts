@@ -1,6 +1,5 @@
-import { supabase } from './Supabase.api';
 import { CreateOrGetChatTypes, SendDirectMessageTypes } from './Api.type';
-import { MessageType } from '../state/atom/Chat.type';
+import { supabase } from './Supabase.api';
 
 //채팅방 확인 및 생성
 const createOrGetChat = async ({ userId, otherUserId, productId }: CreateOrGetChatTypes) => {
@@ -174,4 +173,4 @@ const fetchMessages = async (chatId: string) => {
   return messagesData;
 };
 
-export { fetchMessages, createOrGetChat, sendMessage, fetchAllChatRooms, fetchLastMessageAndUserInfo, markChatAsRead };
+export { createOrGetChat, fetchAllChatRooms, fetchLastMessageAndUserInfo, fetchMessages, markChatAsRead, sendMessage };

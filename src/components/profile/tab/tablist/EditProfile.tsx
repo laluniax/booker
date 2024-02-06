@@ -57,7 +57,7 @@ const EditProfile = () => {
       const url = getPublicUrlHandler(params as string);
       await updateUserAuthUserImgHandler(url.publicUrl);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

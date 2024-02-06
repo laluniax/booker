@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
-import { useRecoilState } from 'recoil';
-
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import relativeTime from 'dayjs/plugin/relativeTime.js';
+import { useEffect, useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import qnaIcon from '../../assets/qna/qnaicon.webp';
 import { useAuth } from '../../contexts/auth.context';
 import * as St from './ChatModal.styled';

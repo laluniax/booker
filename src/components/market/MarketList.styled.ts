@@ -5,7 +5,6 @@ export const Container = styled.div`
   max-width: 35rem;
   margin: 0 auto;
   height: auto;
-  /* height: 100rem; */
   ${({ theme }) => theme.mediaQuery.sm`
   display: flex;
   justify-content: space-between;

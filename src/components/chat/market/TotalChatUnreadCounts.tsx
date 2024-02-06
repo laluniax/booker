@@ -12,12 +12,10 @@ import {
   updateMesaages,
 } from '../../../state/atom/chatAtom';
 import * as St from '../market/TotalChatUnreadCounts.styled';
-import { TotalChatUnreadCountsProps } from './TotalChatUnreadCounts.type';
 
 const TotalChatUnreadCounts = () => {
   const [chatRooms, setChatRooms] = useRecoilState(chatRoomsState);
-
- const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(firstChatModalOpenState); 
+  const [ChatBtnOpen, setChatBtnOpen] = useRecoilState(firstChatModalOpenState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts);
   const [chatId, setChatId] = useRecoilState(ChatId);
@@ -25,7 +23,8 @@ const TotalChatUnreadCounts = () => {
   const [newMessagesCount, setNewMessagesCount] = useRecoilState(newMessagesCountState);
 
   //총 안읽은 메시지
-  const totalUnreadCount = chatRooms?.filter((chatRoom) => chatRoom.user_id === LoginPersonal) // 현재 사용자가 포함된 채팅방만 필터링
+  const totalUnreadCount = chatRooms
+    ?.filter((chatRoom) => chatRoom.user_id === LoginPersonal) // 현재 사용자가 포함된 채팅방만 필터링
     .reduce((total, chatRoom) => {
       const unreadInfo = unreadCounts.find((uc) => uc.chat_id === chatRoom.chat_id);
       return total + (unreadInfo ? unreadInfo.unread_count : 0);
@@ -45,7 +44,7 @@ const TotalChatUnreadCounts = () => {
     const { data, error } = await supabase.rpc('count_unread_messages', { user_id });
 
     if (error) {
-      console.log('읽지 않은 수 업데이트 오류:', error);
+      console.error('읽지 않은 수 업데이트 오류:', error);
     } else {
       setUnreadCounts(data);
     }
@@ -86,8 +85,6 @@ const TotalChatUnreadCounts = () => {
           table: 'messages',
         },
         async (payload) => {
-
-
           setNewMessagesCount((prev) => prev + 1);
 
           // 새 메시지 카운트를 증가시킬지 결정하는 함수 호출
@@ -99,9 +96,7 @@ const TotalChatUnreadCounts = () => {
     // 채팅방 변경사항을 감지할 채널 구독
     const chatChannel = supabase
       .channel('chat-channel')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {
-
-      })
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chats' }, (payload) => {})
       .subscribe();
 
     return () => {

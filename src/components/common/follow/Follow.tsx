@@ -10,9 +10,7 @@ const Follow = ({ params, usage }: FollowProps) => {
   const [followId, setFollowId] = useState('');
   const [following, setFollowing] = useState(false); // 팔로잉:거짓 이 기본
   const session = useRecoilValue(userSession);
-
   const navigate = useNavigate();
-
   const getFollowId = () => {
     const newFollowId = params + '-' + session?.id;
     setFollowId(newFollowId);

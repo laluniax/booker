@@ -9,7 +9,6 @@ import { LikeProps, LikesTypes } from './Like.type';
 
 const ProductsLike = ({ postId, count }: LikeProps) => {
   const [likes, setLikes] = useState<LikesTypes[]>([]);
-  // const auth = useAuth();
   const session = useRecoilValue(userSession);
   const currentUserId = session?.id;
   const getLikeCounts = useCallback(async () => {
@@ -17,7 +16,7 @@ const ProductsLike = ({ postId, count }: LikeProps) => {
       const likesData = await getLikeCountP(postId);
       setLikes(likesData || []);
     } catch (error) {
-      console.log(error, 'error');
+      console.error(error, 'error');
     }
   }, [postId]);
 

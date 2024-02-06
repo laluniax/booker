@@ -7,9 +7,6 @@ export const Container = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   margin-left: 4rem;
   `};
-
-  ${({ theme }) => theme.mediaQuery.lg`
-  `};
 `;
 
 export const PrevButton = styled.div`
@@ -78,6 +75,7 @@ export const PostUserInfo = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
     max-width: 65rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   max-width: 85rem;
   `};
@@ -91,9 +89,6 @@ export const PostImgNickNameDate = styled.div`
 
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 1.7rem;
-  `};
-
-  ${({ theme }) => theme.mediaQuery.lg`
   `};
 `;
 
@@ -242,8 +237,8 @@ export const PostProfileImg = styled.img`
   top: -3rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-    width: 8rem;
-    height: 8rem;
+  width: 8rem;
+  height: 8rem;
   top: -4rem;
   `};
 `;
@@ -278,7 +273,7 @@ export const PostProfileIntroText = styled.div`
 
   ${({ theme }) => theme.mediaQuery.lg`
   padding-top: 2rem;
-  font-size: 1.6rem;
+ font-size: 1.6rem;
    max-width: 50rem;
   `};
 `;

@@ -10,7 +10,6 @@ import * as St from './TabList.styled';
 const FollowList = () => {
   const [followList, setFollowList] = useState<FollowsTypes[]>([]);
   const session = useRecoilValue(userSession);
-  console.log(followList);
   const params = useParams().id;
   const navigate = useNavigate();
 

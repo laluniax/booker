@@ -43,7 +43,7 @@ const Main = () => {
       setBestSeller(response.data.item[0]);
       setLoading1(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     // 신간도서
     try {
@@ -52,7 +52,7 @@ const Main = () => {
       setNewbook(response.data.item[0]);
       setLoading2(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     // 스페셜
     try {
@@ -61,7 +61,7 @@ const Main = () => {
       setBookSpecial(response.data.item[0]);
       setLoading3(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     // 북커들의 선택
     try {
@@ -70,7 +70,7 @@ const Main = () => {
       setBookerPick(response.data.item[0]);
       setLoading4(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -88,7 +88,6 @@ const Main = () => {
   useEffect(() => {
     const getUserSession = async () => {
       const data = await getUserSessionHandler();
-      // console.log('login user session data => ', data);
       setSession(data.session?.user);
     };
     getUserSession();

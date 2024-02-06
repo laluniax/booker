@@ -32,13 +32,13 @@ const Comment = ({ setCommentsCount }: PropsType) => {
   };
 
   const insertComment = async () => {
-    const result = await insertCommentHandler(params, session?.id as string, content);
+    await insertCommentHandler(params, session?.id as string, content);
     getCommentsInfo();
     setContent('');
   };
 
   const updateComment = async () => {
-    const result = await updateCommentHandler(inputComment, commentId as number);
+    await updateCommentHandler(inputComment, commentId as number);
     getCommentsInfo();
     setIsEditing(false);
     setCommentId(undefined);
@@ -46,7 +46,7 @@ const Comment = ({ setCommentsCount }: PropsType) => {
   };
 
   const deleteComment = async (commentId: number) => {
-    const result = await deleteCommentHandler(commentId);
+    await deleteCommentHandler(commentId);
     getCommentsInfo();
   };
 

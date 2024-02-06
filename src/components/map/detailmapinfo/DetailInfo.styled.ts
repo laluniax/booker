@@ -17,14 +17,15 @@ export const Container = styled.div`
   border: 2px solid #fff;
   border-radius: 2rem;
   padding-bottom: 2rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 3.5rem;
   width: 40rem;  margin-top: 8rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   font-size: 4rem;
   width: 60rem;
-
   `};
 `;
 
@@ -49,9 +50,11 @@ export const DetailContent = styled.div`
   text-align: center;
   line-height: 1.4;
   width: 25rem;
+
   ${({ theme }) => theme.mediaQuery.sm`
   width: 35rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
   width: 45rem;
   `};
@@ -78,10 +81,11 @@ export const DetailBox = styled.div`
   font-size: 1.6rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-      font-size: 1.6rem;
-      padding-bottom: 2rem;
+  font-size: 1.6rem;
+  padding-bottom: 2rem;
   `};
+
   ${({ theme }) => theme.mediaQuery.lg`
-    font-size: 1.8rem;
+  font-size: 1.8rem;
   `};
 `;

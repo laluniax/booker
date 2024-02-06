@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-type CategoryButtonProps = {
-  isSelected: boolean;
-};
-
 export const CategoryWrapper = styled.div`
   width: 40rem;
   height: 7rem;
@@ -99,6 +95,7 @@ export const CategoryList = styled.button`
     border-bottom: 0.1rem solid #fca311;
     padding-bottom: 0.4rem;
   }
+
   &:hover {
     cursor: pointer;
   }
@@ -115,6 +112,7 @@ export const CategoryList = styled.button`
     border-bottom: 0.1rem solid #fca311;
     padding-bottom: 0.4rem;
   }
+  
   &:hover {
     cursor: pointer;
   }

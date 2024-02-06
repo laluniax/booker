@@ -110,8 +110,6 @@ export const BookIntro = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   margin-left: 1rem;
   `};
-  ${({ theme }) => theme.mediaQuery.lg`
-  `};
 `;
 
 export const BookDetailBox = styled.div`
@@ -128,9 +126,6 @@ export const Bookauthor = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   font-size: 2rem;
   `};
-
-  ${({ theme }) => theme.mediaQuery.lg`
-  `};
 `;
 
 export const Publisher = styled.div`
@@ -139,9 +134,6 @@ export const Publisher = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
   margin-top: 1rem;
   font-size: 2rem;
-`};
-
-  ${({ theme }) => theme.mediaQuery.lg`
 `};
 `;
 
@@ -155,9 +147,6 @@ export const EmphasisDescription = styled.span`
   font-size: 2.3rem;
   margin-top: 1.3rem;
 `};
-
-  ${({ theme }) => theme.mediaQuery.lg`
-`};
 `;
 
 export const Description = styled.div`
@@ -166,10 +155,7 @@ export const Description = styled.div`
   font-size: 1.4rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
-font-size: 2rem;
-`};
-
-  ${({ theme }) => theme.mediaQuery.lg`
+  font-size: 2rem;
 `};
 `;
 
@@ -180,9 +166,6 @@ export const DescriptionLi = styled.li`
     font-size: 2rem;
     margin-top: 1rem;
 `};
-
-  ${({ theme }) => theme.mediaQuery.lg`
-`};
 `;
 
 export const PubData = styled.div`
@@ -191,8 +174,5 @@ export const PubData = styled.div`
   ${({ theme }) => theme.mediaQuery.sm`
 font-size: 2rem;
 margin-top: 1rem;
-`};
-
-  ${({ theme }) => theme.mediaQuery.lg`
 `};
 `;

@@ -5,7 +5,6 @@ import * as St from './Header.styled';
 const SearchArea = () => {
   const [searchBarOpen, setSearchBarOpen] = useState(false);
   const [input, setInput] = useState('');
-
   const navigate = useNavigate();
   const location = useLocation();
 

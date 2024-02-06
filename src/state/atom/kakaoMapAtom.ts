@@ -1,6 +1,5 @@
-import { MapMarkerDataTypes, MarkerTypes } from '../../components/map/KakaoMap.type';
-
 import { atom } from 'recoil';
+import { MapMarkerDataTypes, MarkerTypes } from '../../components/map/KakaoMap.type';
 
 export const selectedMarkerId = atom({
   key: 'selectedMarkerId',

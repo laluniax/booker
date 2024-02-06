@@ -3,23 +3,20 @@ import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-
+import { createOrGetChat } from '../../../api/Chat.api';
 import { getProductHandler, supabase } from '../../../api/Supabase.api';
 import SliderPrevIcon from '../../../assets/common/slider_left.webp';
 import SliderNextIcon from '../../../assets/common/slider_right.webp';
 import logoImage from '../../../assets/profile/defaultprofileimage.webp';
-
+import { ChatId, person, productState, sendMessages } from '../../../state/atom/chatAtom';
 import { userSession } from '../../../state/atom/userSessionAtom';
 import { ProductsTypes } from '../../../types/types';
+import ChatInpuValuSendHandler from '../../chat/market/ChatInpuValuSendHandler';
+import ChatMessages from '../../chat/market/ChatMessages';
 import Follow from '../../common/follow/Follow';
 import ProductsLike from '../../common/like/ProductsLike';
 import { categoryArr } from '../marketpost/Post';
 import * as St from './Product.styled';
-
-import { createOrGetChat } from '../../../api/Chat.api';
-import { ChatId, person, productState, sendMessages } from '../../../state/atom/chatAtom';
-import ChatInpuValuSendHandler from '../../chat/market/ChatInpuValuSendHandler';
-import ChatMessages from '../../chat/market/ChatMessages';
 
 dayjs.locale('ko'); // 한국어 로케일을 기본값으로 설정
 
@@ -32,7 +29,6 @@ const Product = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideLength, setSlideLength] = useState(0);
   const session = useRecoilValue(userSession);
-
 
   const [productId, setProductId] = useRecoilState(productState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);

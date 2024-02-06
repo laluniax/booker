@@ -11,6 +11,7 @@ export const SlideshowContainer = styled.div`
   overflow: hidden;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
   grid-column: 1; // 슬라이드쇼를 첫 번째 열에 배치합니다
+
   @media (max-width: 768px) {
     display: none; // 작은 화면에서는 열을 쌓습니다
   }
@@ -20,8 +21,17 @@ export const SlideshowContainer = styled.div`
   }
 
   @media (min-width: 1024px) {
-    height: 80vh;
   }
+
+  ${({ theme }) => theme.mediaQuery.sm`
+  height: 80vh;
+  width: 70vh;
+  `}
+
+  ${({ theme }) => theme.mediaQuery.lg`
+  height: 80vh;
+  width: 80vh;
+  `};
 `;
 
 export const fadeInOut = keyframes`

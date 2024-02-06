@@ -11,7 +11,6 @@ const AdminChat = () => {
   const [currentQnaRoomId, setCurrentQnaRoomId] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<adminCHatMessages[]>([]);
-
   const handleSenderClick = (qnaRoomId: string) => {
     setCurrentQnaRoomId(qnaRoomId);
     setIsOpen(true);

@@ -61,12 +61,11 @@ export const SubCommentDate = styled.div`
 `;
 
 export const CommentBtnDiv = styled.div`
-  /* width: 16rem; */
   margin-left: 1rem;
 `;
 export const CommentEditSubmitBtnBox = styled.div``;
+
 export const SubCommentEditSubmitBtnBox = styled.div`
-  /* width: 12rem; */
   font-size: 1.2rem;
 `;
 export const SubCommentEditSubmitButton = styled.button`

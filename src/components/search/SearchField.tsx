@@ -37,7 +37,7 @@ const SearchField = () => {
       });
       setBookertalkList(filteredPosts.sort((a, b) => b.id - a.id));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -56,7 +56,7 @@ const SearchField = () => {
       setBestSellerList(filteredBestSellers);
       setLoading1(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     try {
       setLoading2(true);
@@ -71,7 +71,7 @@ const SearchField = () => {
       setBookerPick(filteredBookerPick);
       setLoading2(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     try {
       setLoading3(true);
@@ -86,7 +86,7 @@ const SearchField = () => {
       setBookSpecial(filteredBookSpecial);
       setLoading3(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     try {
       setLoading4(true);
@@ -101,7 +101,7 @@ const SearchField = () => {
       setNewBook(filteredNewBooks);
       setLoading4(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -116,7 +116,7 @@ const SearchField = () => {
       });
       setMarketList(filteredProducts.sort((a, b) => b.id - a.id));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   useEffect(() => {

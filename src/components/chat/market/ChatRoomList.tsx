@@ -2,11 +2,9 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko'; // 한국어 로케일 가져오기
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-
-import defaultImage from '../../../assets/profile/defaultprofileimage.webp';
-
 import { markChatAsRead } from '../../../api/Chat.api';
 import { supabase } from '../../../api/Supabase.api';
+import defaultImage from '../../../assets/profile/defaultprofileimage.webp';
 import { MessagePayload } from '../../../state/atom/Chat.type';
 import {
   ChatId,
@@ -49,7 +47,6 @@ const ChatRoomList = () => {
           table: 'messages',
         },
         async (payload) => {
-          console.log('payload', payload);
           setUpdateMesaage(payload as MessagePayload);
         },
       )

@@ -33,6 +33,7 @@ export const DateLabel = styled.div`
   margin-right: auto; // 오른쪽 자동 마진
   `};
 `;
+
 export const MessageWrapper = styled.div<MessageProps>`
   display: flex;
   flex-direction: column;
@@ -55,7 +56,7 @@ export const MessageComponent = styled.div<MessageComponentProps>`
   margin: 0.3rem;
   border-radius: 1rem;
   max-width: 10rem;
-  width: auto; /* 메시지의 최대 너비를 설정합니다. */
+  width: auto;
   height: auto;
 
   ${({ theme }) => theme.mediaQuery.sm`
@@ -63,8 +64,8 @@ export const MessageComponent = styled.div<MessageComponentProps>`
     margin: 0.5rem ;
     border-radius: 1rem;
     max-width: 15rem;
-    width: auto; /* 메시지의 최대 너비를 설정합니다. */
-    height:auto;g
+    width: auto; 
+    height:auto;
     `}
 
   ${({ theme }) => theme.mediaQuery.lg`
@@ -72,7 +73,7 @@ export const MessageComponent = styled.div<MessageComponentProps>`
     margin-top: 0.5rem;
     border-radius: 1rem;
     max-width: 20rem;
-    width: auto; /* 메시지의 최대 너비를 설정합니다. */
+    width: auto;
     height:auto;
     `};
 `;

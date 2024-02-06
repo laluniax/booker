@@ -455,7 +455,7 @@ export const deleteSubCommentHandler = async (subCommentId: number) => {
 // mapMarkerData 가져오는 함수
 export const mapMarkerDataHandler = async () => {
   const { data, error } = await supabase.from('independentBookStores').select('*');
-  console.log(error);
+  console.error(error);
   return data;
 };
 
