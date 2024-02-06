@@ -8,9 +8,9 @@ import { BestsellerTypes } from './BookIntroduction.type';
 
 const BookIntroduction = () => {
   const [bookLists, setBookLists] = useState<BestsellerTypes[]>([]);
-  const [page, setPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [hasMoreData, setHasMoreData] = useState<boolean>(true);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasMoreData, setHasMoreData] = useState(true);
   const [title, setTitle] = useState('베스트셀러');
   const [url, setUrl] = useState(
     `https://port-0-booker-3wh3o2blr53yzc2.sel5.cloudtype.app/bestseller?page=${page}&limit=10`,
@@ -22,7 +22,7 @@ const BookIntroduction = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams().id;
-  const [selectedCategory, setSelectedCategory] = useState<string>(location.pathname);
+  const [selectedCategory, setSelectedCategory] = useState(location.pathname);
   const CategoryClickHandler = (category: string) => {
     setSelectedCategory(category); // 현재 선택된 카테고리 상태를 업데이트
     navigate(category);
