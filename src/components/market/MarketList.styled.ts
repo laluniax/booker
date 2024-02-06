@@ -4,18 +4,18 @@ import defaultImg from '../../assets/profile/defaultprofileimage.webp';
 export const Container = styled.div`
   max-width: 35rem;
   margin: 0 auto;
+  height: auto;
   /* height: 100rem; */
-
   ${({ theme }) => theme.mediaQuery.sm`
   display: flex;
   justify-content: space-between;
   max-width: 85rem;
   gap: 1rem;
   `}
-
   ${({ theme }) => theme.mediaQuery.lg`
   max-width: 120rem;
   gap: 3rem;
+  height: 136rem;
   `};
 `;
 
@@ -98,13 +98,16 @@ export const CategoryBtn = styled.button`
 export const ContentsWrapper = styled.div`
   max-width: 35rem;
   margin: 0 auto;
+  width: 35rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
   max-width: 62rem;
+  width: 60rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   max-width: 90rem;
+  width: 90rem;
   min-width: 40rem;
   `};
 `;
@@ -147,12 +150,12 @@ export const PostButton = styled.button`
 
   ${({ theme }) => theme.mediaQuery.sm`
   display: block;
-  font-size: 1.5rem;
-  padding: 0.5rem 1rem;
+  font-size: 1.7rem;
+  padding: 0.7rem 1rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
-  font-size: 1.7rem;
+  font-size: 1.9rem;
   padding: 0.9rem 1.2rem;
   `};
 `;
@@ -273,14 +276,14 @@ export const ProductCard = styled.div`
 
   ${({ theme }) => theme.mediaQuery.sm`
   width: 19.8rem;
-  height: 31.1rem;
+  height: 33rem;
   margin: 0 auto;
   padding: 1rem;
   `}
 
   ${({ theme }) => theme.mediaQuery.lg`
   width: 22rem;
-  height: 34.6rem;
+  height: 36rem;
   `};
 `;
 
@@ -320,7 +323,7 @@ export const ProductImg = styled.div`
   
   & img {
     width: 18rem;
-    height: 23.4rem;
+    height: 24rem;
   }
 `}
 
@@ -330,7 +333,7 @@ export const ProductImg = styled.div`
 
   & img {
     width: 20rem;
-    height: 26rem;
+    height: 27rem;
   }
 `};
 `;

@@ -22,7 +22,7 @@ export const TitleWrapper = styled.div``;
 export const Title = styled.div`
   font-family: 'GmarketSansMedium';
   font-size: 1.8rem;
-  border-bottom: 0.2rem solid black;
+  border-bottom: 0.2rem solid #000;
   max-width: 30rem;
   margin: 0 auto;
   padding-bottom: 1rem;
