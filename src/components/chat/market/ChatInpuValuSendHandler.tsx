@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-
 import * as St from '../market/ChatInpuValuSendHandler.styled';
 
 import { ChatId, person, productState } from '../../../state/atom/chatAtom';
 import { sendMessage } from '../../../api/Chat.api';
-
 
 const ChatInpuValuSendHandler = () => {
   const [inputValue, setInputValue] = useState('');

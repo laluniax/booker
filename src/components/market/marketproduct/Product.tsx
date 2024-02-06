@@ -21,7 +21,7 @@ import ChatMessages from '../../chat/market/ChatMessages';
 import { ChatId, person, productState, sendMessages } from '../../../state/atom/chatAtom';
 import { createOrGetChat } from '../../../api/Chat.api';
 
-// import { MessageType } from '../../chat/market/ChatMarket';
+
 dayjs.locale('ko'); // 한국어 로케일을 기본값으로 설정
 
 const Product = () => {
@@ -34,7 +34,7 @@ const Product = () => {
   const [slideLength, setSlideLength] = useState(0);
   const session = useRecoilValue(userSession);
 
-  const [inputValue, setInputValue] = useState('');
+
   const [productId, setProductId] = useRecoilState(productState);
   const [LoginPersonal, setLoginPersonal] = useRecoilState(person);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
