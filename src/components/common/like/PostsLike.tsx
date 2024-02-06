@@ -24,7 +24,10 @@ const PostsLike = ({ postId }: LikeProps) => {
   }, [postId]); // postId를 의존성으로 추가
 
   const toggleLike = async () => {
-    if (!session) return;
+    if (!session) {
+      alert('로그인이 필요한 서비스입니다.');
+      return;
+    }
     const existingLike = likes.find((like) => like.user_id === currentUserId);
     console.log(existingLike);
     try {

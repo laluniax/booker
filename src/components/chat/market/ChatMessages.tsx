@@ -76,12 +76,12 @@ const ChatMessages = () => {
             }
 
             return (
-              <St.MessageWrapper key={message.id} isOutgoing={message.author_id === LoginPersonal}>
+              <St.MessageWrapper key={message.id} $isoutgoing={message.author_id === LoginPersonal ? 'true' : 'false'}>
                 {dateLabel} {/* Display the date label if the date has changed */}
                 {message.author_id !== LoginPersonal && <St.NicknameLabel>{message.users?.nickname}</St.NicknameLabel>}
                 <St.MessageComponent
                   key={message.id}
-                  isoutgoing={message.author_id === LoginPersonal ? 'true' : undefined}>
+                  $isoutgoing={message.author_id === LoginPersonal ? 'true' : undefined}>
                   {message.content} {formattedTime}
                 </St.MessageComponent>
               </St.MessageWrapper>

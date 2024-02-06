@@ -1,6 +1,3 @@
-
-
-
 export type ProductImageType = string | null;
 
 export type ChatRoomTypes = {
@@ -34,7 +31,7 @@ export type UnreadCount = {
 };
 
 export type MessageProps = {
-  isoutgoing: boolean;
+  $isoutgoing: boolean;
 };
 
 export type Message = {
@@ -58,7 +55,7 @@ export type MessagePayload = {
     item_id: number;
     others_id: string | null;
   };
-  
+
   old?: any; // Replace 'any' with a more specific type if possible
   schema: string;
   table: string;

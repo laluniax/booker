@@ -32,8 +32,6 @@ const ChatRoomList = () => {
   const [unreadCounts, setUnreadCounts] = useRecoilState(UnreadCounts); //프롭스가 위로는 못가는데?
   const [updateMesaage, setUpdateMesaage] = useRecoilState(updateMesaages);
 
-
-  
   useEffect(() => {
     RenderChatRoomsList();
   }, [chatId, updateMesaage]);
@@ -60,7 +58,6 @@ const ChatRoomList = () => {
       changes.unsubscribe();
     };
   }, []);
-  
 
   //지금을 기점으로 초분시일달년
   const getTimeDifference = (date: string) => {
