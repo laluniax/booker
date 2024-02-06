@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 
 import defaultImage from '../../../assets/profile/defaultprofileimage.webp';
 
+import { fetchAllChatRooms, markChatAsRead } from '../../../api/Chat.api';
 import { supabase } from '../../../api/Supabase.api';
 import { ChatRoom } from '../../../state/atom/Chat.type';
 import {
@@ -20,7 +21,6 @@ import {
   updateMesaages,
 } from '../../../state/atom/chatAtom';
 import * as St from '../market/ChatRoomList.styled';
-import { fetchAllChatRooms, markChatAsRead } from '../../../api/Chat.api';
 
 const ChatRoomList = () => {
   const [chatId, setChatId] = useRecoilState(ChatId);
@@ -120,15 +120,14 @@ const ChatRoomList = () => {
   //   }
   // };
 
-console.log('chatroom',chatRooms)  
+  console.log('chatroom', chatRooms);
 
   useEffect(() => {
     const fetchAndSetChatRooms = async () => {
-   
       const chatRooms = await fetchAllChatRooms(LoginPersonal); // 채팅방 정보 가져오기
       setChatRooms(chatRooms as ChatRoom[]); // 상태 업데이트
     };
-  
+
     fetchAndSetChatRooms();
     RenderChatRoomsList();
   }, [chatId, updateMesaage]);
@@ -295,7 +294,6 @@ console.log('chatroom',chatRooms)
       }
     }
   };
-
 
   return (
     <>

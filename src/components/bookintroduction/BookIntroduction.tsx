@@ -140,14 +140,16 @@ const BookIntroduction = () => {
           {bookLists.map((book, i) => {
             return (
               <St.BookCardWrapper key={i} onClick={() => GotoDetailPage(book.isbn13)}>
-                <St.BookImg>
-                  <img src={book.cover} alt="책 이미지" width={230} height={290} />
-                </St.BookImg>
-                <St.BookIntro>
-                  <St.Title>{book.title}</St.Title>
-                  <St.Author>저자 | {book.author}</St.Author>
-                  <St.Plot>출판사 | {book.publisher}</St.Plot>
-                </St.BookIntro>
+                <St.BookCardWrapper>
+                  <St.BookImg>
+                    <img src={book.cover} alt={book.title} width={230} height={290} loading="lazy" />
+                  </St.BookImg>
+                  <St.BookIntro>
+                    <St.Title>{book.title}</St.Title>
+                    <St.Author>저자 | {book.author}</St.Author>
+                    <St.Plot>출판사 | {book.publisher}</St.Plot>
+                  </St.BookIntro>
+                </St.BookCardWrapper>
               </St.BookCardWrapper>
             );
           })}
