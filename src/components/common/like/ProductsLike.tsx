@@ -56,7 +56,11 @@ const ProductsLike = ({ postId, count }: LikeProps) => {
           e.stopPropagation();
           toggleLike();
         }}>
-        {likes.some((like) => like.user_id === currentUserId) ? <img src={coloredheart} /> : <img src={heartbold} />}
+        {likes.some((like) => like.user_id === currentUserId) ? (
+          <img src={coloredheart} loading="lazy" alt="coloredheart" />
+        ) : (
+          <img src={heartbold} loading="lazy" alt="heartbold" />
+        )}
       </St.HeartButton>
       {count ? <St.CountLike>{likes.length}</St.CountLike> : null}
     </St.Container>

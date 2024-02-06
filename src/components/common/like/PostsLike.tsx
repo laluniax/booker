@@ -53,7 +53,11 @@ const PostsLike = ({ postId }: LikeProps) => {
   return (
     <St.Container>
       <St.HeartButton onClick={toggleLike}>
-        {likes.some((like) => like.user_id === currentUserId) ? <img src={coloredheart} /> : <img src={heartbold} />}
+        {likes.some((like) => like.user_id === currentUserId) ? (
+          <img src={coloredheart} loading="lazy" alt="coloredheart" />
+        ) : (
+          <img src={heartbold} loading="lazy" alt="heartbold" />
+        )}
       </St.HeartButton>
       <St.CountLike>
         {likes.length} <span>명이 좋아합니다.</span>

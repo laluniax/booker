@@ -134,7 +134,7 @@ const SurveyResult = () => {
                 ) : null}
                 <St.ResultImgAndInfo>
                   <St.ResultImg>
-                    <img src={item.cover} alt="book img" />
+                    <img src={item.cover} alt="book img" loading="lazy" />
                   </St.ResultImg>
                   <St.ResultInfo>
                     <St.ResultTitle>{item.title}</St.ResultTitle>

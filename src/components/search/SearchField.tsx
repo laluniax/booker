@@ -168,7 +168,7 @@ const SearchField = () => {
                       navigate(`/aboutBook/${item.isbn}`);
                     }}>
                     <St.BookImg>
-                      <img src={item.cover} />
+                      <img src={item.cover} loading="lazy" alt="bookimg" />
                     </St.BookImg>
                     <St.BookAuthor>{item.author}</St.BookAuthor>
                     <St.BookAuthor>{item.publisher}</St.BookAuthor>
@@ -193,7 +193,7 @@ const SearchField = () => {
                       navigate(`/aboutBook/${item.isbn13}`);
                     }}>
                     <St.BookImg>
-                      <img src={item.cover} />
+                      <img src={item.cover} loading="lazy" alt="bookimg" />
                     </St.BookImg>
                     <St.BookAuthor>{item.author}</St.BookAuthor>
                     <St.BookAuthor>{item.publisher}</St.BookAuthor>
@@ -218,7 +218,7 @@ const SearchField = () => {
                       navigate(`/aboutBook/${item.isbn13}`);
                     }}>
                     <St.BookImg>
-                      <img src={item.cover} />
+                      <img src={item.cover} alt="bookimg" loading="lazy" />
                     </St.BookImg>
                     <St.BookAuthor>{item.author}</St.BookAuthor>
                     <St.BookAuthor>{item.publisher}</St.BookAuthor>
@@ -243,7 +243,7 @@ const SearchField = () => {
                       navigate(`/aboutBook/${item.isbn13}`);
                     }}>
                     <St.BookImg>
-                      <img src={item.cover} />
+                      <img src={item.cover} alt="bookimg" loading="lazy" />
                     </St.BookImg>
                     <St.BookAuthor>{item.author}</St.BookAuthor>
                     <St.BookAuthor>{item.publisher}</St.BookAuthor>
@@ -267,7 +267,11 @@ const SearchField = () => {
                     <St.LogoImg />
                   ) : (
                     <St.ProductImg>
-                      <img src={(item.product_img && item.product_img[0]) ?? undefined} alt="검색결과상품이미지" />
+                      <img
+                        src={(item.product_img && item.product_img[0]) ?? undefined}
+                        alt="검색결과상품이미지"
+                        loading="lazy"
+                      />
                     </St.ProductImg>
                   )}
                   <St.TitleAndPriceBox>

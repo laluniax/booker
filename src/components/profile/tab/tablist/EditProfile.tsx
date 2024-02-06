@@ -131,7 +131,7 @@ const EditProfile = () => {
         <St.ProfileEditTitle>프로필 이미지</St.ProfileEditTitle>
         <St.ProfileImgEditBox>
           <St.ProfileImgBox>
-            <St.ProfileImg src={tempImg || userSession?.user.user_metadata.avatar_url || profileImage} />{' '}
+            <St.ProfileImg src={tempImg || userSession?.user.user_metadata.avatar_url || profileImage} loading="lazy" />{' '}
             <St.ProfileImgUploadFile>
               <St.ProfileLabelBox>
                 <St.ProfileLabel htmlFor="imgInput">이미지 선택하기</St.ProfileLabel>

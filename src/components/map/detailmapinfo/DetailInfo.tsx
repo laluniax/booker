@@ -1,7 +1,7 @@
-import { MapMarkerDataTypes } from '../KakaoMap.type';
+import { DetailMapInfoProps } from '../KakaoMap.type';
 import * as St from './DetailInfo.styled';
 
-function DetailMapInfo({ markerInfo }: { markerInfo: MapMarkerDataTypes }) {
+function DetailMapInfo({ markerInfo }: DetailMapInfoProps) {
   return (
     <>
       <St.Container>
