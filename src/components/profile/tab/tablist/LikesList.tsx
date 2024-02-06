@@ -51,7 +51,9 @@ const LikesList = () => {
             {productsLikes?.slice((currentProductsPage - 1) * 5, currentProductsPage * 5)?.map((item, i) => {
               return (
                 <St.Product key={i} onClick={() => navigate(`/product/${item.post_id}`)}>
-                  {item.products.product_img && <St.ProductImg src={item.products.product_img[0] || logoImage} />}
+                  {item.products.product_img && (
+                    <St.ProductImg src={item.products.product_img[0] || logoImage} loading="lazy" />
+                  )}
                   <St.ProductTitlePrice>
                     <St.ProductTitle>{item.products.title}</St.ProductTitle>
                     <St.ProductPrice>{item.products.price} 원</St.ProductPrice>
