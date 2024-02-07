@@ -95,7 +95,6 @@ const Detail = () => {
                 </St.EditAndDeleteButton>
 
                 <St.EditAndDeleteButton onClick={onClickDeletePostButton}>
-                  {' '}
                   <img src={deleteicon} />
                 </St.EditAndDeleteButton>
               </St.PostBtnWrapper>
