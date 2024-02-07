@@ -12,7 +12,7 @@
 ![0202_Web App Reference Architecture V2](https://github.com/laluniax/booker/assets/145360585/b06e84a9-b0d4-42a0-b727-5ff509bd3774)
 
 ## 구성 page
-<br>
+
 + 회원가입 : 유효성 검사 / 중복 확인
 + 로그인 : 구글 / 깃허브 / 유효성 검사
 + 북커톡 커뮤니티 : CRUD / 댓글,대댓글 / 좋아요 / 팔로우
