@@ -22,7 +22,7 @@ export const Map = styled.div`
   position: relative;
   margin: 0 auto;
   ${({ theme }) => theme.mediaQuery.sm`
-  width: 40rem;
+  width: 50rem;
   `};
   ${({ theme }) => theme.mediaQuery.lg`
   width: 60rem;
@@ -31,9 +31,9 @@ export const Map = styled.div`
 
 export const Title = styled.h1`
   font-family: 'GmarketSansMedium';
-  width: 58rem;
   height: 4rem;
   font-size: 2rem;
+  text-align: center;
   margin: 2rem auto;
   color: #14213d;
   font-weight: bold;

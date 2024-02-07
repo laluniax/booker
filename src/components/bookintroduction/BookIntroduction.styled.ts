@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const CategoryWrapper = styled.div`
-  width: 40rem;
+  width: 37rem;
   height: 7rem;
   display: flex;
   align-items: center;
@@ -33,7 +33,7 @@ export const CatrgoryBox = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   border: 1px solid #000;
   border-radius: 8px;
-  width: 38rem;
+  width: 32.8rem;
   height: 6rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
@@ -51,7 +51,7 @@ export const Category = styled.div`
   display: flex;
   flex-direction: row;
   align-items: start;
-  gap: 2rem;
+  gap: 1rem;
   margin-top: 1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
@@ -71,12 +71,12 @@ export const Category = styled.div`
 
 export const CategoryList = styled.button`
   all: unset;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   margin: 0.2rem 0.3rem;
 
   &.active {
     color: #fca311;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     border-bottom: 0.1rem solid #fca311;
     padding-bottom: 0.4rem;
   }
@@ -166,8 +166,8 @@ export const Container = styled.div`
 export const BookintroWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 40rem;
-  width: 40rem;
+  max-width: 36rem;
+  width: 36rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
    display: flex;
@@ -212,7 +212,7 @@ export const Body = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
   width: 35rem;
-  margin: 3rem auto;
+  margin: 3rem 1rem;
 
   ${({ theme }) => theme.mediaQuery.sm`
     width: 50rem;
@@ -233,7 +233,7 @@ export const BookCardWrapper = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   padding: 1rem;
   border-radius: 1rem;
-  width: 17rem;
+  width: 16rem;
   height: 27rem;
   margin: 0 auto;
   display: flex;
