@@ -13,17 +13,17 @@
 
 ## 구성 page
 <br>
-+ 회원가입 - 유효성 검사 / 중복 확인
-+ 로그인 - 구글 / 깃허브 / 유효성 검사
-+ 북커톡 커뮤니티 - CRUD / 댓글,대댓글 / 좋아요 / 팔로우
-+ 도서소개 - 알라딘 api로 카테고리별 best50 불러옴
-+ 맞춤추천 - 설문조사 질문지를 통해 filtering한 책 유저 맞춤 추천
-+ 중고거래 - CRUD / 제품에 관련된 1:1 실시간 채팅 / 좋아요 / 팔로우
-+ 독립서점 - 카카오맵 api로 지도 불러와서 독립서점 데이터 마커로 찍어놓음
-+ 검색 - 각 게시글 및 책 관련 검색
-+ 마이페이지 - 프로필 수정 / 내가 쓴 글 / 팔로우 목록 / 좋아요 목록
-+ 상대 프로필 페이지 - 게시글 / 팔로우 목록 / 좋아요 목록
-+ 문의하기 - 관리자와 1:1 채팅
++ 회원가입 : 유효성 검사 / 중복 확인
++ 로그인 : 구글 / 깃허브 / 유효성 검사
++ 북커톡 커뮤니티 : CRUD / 댓글,대댓글 / 좋아요 / 팔로우
++ 도서소개 : 알라딘 api로 카테고리별 best50 불러옴
++ 맞춤추천 : 설문조사 질문지를 통해 filtering한 책 유저 맞춤 추천
++ 중고거래 : CRUD / 제품에 관련된 1:1 실시간 채팅 / 좋아요 / 팔로우
++ 독립서점 : 카카오맵 api로 지도 불러와서 독립서점 데이터 마커로 찍어놓음
++ 검색 : 각 게시글 및 책 관련 검색
++ 마이페이지 : 프로필 수정 / 내가 쓴 글 / 팔로우 목록 / 좋아요 목록
++ 상대 프로필 페이지 : 게시글 / 팔로우 목록 / 좋아요 목록
++ 문의하기 : 관리자와 1:1 채팅
 
 ## 기술 스택
 + react
@@ -89,17 +89,9 @@
     - 해결 방안
         - state를 하나 추가하여 uuid 저장 후 해당 uuid 클릭 시 해당 uuid를 가진 유저와의 채팅방으로 이동하도록 로직 재구성
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
 ## 팀원
-리더 천민규
-부리더 박주원
-팀원 강나연
-팀원 김지예
-팀원 시병택
++ 리더 천민규
++ 부리더 박주원
++ 팀원 강나연
++ 팀원 김지예
++ 팀원 시병택
